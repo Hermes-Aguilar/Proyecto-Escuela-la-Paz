@@ -37,3 +37,5 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+# Config local de Claude Code (no pertenece al repo)
+.claude/
