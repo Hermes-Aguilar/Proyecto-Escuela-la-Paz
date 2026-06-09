@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  ADMIN
+  SUPERADMIN
+  @@map("rol")
+}
+
+enum TipoPublicacion {
+  NOTICIA
+  EVENTO
+  AVISO
+  @@map("tipo_publicacion")
+}
+
+enum TipoMedio {
+  IMAGEN
+  VIDEO
+  @@map("tipo_medio")
+}
+
+model Jardin {
+  id              Int     @id @default(autoincrement())
+  nombre          String  @db.VarChar(100)
+  slug            String  @unique @db.VarChar(100)
+  descripcion     String? @db.Text
+  colorPrimario   String  @default("#000000") @map("color_primario")   @db.VarChar(7)
+  colorSecundario String  @default("#ffffff") @map("color_secundario") @db.VarChar(7)
+  logoUrl         String? @map("logo_url") @db.VarChar(255)
+  direccion       String? @db.VarChar(200)
+  ciudad          String? @db.VarChar(100)
+  telefono        String? @db.VarChar(30)
+  emailContacto   String? @map("email_contacto") @db.VarChar(120)
+  facebookUrl     String? @map("facebook_url") @db.VarChar(255)
+  instagramUrl    String? @map("instagram_url") @db.VarChar(255)
+  whatsapp        String? @db.VarChar(30)
+  creadoEn        DateTime @default(now()) @map("creado_en")
+
+  usuarios      Usuario[]
+  publicaciones Publicacion[]
+  mensajes      MensajeContacto[]
+
+  @@map("jardines")
+}
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  jardinId     Int      @map("jardin_id")
+  username     String   @unique @db.VarChar(50)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  rol          Rol      @default(ADMIN)
+  creadoEn     DateTime @default(now()) @map("creado_en")
+
+  jardin        Jardin        @relation(fields: [jardinId], references: [id], onDelete: Cascade)
+  publicaciones Publicacion[]
+
+  @@index([jardinId])
+  @@map("usuarios")
+}
+
+model Publicacion {
+  id            Int             @id @default(autoincrement())
+  jardinId      Int             @map("jardin_id")
+  usuarioId     Int?            @map("usuario_id")
+  titulo        String          @db.VarChar(200)
+  contenido     String          @db.Text
+  tipo          TipoPublicacion @default(NOTICIA)
+  publicado     Boolean         @default(true)
+  creadoEn      DateTime        @default(now()) @map("creado_en")
+  actualizadoEn DateTime?       @map("actualizado_en")
+
+  jardin  Jardin   @relation(fields: [jardinId], references: [id], onDelete: Cascade)
+  usuario Usuario? @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+  medios  Medio[]
+
+  @@index([jardinId])
+  @@index([creadoEn(sort: Desc)])
+  @@map("publicaciones")
+}
+
+model Medio {
+  id            Int       @id @default(autoincrement())
+  publicacionId Int       @map("publicacion_id")
+  url           String    @db.VarChar(500)
+  tipo          TipoMedio @default(IMAGEN)
+  orden         Int       @default(0) @db.SmallInt
+
+  publicacion Publicacion @relation(fields: [publicacionId], references: [id], onDelete: Cascade)
+
+  @@index([publicacionId])
+  @@map("medios")
+}
+
+model MensajeContacto {
+  id       Int      @id @default(autoincrement())
+  jardinId Int      @map("jardin_id")
+  nombre   String   @db.VarChar(120)
+  email    String   @db.VarChar(120)
+  telefono String?  @db.VarChar(30)
+  asunto   String?  @db.VarChar(120)
+  mensaje  String   @db.Text
+  leido    Boolean  @default(false)
+  creadoEn DateTime @default(now()) @map("creado_en")
+
+  jardin Jardin @relation(fields: [jardinId], references: [id], onDelete: Cascade)
+
+  @@index([jardinId])
+  @@map("mensajes_contacto")
+}
