@@ -9,6 +9,7 @@
 // ============================================================
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
@@ -62,11 +63,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
 
   callbacks: {
-    // Primera barrera: usada por proxy.ts para proteger /dashboard/*.
+    // Primera barrera: usada por proxy.ts (CU-05/CU-10). Decide acceso
+    // por prefijo de ruta. La segunda barrera vive en lib/dal/session.ts.
     authorized({ auth, request }) {
       const isLoggedIn = !!auth?.user;
-      const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
-      if (isOnDashboard) return isLoggedIn; // false → redirige a /login
+      const { pathname, origin } = request.nextUrl;
+
+      // /dashboard/* exige sesión. Sin ella → Auth.js redirige a /login.
+      if (pathname.startsWith("/dashboard")) {
+        return isLoggedIn;
+      }
+
+      // Si ya hay sesión y se visita /login, se rebota al panel para
+      // que no vuelva a ver el formulario de acceso.
+      if (pathname === "/login" && isLoggedIn) {
+        return NextResponse.redirect(new URL("/dashboard", origin));
+      }
+
+      // El resto de rutas cubiertas por el matcher se permiten.
       return true;
     },
 
