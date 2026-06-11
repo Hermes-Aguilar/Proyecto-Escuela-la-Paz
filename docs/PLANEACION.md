@@ -27,7 +27,7 @@ se valida en CADA operación del DAL. Nunca se toma del formulario.
 | Hermes | **Backend** | BD, migraciones, autenticación, DAL, Server Actions, Cloudinary, despliegue |
 | Compañera | **Frontend** | Portal público, páginas de jardines, panel admin (UI), responsive, capacitación |
 
-- Git: ramas `feature/backend` y `feature/frontend`, merge a `main` por PR.
+- Git: ramas `feature/backend` y `guadalupe/frontend`, merge a `main` por PR.
 - Punto de integración: Semana 4 (la UI del panel consume las Server Actions).
 
 ## 3. Stack tecnológico
