@@ -45,9 +45,8 @@ async function main() {
   });
 
   // ----- Encargadas (1 por jardin) -----
-  // CAMBIA estas contrasenas por las reales antes de produccion.
-  const passLaPaz = await bcrypt.hash("cambiar_lapaz_123", 10);
-  const passPorvenir = await bcrypt.hash("cambiar_porvenir_123", 10);
+  const passLaPaz = await bcrypt.hash("23lapaz", 10);
+  const passPorvenir = await bcrypt.hash("23porvenir", 10);
 
   await prisma.usuario.create({
     data: {

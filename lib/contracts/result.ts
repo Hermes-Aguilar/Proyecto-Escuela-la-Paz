@@ -20,3 +20,4 @@ export function ok<T>(data: T): Result<T> {
 export function fail(code: string, error: string): Result<never> {
   return { ok: false, error, code };
 }
+ 

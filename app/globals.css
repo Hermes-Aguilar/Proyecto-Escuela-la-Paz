@@ -9,6 +9,17 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  /* Paleta institucional de la congregación (cálido franciscano).
+     Reutilizable en todo el panel admin: bg-crema, text-marron,
+     bg-terracota, border-arena, etc. */
+  --color-crema: #faf6f0;
+  --color-marron: #3f2d23;
+  --color-marron-suave: #6b5b4f;
+  --color-terracota: #b5532f;
+  --color-terracota-oscuro: #934126;
+  --color-arena: #e3d8cc;
+  --color-error: #b00020;
+
   /* Conecta las variables de next/font con Tailwind 4: genera las
      utilidades font-titulo y font-texto. Al ser `inline`, la utilidad
      emite font-family: var(--font-titulo|texto), que se resuelve según
@@ -42,3 +53,4 @@
     font-family: var(--font-titulo);
   }
 }
+
