@@ -129,14 +129,15 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 
 ### 🔜 Pendiente
 **Semana 3 — Lógica de negocio (backend):**
-> Nota: los archivos ya existen como **placeholders vacíos** (creados por el
-> scaffold); aún no tienen implementación. Pendientes de verdad:
-- [ ] `lib/dal/publicaciones.ts` — DAL CRUD filtrado por `jardinId` (vacío)
-- [ ] `lib/dal/jardines.ts` — lectura pública por slug (vacío)
-- [ ] `lib/actions/publicaciones.actions.ts` — crear/editar/borrar (`Result<T>`) (vacío)
-- [ ] `lib/validations/publicacion.ts` — zod: título/contenido, máx 10 fotos, 5 videos (vacío)
-- [ ] `lib/services/cloudinary.ts` — subida con f_auto, q_auto, w_1600 (vacío)
-- [ ] `lib/actions/contacto.actions.ts` — contacto → `mensajes_contacto` (vacío)
+- [x] `lib/dal/jardines.ts` — lectura pública por slug + lectura admin con aislamiento
+- [x] `lib/dal/errors.ts` — errores de dominio (`Validation`/`Forbidden`/`NotFound`)
+- [x] `lib/dal/publicaciones.ts` — DAL CRUD filtrado por `jardinId` (+ `publicId` en medios)
+- [x] `lib/validations/publicacion.ts` — zod: título/contenido, máx 10 fotos, 5 videos YouTube
+- [x] `lib/services/cloudinary.ts` — subida f_auto/q_auto/w_1600 → `{url, publicId}`; borrado por `publicId`
+- [x] `lib/actions/publicaciones.actions.ts` — crear/editar/borrar (`Result<T>`)
+- [x] `lib/validations/contacto.ts` — zod: nombre/email/mensaje obligatorios
+- [x] `lib/dal/contacto.ts` — insert público en `mensajes_contacto` (sin sesión)
+- [x] `lib/actions/contacto.actions.ts` — contacto → `mensajes_contacto` (`Result<void>`)
 
 **Semana 4 — Panel admin (integración front+back):**
 - [ ] Dashboard con lista de publicaciones del jardín
@@ -186,4 +187,6 @@ npx prisma studio         # ver/editar la BD en el navegador
 npx prisma migrate dev    # aplicar cambios del schema
 npm run db:seed           # recargar datos iniciales
 npx prisma generate       # regenerar cliente tras cambiar schema
+npm run test:backend
+
 ```

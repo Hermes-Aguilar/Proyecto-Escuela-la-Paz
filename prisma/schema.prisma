@@ -67,6 +67,7 @@ model Medio {
   id            Int         @id @default(autoincrement())
   publicacionId Int         @map("publicacion_id")
   url           String      @db.VarChar(500)
+  publicId      String?     @map("public_id") @db.VarChar(255)
   tipo          TipoMedio   @default(IMAGEN)
   orden         Int         @default(0) @db.SmallInt
   publicacion   Publicacion @relation(fields: [publicacionId], references: [id], onDelete: Cascade)
