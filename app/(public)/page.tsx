@@ -1,155 +1,325 @@
+// RUTA: src/app/(public)/page.tsx
 import Link from "next/link";
+import {
+  FaCross,
+  FaLeaf,
+  FaBook,
+  FaGlobeAmericas,
+  FaUsers,
+  FaStar,
+  FaMapMarkerAlt,
+  FaArrowRight,
+  FaChurch,
+  FaDove,
+  FaHandHoldingHeart,
+  FaGraduationCap,
+} from "react-icons/fa";
 
-export default function HomePage() {
+const areas = [
+  {
+    icon: <FaDove size={28} />,
+    title: "Pastoral Vocacional",
+    desc: "Acompañamos a quienes sienten el llamado a la vida franciscana, discerniendo juntos el camino hacia la consagración.",
+    href: "/pastoral-vocacional",
+    color: "bg-[#C25B35]",
+  },
+  {
+    icon: <FaGraduationCap size={28} />,
+    title: "Pastoral Educativa",
+    desc: "Formamos personas íntegras en nuestros jardines y programas educativos, sembrando valores evangélicos desde la infancia.",
+    href: "/pastoral-educativa",
+    color: "bg-[#8E9A3C]",
+  },
+  {
+    icon: <FaGlobeAmericas size={28} />,
+    title: "Pastoral Misionera",
+    desc: "Llevamos el mensaje de paz y bien a las comunidades más alejadas, con espíritu misionero y servicio generoso.",
+    href: "/pastoral-misionera",
+    color: "bg-[#C25B35]",
+  },
+  {
+    icon: <FaHandHoldingHeart size={28} />,
+    title: "Pastoral Juvenil",
+    desc: "Caminamos con los jóvenes en su búsqueda de sentido, fe y compromiso, animando su protagonismo en la Iglesia.",
+    href: "/pastoral-juvenil",
+    color: "bg-[#8E9A3C]",
+  },
+];
+
+const sedes = [
+  { ciudad: "Ciudad de México", nombre: "Casa Central San Francisco", tipo: "Casa central" },
+  { ciudad: "Guadalajara", nombre: "Fraternidad La Paz", tipo: "Sede regional" },
+  { ciudad: "Monterrey", nombre: "Fraternidad Porvenir", tipo: "Sede regional" },
+  { ciudad: "Puebla", nombre: "Fraternidad San Buenaventura", tipo: "Comunidad" },
+  { ciudad: "Oaxaca", nombre: "Fraternidad Santa Clara", tipo: "Comunidad" },
+  { ciudad: "Mérida", nombre: "Fraternidad de la Misericordia", tipo: "Misión" },
+];
+
+const librerias = [
+  { nombre: "Librería San Francisco", ciudad: "CDMX Centro", horario: "Lun–Sáb 9–18h" },
+  { nombre: "Librería La Porciúncula", ciudad: "Guadalajara", horario: "Lun–Vie 9–17h" },
+  { nombre: "Librería Paz y Bien", ciudad: "Monterrey", horario: "Lun–Sáb 10–18h" },
+];
+
+export default function Home() {
   return (
-    // Fondo general del sitio usando tu Beige clarito/Marfil (#F4EFE3) 
-    <div className="bg-[#F4EFE3] min-h-screen selection:bg-[#C25B35]/20">
-      
-      {/* 1. HERO - imagen religiosa exacta de fondo */}
-      <section className="relative min-h-[75vh] flex items-center justify-center text-center px-6 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center" 
-          style={{ 
-            backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOrusNt5FlYerlOr1JLKJepTv7HRqm_eAf5g&s')" 
-          }} 
+    <div className="bg-[#FAF7F2]">
+      {/* HERO */}
+      <section className="relative bg-[#3B2314] overflow-hidden">
+        <div className="absolute inset-0 opacity-10"
+          style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #C25B35 0%, transparent 60%), radial-gradient(circle at 80% 20%, #8E9A3C 0%, transparent 50%)" }}
         />
-        {/* Capa de iluminación muy suave para que la imagen luzca hermosa de fondo y el texto mantenga perfecta lectura */}
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-[0.5px]" />
-        
-        <div className="relative max-w-4xl mx-auto z-10 py-20 text-[#C25B35]">
-          <h1 className="text-4xl md:text-6xl font-light tracking-wide drop-shadow-sm">
-            Bienvenidos a Nuestra Congregación
-          </h1>
-          
-          <p className="mt-6 text-xl md:text-2xl font-light italic text-[#8E9A3C] drop-shadow-sm">
-            "Servir con amor, vivir en comunidad, compartir la fe"
-          </p>
-          
-          <div className="w-16 h-[1px] bg-[#C25B35]/30 mx-auto mt-6 mb-6" />
-          
-          <p className="text-sm md:text-base text-stone-600 max-w-xl mx-auto font-light leading-relaxed">
-            Un espacio de encuentro, formación y servicio al pueblo de Dios
-          </p>
+        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-36 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="inline-block text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase mb-4">
+              Fraternidad Franciscana
+            </span>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+              Paz y bien<br />
+              <span className="text-[#C25B35]">en cada camino</span>
+            </h1>
+            <p className="text-[#C8B99A] text-lg leading-relaxed mb-8 max-w-lg">
+              Siguiendo el carisma de San Francisco de Asís, anunciamos el Evangelio
+              con alegría, sencillez y fraternidad. Somos una comunidad viva, abierta y misionera.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/pastoral-vocacional"
+                className="bg-[#C25B35] hover:bg-[#a84928] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+              >
+                Conoce nuestra misión <FaArrowRight />
+              </Link>
+              <Link
+                href="/contacto"
+                className="border border-white/30 text-white hover:bg-white/10 px-6 py-3 rounded-lg font-semibold transition-colors"
+              >
+                Contáctanos
+              </Link>
+            </div>
+          </div>
+          {/* Decorativo */}
+          <div className="hidden md:flex justify-center items-center">
+            <div className="relative w-72 h-72">
+              <div className="absolute inset-0 rounded-full border-4 border-[#C25B35]/30 animate-ping" style={{ animationDuration: "3s" }} />
+              <div className="absolute inset-6 rounded-full border-2 border-[#8E9A3C]/40" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-[#C25B35]/20 rounded-full p-12 backdrop-blur-sm">
+                  <FaCross size={80} className="text-[#E4D7BC]" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CONTENEDOR CENTRAL */}
-      <div className="relative">
-        
-        {/* 2. NUESTRO CARISMA */}
-        <section className="py-24 max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-light text-[#C25B35] tracking-widest uppercase">
-            Nuestro Carisma
-          </h2>
-          
-          <div className="w-12 h-[2px] bg-[#8E9A3C] mx-auto mt-4 mb-8" />
-
-          <p className="text-[#8E9A3C] text-sm md:text-base leading-8 font-normal max-w-2xl mx-auto">
-            Nuestra congregación se fundamenta en el amor misericordioso de Dios y el servicio a los más 
-            necesitados. Buscamos ser presencia evangelizadora en el mundo contemporáneo, promoviendo 
-            la justicia, la paz y la dignidad humana a través de nuestras obras pastorales y educativas.
-          </p>
-        </section>
-
-        {/* 3. NUESTROS FUNDADORES */}
-        <section className="py-20 max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-light text-[#C25B35] tracking-widest uppercase">
-            Nuestros Fundadores
-          </h2>
-          
-          <div className="w-12 h-[1px] bg-[#C25B35] mx-auto mt-4 mb-16" />
-
-          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto text-left">
-            
-            {/* P. Juan María Fundador */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#E4D7BC] hover:shadow-md transition duration-300">
-              <div className="aspect-[4/3] bg-stone-50 rounded-xl mb-6 overflow-hidden border border-[#E4D7BC]/50">
-                <img 
-                  src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?q=80&w=800" 
-                  alt="P. Juan María Fundador"
-                  className="w-full h-full object-cover grayscale opacity-95 sepia-[20%]"
-                />
-              </div>
-              <h3 className="text-lg font-semibold text-[#C25B35]">P. Juan María Fundador</h3>
-              <p className="text-xs text-[#8E9A3C] font-semibold tracking-wider mt-0.5 mb-4">1820 - 1895</p>
-              <p className="text-stone-600 text-xs md:text-sm leading-relaxed font-light">
-                Sacerdote visionario que dedicó su vida al servicio de los pobres y la formación de comunidades religiosas. Fundó nuestra congregación en 1850 con el objetivo de llevar el amor de Cristo a los más necesitados.
-              </p>
+      {/* BIENVENIDA / CARISMA */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3B2314] mt-2 mb-5 leading-tight">
+              Un carisma vivo que<br />transforma comunidades
+            </h2>
+            <p className="text-[#5A4232] leading-relaxed mb-4">
+              Somos una fraternidad de religiosas franciscanas comprometidas con el Evangelio,
+              el servicio a los más pobres y la educación integral de las personas. Nuestro carisma
+              franciscano nos impulsa a vivir en fraternidad, sencillez y amor a la creación.
+            </p>
+            <p className="text-[#5A4232] leading-relaxed mb-6">
+              Desde nuestra fundación, hemos expandido nuestra presencia a través de obras
+              educativas, pastorales y misioneras que dan testimonio del amor de Dios en el mundo.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <span className="bg-[#E4D7BC] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                <FaLeaf className="text-[#8E9A3C]" /> Amor a la creación
+              </span>
+              <span className="bg-[#E4D7BC] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                <FaCross className="text-[#C25B35]" /> Vida evangélica
+              </span>
+              <span className="bg-[#E4D7BC] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                <FaUsers className="text-[#8E9A3C]" /> Fraternidad
+              </span>
             </div>
-
-            {/* M. María de la Esperanza */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#E4D7BC] hover:shadow-md transition duration-300">
-              <div className="aspect-[4/3] bg-stone-50 rounded-xl mb-6 overflow-hidden border border-[#E4D7BC]/50">
-                <img 
-                  src="https://images.unsplash.com/photo-1447069387593-a5de0862481e?q=80&w=800" 
-                  alt="M. María de la Esperanza"
-                  className="w-full h-full object-cover grayscale opacity-95 sepia-[20%]"
-                />
-              </div>
-              <h3 className="text-lg font-semibold text-[#C25B35]">M. María de la Esperanza</h3>
-              <p className="text-xs text-[#8E9A3C] font-semibold tracking-wider mt-0.5 mb-4">1825 - 1902</p>
-              <p className="text-stone-600 text-xs md:text-sm leading-relaxed font-light">
-                Mujer de profunda fe y caridad, co-fundadora de nuestra congregación. Destacó por su labor en la educación de niñas y jóvenes, y en el cuidado de enfermos. Su testimonio de vida sigue inspirando nuestra misión.
-              </p>
-            </div>
-
           </div>
-        </section>
 
-        {/* 4. NUESTRAS ÁREAS PASTORALES */}
-        <section className="py-24 max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-light text-[#C25B35] tracking-widest uppercase">
-            Nuestras Áreas Pastorales
-          </h2>
-          
-          <div className="w-12 h-[1px] bg-[#8E9A3C] mx-auto mt-4 mb-16" />
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left max-w-4xl mx-auto">
+          {/* Cards de carisma */}
+          <div className="grid grid-cols-2 gap-4">
             {[
-              { t: "Pastoral Vocacional", d: "Acompañamiento y discernimiento de llamados religiosos.", i: "†", l: "/pastoral-vocacional" },
-              { t: "Pastoral Educativa", d: "Formación integral en valores cristianos.", i: "📖", l: "/pastoral-educativa" },
-              { t: "Pastoral Misionera", d: "Evangelización y servicio en comunidades.", i: "⛪", l: "/pastoral-misionera" },
-              { t: "Pastoral Juvenil", d: "Acompañamiento y formación de jóvenes en la fe.", i: "👥", l: "/pastoral-juvenil" }
-            ].map((item) => (
-              <div key={item.t} className="bg-white border border-[#E4D7BC]/30 rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:border-[#C25B35]/30 transition duration-300">
-                <div>
-                  <div className="w-8 h-8 rounded-lg bg-[#E4D7BC]/20 flex items-center justify-center text-[#C25B35] text-sm mb-4 font-semibold">
-                    {item.i}
-                  </div>
-                  <h3 className="text-base font-medium text-[#C25B35] mb-2">{item.t}</h3>
-                  <p className="text-stone-500 text-xs md:text-sm leading-relaxed font-light">
-                    {item.d}
-                  </p>
-                </div>
-                <Link href={item.l} className="text-xs font-semibold text-[#C25B35] hover:text-[#8E9A3C] mt-6 inline-flex items-center transition">
-                  Ver más —
-                </Link>
+              { icon: <FaDove />, title: "Paz", desc: "Vivimos y anunciamos la paz como don y tarea" },
+              { icon: <FaLeaf />, title: "Sencillez", desc: "El estilo de vida franciscano en lo cotidiano" },
+              { icon: <FaHandHoldingHeart />, title: "Servicio", desc: "Presencia cercana a quienes más necesitan" },
+              { icon: <FaStar />, title: "Alegría", desc: "La alegría del Evangelio como testimonio vivo" },
+            ].map((c) => (
+              <div key={c.title} className="bg-white rounded-xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow">
+                <div className="text-[#C25B35] mb-2">{c.icon}</div>
+                <h4 className="font-bold text-[#3B2314] mb-1">{c.title}</h4>
+                <p className="text-xs text-[#7A6352] leading-relaxed">{c.desc}</p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* 5. CONOCE NUESTRAS SEDES */}
-        <section className="py-24 text-center border-t border-[#E4D7BC]/30 bg-white/40">
-          <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-2xl md:text-3xl font-light text-[#C25B35] tracking-widest uppercase">
-              Conoce Nuestras Sedes
+      {/* FUNDADORES */}
+      <section className="bg-[#F0EAE0] py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
+            <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Fundadores e inspiradores</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                nombre: "San Francisco de Asís",
+                rol: "Fundador de la Orden",
+                desc: "El Poverello de Asís, cuyo amor por Dios, los pobres y la creación sigue inspirando a millones en el mundo.",
+                icon: <FaCross size={36} className="text-[#C25B35]" />,
+              },
+              {
+                nombre: "Santa Clara de Asís",
+                rol: "Co-fundadora",
+                desc: "La primera mujer que siguió a Francisco, fundadora de las Hermanas Pobres y modelo de vida contemplativa.",
+                icon: <FaDove size={36} className="text-[#8E9A3C]" />,
+              },
+              {
+                nombre: "Nuestra Fundadora",
+                rol: "Fundadora de la Fraternidad",
+                desc: "Con espíritu misionero y pedagógico, fundó esta fraternidad para llevar el carisma franciscano a México.",
+                icon: <FaStar size={36} className="text-[#C25B35]" />,
+              },
+            ].map((f) => (
+              <div key={f.nombre} className="bg-white rounded-2xl p-7 shadow-sm border border-[#E4D7BC] text-center">
+                <div className="flex justify-center mb-4">{f.icon}</div>
+                <h3 className="font-bold text-[#3B2314] text-lg mb-1">{f.nombre}</h3>
+                <span className="text-xs text-[#C25B35] font-semibold uppercase tracking-wide">{f.rol}</span>
+                <p className="text-[#5A4232] text-sm leading-relaxed mt-3">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ÁREAS PASTORALES */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Lo que hacemos</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3B2314] mt-2">Áreas pastorales</h2>
+          <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
+            Nuestra misión se despliega en cuatro grandes áreas que abarcan todos los momentos de la vida.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {areas.map((area) => (
+            <Link
+              key={area.title}
+              href={area.href}
+              className="group bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] hover:shadow-lg hover:-translate-y-1 transition-all"
+            >
+              <div className={`${area.color} text-white rounded-xl p-3 inline-flex mb-4 group-hover:scale-110 transition-transform`}>
+                {area.icon}
+              </div>
+              <h3 className="font-bold text-[#3B2314] mb-2 leading-snug">{area.title}</h3>
+              <p className="text-sm text-[#7A6352] leading-relaxed mb-4">{area.desc}</p>
+              <span className="text-[#C25B35] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                Conocer más <FaArrowRight size={12} />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* SEDES */}
+      <section className="bg-[#3B2314] py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Presencia</span>
+            <h2 className="text-3xl font-bold text-white mt-2">Nuestras sedes</h2>
+            <p className="text-[#C8B99A] mt-2">Una fraternidad con presencia en todo México</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {sedes.map((sede) => (
+              <div key={sede.nombre} className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-colors">
+                <div className="flex items-start gap-3">
+                  <FaMapMarkerAlt className="text-[#C25B35] mt-1 shrink-0" />
+                  <div>
+                    <p className="text-white font-semibold">{sede.nombre}</p>
+                    <p className="text-[#C8B99A] text-sm">{sede.ciudad}</p>
+                    <span className="inline-block mt-1 text-xs bg-[#C25B35]/20 text-[#C25B35] px-2 py-0.5 rounded-full">
+                      {sede.tipo}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* LIBRERÍAS preview */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Librerías</span>
+            <h2 className="text-3xl font-bold text-[#3B2314] mt-2 mb-4">
+              Espacios de fe,<br />cultura y encuentro
             </h2>
-            
-            <p className="text-[#8E9A3C] text-xs md:text-sm font-medium mt-2 mb-8">
-              Visita nuestro directorio de librerías y centros de formación en diferentes ciudades
+            <p className="text-[#5A4232] leading-relaxed mb-6">
+              Nuestras librerías franciscanas son mucho más que puntos de venta: son lugares de
+              encuentro, formación y evangelización. Encontrarás libros, artículos religiosos,
+              música y recursos para tu vida espiritual.
             </p>
-
             <Link
               href="/librerias"
-              className="inline-block border border-[#C25B35] text-[#C25B35] hover:bg-[#C25B35] hover:text-white font-medium px-8 py-2.5 rounded-md text-xs tracking-wider uppercase transition duration-300 bg-white/80 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 bg-[#8E9A3C] hover:bg-[#6d7830] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
             >
-              Ver Directorio de Librerías
+              Ver todas las librerías <FaArrowRight />
             </Link>
           </div>
-        </section>
+          <div className="space-y-3">
+            {librerias.map((lib) => (
+              <div key={lib.nombre} className="bg-white border border-[#E4D7BC] rounded-xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
+                <div className="bg-[#8E9A3C]/10 rounded-lg p-3 shrink-0">
+                  <FaBook className="text-[#8E9A3C]" size={22} />
+                </div>
+                <div>
+                  <p className="font-semibold text-[#3B2314]">{lib.nombre}</p>
+                  <p className="text-sm text-[#7A6352]">{lib.ciudad} · {lib.horario}</p>
+                </div>
+              </div>
+            ))}
+            <Link href="/librerias" className="block text-center text-sm text-[#C25B35] font-semibold hover:underline mt-2">
+              Ver más librerías →
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      </div>
+      {/* CTA final */}
+      <section className="bg-[#C25B35] py-16">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <FaChurch size={40} className="text-white/60 mx-auto mb-4" />
+          <h2 className="text-3xl font-bold text-white mb-4">
+            ¿Sientes el llamado a vivir el carisma franciscano?
+          </h2>
+          <p className="text-white/80 text-lg mb-8">
+            Acompáñanos en este camino de fe, fraternidad y servicio. Siempre hay un lugar para ti.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/pastoral-vocacional"
+              className="bg-white text-[#C25B35] hover:bg-[#F0EAE0] px-7 py-3 rounded-lg font-bold transition-colors"
+            >
+              Descubrir la vocación
+            </Link>
+            <Link
+              href="/contacto"
+              className="border-2 border-white text-white hover:bg-white/10 px-7 py-3 rounded-lg font-bold transition-colors"
+            >
+              Escribirnos
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
