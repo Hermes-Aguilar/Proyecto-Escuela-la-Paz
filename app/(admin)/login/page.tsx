@@ -52,13 +52,13 @@ export default async function LoginPage({
         className="object-cover"
       />
       {/* Velo cálido global para que todo el texto sea legible */}
-      <div className="absolute inset-0 bg-gradient-to-r from-marron/60 via-marron/20 to-marron/40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-marron/70 via-marron/35 to-marron/40" />
 
       {/* CONTENIDO */}
       <div className="relative z-10 grid min-h-screen grid-cols-1 md:grid-cols-2">
         {/* IZQUIERDA · Panel de vidrio con el formulario */}
         <div className="flex items-center justify-center p-6 md:p-12">
-          <div className="w-full max-w-sm rounded-2xl border border-white/25 bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
+          <div className="w-full max-w-sm rounded-2xl border border-white/25 bg-marron/35 p-8 shadow-2xl backdrop-blur-xl">
             <header className="mb-8 text-center">
               <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
                 Pastoral Educativa
@@ -66,7 +66,7 @@ export default async function LoginPage({
               <h1 className="font-titulo mt-2 text-3xl font-semibold text-white drop-shadow">
                 Iniciar sesión
               </h1>
-              <p className="mt-2 text-sm text-white/75">
+              <p className="mt-2 text-sm text-white/85">
                 Panel de administración del jardín
               </p>
             </header>
@@ -95,7 +95,7 @@ export default async function LoginPage({
                   required
                   autoComplete="username"
                   autoFocus
-                  className="mt-1 w-full border-b-2 border-white/40 bg-transparent px-1 py-2.5 text-white outline-none transition placeholder:text-white/40 focus:border-white"
+                  className="mt-1 w-full border-b-2 border-white/50 bg-transparent px-1 py-2.5 text-white outline-none transition placeholder:text-white/55 focus:border-white"
                   placeholder="Tu usuario"
                 />
               </div>
@@ -113,7 +113,7 @@ export default async function LoginPage({
                   type="password"
                   required
                   autoComplete="current-password"
-                  className="mt-1 w-full border-b-2 border-white/40 bg-transparent px-1 py-2.5 text-white outline-none transition placeholder:text-white/40 focus:border-white"
+                  className="mt-1 w-full border-b-2 border-white/50 bg-transparent px-1 py-2.5 text-white outline-none transition placeholder:text-white/55 focus:border-white"
                   placeholder="••••••••"
                 />
               </div>

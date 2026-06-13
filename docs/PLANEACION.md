@@ -140,10 +140,19 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 - [x] `lib/actions/contacto.actions.ts` — contacto → `mensajes_contacto` (`Result<void>`)
 
 **Semana 4 — Panel admin (integración front+back):**
-- [ ] Dashboard con lista de publicaciones del jardín
-- [ ] Formularios nueva/editar publicación (conectados a las actions)
-- [ ] Modal de confirmación al borrar
-- [ ] Estados de carga y error en la UI
+- [x] Dashboard con lista de publicaciones del jardín (tema por jardín,
+      badges por tipo, miniaturas Cloudinary, estado vacío, signOut;
+      Borrar aún sin modal — hace console.log)
+- [x] Formularios nueva/editar publicación (conectados a las actions)
+      — `FormularioPublicacion` compartido: previews de fotos, contadores
+      10/5, validación inline de YouTube, mediosEliminar y estado de carga
+- [x] Modal de confirmación al borrar (`BotonBorrar` con <dialog> nativo:
+      Escape, clic fuera, foco atrapado, spinner y error sin cerrar)
+- [x] Estados de carga y error en la UI (spinners en guardar/eliminar,
+      errores por campo y alertas generales según `Result.code`)
+
+✅ **Panel admin (Semana 4) completo** — dashboard, formularios
+crear/editar y borrado con confirmación, integrados a las actions.
 
 **Semana 5 — Portal público (frontend):**
 - [ ] Página de jardín `[jardin]` con tema por colores de BD
