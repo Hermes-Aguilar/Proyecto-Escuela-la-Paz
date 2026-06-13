@@ -130,10 +130,22 @@ export default async function LoginPage({
 
         {/* DERECHA · Mensaje de bienvenida sobre la foto (oculto en móvil) */}
         <div className="hidden flex-col items-center justify-center p-12 text-center text-white md:flex">
-          <h2 className="font-titulo text-5xl font-semibold drop-shadow-lg lg:text-6xl">
+          <h2
+            className="font-titulo text-6xl font-semibold lg:text-7xl"
+            style={{
+              textShadow:
+                "0 2px 4px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)",
+            }}
+          >
             Paz y bien
           </h2>
-          <p className="mt-4 max-w-md text-lg text-white/90 drop-shadow">
+          <p
+            className="mt-4 max-w-md text-xl font-medium text-white"
+            style={{
+              textShadow:
+                "0 2px 8px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)",
+            }}
+          >
             Religiosas Franciscanas de Nuestra Señora del Refugio
           </p>
         </div>
