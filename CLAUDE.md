@@ -11,4 +11,6 @@ Consulta la skill correspondiente al trabajar en cada capa:
 `seguridad-jardin` (DAL/`lib/dal/**`, aislamiento por `jardinId`),
 `resultado-actions` (Server Actions/`lib/actions/*.actions.ts`, contrato
 `Result<T>`) y `convenciones-ui` (componentes y páginas/`app/**`, paleta,
-tipografía y tema por jardín).
+tipografía y tema por jardín). Para el diseño del panel de administración
+(`app/(admin)/**`), usa `panel-admin-design` junto con `frontend-design`
+(paleta institucional, botones, tarjetas, tema por jardín, mobile-first).
