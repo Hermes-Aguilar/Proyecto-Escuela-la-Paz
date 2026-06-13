@@ -84,13 +84,9 @@ export default async function EditarPublicacionPage({
           publicacion={{
             id: publicacion.id,
             titulo: publicacion.titulo,
-            contenido: publicacion.contenido,
             tipo: publicacion.tipo,
-            medios: publicacion.medios.map((m) => ({
-              id: m.id,
-              url: m.url,
-              tipo: m.tipo,
-            })),
+            contenido: publicacion.contenido,
+            medios: publicacion.medios.map((m) => ({ id: m.id, url: m.url })),
           }}
         />
       </main>

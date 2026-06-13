@@ -41,12 +41,16 @@ import {
   createPublicacion,
   updatePublicacion,
   deletePublicacion,
-  type MedioInput,
+  type ImagenNueva,
 } from "@/lib/dal/publicaciones";
 import { subirImagen, eliminarImagen } from "@/lib/services/cloudinary";
 import { ForbiddenError } from "@/lib/dal/errors";
 import { contactoSchema } from "@/lib/validations/contacto";
-import { publicacionSchema } from "@/lib/validations/publicacion";
+import {
+  publicacionSchema,
+  imagenesSchema,
+} from "@/lib/validations/publicacion";
+import type { ContenidoBorrador } from "@/types/bloques";
 
 // PNG 1×1 transparente para una subida real pero mínima.
 const PNG_1X1 = Buffer.from(
@@ -140,19 +144,27 @@ async function main() {
   // ====================================================
   // 2. Crear publicación (CU-06) — sesión admin_lapaz + imagen real
   // ====================================================
-  console.log("\n[2] crearPublicacion (admin_lapaz) con 1 imagen");
+  console.log("\n[2] crearPublicacion (admin_lapaz): bloques texto→imagen→texto");
   const imagen = new File([PNG_1X1], "prueba.png", { type: "image/png" });
+  const NUEVA_REF = "img-0";
+  // Contenido en bloques: texto → imagen (nuevaRef) → texto.
+  const bloques: ContenidoBorrador = [
+    { tipo: "texto", valor: "Primer párrafo, antes de la foto." },
+    { tipo: "imagen", nuevaRef: NUEVA_REF },
+    { tipo: "texto", valor: "Segundo párrafo, después de la foto." },
+  ];
+  // Valida igual que la action: bloques por publicacionSchema, File por imagenesSchema.
   const datosPub = publicacionSchema.parse({
     titulo: "Publicación de prueba",
-    contenido: "Contenido de prueba.",
     tipo: "NOTICIA",
-    imagenes: [imagen],
-    videosYoutube: [],
+    contenido: bloques,
   });
+  imagenesSchema.parse([imagen]);
+
   const carpeta = `congregacion/${lapaz.slug}/publicaciones`;
   let subida: { url: string; publicId: string };
   if (cloudinaryActivo) {
-    subida = await subirImagen(datosPub.imagenes[0], carpeta);
+    subida = await subirImagen(imagen, carpeta);
     limpieza.publicIds.push(subida.publicId);
     check(subida.url.startsWith("http"), "Cloudinary devolvió una url real");
     check(subida.publicId.length > 0, "Cloudinary devolvió un publicId real");
@@ -161,15 +173,15 @@ async function main() {
     subida = { url: "https://example.com/simulado.png", publicId: "simulado/test" };
   }
 
-  const medios: MedioInput[] = [
-    { url: subida.url, publicId: subida.publicId, tipo: "IMAGEN", orden: 0 },
+  const imagenes: ImagenNueva[] = [
+    { nuevaRef: NUEVA_REF, url: subida.url, publicId: subida.publicId },
   ];
   const pub = await runWithSimulatedUser(sesionLapaz, () =>
     createPublicacion({
       titulo: datosPub.titulo,
-      contenido: datosPub.contenido,
       tipo: datosPub.tipo,
-      medios,
+      bloques: datosPub.contenido,
+      imagenes,
     }),
   );
   limpieza.publicacionId = pub.id;
@@ -180,7 +192,7 @@ async function main() {
   });
   check(pubEnBd !== null, "la publicación quedó en BD");
   check(pubEnBd?.jardinId === lapaz.id, "la publicación se asignó al jardín de la sesión");
-  check(pubEnBd?.medios.length === 1, "tiene exactamente 1 medio");
+  check(pubEnBd?.medios.length === 1, "tiene exactamente 1 medio (la imagen)");
   check(pubEnBd?.medios[0]?.url === subida.url, "el medio guardó la url");
   check(
     pubEnBd?.medios[0]?.publicId === subida.publicId,
@@ -192,26 +204,57 @@ async function main() {
 
   const medioId = pubEnBd!.medios[0].id;
 
+  // --- Serialización/deserialización del contenido en bloques ---
+  check(pub.contenido.length === 3, "el DAL devolvió 3 bloques");
+  check(pub.contenido[0]?.tipo === "texto", "bloque 0 es texto");
+  const bloqueImg = pub.contenido[1];
+  check(
+    bloqueImg?.tipo === "imagen" && bloqueImg.medioId === medioId,
+    "bloque 1 es imagen y referencia el medioId real (nuevaRef→id)",
+  );
+  check(pub.contenido[2]?.tipo === "texto", "bloque 2 es texto");
+  // El JSON crudo en BD también es un array de 3 bloques.
+  const crudo = pubEnBd!.contenido;
+  check(
+    Array.isArray(crudo) && crudo.length === 3,
+    "el contenido en BD es un array JSON de 3 bloques",
+  );
+
   // ====================================================
   // 3. Editar (CU-08) — quitar la foto
   // ====================================================
-  console.log("\n[3] editarPublicacion: quitar la foto");
+  console.log("\n[3] editarPublicacion: quitar el bloque de imagen");
   // La action borra primero de Cloudinary las fotos quitadas...
   if (cloudinaryActivo) {
     await eliminarImagen(subida.publicId);
   }
-  // ...y luego el DAL actualiza eliminando el medio.
+  // ...y luego el DAL actualiza con el contenido SIN el bloque de imagen.
   await runWithSimulatedUser(sesionLapaz, () =>
     updatePublicacion(pub.id, {
       titulo: datosPub.titulo,
-      contenido: datosPub.contenido,
       tipo: datosPub.tipo,
-      mediosNuevos: [],
+      bloques: [
+        { tipo: "texto", valor: "Primer párrafo, antes de la foto." },
+        { tipo: "texto", valor: "Segundo párrafo, después de la foto." },
+      ],
+      imagenesNuevas: [],
       mediosEliminar: [medioId],
     }),
   );
   const mediosRestantes = await db.medio.count({ where: { publicacionId: pub.id } });
   check(mediosRestantes === 0, "el medio se eliminó de la BD");
+  const trasEditar = await db.publicacion.findUnique({
+    where: { id: pub.id },
+    select: { contenido: true },
+  });
+  const contTrasEditar = trasEditar!.contenido;
+  check(
+    Array.isArray(contTrasEditar) &&
+      contTrasEditar.every(
+        (b) => (b as { tipo: string }).tipo !== "imagen",
+      ),
+    "el contenido ya no tiene bloques de imagen",
+  );
   if (cloudinaryActivo) {
     check(
       !(await existeEnCloudinary(subida.publicId)),
@@ -229,9 +272,9 @@ async function main() {
     await runWithSimulatedUser(sesionPorvenir, () =>
       updatePublicacion(pub.id, {
         titulo: "intento de secuestro",
-        contenido: "no debería poder",
         tipo: "AVISO",
-        mediosNuevos: [],
+        bloques: [{ tipo: "texto", valor: "no debería poder" }],
+        imagenesNuevas: [],
         mediosEliminar: [],
       }),
     );

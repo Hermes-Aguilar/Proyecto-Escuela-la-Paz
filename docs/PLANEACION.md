@@ -143,19 +143,29 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 - [x] Dashboard con lista de publicaciones del jardín (tema por jardín,
       badges por tipo, miniaturas Cloudinary, estado vacío, signOut;
       Borrar aún sin modal — hace console.log)
-- [x] Formularios nueva/editar publicación (conectados a las actions)
-      — `FormularioPublicacion` compartido: previews de fotos, contadores
-      10/5, validación inline de YouTube, mediosEliminar y estado de carga
-- [x] Modal de confirmación al borrar (`BotonBorrar` con <dialog> nativo:
-      Escape, clic fuera, foco atrapado, spinner y error sin cerrar)
-- [x] Estados de carga y error en la UI (spinners en guardar/eliminar,
-      errores por campo y alertas generales según `Result.code`)
-
-✅ **Panel admin (Semana 4) completo** — dashboard, formularios
-crear/editar y borrado con confirmación, integrados a las actions.
+- [ ] Formularios nueva/editar publicación (conectados a las actions)
+- [x] CU-07 · Pantalla Ver publicación (`dashboard/ver/[id]`): Server
+      Component de solo lectura, vista previa con badge por tipo, chip
+      Borrador, fechas en español (+ "Editado el …"), galería de fotos
+      (clic para ampliar) y embeds de YouTube 16:9; 404 si no es del jardín
+- [x] Contenido en bloques implementado: el cuerpo de la publicación
+      pasó de texto plano (`contenido String`) a un array ordenado de
+      bloques intercalados (`contenido Json`, ver `types/bloques.ts`):
+      texto / imagen (referencia un Medio) / video (URL de YouTube).
+      Migración `contenido_en_bloques`, validación zod (canónica +
+      borrador), DAL que inserta los Medios y resuelve `nuevaRef`→`medioId`,
+      actions con `bloques` JSON + `imagenes`/`imagenesRefs`, editor de
+      bloques en `FormularioPublicacion` (↑↓/×, autoajuste de textarea) y
+      render por bloques en la vista Ver. Script `probar-backend` → 21/21.
+- [ ] Modal de confirmación al borrar
+- [ ] Estados de carga y error en la UI
 
 **Semana 5 — Portal público (frontend):**
 - [ ] Página de jardín `[jardin]` con tema por colores de BD
+      ⚠️ `app/(public)/pastoral-educativa/[jardin]/page.tsx` tiene errores
+      de tsc preexistentes (módulo `../jardines`, parámetros `any`,
+      `FaMusicNote` de `react-icons`) — corregirlos como parte de construir
+      esta página, no antes.
 - [ ] Muro de noticias + detalle de noticia (galería + embeds YouTube)
 - [ ] Lazy loading de imágenes, mobile-first
 
@@ -197,5 +207,7 @@ npx prisma migrate dev    # aplicar cambios del schema
 npm run db:seed           # recargar datos iniciales
 npx prisma generate       # regenerar cliente tras cambiar schema
 npm run test:backend
+
+
 
 ```
