@@ -6,23 +6,8 @@ import {
   FaClock,
   FaPhoneAlt,
   FaEnvelope,
-  FaSearch,
-  FaStar,
-  FaCross,
-  FaMusic,
-  FaGift,
   FaArrowRight,
 } from "react-icons/fa";
-import { MdLocalLibrary } from "react-icons/md";
-
-const categorias = [
-  { icon: <FaBook size={20} />, nombre: "Libros espirituales", desc: "Espiritualidad, teología, devocional, vida de santos." },
-  { icon: <FaCross size={20} />, nombre: "Artículos religiosos", desc: "Rosarios, escapularios, imágenes, velas, medallas." },
-  { icon: <FaMusic size={20} />, nombre: "Música y audiovisual", desc: "CDs, DVDs, material litúrgico para comunidades." },
-  { icon: <FaGift size={20} />, nombre: "Regalos con sentido", desc: "Presentes para bautizos, confirmaciones, comuniones y bodas." },
-  { icon: <FaStar size={20} />, nombre: "Material catequético", desc: "Recursos para catequistas, maestros y grupos de fe." },
-  { icon: <MdLocalLibrary size={20} />, nombre: "Publicaciones propias", desc: "Folletos, boletines y publicaciones de la fraternidad." },
-];
 
 const librerias = [
   {
@@ -88,28 +73,6 @@ export default function Librerias() {
         </div>
       </section>
 
-      {/* CATEGORÍAS */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center mb-12">
-          <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Nuestros productos</span>
-          <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Lo que encontrarás</h2>
-          <p className="text-[#7A6352] mt-3">Una selección cuidada de material para tu crecimiento espiritual</p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {categorias.map((cat) => (
-            <div key={cat.nombre} className="bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] flex items-start gap-4 hover:shadow-md transition-shadow">
-              <div className="text-[#8E9A3C] bg-[#8E9A3C]/10 p-3 rounded-xl shrink-0">
-                {cat.icon}
-              </div>
-              <div>
-                <h3 className="font-bold text-[#3B2314] mb-1">{cat.nombre}</h3>
-                <p className="text-sm text-[#7A6352]">{cat.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* DIRECTORIO DE LIBRERÍAS */}
       <section className="bg-[#F0EAE0] py-20 px-6">
         <div className="max-w-7xl mx-auto">
@@ -121,11 +84,6 @@ export default function Librerias() {
           <div className="space-y-8">
             {librerias.map((lib) => (
               <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-[#C25B35]" : "border-[#E4D7BC]"}`}>
-                {lib.principal && (
-                  <div className="bg-[#C25B35] text-white text-xs font-semibold text-center py-1.5 tracking-widest uppercase">
-                    Librería Principal
-                  </div>
-                )}
                 <div className="p-8 grid md:grid-cols-3 gap-8">
                   {/* Info principal */}
                   <div className="md:col-span-2">

@@ -139,16 +139,7 @@ export default function Contacto() {
                   />
                 </div>
               </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-[#3B2314] mb-1">Teléfono (opcional)</label>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-[#3B2314] mb-1">Área de interés</label>
-                </div>
-              </div>
-
+              
               <div>
                 <label className="block text-sm font-semibold text-[#3B2314] mb-1">
                   Mensaje <span className="text-[#C25B35]">*</span>
