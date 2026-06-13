@@ -17,7 +17,8 @@ export const MAX_VIDEOS = 5;
 const MAX_PESO_IMAGEN = 8 * 1024 * 1024; // 8 MB por imagen
 
 // youtube.com/watch?v=ID  ó  youtu.be/ID
-const YOUTUBE_REGEX =
+// Exportado: la UI lo usa para validar inline antes de enviar.
+export const YOUTUBE_REGEX =
   /^https?:\/\/(www\.)?(youtube\.com\/watch\?v=[\w-]{11}|youtu\.be\/[\w-]{11})/i;
 
 const imagenSchema = z
