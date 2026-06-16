@@ -1,5 +1,6 @@
-// RUTA: src/app/(public)/page.tsx
+// RUTA: app/(public)/page.tsx
 import Link from "next/link";
+import { Lora } from "next/font/google";
 import {
   FaCross,
   FaLeaf,
@@ -14,6 +15,19 @@ import {
   FaHandHoldingHeart,
   FaGraduationCap,
 } from "react-icons/fa";
+
+// Tipografía serif elegante para los títulos
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-lora",
+});
+
+// Imagen religiosa del hero (Basílica de San Francisco de Asís — Unsplash, licencia libre).
+// Puedes dejar esta URL o descargar la foto y guardarla como /public/hero-asis.jpg
+// y cambiar HERO_IMG por "/hero-asis.jpg".
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1551418557-567e915fe7aa?fm=jpg&q=80&w=1200&auto=format&fit=crop";
 
 const areas = [
   {
@@ -63,24 +77,34 @@ const librerias = [
 
 export default function Home() {
   return (
-    <div className="bg-[#FAF7F2]">
-      {/* HERO */}
-      <section className="relative bg-[#3B2314] overflow-hidden">
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #C25B35 0%, transparent 60%), radial-gradient(circle at 80% 20%, #8E9A3C 0%, transparent 50%)" }}
+    <div className={`${lora.variable} bg-[#FAF7F2]`}>
+      {/* Serif solo para los títulos */}
+      <style>{`
+        .font-display { font-family: var(--font-lora), Georgia, serif; }
+      `}</style>
+
+      {/* HERO — claro y suave */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF7F2] via-[#F0EAE0] to-[#E4D7BC]">
+        <div
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 80% 30%, rgba(194,91,53,0.10) 0%, transparent 55%), radial-gradient(circle at 12% 88%, rgba(142,154,60,0.10) 0%, transparent 50%)",
+          }}
         />
-        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-36 grid md:grid-cols-2 gap-12 items-center">
+        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase mb-4">
               Fraternidad Franciscana
             </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Paz y bien<br />
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-[#3B2314] leading-tight mb-6">
+              Paz y bien
+              <br />
               <span className="text-[#C25B35]">en cada camino</span>
             </h1>
-            <p className="text-[#C8B99A] text-lg leading-relaxed mb-8 max-w-lg">
-              Siguiendo el carisma de San Francisco de Asís, anunciamos el Evangelio
-              con alegría, sencillez y fraternidad. Somos una comunidad viva, abierta y misionera.
+            <p className="text-[#5A4232] text-lg leading-relaxed mb-8 max-w-lg">
+              Siguiendo el carisma de San Francisco de Asís, anunciamos el Evangelio con alegría,
+              sencillez y fraternidad. Somos una comunidad viva, abierta y misionera.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -91,21 +115,26 @@ export default function Home() {
               </Link>
               <Link
                 href="/contacto"
-                className="border border-white/30 text-white hover:bg-white/10 px-6 py-3 rounded-lg font-semibold transition-colors"
+                className="border border-[#C9B79A] bg-white text-[#5A4232] hover:bg-[#F0EAE0] px-6 py-3 rounded-lg font-semibold transition-colors"
               >
                 Contáctanos
               </Link>
             </div>
           </div>
-          {/* Decorativo */}
+
+          {/* Medallón con imagen religiosa */}
           <div className="hidden md:flex justify-center items-center">
             <div className="relative w-72 h-72">
-              <div className="absolute inset-0 rounded-full border-4 border-[#C25B35]/30 animate-ping" style={{ animationDuration: "3s" }} />
-              <div className="absolute inset-6 rounded-full border-2 border-[#8E9A3C]/40" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-[#C25B35]/20 rounded-full p-12 backdrop-blur-sm">
-                  <FaCross size={80} className="text-[#E4D7BC]" />
-                </div>
+              <div className="absolute inset-0 rounded-full border-2 border-[#C25B35]/30" />
+              <div className="absolute inset-3 rounded-full border border-[#8E9A3C]/40" />
+              <div className="absolute inset-6 rounded-full overflow-hidden shadow-md">
+                {/* Si prefieres usar next/image, descarga la foto a /public y configura
+                    images.remotePatterns o usa el archivo local. Con <img> funciona directo. */}
+                <img
+                  src={HERO_IMG}
+                  alt="Basílica de San Francisco de Asís"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -117,12 +146,14 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#3B2314] mt-2 mb-5 leading-tight">
-              Un carisma vivo que<br />transforma comunidades
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#3B2314] mt-2 mb-5 leading-tight">
+              Un carisma vivo que
+              <br />
+              transforma comunidades
             </h2>
             <p className="text-[#5A4232] leading-relaxed mb-4">
-              Somos una fraternidad de religiosas franciscanas comprometidas con el Evangelio,
-              el servicio a los más pobres y la educación integral de las personas. Nuestro carisma
+              Somos una fraternidad de religiosas franciscanas comprometidas con el Evangelio, el
+              servicio a los más pobres y la educación integral de las personas. Nuestro carisma
               franciscano nos impulsa a vivir en fraternidad, sencillez y amor a la creación.
             </p>
             <p className="text-[#5A4232] leading-relaxed mb-6">
@@ -130,13 +161,13 @@ export default function Home() {
               educativas, pastorales y misioneras que dan testimonio del amor de Dios en el mundo.
             </p>
             <div className="flex flex-wrap gap-3">
-              <span className="bg-[#E4D7BC] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <span className="bg-[#F0EAE0] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
                 <FaLeaf className="text-[#8E9A3C]" /> Amor a la creación
               </span>
-              <span className="bg-[#E4D7BC] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <span className="bg-[#F0EAE0] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
                 <FaCross className="text-[#C25B35]" /> Vida evangélica
               </span>
-              <span className="bg-[#E4D7BC] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <span className="bg-[#F0EAE0] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
                 <FaUsers className="text-[#8E9A3C]" /> Fraternidad
               </span>
             </div>
@@ -150,9 +181,12 @@ export default function Home() {
               { icon: <FaHandHoldingHeart />, title: "Servicio", desc: "Presencia cercana a quienes más necesitan" },
               { icon: <FaStar />, title: "Alegría", desc: "La alegría del Evangelio como testimonio vivo" },
             ].map((c) => (
-              <div key={c.title} className="bg-white rounded-xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow">
-                <div className="text-[#C25B35] mb-2">{c.icon}</div>
-                <h4 className="font-bold text-[#3B2314] mb-1">{c.title}</h4>
+              <div
+                key={c.title}
+                className="bg-white rounded-xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow"
+              >
+                <div className="text-[#C25B35] mb-2 text-2xl">{c.icon}</div>
+                <h4 className="font-display font-bold text-[#3B2314] mb-1 text-lg">{c.title}</h4>
                 <p className="text-xs text-[#7A6352] leading-relaxed">{c.desc}</p>
               </div>
             ))}
@@ -165,7 +199,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
-            <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Fundadores e inspiradores</h2>
+            <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Fundadores e inspiradores</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -173,24 +207,28 @@ export default function Home() {
                 nombre: "San Francisco de Asís",
                 rol: "Fundador de la Orden",
                 desc: "El Poverello de Asís, cuyo amor por Dios, los pobres y la creación sigue inspirando a millones en el mundo.",
-                icon: <FaCross size={36} className="text-[#C25B35]" />,
+                icon: <FaCross size={32} className="text-[#C25B35]" />,
               },
               {
                 nombre: "Santa Clara de Asís",
                 rol: "Co-fundadora",
                 desc: "La primera mujer que siguió a Francisco, fundadora de las Hermanas Pobres y modelo de vida contemplativa.",
-                icon: <FaDove size={36} className="text-[#8E9A3C]" />,
+                icon: <FaDove size={32} className="text-[#8E9A3C]" />,
               },
               {
                 nombre: "Nuestra Fundadora",
                 rol: "Fundadora de la Fraternidad",
                 desc: "Con espíritu misionero y pedagógico, fundó esta fraternidad para llevar el carisma franciscano a México.",
-                icon: <FaStar size={36} className="text-[#C25B35]" />,
+                icon: <FaStar size={32} className="text-[#C25B35]" />,
               },
             ].map((f) => (
               <div key={f.nombre} className="bg-white rounded-2xl p-7 shadow-sm border border-[#E4D7BC] text-center">
-                <div className="flex justify-center mb-4">{f.icon}</div>
-                <h3 className="font-bold text-[#3B2314] text-lg mb-1">{f.nombre}</h3>
+                <div className="flex justify-center mb-4">
+                  <div className="w-[74px] h-[74px] rounded-full bg-[#F0EAE0] flex items-center justify-center">
+                    {f.icon}
+                  </div>
+                </div>
+                <h3 className="font-display font-bold text-[#3B2314] text-lg mb-1">{f.nombre}</h3>
                 <span className="text-xs text-[#C25B35] font-semibold uppercase tracking-wide">{f.rol}</span>
                 <p className="text-[#5A4232] text-sm leading-relaxed mt-3">{f.desc}</p>
               </div>
@@ -203,7 +241,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
           <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Lo que hacemos</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#3B2314] mt-2">Áreas pastorales</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[#3B2314] mt-2">Áreas pastorales</h2>
           <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
             Nuestra misión se despliega en cuatro grandes áreas que abarcan todos los momentos de la vida.
           </p>
@@ -215,10 +253,12 @@ export default function Home() {
               href={area.href}
               className="group bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] hover:shadow-lg hover:-translate-y-1 transition-all"
             >
-              <div className={`${area.color} text-white rounded-xl p-3 inline-flex mb-4 group-hover:scale-110 transition-transform`}>
+              <div
+                className={`${area.color} text-white rounded-xl p-3 inline-flex mb-4 group-hover:scale-110 transition-transform`}
+              >
                 {area.icon}
               </div>
-              <h3 className="font-bold text-[#3B2314] mb-2 leading-snug">{area.title}</h3>
+              <h3 className="font-display font-bold text-[#3B2314] mb-2 leading-snug">{area.title}</h3>
               <p className="text-sm text-[#7A6352] leading-relaxed mb-4">{area.desc}</p>
               <span className="text-[#C25B35] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
                 Conocer más <FaArrowRight size={12} />
@@ -228,23 +268,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SEDES */}
-      <section className="bg-[#3B2314] py-16">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* SEDES — claro */}
+      <section className="bg-[#F0EAE0] py-16 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative">
           <div className="text-center mb-12">
             <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Presencia</span>
-            <h2 className="text-3xl font-bold text-white mt-2">Nuestras sedes</h2>
-            <p className="text-[#C8B99A] mt-2">Una fraternidad con presencia en todo México</p>
+            <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Nuestras sedes</h2>
+            <p className="text-[#7A6352] mt-2">Una fraternidad con presencia en todo México</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {sedes.map((sede) => (
-              <div key={sede.nombre} className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-colors">
+              <div
+                key={sede.nombre}
+                className="bg-white border border-[#E4D7BC] rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow"
+              >
                 <div className="flex items-start gap-3">
                   <FaMapMarkerAlt className="text-[#C25B35] mt-1 shrink-0" />
                   <div>
-                    <p className="text-white font-semibold">{sede.nombre}</p>
-                    <p className="text-[#C8B99A] text-sm">{sede.ciudad}</p>
-                    <span className="inline-block mt-1 text-xs bg-[#C25B35]/20 text-[#C25B35] px-2 py-0.5 rounded-full">
+                    <p className="text-[#3B2314] font-semibold">{sede.nombre}</p>
+                    <p className="text-[#7A6352] text-sm">{sede.ciudad}</p>
+                    <span className="inline-block mt-1 text-xs bg-[#E4D7BC] text-[#C25B35] px-2 py-0.5 rounded-full">
                       {sede.tipo}
                     </span>
                   </div>
@@ -260,8 +303,10 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Librerías</span>
-            <h2 className="text-3xl font-bold text-[#3B2314] mt-2 mb-4">
-              Espacios de fe,<br />cultura y encuentro
+            <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2 mb-4">
+              Espacios de fe,
+              <br />
+              cultura y encuentro
             </h2>
             <p className="text-[#5A4232] leading-relaxed mb-6">
               Nuestras librerías franciscanas son mucho más que puntos de venta: son lugares de
@@ -277,13 +322,18 @@ export default function Home() {
           </div>
           <div className="space-y-3">
             {librerias.map((lib) => (
-              <div key={lib.nombre} className="bg-white border border-[#E4D7BC] rounded-xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
+              <div
+                key={lib.nombre}
+                className="bg-white border border-[#E4D7BC] rounded-xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+              >
                 <div className="bg-[#8E9A3C]/10 rounded-lg p-3 shrink-0">
                   <FaBook className="text-[#8E9A3C]" size={22} />
                 </div>
                 <div>
                   <p className="font-semibold text-[#3B2314]">{lib.nombre}</p>
-                  <p className="text-sm text-[#7A6352]">{lib.ciudad} · {lib.horario}</p>
+                  <p className="text-sm text-[#7A6352]">
+                    {lib.ciudad} · {lib.horario}
+                  </p>
                 </div>
               </div>
             ))}
@@ -294,28 +344,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA final */}
-      <section className="bg-[#C25B35] py-16">
+      {/* CTA final — suave */}
+      <section className="bg-[#E4D7BC] py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <FaChurch size={40} className="text-white/60 mx-auto mb-4" />
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <FaChurch size={40} className="text-[#C25B35]/70 mx-auto mb-4" />
+          <h2 className="font-display text-3xl font-bold text-[#3B2314] mb-4">
             ¿Sientes el llamado a vivir el carisma franciscano?
           </h2>
-          <p className="text-white/80 text-lg mb-8">
+          <p className="text-[#5A4232] text-lg mb-8">
             Acompáñanos en este camino de fe, fraternidad y servicio. Siempre hay un lugar para ti.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/pastoral-vocacional"
-              className="bg-white text-[#C25B35] hover:bg-[#F0EAE0] px-7 py-3 rounded-lg font-bold transition-colors"
+              className="bg-[#C25B35] hover:bg-[#a84928] text-white px-7 py-3 rounded-lg font-bold transition-colors"
             >
               Descubrir la vocación
             </Link>
             <Link
               href="/contacto"
-              className="border-2 border-white text-white hover:bg-white/10 px-7 py-3 rounded-lg font-bold transition-colors"
+              className="border-2 border-[#3B2314] text-[#3B2314] hover:bg-[#3B2314]/10 px-7 py-3 rounded-lg font-bold transition-colors"
             >
-              Escribirnos
+              Escríbenos
             </Link>
           </div>
         </div>

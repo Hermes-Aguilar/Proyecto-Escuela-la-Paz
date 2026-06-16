@@ -162,30 +162,42 @@ export default function PastoralVocacional() {
         </div>
       </section>
 
-      {/* CTA CONTACTO */}
-      <section className="bg-[#8E9A3C] py-16 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">¿Te gustaría dar el primer paso?</h2>
-          <p className="text-white/80 mb-8">
-            No tienes que tener todo claro. Solo necesitas el deseo de escuchar.
-            Contáctanos y conversamos sin compromiso.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contacto"
-              className="bg-white text-[#8E9A3C] hover:bg-[#F0EAE0] px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
-            >
-              <FaEnvelope /> Escribirnos
-            </Link>
-            <a
-              href="tel:+5255000000"
-              className="border-2 border-white text-white hover:bg-white/10 px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
-            >
-              <FaPhoneAlt /> Llamar
-            </a>
-          </div>
-        </div>
-      </section>
+    {/* CTA CONTACTO */}
+    <section className="bg-[#E4D7BC] py-16">
+    <div className="max-w-3xl mx-auto px-6 text-center">
+    <FaEnvelope
+      size={40}
+      className="text-[#C25B35]/70 mx-auto mb-4"
+    />
+
+    <h2 className="font-display text-3xl font-bold text-[#3B2314] mb-4">
+      ¿Te gustaría dar el primer paso?
+    </h2>
+
+    <p className="text-[#5A4232] text-lg mb-8">
+      No tienes que tener todo claro. Solo necesitas el deseo de escuchar.
+      Contáctanos y conversemos sin compromiso.
+    </p>
+
+    <div className="flex flex-wrap justify-center gap-4">
+      <Link
+        href="/contacto"
+        className="bg-[#C25B35] hover:bg-[#a84928] text-white px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
+      >
+        <FaEnvelope />
+        Escribirnos
+      </Link>
+
+      <a
+        href="tel:+5255000000"
+        className="border-2 border-[#3B2314] text-[#3B2314] hover:bg-[#3B2314]/10 px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
+      >
+        <FaPhoneAlt />
+        Llamar
+      </a>
+    </div>
+  </div>
+</section>
     </div>
   );
 }

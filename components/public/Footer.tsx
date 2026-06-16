@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaYoutube, FaMapMarkerAlt, FaPhoneAlt, FaEnvel
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3B2314] text-[#E4D7BC] mt-20">
+    <footer className="bg-[#3B2314] text-[#E4D7BC]">
       <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Identidad */}
         <div>
