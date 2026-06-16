@@ -1,13 +1,14 @@
-// RUTA: src/app/(public)/layout.tsx
-import Navbar from "@/components/public/Navbar";
-import Footer from "@/components/public/Footer";
+// RUTA: app/(public)/layout.tsx
+import { NavbarPublico, FooterPublico } from "@/components/public/ChromePublico";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Navbar />
+      {/* Navbar y Footer se ocultan dentro del micro-sitio de un jardín:
+          ahí la navegación la da el sidebar propio del jardín. */}
+      <NavbarPublico />
       <main className="min-h-screen">{children}</main>
-      <Footer />
+      <FooterPublico />
     </>
   );
 }

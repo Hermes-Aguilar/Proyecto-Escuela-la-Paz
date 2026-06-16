@@ -153,16 +153,18 @@ export default async function InicioJardin({
           {RASGOS.map(({ icon: Icono, titulo, texto }) => (
             <div
               key={titulo}
-              className="flex flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm"
+              className="group flex flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             >
+              {/* Círculo con el gradiente propio del jardín (su esencia):
+                  primario → secundario, ícono en blanco para buen
+                  contraste con cualquiera de las dos paletas. */}
               <span
-                className="flex h-14 w-14 items-center justify-center rounded-full"
+                className="flex h-16 w-16 items-center justify-center rounded-full text-white shadow-sm"
                 style={{
-                  backgroundColor: `${jardin.colorPrimario}1A`,
-                  color: jardin.colorPrimario,
+                  backgroundImage: `linear-gradient(135deg, ${jardin.colorPrimario}, ${jardin.colorSecundario})`,
                 }}
               >
-                <Icono size={26} />
+                <Icono size={28} />
               </span>
               <h3 className="font-titulo mt-4 text-lg font-bold text-marron">
                 {titulo}

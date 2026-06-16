@@ -255,8 +255,8 @@ export default function SidebarJardin({
 
   return (
     <>
-      {/* BARRA MÓVIL · botón hamburguesa (sticky bajo el navbar global) */}
-      <div className="sticky top-16 z-30 flex items-center gap-3 border-b border-arena bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
+      {/* BARRA MÓVIL · botón hamburguesa (sticky arriba del todo) */}
+      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-arena bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
         <button
           type="button"
           onClick={() => setDrawerAbierto(true)}
@@ -292,8 +292,10 @@ export default function SidebarJardin({
         </div>
       )}
 
-      {/* SIDEBAR ESCRITORIO · fijo a la izquierda */}
-      <aside className="hidden w-64 shrink-0 border-r border-arena bg-white lg:sticky lg:top-16 lg:block lg:h-[calc(100vh-4rem)] lg:overflow-y-auto">
+      {/* SIDEBAR ESCRITORIO · FIJO a la izquierda: se mantiene en su
+          sitio aunque se haga scroll (no se mueve). Si el menú es más
+          alto que la pantalla, hace scroll interno. */}
+      <aside className="hidden border-r border-arena bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-64 lg:overflow-y-auto">
         {navegacion}
       </aside>
     </>

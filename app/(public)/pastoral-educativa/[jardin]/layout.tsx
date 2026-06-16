@@ -46,14 +46,14 @@ export default async function JardinLayout({
         } as React.CSSProperties
       }
     >
-      <div className="lg:flex">
-        <SidebarJardin
-          nombreJardin={jardin.nombre}
-          slug={jardin.slug}
-          colorPrimario={jardin.colorPrimario}
-        />
-        <div className="min-w-0 flex-1">{children}</div>
-      </div>
+      {/* El sidebar es fixed en escritorio (ocupa 16rem a la izquierda);
+          el contenido se desplaza con lg:pl-64 para no quedar debajo. */}
+      <SidebarJardin
+        nombreJardin={jardin.nombre}
+        slug={jardin.slug}
+        colorPrimario={jardin.colorPrimario}
+      />
+      <div className="min-h-screen lg:pl-64">{children}</div>
     </div>
   );
 }
