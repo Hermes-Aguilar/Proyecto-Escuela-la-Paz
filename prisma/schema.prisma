@@ -49,7 +49,7 @@ model Publicacion {
   jardinId      Int             @map("jardin_id")
   usuarioId     Int?            @map("usuario_id")
   titulo        String          @db.VarChar(200)
-  contenido     String
+  contenido     Json
   tipo          TipoPublicacion @default(NOTICIA)
   publicado     Boolean         @default(true)
   creadoEn      DateTime        @default(now()) @map("creado_en")

@@ -1,0 +1,75 @@
+// ============================================================
+// app/(public)/pastoral-educativa/SubmenuPastoral.tsx
+// Submenú horizontal de Pastoral Educativa: ancla a la sección de
+// jardines de esta página + accesos directos a cada jardín.
+//
+// Client Component: usa usePathname para resaltar el enlace activo
+// (terracota). Es reutilizable — si esta barra se coloca también en
+// las páginas de jardín, "La Paz"/"Porvenir" se resaltan solas.
+//
+// Sticky bajo el Navbar (que es sticky top-0 z-50 h-16): por eso
+// esta barra se fija en top-16 y z-40 (debajo del Navbar, encima
+// del contenido). Mobile-first: scroll horizontal si no caben.
+// ============================================================
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const ENLACES = [
+  {
+    etiqueta: "Nuestros Jardines",
+    href: "/pastoral-educativa#jardines",
+    activoEn: "/pastoral-educativa",
+  },
+  {
+    etiqueta: "Jardín La Paz",
+    href: "/pastoral-educativa/la-paz",
+    activoEn: "/pastoral-educativa/la-paz",
+  },
+  {
+    etiqueta: "Jardín Porvenir",
+    href: "/pastoral-educativa/porvenir",
+    activoEn: "/pastoral-educativa/porvenir",
+  },
+];
+
+export function SubmenuPastoral() {
+  const pathname = usePathname();
+
+  return (
+    <nav
+      aria-label="Navegación de Pastoral Educativa"
+      className="sticky top-16 z-40 bg-white shadow-sm"
+    >
+      <ul className="mx-auto flex max-w-7xl items-stretch overflow-x-auto whitespace-nowrap px-6 text-sm">
+        {ENLACES.map((enlace, i) => {
+          const activo = pathname === enlace.activoEn;
+          return (
+            <li
+              key={enlace.href}
+              // Separador vertical (|) en arena, excepto antes del primero.
+              className={`flex items-stretch ${
+                i > 0
+                  ? "before:flex before:items-center before:px-3 before:text-arena before:content-['|']"
+                  : ""
+              }`}
+            >
+              <Link
+                href={enlace.href}
+                aria-current={activo ? "page" : undefined}
+                className={`flex items-center border-b-2 px-3 py-4 font-medium transition-colors ${
+                  activo
+                    ? "border-terracota bg-terracota/10 text-terracota"
+                    : "border-transparent text-marron-suave hover:text-terracota"
+                }`}
+              >
+                {enlace.etiqueta}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}

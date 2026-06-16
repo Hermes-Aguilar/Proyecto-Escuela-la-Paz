@@ -68,8 +68,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-4 text-center text-xs text-[#9A8B7A]">
-        © {new Date().getFullYear()} Fraternidad Franciscana · Todos los derechos reservados
+      <div className="border-t border-white/10 py-4 text-center text-xs text-white/50">
+        © {new Date().getFullYear()} Fraternidad Franciscana. Todos los derechos reservados.
       </div>
     </footer>
   );

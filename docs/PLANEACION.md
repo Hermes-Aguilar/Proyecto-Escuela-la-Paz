@@ -143,21 +143,47 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 - [x] Dashboard con lista de publicaciones del jardín (tema por jardín,
       badges por tipo, miniaturas Cloudinary, estado vacío, signOut;
       Borrar aún sin modal — hace console.log)
-- [x] Formularios nueva/editar publicación (conectados a las actions)
-      — `FormularioPublicacion` compartido: previews de fotos, contadores
-      10/5, validación inline de YouTube, mediosEliminar y estado de carga
-- [x] Modal de confirmación al borrar (`BotonBorrar` con <dialog> nativo:
-      Escape, clic fuera, foco atrapado, spinner y error sin cerrar)
-- [x] Estados de carga y error en la UI (spinners en guardar/eliminar,
-      errores por campo y alertas generales según `Result.code`)
+- [ ] Formularios nueva/editar publicación (conectados a las actions)
+- [x] CU-07 · Pantalla Ver publicación (`dashboard/ver/[id]`): Server
+      Component de solo lectura, vista previa con badge por tipo, chip
+      Borrador, fechas en español (+ "Editado el …"), galería de fotos
+      (clic para ampliar) y embeds de YouTube 16:9; 404 si no es del jardín
+- [x] Contenido en bloques implementado: el cuerpo de la publicación
+      pasó de texto plano (`contenido String`) a un array ordenado de
+      bloques intercalados (`contenido Json`, ver `types/bloques.ts`):
+      texto / imagen (referencia un Medio) / video (URL de YouTube).
+      Migración `contenido_en_bloques`, validación zod (canónica +
+      borrador), DAL que inserta los Medios y resuelve `nuevaRef`→`medioId`,
+      actions con `bloques` JSON + `imagenes`/`imagenesRefs`, editor de
+      bloques en `FormularioPublicacion` (↑↓/×, autoajuste de textarea) y
+      render por bloques en la vista Ver. Script `probar-backend` → 21/21.
+- [ ] Modal de confirmación al borrar
+- [ ] Estados de carga y error en la UI
 
-✅ **Panel admin (Semana 4) completo** — dashboard, formularios
-crear/editar y borrado con confirmación, integrados a las actions.
-
-**Semana 5 — Portal público (frontend):**
-- [ ] Página de jardín `[jardin]` con tema por colores de BD
-- [ ] Muro de noticias + detalle de noticia (galería + embeds YouTube)
-- [ ] Lazy loading de imágenes, mobile-first
+**Semana 5 — Portal público (frontend): 🚧 EN PROGRESO**
+- [x] Micro-sitio por jardín con menú lateral fijo (desktop) + drawer móvil
+      (`components/public/SidebarJardin.tsx`) y tema por colores de BD
+      inyectado como CSS vars (`--jardin-primario`/`--jardin-secundario`)
+      en `layout.tsx` (Server Component: `getJardinBySlug` → `notFound`).
+      Corregidos los errores de tsc preexistentes (se reemplazó el viejo
+      `page.tsx` que importaba `../jardines` y usaba `react-icons`).
+- [x] Inicio del jardín (`page.tsx`): hero temático, bienvenida, 3
+      publicaciones más recientes y "Lo que nos hace únicos".
+- [x] Páginas estáticas: Quiénes somos (+ ancla `#mision`), Nuestro equipo
+      (avatares con iniciales en el color del jardín) y Oferta educativa
+      (`#niveles` / `#actividades`).
+- [x] Muro público por tipo (`publicaciones/[tipo]`: noticias/eventos/avisos,
+      slug→enum, 404 si inválido) con `getPublicacionesPublicas(jardinId,
+      tipo?, limit?)` y tarjeta compartida `TarjetaPublicacion`.
+- [x] CU-03 · Detalle de publicación (`publicaciones/[tipo]/[id]`):
+      `getPublicacionPublicaById(id, jardinId)` (filtra `publicado=true` +
+      `jardinId`), render por bloques (texto/imagen en grid/embeds YouTube),
+      lazy loading de imágenes, breadcrumb y "Volver".
+- [x] CU-04 · Contacto del jardín: datos y redes desde la BD + formulario
+      client (`FormularioContacto`) que consume `enviarMensaje(slug, …)`
+      (ok → confirmación verde; VALIDATION → campos en rojo; INTERNAL →
+      error general).
+- [x] Lazy loading de imágenes (`next/image loading="lazy"`), mobile-first.
 
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración
@@ -197,5 +223,7 @@ npx prisma migrate dev    # aplicar cambios del schema
 npm run db:seed           # recargar datos iniciales
 npx prisma generate       # regenerar cliente tras cambiar schema
 npm run test:backend
+
+
 
 ```

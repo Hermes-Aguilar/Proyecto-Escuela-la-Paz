@@ -7,12 +7,12 @@
 // FORBIDDEN, NOT_FOUND, INTERNAL). Nunca se filtra el mensaje real
 // ni el stack al cliente.
 //
-// Reparto de responsabilidades:
-//   · Validación de entrada → zod (lib/validations/publicacion.ts)
-//   · Archivos (subir/borrar) → Cloudinary (lib/services)
-//   · Persistencia atómica → DAL (lib/dal/publicaciones.ts), que
-//     además impone el aislamiento por jardinId de la sesión.
-// El jardinId SIEMPRE sale de la sesión, jamás del formulario.
+// El cuerpo de la publicación llega como BLOQUES (texto/imagen/video)
+// en un campo "bloques" (JSON). Las imágenes nuevas llegan aparte
+// como Files en "imagenes" + sus claves en "imagenesRefs" (mismo
+// orden). La action sube los Files a Cloudinary y le pasa al DAL las
+// imágenes ya resueltas; el DAL inserta los Medios, obtiene sus ids y
+// reescribe los bloques. El jardinId SIEMPRE sale de la sesión.
 // ============================================================
 "use server";
 
@@ -34,15 +34,15 @@ import {
   deletePublicacion,
   getPublicacionById,
   type PublicacionDTO,
-  type MedioInput,
+  type ImagenNueva,
 } from "@/lib/dal/publicaciones";
 import { subirImagen, eliminarImagen } from "@/lib/services/cloudinary";
 import {
   publicacionSchema,
   editarPublicacionSchema,
-  MAX_IMAGENES,
-  MAX_VIDEOS,
+  imagenesSchema,
 } from "@/lib/validations/publicacion";
+import type { ContenidoBorrador } from "@/types/bloques";
 
 // ============================================================
 // Helpers
@@ -67,28 +67,65 @@ function esArchivo(v: FormDataEntryValue): v is File {
   return v instanceof File && v.size > 0;
 }
 
-/** Extrae del FormData los campos comunes de una publicación. */
-function leerCampos(formData: FormData) {
-  return {
-    titulo: formData.get("titulo"),
-    contenido: formData.get("contenido"),
-    tipo: formData.get("tipo"),
-    imagenes: formData.getAll("imagenes").filter(esArchivo),
-    videosYoutube: formData
-      .getAll("videosYoutube")
-      .filter((v): v is string => typeof v === "string" && v.trim().length > 0),
-  };
+/** Parsea el JSON de bloques del FormData (undefined si no es válido). */
+function leerBloques(formData: FormData): unknown {
+  const raw = formData.get("bloques");
+  if (typeof raw !== "string") return undefined;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return undefined;
+  }
 }
 
-/** Ids de medios a eliminar (solo enteros positivos válidos). */
-function leerMediosEliminar(formData: FormData): number[] {
-  return formData
-    .getAll("mediosEliminar")
-    .map((v) => Number(v))
-    .filter((n) => Number.isInteger(n) && n > 0);
+/** Pares (File, ref) de imágenes nuevas, en el orden paralelo del FormData. */
+function leerImagenesNuevas(formData: FormData): { file: File; ref: string }[] {
+  const files = formData.getAll("imagenes");
+  const refs = formData.getAll("imagenesRefs");
+  const out: { file: File; ref: string }[] = [];
+  files.forEach((f, i) => {
+    const ref = refs[i];
+    if (esArchivo(f) && typeof ref === "string" && ref.length > 0) {
+      out.push({ file: f, ref });
+    }
+  });
+  return out;
 }
 
-/** Slug del jardín de la sesión (para la carpeta de Cloudinary y revalidar el muro). */
+/** Refs de imágenes nuevas que aparecen en el contenido. */
+function refsNuevasDelContenido(bloques: ContenidoBorrador): string[] {
+  return bloques.flatMap((b) =>
+    b.tipo === "imagen" && "nuevaRef" in b ? [b.nuevaRef] : [],
+  );
+}
+
+/** Verifica que cada `nuevaRef` del contenido tenga su File y viceversa. */
+function refsCuadran(
+  bloques: ContenidoBorrador,
+  archivos: { ref: string }[],
+): boolean {
+  const enContenido = refsNuevasDelContenido(bloques);
+  const enArchivos = new Set(archivos.map((a) => a.ref));
+  return (
+    enContenido.length === archivos.length &&
+    enContenido.every((r) => enArchivos.has(r))
+  );
+}
+
+/** Sube cada File a Cloudinary y arma las imágenes resueltas para el DAL. */
+async function subirImagenes(
+  archivos: { file: File; ref: string }[],
+  carpeta: string,
+): Promise<ImagenNueva[]> {
+  const imagenes: ImagenNueva[] = [];
+  for (const { file, ref } of archivos) {
+    const { url, publicId } = await subirImagen(file, carpeta);
+    imagenes.push({ nuevaRef: ref, url, publicId });
+  }
+  return imagenes;
+}
+
+/** Slug del jardín de la sesión (carpeta de Cloudinary + revalidar el muro). */
 async function slugDelJardin(jardinId: number): Promise<string> {
   const jardin = await getJardinById(jardinId);
   if (!jardin) throw new NotFoundError();
@@ -105,26 +142,28 @@ export async function crearPublicacion(
     const user = await getAuthenticatedUser();
 
     // Validar ANTES de subir nada a Cloudinary.
-    const parsed = publicacionSchema.safeParse(leerCampos(formData));
+    const parsed = publicacionSchema.safeParse({
+      titulo: formData.get("titulo"),
+      tipo: formData.get("tipo"),
+      contenido: leerBloques(formData),
+    });
     if (!parsed.success) return fail("VALIDATION", primerError(parsed.error));
-    const { titulo, contenido, tipo, imagenes, videosYoutube } = parsed.data;
+    const { titulo, tipo, contenido: bloques } = parsed.data;
+
+    const archivos = leerImagenesNuevas(formData);
+    const files = imagenesSchema.safeParse(archivos.map((a) => a.file));
+    if (!files.success) return fail("VALIDATION", primerError(files.error));
+    if (!refsCuadran(bloques, archivos))
+      return fail("VALIDATION", "Faltan imágenes por adjuntar. Inténtalo de nuevo.");
 
     const slug = await slugDelJardin(user.jardinId);
     const carpeta = `congregacion/${slug}/publicaciones`;
 
-    // Imágenes → Cloudinary → medios IMAGEN (con publicId).
-    const medios: MedioInput[] = [];
-    for (const imagen of imagenes) {
-      const { url, publicId } = await subirImagen(imagen, carpeta);
-      medios.push({ url, publicId, tipo: "IMAGEN", orden: medios.length });
-    }
-    // Videos de YouTube → medios VIDEO (sin publicId).
-    for (const link of videosYoutube) {
-      medios.push({ url: link, publicId: null, tipo: "VIDEO", orden: medios.length });
-    }
+    // Imágenes → Cloudinary → {nuevaRef, url, publicId}.
+    const imagenes = await subirImagenes(archivos, carpeta);
 
-    // Inserta publicación + medios en una transacción (DAL).
-    const pub = await createPublicacion({ titulo, contenido, tipo, medios });
+    // Inserta publicación + medios y resuelve los bloques (DAL, atómico).
+    const pub = await createPublicacion({ titulo, tipo, bloques, imagenes });
 
     revalidatePath("/dashboard");
     revalidatePath(`/pastoral-educativa/${slug}`);
@@ -148,32 +187,34 @@ export async function editarPublicacion(
     // Ownership + estado actual (el DAL lanza Forbidden/NotFound).
     const actual = await getPublicacionById(id);
 
-    // Validar entrada (incluye los ids de medios a quitar).
     const parsed = editarPublicacionSchema.safeParse({
-      ...leerCampos(formData),
-      mediosEliminar: leerMediosEliminar(formData),
+      titulo: formData.get("titulo"),
+      tipo: formData.get("tipo"),
+      contenido: leerBloques(formData),
     });
     if (!parsed.success) return fail("VALIDATION", primerError(parsed.error));
-    const { titulo, contenido, tipo, imagenes, videosYoutube, mediosEliminar } =
-      parsed.data;
+    const { titulo, tipo, contenido: bloques } = parsed.data;
 
-    // Validar el TOTAL por tipo (existentes − eliminadas + nuevas) ANTES de
-    // tocar Cloudinary: no gastar uploads en una operación que va a fallar.
-    const imagenesActuales = actual.medios.filter(
-      (m) => m.tipo === "IMAGEN" && !mediosEliminar.includes(m.id),
-    ).length;
-    const videosActuales = actual.medios.filter(
-      (m) => m.tipo === "VIDEO" && !mediosEliminar.includes(m.id),
-    ).length;
-    if (imagenesActuales + imagenes.length > MAX_IMAGENES)
-      return fail("VALIDATION", `Máximo ${MAX_IMAGENES} fotos por publicación`);
-    if (videosActuales + videosYoutube.length > MAX_VIDEOS)
-      return fail("VALIDATION", `Máximo ${MAX_VIDEOS} videos por publicación`);
+    const archivos = leerImagenesNuevas(formData);
+    const files = imagenesSchema.safeParse(archivos.map((a) => a.file));
+    if (!files.success) return fail("VALIDATION", primerError(files.error));
+    if (!refsCuadran(bloques, archivos))
+      return fail("VALIDATION", "Faltan imágenes por adjuntar. Inténtalo de nuevo.");
+
+    // Medios IMAGEN que el contenido editado ya no referencia → eliminar.
+    const referenciados = new Set(
+      bloques.flatMap((b) =>
+        b.tipo === "imagen" && "medioId" in b ? [b.medioId] : [],
+      ),
+    );
+    const mediosEliminar = actual.medios
+      .filter((m) => m.tipo === "IMAGEN" && !referenciados.has(m.id))
+      .map((m) => m.id);
 
     const slug = await slugDelJardin(user.jardinId);
     const carpeta = `congregacion/${slug}/publicaciones`;
 
-    // Fotos eliminadas → borrarlas de Cloudinary (solo imágenes con publicId).
+    // Fotos quitadas → borrarlas de Cloudinary ANTES de tocar la BD.
     const aQuitar = actual.medios.filter((m) => mediosEliminar.includes(m.id));
     for (const medio of aQuitar) {
       if (medio.tipo === "IMAGEN" && medio.publicId) {
@@ -181,22 +222,14 @@ export async function editarPublicacion(
       }
     }
 
-    // Fotos nuevas y videos nuevos → medios a crear (se añaden al final).
-    const mediosNuevos: MedioInput[] = [];
-    let orden = actual.medios.length;
-    for (const imagen of imagenes) {
-      const { url, publicId } = await subirImagen(imagen, carpeta);
-      mediosNuevos.push({ url, publicId, tipo: "IMAGEN", orden: orden++ });
-    }
-    for (const link of videosYoutube) {
-      mediosNuevos.push({ url: link, publicId: null, tipo: "VIDEO", orden: orden++ });
-    }
+    // Fotos nuevas → Cloudinary.
+    const imagenesNuevas = await subirImagenes(archivos, carpeta);
 
     const pub = await updatePublicacion(id, {
       titulo,
-      contenido,
       tipo,
-      mediosNuevos,
+      bloques,
+      imagenesNuevas,
       mediosEliminar,
     });
 

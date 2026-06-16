@@ -8,17 +8,26 @@
 // revalidan la propiedad antes de tocar nada (defensa en
 // profundidad sobre proxy.ts).
 //
-// El DAL es el dueño de Prisma: la transacción publicación+medios
-// vive aquí. La Server Action solo orquesta Cloudinary y le pasa
-// las URLs ya subidas como datos planos. Todo se devuelve como DTO
-// plano, nunca la entidad Prisma cruda.
+// El contenido es un ARRAY DE BLOQUES (texto/imagen/video, ver
+// types/bloques.ts). Una BloqueImagen referencia un Medio por su
+// id; el DAL inserta primero los Medios de las imágenes nuevas,
+// obtiene sus ids reales y reescribe los bloques borrador a su
+// forma canónica antes de guardarlos. Al leer, el JSON de la BD se
+// valida con zod (no se confía ciegamente en él). Todo se devuelve
+// como DTO plano, nunca la entidad Prisma cruda.
 // ============================================================
 import "server-only";
-import type { TipoPublicacion, TipoMedio } from "@prisma/client";
+import type { TipoPublicacion, TipoMedio, Prisma } from "@prisma/client";
 
 import { db } from "@/lib/db";
 import { getAuthenticatedUser } from "@/lib/dal/session";
-import { ForbiddenError, NotFoundError } from "@/lib/dal/errors";
+import {
+  ForbiddenError,
+  NotFoundError,
+  ValidationError,
+} from "@/lib/dal/errors";
+import { contenidoLecturaSchema } from "@/lib/validations/publicacion";
+import type { Bloque, BloqueBorrador } from "@/types/bloques";
 
 // ---------- DTOs ----------
 
@@ -35,7 +44,7 @@ export interface PublicacionDTO {
   id: number;
   jardinId: number;
   titulo: string;
-  contenido: string;
+  contenido: Bloque[];
   tipo: TipoPublicacion;
   publicado: boolean;
   creadoEn: Date;
@@ -43,36 +52,36 @@ export interface PublicacionDTO {
   medios: MedioDTO[];
 }
 
-// ---------- Entradas (datos planos, sin archivos) ----------
+// ---------- Entradas ----------
 
-/** Un medio ya resuelto: imagen subida a Cloudinary o link de YouTube. */
-export interface MedioInput {
+/** Una imagen ya subida a Cloudinary, lista para insertarse como Medio. */
+export interface ImagenNueva {
+  /** Clave temporal con que el bloque borrador la referencia. */
+  nuevaRef: string;
   url: string;
-  /** public_id de Cloudinary para imágenes; null/omitido en videos. */
-  publicId?: string | null;
-  tipo: TipoMedio;
-  orden: number;
+  publicId: string;
 }
 
 export interface CreatePublicacionData {
   titulo: string;
-  contenido: string;
   tipo: TipoPublicacion;
-  medios: MedioInput[];
+  /** Bloques en formato borrador (las imágenes nuevas usan `nuevaRef`). */
+  bloques: BloqueBorrador[];
+  /** Imágenes nuevas ya subidas a Cloudinary. */
+  imagenes: ImagenNueva[];
 }
 
 export interface UpdatePublicacionData {
   titulo: string;
-  contenido: string;
   tipo: TipoPublicacion;
-  /** Medios a crear (imágenes nuevas ya subidas o videos añadidos). */
-  mediosNuevos: MedioInput[];
-  /** Ids de medios existentes a eliminar (la action ya los borró de Cloudinary). */
+  bloques: BloqueBorrador[];
+  /** Imágenes nuevas ya subidas a Cloudinary. */
+  imagenesNuevas: ImagenNueva[];
+  /** Ids de Medios existentes a eliminar (la action ya los borró de Cloudinary). */
   mediosEliminar: number[];
 }
 
-// Forma única expuesta al exterior. Calca PublicacionDTO para que
-// Prisma devuelva ya el DTO sin mapeo manual.
+// Forma única expuesta al exterior. `contenido` se castea aparte (Json → Bloque[]).
 const publicacionSelect = {
   id: true,
   jardinId: true,
@@ -88,6 +97,56 @@ const publicacionSelect = {
   },
 } as const;
 
+type PublicacionRow = Prisma.PublicacionGetPayload<{
+  select: typeof publicacionSelect;
+}>;
+
+// ---------- Helpers ----------
+
+/**
+ * Mapea la fila de Prisma a DTO validando el JSON de `contenido` con
+ * zod. Si por algún dato corrupto no casa la estructura, devuelve un
+ * contenido vacío en vez de romper la lectura (no se confía ciegamente
+ * en el JSON de la BD).
+ */
+function aDTO(row: PublicacionRow): PublicacionDTO {
+  const parsed = contenidoLecturaSchema.safeParse(row.contenido);
+  return { ...row, contenido: parsed.success ? parsed.data : [] };
+}
+
+/**
+ * Reescribe los bloques borrador a su forma canónica:
+ *   · imagen con `nuevaRef` → `medioId` real (del map ref→id)
+ *   · imagen con `medioId`   → se conserva, pero DEBE pertenecer a
+ *     esta publicación (defensa: el cliente no referencia un Medio ajeno)
+ *   · texto / video          → sin cambios
+ */
+function resolverBloques(
+  bloques: BloqueBorrador[],
+  refAId: Map<string, number>,
+  mediosValidos: Set<number>,
+): Bloque[] {
+  return bloques.map((b) => {
+    if (b.tipo !== "imagen") return b;
+    if ("nuevaRef" in b) {
+      const id = refAId.get(b.nuevaRef);
+      if (id == null) {
+        throw new ValidationError("Falta subir una imagen del contenido");
+      }
+      return { tipo: "imagen", medioId: id };
+    }
+    // Imagen existente: solo válida si es un Medio de ESTA publicación.
+    if (!mediosValidos.has(b.medioId)) throw new ForbiddenError();
+    return { tipo: "imagen", medioId: b.medioId };
+  });
+}
+
+// Prisma no acepta tipos de objeto concretos donde espera Json de
+// entrada; el cast lo trata como JSON plano (lo es).
+function comoJson(bloques: Bloque[]): Prisma.InputJsonValue {
+  return bloques as unknown as Prisma.InputJsonValue;
+}
+
 // ============================================================
 // LECTURAS
 // ============================================================
@@ -98,25 +157,54 @@ const publicacionSelect = {
  */
 export async function getPublicaciones(): Promise<PublicacionDTO[]> {
   const user = await getAuthenticatedUser();
-  return db.publicacion.findMany({
+  const rows = await db.publicacion.findMany({
     where: { jardinId: user.jardinId },
     orderBy: { creadoEn: "desc" },
     select: publicacionSelect,
   });
+  return rows.map(aDTO);
 }
 
 /**
  * CU-02 · Muro PÚBLICO de un jardín. Sin sesión: el jardinId llega
- * desde el slug de la ruta pública. Solo publicaciones visibles.
+ * desde el slug de la ruta pública. Solo publicaciones visibles
+ * (`publicado = true`), de la más reciente a la más antigua.
+ *
+ * Filtros opcionales:
+ *   · `tipo`  → restringe al tipo (noticias/eventos/avisos del muro).
+ *   · `limit` → recorta el número de filas (p. ej. las 3 más recientes
+ *     para el inicio del jardín).
  */
 export async function getPublicacionesPublicas(
   jardinId: number,
+  tipo?: TipoPublicacion,
+  limit?: number,
 ): Promise<PublicacionDTO[]> {
-  return db.publicacion.findMany({
-    where: { jardinId, publicado: true },
+  const rows = await db.publicacion.findMany({
+    where: { jardinId, publicado: true, ...(tipo ? { tipo } : {}) },
     orderBy: { creadoEn: "desc" },
+    ...(limit ? { take: limit } : {}),
     select: publicacionSelect,
   });
+  return rows.map(aDTO);
+}
+
+/**
+ * CU-03 · Detalle PÚBLICO de una publicación. Sin sesión: el jardinId
+ * llega desde el slug de la ruta pública. Filtra por id + jardinId +
+ * `publicado = true`, de modo que una publicación de otro jardín o aún
+ * en borrador NO se revela. Devuelve null si no existe (la ruta hará
+ * 404), sin distinguir "no existe" de "no es público".
+ */
+export async function getPublicacionPublicaById(
+  id: number,
+  jardinId: number,
+): Promise<PublicacionDTO | null> {
+  const pub = await db.publicacion.findFirst({
+    where: { id, jardinId, publicado: true },
+    select: publicacionSelect,
+  });
+  return pub ? aDTO(pub) : null;
 }
 
 /**
@@ -134,7 +222,7 @@ export async function getPublicacionById(id: number): Promise<PublicacionDTO> {
   if (!pub) throw new NotFoundError();
   if (pub.jardinId !== user.jardinId) throw new ForbiddenError();
 
-  return pub;
+  return aDTO(pub);
 }
 
 // ============================================================
@@ -143,40 +231,67 @@ export async function getPublicacionById(id: number): Promise<PublicacionDTO> {
 
 /**
  * CU-06 · Crear. El jardinId y la autoría salen SIEMPRE de la
- * sesión, jamás de la entrada. La publicación y sus medios se
- * insertan de forma atómica (nested create = una transacción).
+ * sesión, jamás de la entrada. En una transacción: inserta la
+ * publicación, crea los Medios de las imágenes (para obtener sus ids),
+ * resuelve los bloques y guarda el contenido ya canónico.
  */
 export async function createPublicacion(
   data: CreatePublicacionData,
 ): Promise<PublicacionDTO> {
   const user = await getAuthenticatedUser();
 
-  return db.publicacion.create({
-    data: {
-      jardinId: user.jardinId,
-      usuarioId: Number(user.id),
-      titulo: data.titulo,
-      contenido: data.contenido,
-      tipo: data.tipo,
-      medios: data.medios.length
-        ? {
-            create: data.medios.map((m) => ({
-              url: m.url,
-              publicId: m.publicId ?? null,
-              tipo: m.tipo,
-              orden: m.orden,
-            })),
-          }
-        : undefined,
-    },
-    select: publicacionSelect,
+  const row = await db.$transaction(async (tx) => {
+    // 1. Publicación con contenido placeholder (necesitamos su id para
+    //    poder colgar los Medios antes de resolver los bloques).
+    const pub = await tx.publicacion.create({
+      data: {
+        jardinId: user.jardinId,
+        usuarioId: Number(user.id),
+        titulo: data.titulo,
+        tipo: data.tipo,
+        contenido: comoJson([]),
+      },
+      select: { id: true },
+    });
+
+    // 2. Medios de las imágenes nuevas → mapa ref → id real.
+    const refAId = new Map<string, number>();
+    let orden = 0;
+    for (const img of data.imagenes) {
+      const medio = await tx.medio.create({
+        data: {
+          publicacionId: pub.id,
+          url: img.url,
+          publicId: img.publicId,
+          tipo: "IMAGEN",
+          orden: orden++,
+        },
+        select: { id: true },
+      });
+      refAId.set(img.nuevaRef, medio.id);
+    }
+
+    // 3. Resuelve bloques y guarda el contenido definitivo.
+    const contenido = resolverBloques(
+      data.bloques,
+      refAId,
+      new Set(refAId.values()),
+    );
+    return tx.publicacion.update({
+      where: { id: pub.id },
+      data: { contenido: comoJson(contenido) },
+      select: publicacionSelect,
+    });
   });
+
+  return aDTO(row);
 }
 
 /**
- * CU-08 · Editar. Revalida propiedad ANTES de tocar nada. Borra los
- * medios marcados, crea los nuevos y actualiza el texto +
- * actualizadoEn, todo en una transacción.
+ * CU-08 · Editar. Revalida propiedad ANTES de tocar nada. En una
+ * transacción: borra los Medios marcados, crea los nuevos, resuelve
+ * los bloques (los medioId existentes deben seguir siendo de esta
+ * publicación) y actualiza texto + contenido + actualizadoEn.
  */
 export async function updatePublicacion(
   id: number,
@@ -186,40 +301,58 @@ export async function updatePublicacion(
 
   const existing = await db.publicacion.findUnique({
     where: { id },
-    select: { jardinId: true },
+    select: { jardinId: true, medios: { select: { id: true } } },
   });
   if (!existing) throw new NotFoundError();
   if (existing.jardinId !== user.jardinId) throw new ForbiddenError();
 
-  return db.$transaction(async (tx) => {
+  const row = await db.$transaction(async (tx) => {
     if (data.mediosEliminar.length) {
-      // publicacionId en el filtro: nunca borrar medios de otra fila.
+      // publicacionId en el filtro: nunca borrar Medios de otra fila.
       await tx.medio.deleteMany({
         where: { id: { in: data.mediosEliminar }, publicacionId: id },
       });
     }
 
+    // Medios que sobreviven al borrado (válidos para referenciar).
+    const sobreviven = new Set(
+      existing.medios
+        .map((m) => m.id)
+        .filter((mid) => !data.mediosEliminar.includes(mid)),
+    );
+
+    // Imágenes nuevas → Medios → mapa ref → id real.
+    const refAId = new Map<string, number>();
+    let orden = sobreviven.size;
+    for (const img of data.imagenesNuevas) {
+      const medio = await tx.medio.create({
+        data: {
+          publicacionId: id,
+          url: img.url,
+          publicId: img.publicId,
+          tipo: "IMAGEN",
+          orden: orden++,
+        },
+        select: { id: true },
+      });
+      refAId.set(img.nuevaRef, medio.id);
+      sobreviven.add(medio.id);
+    }
+
+    const contenido = resolverBloques(data.bloques, refAId, sobreviven);
     return tx.publicacion.update({
       where: { id },
       data: {
         titulo: data.titulo,
-        contenido: data.contenido,
         tipo: data.tipo,
         actualizadoEn: new Date(),
-        medios: data.mediosNuevos.length
-          ? {
-              create: data.mediosNuevos.map((m) => ({
-                url: m.url,
-                publicId: m.publicId ?? null,
-                tipo: m.tipo,
-                orden: m.orden,
-              })),
-            }
-          : undefined,
+        contenido: comoJson(contenido),
       },
       select: publicacionSelect,
     });
   });
+
+  return aDTO(row);
 }
 
 /**
