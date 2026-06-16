@@ -185,18 +185,14 @@ export default async function InicioJardin({
         </div>
       </header>
 
-      {/* ── MEJORA 2 · Carrusel fijo (sticky) para el efecto parallax ── */}
-      <div className="sticky top-0 z-0">
-        <CarruselJardin
-          slides={slides}
-          colorPrimario={jardin.colorPrimario}
-          nombreJardin={jardin.nombre}
-        />
-      </div>
+      {/* ── MEJORA 2 · Carrusel con parallax real (ver CarruselJardin) ── */}
+      <CarruselJardin
+        slides={slides}
+        colorPrimario={jardin.colorPrimario}
+        nombreJardin={jardin.nombre}
+      />
 
-      {/* Contenido que sube por encima del carrusel (fondo crema sólido) */}
-      <div className="relative z-10 bg-crema">
-        {/* BIENVENIDA */}
+      {/* BIENVENIDA */}
       <section className="mx-auto max-w-3xl px-6 py-14 text-center md:py-16">
         <p
           className="text-sm font-semibold uppercase tracking-widest"
@@ -290,7 +286,6 @@ export default async function InicioJardin({
           ))}
         </div>
       </section>
-      </div>
     </div>
   );
 }
