@@ -44,8 +44,8 @@ function Galeria({ fotos }: { fotos: { id: number; url: string }[] }) {
             fill
             sizes={
               fotos.length === 1
-                ? "(min-width: 768px) 42rem, 100vw"
-                : "(min-width: 768px) 21rem, 50vw"
+                ? "(min-width: 1024px) 56rem, 100vw"
+                : "(min-width: 1024px) 28rem, 50vw"
             }
             loading="lazy"
             className="object-cover"
@@ -143,7 +143,7 @@ export default async function DetallePublicacion({
   const muroHref = `/pastoral-educativa/${jardin.slug}/publicaciones/${info.slug}`;
 
   return (
-    <div className="font-texto mx-auto max-w-2xl px-6 py-10 md:py-14">
+    <div className="font-texto mx-auto max-w-4xl px-6 py-10 md:py-14">
       {/* Breadcrumb */}
       <nav className="text-sm text-marron-suave">
         <Link href={muroHref} className="transition-colors hover:text-marron">

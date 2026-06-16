@@ -2,8 +2,8 @@
 // app/(public)/pastoral-educativa/[jardin]/page.tsx
 // CU-02 · Inicio del micro-sitio de cada jardín. SERVER COMPONENT.
 //
-// Hero temático (colores leídos de la BD), bienvenida, las 3
-// publicaciones más recientes y los rasgos que distinguen al jardín.
+// Carrusel de fotografías (nombre + slogan fuera de él), bienvenida,
+// las 3 publicaciones más recientes y los rasgos que distinguen al jardín.
 // El layout ya validó el jardín y tematizó el subárbol; aquí se
 // vuelve a leer por slug para disponer de sus datos.
 // ============================================================
@@ -14,6 +14,42 @@ import { Heart, Users, TreePine, ArrowRight } from "lucide-react";
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { getPublicacionesPublicas } from "@/lib/dal/publicaciones";
 import TarjetaPublicacion from "@/components/public/TarjetaPublicacion";
+import CarruselJardin, {
+  type SlideCarrusel,
+} from "@/components/public/CarruselJardin";
+
+// Fotografías por jardín (archivos en public/images/).
+const IMAGENES_JARDIN: Record<string, string[]> = {
+  "la-paz": ["/images/lapaz3.jpeg", "/images/paz.jpeg", "/images/paz2.jpg"],
+  porvenir: [
+    "/images/porvenir1.jpeg",
+    "/images/porvenir2.jpeg",
+    "/images/porvenir3.jpeg",
+  ],
+};
+
+// Contenido estático de cada slide (genérico para un jardín de niños
+// franciscano); las imágenes cambian por jardín.
+const SLIDES_CONTENIDO: Omit<SlideCarrusel, "src">[] = [
+  {
+    categoria: "Nuestro jardín",
+    titulo: "Un hogar donde crecer felices",
+    descripcion:
+      "Un espacio seguro y alegre para los primeros pasos de tu hija o hijo.",
+  },
+  {
+    categoria: "Aprender jugando",
+    titulo: "Descubrir el mundo con asombro",
+    descripcion:
+      "Cada día es una aventura de juego, arte y exploración llena de cariño.",
+  },
+  {
+    categoria: "Valores franciscanos",
+    titulo: "Sembrar amor y fraternidad",
+    descripcion:
+      "Educamos el corazón con los valores del Evangelio y el amor a la creación.",
+  },
+];
 
 const RASGOS = [
   {
@@ -36,6 +72,56 @@ const RASGOS = [
   },
 ];
 
+// Slogan por jardín (estático). Fallback a la descripción de la BD.
+const SLOGANS: Record<string, string> = {
+  "la-paz": "Sembrando paz, amor y valores desde la infancia",
+  porvenir: "Construyendo el futuro con alegría y fe",
+};
+
+// Nube decorativa (SVG inline). El color/opacidad se controlan por
+// className (text-white opacity-…).
+function Nube({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 70" fill="currentColor" aria-hidden className={className}>
+      <ellipse cx="40" cy="46" rx="30" ry="20" />
+      <ellipse cx="66" cy="38" rx="30" ry="24" />
+      <ellipse cx="90" cy="48" rx="22" ry="16" />
+      <rect x="28" y="44" width="68" height="24" rx="12" />
+    </svg>
+  );
+}
+
+// Ícono representativo del jardín: paloma (La Paz) o estrella (Porvenir).
+// Toma el color del jardín de la CSS var inyectada por el layout.
+function IconoJardin({ slug, className }: { slug: string; className?: string }) {
+  const color = { color: "var(--jardin-primario)" };
+  if (slug === "porvenir") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden
+        className={className}
+        style={color}
+      >
+        <path d="M12 2.6l2.7 5.9 6.4.6-4.8 4.3 1.4 6.3L12 16.9 6.3 19.7l1.4-6.3L2.9 9.1l6.4-.6z" />
+      </svg>
+    );
+  }
+  // La Paz (y por defecto): paloma en vuelo.
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      fill="currentColor"
+      aria-hidden
+      className={className}
+      style={color}
+    >
+      <path d="M4 36C16 18 28 18 32 32 36 18 48 18 60 36 46 30 36 33 32 40 28 33 18 30 4 36Z" />
+    </svg>
+  );
+}
+
 export default async function InicioJardin({
   params,
 }: {
@@ -47,42 +133,70 @@ export default async function InicioJardin({
 
   const recientes = await getPublicacionesPublicas(jardin.id, undefined, 3);
 
+  // Arma los slides combinando el contenido estático con las fotos del
+  // jardín. Si hubiera menos fotos que slides, se repiten (mín. 3).
+  const imagenes = IMAGENES_JARDIN[jardin.slug] ?? [];
+  const slides: SlideCarrusel[] = imagenes.length
+    ? SLIDES_CONTENIDO.map((c, i) => ({
+        ...c,
+        src: imagenes[i % imagenes.length],
+      }))
+    : [];
+
+  const slogan = SLOGANS[jardin.slug] ?? jardin.descripcion ?? "";
+
   return (
     <div className="font-texto">
-      {/* HERO temático */}
-      <section
-        className="relative overflow-hidden px-6 py-16 md:py-20"
-        style={{
-          backgroundImage: `linear-gradient(135deg, ${jardin.colorPrimario}, ${jardin.colorSecundario})`,
-        }}
-      >
-        {/* Vignette: asegura contraste del texto blanco en cualquier tema */}
+      {/* ── MEJORA 1 · Cabecera con toque de color del jardín y nubes ── */}
+      <header className="relative overflow-hidden bg-crema py-12">
+        {/* Toque suave (8%) del color primario sobre el crema */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(75% 65% at 50% 45%, rgba(22,16,11,0.28), transparent 72%)",
-          }}
+          style={{ backgroundColor: `${jardin.colorPrimario}14` }}
         />
-        <div className="relative mx-auto max-w-3xl text-center text-white">
-          {jardin.ciudad && (
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/90">
-              {jardin.ciudad}
-            </p>
-          )}
-          <h1 className="font-titulo mt-3 text-4xl font-extrabold drop-shadow-sm md:text-5xl">
+
+        {/* Nubes decorativas (las grandes se ocultan en móvil) */}
+        <Nube className="absolute -left-4 top-6 w-24 text-white opacity-70 sm:w-32" />
+        <Nube className="absolute right-6 top-3 hidden text-white opacity-60 md:block md:w-56" />
+        <Nube className="absolute bottom-1 left-1/4 hidden w-40 text-white opacity-60 md:block" />
+        <Nube className="absolute -bottom-3 right-0 w-28 text-white opacity-70 sm:w-44" />
+
+        {/* Contenido centrado sobre las nubes */}
+        <div className="relative mx-auto max-w-3xl px-6 text-center">
+          <IconoJardin slug={jardin.slug} className="mx-auto h-12 w-12" />
+          <p
+            className="mt-3 text-xs font-semibold uppercase tracking-[0.22em]"
+            style={{ color: `${jardin.colorPrimario}99` }}
+          >
+            Jardín de niños
+          </p>
+          <h1
+            className="font-titulo mt-1 text-4xl font-extrabold md:text-5xl"
+            style={{ color: "var(--jardin-primario)" }}
+          >
             {jardin.nombre}
           </h1>
-          {jardin.descripcion && (
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/90">
-              {jardin.descripcion}
+          {slogan && (
+            <p className="mx-auto mt-3 max-w-xl text-lg text-marron-suave">
+              {slogan}
             </p>
           )}
         </div>
-      </section>
+      </header>
 
-      {/* BIENVENIDA */}
+      {/* ── MEJORA 2 · Carrusel fijo (sticky) para el efecto parallax ── */}
+      <div className="sticky top-0 z-0">
+        <CarruselJardin
+          slides={slides}
+          colorPrimario={jardin.colorPrimario}
+          nombreJardin={jardin.nombre}
+        />
+      </div>
+
+      {/* Contenido que sube por encima del carrusel (fondo crema sólido) */}
+      <div className="relative z-10 bg-crema">
+        {/* BIENVENIDA */}
       <section className="mx-auto max-w-3xl px-6 py-14 text-center md:py-16">
         <p
           className="text-sm font-semibold uppercase tracking-widest"
@@ -176,6 +290,7 @@ export default async function InicioJardin({
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 }

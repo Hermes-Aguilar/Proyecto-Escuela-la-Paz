@@ -74,7 +74,7 @@ function Galeria({ fotos }: { fotos: { id: number; url: string }[] }) {
             src={foto.url}
             alt=""
             fill
-            sizes={fotos.length === 1 ? "(min-width: 768px) 42rem, 100vw" : "(min-width: 640px) 33vw, 50vw"}
+            sizes={fotos.length === 1 ? "(min-width: 1024px) 56rem, 100vw" : "(min-width: 640px) 33vw, 50vw"}
             loading="lazy"
             className="object-cover transition group-hover:brightness-95"
           />
@@ -197,7 +197,7 @@ export default async function VerPublicacionPage({
               "linear-gradient(to right, var(--primario), var(--secundario))",
           }}
         />
-        <div className="mx-auto max-w-2xl px-4 py-5 md:px-6">
+        <div className="mx-auto max-w-4xl px-4 py-5 md:px-6">
           <Link
             href="/dashboard"
             className="text-sm font-medium text-marron-suave transition hover:text-marron"
@@ -216,7 +216,7 @@ export default async function VerPublicacionPage({
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-4 py-8 md:px-6">
+      <main className="mx-auto max-w-4xl px-4 py-8 md:px-6">
         <article className="overflow-hidden rounded-2xl border border-arena bg-white shadow-sm">
           <div className="flex flex-col gap-5 p-5 md:p-8">
             {/* Tipo + estado */}
