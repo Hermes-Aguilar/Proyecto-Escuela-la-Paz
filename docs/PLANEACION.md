@@ -160,14 +160,30 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 - [ ] Modal de confirmación al borrar
 - [ ] Estados de carga y error en la UI
 
-**Semana 5 — Portal público (frontend):**
-- [ ] Página de jardín `[jardin]` con tema por colores de BD
-      ⚠️ `app/(public)/pastoral-educativa/[jardin]/page.tsx` tiene errores
-      de tsc preexistentes (módulo `../jardines`, parámetros `any`,
-      `FaMusicNote` de `react-icons`) — corregirlos como parte de construir
-      esta página, no antes.
-- [ ] Muro de noticias + detalle de noticia (galería + embeds YouTube)
-- [ ] Lazy loading de imágenes, mobile-first
+**Semana 5 — Portal público (frontend): 🚧 EN PROGRESO**
+- [x] Micro-sitio por jardín con menú lateral fijo (desktop) + drawer móvil
+      (`components/public/SidebarJardin.tsx`) y tema por colores de BD
+      inyectado como CSS vars (`--jardin-primario`/`--jardin-secundario`)
+      en `layout.tsx` (Server Component: `getJardinBySlug` → `notFound`).
+      Corregidos los errores de tsc preexistentes (se reemplazó el viejo
+      `page.tsx` que importaba `../jardines` y usaba `react-icons`).
+- [x] Inicio del jardín (`page.tsx`): hero temático, bienvenida, 3
+      publicaciones más recientes y "Lo que nos hace únicos".
+- [x] Páginas estáticas: Quiénes somos (+ ancla `#mision`), Nuestro equipo
+      (avatares con iniciales en el color del jardín) y Oferta educativa
+      (`#niveles` / `#actividades`).
+- [x] Muro público por tipo (`publicaciones/[tipo]`: noticias/eventos/avisos,
+      slug→enum, 404 si inválido) con `getPublicacionesPublicas(jardinId,
+      tipo?, limit?)` y tarjeta compartida `TarjetaPublicacion`.
+- [x] CU-03 · Detalle de publicación (`publicaciones/[tipo]/[id]`):
+      `getPublicacionPublicaById(id, jardinId)` (filtra `publicado=true` +
+      `jardinId`), render por bloques (texto/imagen en grid/embeds YouTube),
+      lazy loading de imágenes, breadcrumb y "Volver".
+- [x] CU-04 · Contacto del jardín: datos y redes desde la BD + formulario
+      client (`FormularioContacto`) que consume `enviarMensaje(slug, …)`
+      (ok → confirmación verde; VALIDATION → campos en rojo; INTERNAL →
+      error general).
+- [x] Lazy loading de imágenes (`next/image loading="lazy"`), mobile-first.
 
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración

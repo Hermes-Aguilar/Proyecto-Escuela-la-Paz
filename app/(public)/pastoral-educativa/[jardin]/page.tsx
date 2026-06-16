@@ -1,42 +1,60 @@
+// ============================================================
+// app/(public)/pastoral-educativa/[jardin]/page.tsx
+// CU-02 · Inicio del micro-sitio de cada jardín. SERVER COMPONENT.
+//
+// Hero temático (colores leídos de la BD), bienvenida, las 3
+// publicaciones más recientes y los rasgos que distinguen al jardín.
+// El layout ya validó el jardín y tematizó el subárbol; aquí se
+// vuelve a leer por slug para disponer de sus datos.
+// ============================================================
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getJardin, jardines } from "../jardines";
+import { Heart, Users, TreePine, ArrowRight } from "lucide-react";
 
-export function generateStaticParams() {
-  return jardines.map((j) => ({ jardin: j.slug }));
-}
+import { getJardinBySlug } from "@/lib/dal/jardines";
+import { getPublicacionesPublicas } from "@/lib/dal/publicaciones";
+import TarjetaPublicacion from "@/components/public/TarjetaPublicacion";
 
-export async function generateMetadata({
+const RASGOS = [
+  {
+    icon: Heart,
+    titulo: "Amor",
+    texto:
+      "Cada niña y niño es acompañado con ternura y cercanía, al estilo de San Francisco.",
+  },
+  {
+    icon: Users,
+    titulo: "Comunidad",
+    texto:
+      "Familias, maestras y niños caminamos juntos como una sola fraternidad.",
+  },
+  {
+    icon: TreePine,
+    titulo: "Naturaleza",
+    texto:
+      "Aprendemos a cuidar la creación: huerto, juego al aire libre y respeto por la vida.",
+  },
+];
+
+export default async function InicioJardin({
   params,
 }: {
   params: Promise<{ jardin: string }>;
 }) {
-  const { jardin } = await params;
-  const data = getJardin(jardin);
-  if (!data) return { title: "Jardín no encontrado" };
-  return {
-    title: `${data.nombre} | Pastoral Educativa`,
-    description: data.resumen,
-  };
-}
+  const { jardin: slug } = await params;
+  const jardin = await getJardinBySlug(slug);
+  if (!jardin) notFound();
 
-export default async function JardinPage({
-  params,
-}: {
-  params: Promise<{ jardin: string }>;
-}) {
-  const { jardin } = await params;
-  const data = getJardin(jardin);
-  if (!data) notFound();
-
-  const { tema } = data;
+  const recientes = await getPublicacionesPublicas(jardin.id, undefined, 3);
 
   return (
-    <>
-      {/* Hero temático */}
+    <div className="font-texto">
+      {/* HERO temático */}
       <section
-        className="relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${tema.marca}, ${tema.acento})` }}
+        className="relative overflow-hidden px-6 py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(135deg, ${jardin.colorPrimario}, ${jardin.colorSecundario})`,
+        }}
       >
         {/* Vignette: asegura contraste del texto blanco en cualquier tema */}
         <div
@@ -44,123 +62,118 @@ export default async function JardinPage({
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(70% 60% at 50% 45%, rgba(22,16,11,0.34), transparent 72%)",
+              "radial-gradient(75% 65% at 50% 45%, rgba(22,16,11,0.28), transparent 72%)",
           }}
         />
-        <div className="relative mx-auto max-w-4xl px-6 py-24 text-center">
-          <Link
-            href="/pastoral-educativa"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 transition-colors hover:text-white"
-          >
-            ← Pastoral Educativa
-          </Link>
-          <h1 className="mt-6 font-titulo text-4xl font-medium text-white drop-shadow-sm sm:text-6xl">
-            {data.nombre}
+        <div className="relative mx-auto max-w-3xl text-center text-white">
+          {jardin.ciudad && (
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/90">
+              {jardin.ciudad}
+            </p>
+          )}
+          <h1 className="font-titulo mt-3 text-4xl font-extrabold drop-shadow-sm md:text-5xl">
+            {jardin.nombre}
           </h1>
-          <p className="mt-4 font-titulo text-lg italic text-white/95 sm:text-2xl">
-            {data.lema}
-          </p>
+          {jardin.descripcion && (
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/90">
+              {jardin.descripcion}
+            </p>
+          )}
         </div>
-        {/* Arcada base */}
-        <svg
-          viewBox="0 0 1200 50"
-          preserveAspectRatio="none"
-          className="relative block h-8 w-full"
-          style={{ color: tema.superficie }}
-          aria-hidden="true"
+      </section>
+
+      {/* BIENVENIDA */}
+      <section className="mx-auto max-w-3xl px-6 py-14 text-center md:py-16">
+        <p
+          className="text-sm font-semibold uppercase tracking-widest"
+          style={{ color: "var(--jardin-primario)" }}
         >
-          {Array.from({ length: 10 }).map((_, i) => (
-            <path key={i} d={`M${i * 120} 50 V28 a60 48 0 0 1 120 0 V50 Z`} fill="currentColor" />
-          ))}
-        </svg>
+          Bienvenida
+        </p>
+        <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
+          Un lugar para crecer felices
+        </h2>
+        <p className="mt-5 text-base leading-relaxed text-marron-suave">
+          En {jardin.nombre} cada día es una oportunidad para descubrir, jugar y
+          aprender. Acompañamos los primeros pasos de tu hija o hijo en un
+          ambiente seguro, alegre y lleno de valores, donde la fe, el cariño y el
+          respeto por los demás guían todo lo que hacemos.
+        </p>
       </section>
 
-      {/* Descripción */}
-      <section style={{ backgroundColor: tema.superficie }}>
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.28em]"
-            style={{ color: tema.texto }}
-          >
-            El jardín
-          </p>
-          <p className="mt-5 font-titulo text-2xl leading-snug text-[var(--tinta)] sm:text-3xl">
-            {data.descripcion}
-          </p>
-        </div>
-      </section>
-
-      {/* Niveles + Valores */}
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-5xl gap-10 px-6 py-20 md:grid-cols-2">
-          <div>
-            <h2 className="font-titulo text-2xl text-[var(--tinta)]">Niveles que ofrecemos</h2>
-            <ul className="mt-6 space-y-3">
-              {data.niveles.map((n) => (
-                <li
-                  key={n}
-                  className="flex items-center gap-3 rounded-xl border border-[var(--linea)] px-5 py-4"
-                >
-                  <span
-                    className="flex h-8 w-8 shrink-0 items-center justify-center u-arco-sm text-sm font-semibold text-white"
-                    style={{ background: tema.solido }}
-                  >
-                    ✓
-                  </span>
-                  <span className="text-[0.95rem] text-[var(--tinta)]">{n}</span>
-                </li>
-              ))}
-            </ul>
+      {/* ÚLTIMAS PUBLICACIONES */}
+      <section className="bg-white/60 px-6 py-14 md:py-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
+            <div>
+              <p
+                className="text-sm font-semibold uppercase tracking-widest"
+                style={{ color: "var(--jardin-primario)" }}
+              >
+                Lo más reciente
+              </p>
+              <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
+                Novedades del jardín
+              </h2>
+            </div>
+            <Link
+              href={`/pastoral-educativa/${jardin.slug}/publicaciones/noticias`}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:gap-2.5"
+              style={{ color: "var(--jardin-primario)" }}
+            >
+              Ver todas <ArrowRight size={16} />
+            </Link>
           </div>
 
-          <div>
-            <h2 className="font-titulo text-2xl text-[var(--tinta)]">Nuestros valores</h2>
-            <ul className="mt-6 flex flex-wrap gap-2.5">
-              {data.valores.map((v) => (
-                <li
-                  key={v}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
-                  style={{ background: tema.superficie, color: tema.texto }}
-                >
-                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: tema.solido }} />
-                  {v}
-                </li>
-              ))}
-            </ul>
-
-            {/* Paleta del jardín */}
-            <h3 className="mt-10 font-titulo text-lg text-[var(--tinta)]">Identidad de color</h3>
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              {tema.swatches.map((s) => (
-                <div key={s.n}>
-                  <div
-                    className="h-16 w-full rounded-xl border border-black/5"
-                    style={{ background: s.c }}
-                  />
-                  <p className="mt-2 text-xs font-medium text-[var(--tinta)]">{s.n}</p>
-                  <p className="text-[0.7rem] uppercase text-[var(--tinta-suave)]">{s.c}</p>
-                </div>
+          {recientes.length === 0 ? (
+            <p className="mt-8 rounded-2xl border border-dashed border-arena bg-white px-6 py-12 text-center text-marron-suave">
+              Aún no hay publicaciones. ¡Vuelve pronto para conocer nuestras
+              novedades!
+            </p>
+          ) : (
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {recientes.map((pub) => (
+                <TarjetaPublicacion
+                  key={pub.id}
+                  pub={pub}
+                  slugJardin={jardin.slug}
+                />
               ))}
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ background: tema.solido }}>
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 px-6 py-12 text-center sm:flex-row sm:text-left">
-          <p className="font-titulo text-2xl text-white sm:text-3xl">
-            ¿Te gustaría conocer {data.nombre}?
-          </p>
-          <Link
-            href="/contacto"
-            className="shrink-0 rounded-full bg-white px-7 py-3.5 text-sm font-semibold transition-transform hover:-translate-y-0.5"
-            style={{ color: tema.texto }}
-          >
-            Solicitar información
-          </Link>
+      {/* LO QUE NOS HACE ÚNICOS */}
+      <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
+        <h2 className="font-titulo text-center text-2xl font-bold text-marron md:text-3xl">
+          Lo que nos hace únicos
+        </h2>
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {RASGOS.map(({ icon: Icono, titulo, texto }) => (
+            <div
+              key={titulo}
+              className="flex flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm"
+            >
+              <span
+                className="flex h-14 w-14 items-center justify-center rounded-full"
+                style={{
+                  backgroundColor: `${jardin.colorPrimario}1A`,
+                  color: jardin.colorPrimario,
+                }}
+              >
+                <Icono size={26} />
+              </span>
+              <h3 className="font-titulo mt-4 text-lg font-bold text-marron">
+                {titulo}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-marron-suave">
+                {texto}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }

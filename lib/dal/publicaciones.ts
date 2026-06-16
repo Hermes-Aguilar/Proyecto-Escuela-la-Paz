@@ -167,17 +167,44 @@ export async function getPublicaciones(): Promise<PublicacionDTO[]> {
 
 /**
  * CU-02 · Muro PÚBLICO de un jardín. Sin sesión: el jardinId llega
- * desde el slug de la ruta pública. Solo publicaciones visibles.
+ * desde el slug de la ruta pública. Solo publicaciones visibles
+ * (`publicado = true`), de la más reciente a la más antigua.
+ *
+ * Filtros opcionales:
+ *   · `tipo`  → restringe al tipo (noticias/eventos/avisos del muro).
+ *   · `limit` → recorta el número de filas (p. ej. las 3 más recientes
+ *     para el inicio del jardín).
  */
 export async function getPublicacionesPublicas(
   jardinId: number,
+  tipo?: TipoPublicacion,
+  limit?: number,
 ): Promise<PublicacionDTO[]> {
   const rows = await db.publicacion.findMany({
-    where: { jardinId, publicado: true },
+    where: { jardinId, publicado: true, ...(tipo ? { tipo } : {}) },
     orderBy: { creadoEn: "desc" },
+    ...(limit ? { take: limit } : {}),
     select: publicacionSelect,
   });
   return rows.map(aDTO);
+}
+
+/**
+ * CU-03 · Detalle PÚBLICO de una publicación. Sin sesión: el jardinId
+ * llega desde el slug de la ruta pública. Filtra por id + jardinId +
+ * `publicado = true`, de modo que una publicación de otro jardín o aún
+ * en borrador NO se revela. Devuelve null si no existe (la ruta hará
+ * 404), sin distinguir "no existe" de "no es público".
+ */
+export async function getPublicacionPublicaById(
+  id: number,
+  jardinId: number,
+): Promise<PublicacionDTO | null> {
+  const pub = await db.publicacion.findFirst({
+    where: { id, jardinId, publicado: true },
+    select: publicacionSelect,
+  });
+  return pub ? aDTO(pub) : null;
 }
 
 /**
