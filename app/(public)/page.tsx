@@ -1,6 +1,7 @@
 // RUTA: app/(public)/page.tsx
 import Link from "next/link";
 import { Lora } from "next/font/google";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
 import {
   FaCross,
   FaLeaf,
@@ -22,12 +23,6 @@ const lora = Lora({
   weight: ["400", "500", "600", "700"],
   variable: "--font-lora",
 });
-
-// Imagen religiosa del hero (Basílica de San Francisco de Asís — Unsplash, licencia libre).
-// Puedes dejar esta URL o descargar la foto y guardarla como /public/hero-asis.jpg
-// y cambiar HERO_IMG por "/hero-asis.jpg".
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1551418557-567e915fe7aa?fm=jpg&q=80&w=1200&auto=format&fit=crop";
 
 const areas = [
   {
@@ -53,7 +48,7 @@ const areas = [
   },
   {
     icon: <FaHandHoldingHeart size={28} />,
-    title: "Pastoral Juvenil",
+    title: "Comunidades",
     desc: "Caminamos con los jóvenes en su búsqueda de sentido, fe y compromiso, animando su protagonismo en la Iglesia.",
     href: "/pastoral-juvenil",
     color: "bg-[#8E9A3C]",
@@ -75,6 +70,30 @@ const librerias = [
   { nombre: "Librería Paz y Bien", ciudad: "Monterrey", horario: "Lun–Sáb 10–18h" },
 ];
 
+const slidesHero: SlideHero[] = [
+  {
+    imagen: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600",
+    categoria: "FRATERNIDAD FRANCISCANA",
+    titulo: "Paz y bien en cada camino",
+    descripcion:
+      "Siguiendo el carisma de San Francisco, anunciamos el Evangelio con alegría, sencillez y fraternidad",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1600",
+    categoria: "NUESTRA MISIÓN",
+    titulo: "Sirviendo donde más se necesita",
+    descripcion:
+      "Con los pies en la tierra y el corazón en Dios, llegamos a las comunidades más vulnerables",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1438232992991-995b671e4668?w=1600",
+    categoria: "ÚNETE A NOSOTROS",
+    titulo: "Una llamada que transforma vidas",
+    descripcion:
+      "Si sientes el llamado a la vida consagrada, aquí te acompañamos a discernirlo",
+  },
+];
+
 export default function Home() {
   return (
     <div className={`${lora.variable} bg-[#FAF7F2]`}>
@@ -83,63 +102,8 @@ export default function Home() {
         .font-display { font-family: var(--font-lora), Georgia, serif; }
       `}</style>
 
-      {/* HERO — claro y suave */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF7F2] via-[#F0EAE0] to-[#E4D7BC]">
-        <div
-          className="absolute inset-0 opacity-60"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 80% 30%, rgba(194,91,53,0.10) 0%, transparent 55%), radial-gradient(circle at 12% 88%, rgba(142,154,60,0.10) 0%, transparent 50%)",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-block text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase mb-4">
-              Fraternidad Franciscana
-            </span>
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-[#3B2314] leading-tight mb-6">
-              Paz y bien
-              <br />
-              <span className="text-[#C25B35]">en cada camino</span>
-            </h1>
-            <p className="text-[#5A4232] text-lg leading-relaxed mb-8 max-w-lg">
-              Siguiendo el carisma de San Francisco de Asís, anunciamos el Evangelio con alegría,
-              sencillez y fraternidad. Somos una comunidad viva, abierta y misionera.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/pastoral-vocacional"
-                className="bg-[#C25B35] hover:bg-[#a84928] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
-              >
-                Conoce nuestra misión <FaArrowRight />
-              </Link>
-              <Link
-                href="/contacto"
-                className="border border-[#C9B79A] bg-white text-[#5A4232] hover:bg-[#F0EAE0] px-6 py-3 rounded-lg font-semibold transition-colors"
-              >
-                Contáctanos
-              </Link>
-            </div>
-          </div>
-
-          {/* Medallón con imagen religiosa */}
-          <div className="hidden md:flex justify-center items-center">
-            <div className="relative w-72 h-72">
-              <div className="absolute inset-0 rounded-full border-2 border-[#C25B35]/30" />
-              <div className="absolute inset-3 rounded-full border border-[#8E9A3C]/40" />
-              <div className="absolute inset-6 rounded-full overflow-hidden shadow-md">
-                {/* Si prefieres usar next/image, descarga la foto a /public y configura
-                    images.remotePatterns o usa el archivo local. Con <img> funciona directo. */}
-                <img
-                  src={HERO_IMG}
-                  alt="Basílica de San Francisco de Asís"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* HERO — carrusel del portal general */}
+      <CarruselHero slides={slidesHero} />
 
       {/* BIENVENIDA / CARISMA */}
       <section className="max-w-7xl mx-auto px-6 py-20">

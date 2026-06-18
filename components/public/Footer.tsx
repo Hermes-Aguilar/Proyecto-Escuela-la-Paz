@@ -33,7 +33,7 @@ export default function Footer() {
               { href: "/pastoral-vocacional", label: "Pastoral Vocacional" },
               { href: "/pastoral-educativa", label: "Pastoral Educativa" },
               { href: "/pastoral-misionera", label: "Pastoral Misionera" },
-              { href: "/pastoral-juvenil", label: "Pastoral Juvenil" },
+              { href: "/pastoral-juvenil", label: "Comunidades" },
               { href: "/librerias", label: "Librerías" },
               { href: "/contacto", label: "Contacto" },
             ].map(({ href, label }) => (

@@ -1,12 +1,10 @@
 // RUTA: src/app/(public)/pastoral-juvenil/page.tsx
 import Link from "next/link";
 import {
-  FaFire,
   FaUsers,
   FaCalendarAlt,
   FaMapMarkerAlt,
   FaEnvelope,
-  FaArrowRight,
   FaMusic,
   FaHiking,
   FaPray,
@@ -14,6 +12,31 @@ import {
   FaInstagram,
   FaWhatsapp,
 } from "react-icons/fa";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+
+const slidesHero: SlideHero[] = [
+  {
+    imagen: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600",
+    categoria: "COMUNIDADES",
+    titulo: "Jóvenes con fe, con fuego, en misión",
+    descripcion:
+      "La juventud no es solo una etapa: es una fuerza que puede cambiar el mundo",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600",
+    categoria: "FRATERNIDAD",
+    titulo: "Crecer juntos en el camino",
+    descripcion:
+      "Grupos de jóvenes que se acompañan mutuamente en la fe y el servicio",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1600",
+    categoria: "COMPROMISO",
+    titulo: "La fe que mueve montañas",
+    descripcion:
+      "Caminamos juntos en la búsqueda de sentido, fe y compromiso con los demás",
+  },
+];
 
 const actividades = [
   {
@@ -64,45 +87,8 @@ const grupos = [
 export default function PastoralJuvenil() {
   return (
     <div className="bg-[#FAF7F2]">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-[#3B2314] via-[#6d3a1e] to-[#8E9A3C] py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: "repeating-linear-gradient(45deg, #C25B35 0, #C25B35 1px, transparent 0, transparent 50%)", backgroundSize: "20px 20px" }}
-        />
-        <div className="max-w-4xl mx-auto relative">
-          <Link href="/" className="text-[#E4D7BC] text-sm hover:text-white mb-6 inline-flex items-center gap-1 transition-colors">
-            ← Inicio
-          </Link>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[#C25B35]/40 p-3 rounded-xl">
-              <FaFire size={28} className="text-white" />
-            </div>
-            <span className="text-[#E4D7BC] text-sm font-semibold tracking-widest uppercase">Pastoral Juvenil</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-            Jóvenes con fe,<br />
-            <span className="text-[#E4D7BC]">con fuego, en misión</span>
-          </h1>
-          <p className="text-white/80 text-lg leading-relaxed max-w-2xl">
-            La juventud no es solo una etapa: es una fuerza que puede cambiar el mundo.
-            Caminamos juntos en la búsqueda de sentido, fe y compromiso con los demás.
-          </p>
-          <div className="flex flex-wrap gap-4 mt-8">
-            <Link
-              href="#grupos"
-              className="bg-[#C25B35] hover:bg-[#a84928] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
-            >
-              Unirme a un grupo <FaArrowRight />
-            </Link>
-            <Link
-              href="/contacto"
-              className="border border-white/40 text-white hover:bg-white/10 px-6 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Contactar
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* HERO — carrusel del portal general */}
+      <CarruselHero slides={slidesHero} />
 
       {/* QUÉ HACEMOS */}
       <section className="max-w-7xl mx-auto px-6 py-20">

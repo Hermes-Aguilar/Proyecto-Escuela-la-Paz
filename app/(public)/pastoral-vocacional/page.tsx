@@ -1,7 +1,6 @@
 // RUTA: src/app/(public)/pastoral-vocacional/page.tsx
 import Link from "next/link";
 import {
-  FaDove,
   FaArrowRight,
   FaMapMarkerAlt,
   FaCalendarAlt,
@@ -12,6 +11,31 @@ import {
   FaPhoneAlt,
   FaChurch,
 } from "react-icons/fa";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+
+const slidesHero: SlideHero[] = [
+  {
+    imagen: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600",
+    categoria: "PASTORAL VOCACIONAL",
+    titulo: "Descubre tu llamado",
+    descripcion:
+      "Si en tu corazón hay una inquietud que no se calla, quizás Dios te está llamando",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1600",
+    categoria: "DISCERNIMIENTO",
+    titulo: "Escuchar la voz interior",
+    descripcion:
+      "Te acompañamos en el proceso de descubrir el proyecto de Dios en tu vida",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600",
+    categoria: "RETIROS Y ENCUENTROS",
+    titulo: "Espacios para encontrarte contigo",
+    descripcion:
+      "Fines de semana de silencio, oración y fraternidad para jóvenes que buscan",
+  },
+];
 
 const etapas = [
   {
@@ -56,31 +80,8 @@ const sedes = [
 export default function PastoralVocacional() {
   return (
     <div className="bg-[#FAF7F2]">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-[#3B2314] via-[#5A3420] to-[#3B2314] py-24 px-6 relative overflow-hidden">
-        <div className="absolute top-10 right-10 opacity-5">
-          <FaDove size={200} className="text-white" />
-        </div>
-        <div className="max-w-4xl mx-auto relative">
-          <Link href="/" className="text-[#C8B99A] text-sm hover:text-white mb-6 inline-flex items-center gap-1 transition-colors">
-            ← Inicio
-          </Link>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[#C25B35] p-3 rounded-xl">
-              <FaDove size={28} className="text-white" />
-            </div>
-            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Pastoral Vocacional</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-            Descubre tu<br />
-            <span className="text-[#C25B35]">llamado</span>
-          </h1>
-          <p className="text-[#C8B99A] text-lg leading-relaxed max-w-2xl">
-            Si en tu corazón hay una inquietud, una pregunta que no se calla, una atracción
-            hacia algo más grande… quizás Dios te está llamando. Aquí te acompañamos a escuchar esa voz.
-          </p>
-        </div>
-      </section>
+      {/* HERO — carrusel del portal general */}
+      <CarruselHero slides={slidesHero} />
 
       {/* MISIÓN */}
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center">

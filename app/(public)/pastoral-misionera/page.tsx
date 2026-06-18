@@ -1,11 +1,9 @@
 // RUTA: src/app/(public)/pastoral-misionera/page.tsx
 import Link from "next/link";
 import {
-  FaGlobeAmericas,
   FaMapMarkerAlt,
   FaEnvelope,
   FaPhoneAlt,
-  FaArrowRight,
   FaHandsHelping,
   FaCross,
   FaUsers,
@@ -13,6 +11,31 @@ import {
   FaHeart,
   FaStar,
 } from "react-icons/fa";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+
+const slidesHero: SlideHero[] = [
+  {
+    imagen: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1600",
+    categoria: "PASTORAL MISIONERA",
+    titulo: "Id a todo el mundo y anunciad",
+    descripcion:
+      "Llevamos la Buena Noticia a donde más se necesita, con los pies en la tierra y el corazón en Dios",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1600",
+    categoria: "MISIONES POPULARES",
+    titulo: "Misioneras al estilo de Francisco",
+    descripcion:
+      "Llegamos a comunidades indígenas, rurales y periurbanas de México con amor y servicio",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=1600",
+    categoria: "SERVICIO INTEGRAL",
+    titulo: "Acompañar en dignidad",
+    descripcion:
+      "No solo anunciamos la fe: acompañamos a las personas en su dignidad, cultura y derechos",
+  },
+];
 
 const programas = [
   {
@@ -47,31 +70,8 @@ const zonas = [
 export default function PastoralMisionera() {
   return (
     <div className="bg-[#FAF7F2]">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-[#2A4020] via-[#3d5c2e] to-[#3B2314] py-24 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 opacity-5">
-          <FaGlobeAmericas size={250} className="text-white" />
-        </div>
-        <div className="max-w-4xl mx-auto relative">
-          <Link href="/" className="text-[#C8B99A] text-sm hover:text-white mb-6 inline-flex items-center gap-1 transition-colors">
-            ← Inicio
-          </Link>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[#8E9A3C]/30 p-3 rounded-xl">
-              <FaGlobeAmericas size={28} className="text-white" />
-            </div>
-            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Pastoral Misionera</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-            Id a todo el mundo<br />
-            <span className="text-[#8E9A3C]">y anunciad</span>
-          </h1>
-          <p className="text-[#C8B99A] text-lg leading-relaxed max-w-2xl">
-            Llevamos la Buena Noticia a donde más se necesita. Con los pies en la tierra y
-            el corazón en Dios, nuestra misión llega a las comunidades más alejadas y vulnerables.
-          </p>
-        </div>
-      </section>
+      {/* HERO — carrusel del portal general */}
+      <CarruselHero slides={slidesHero} />
 
       {/* MISIÓN */}
       <section className="max-w-7xl mx-auto px-6 py-20">

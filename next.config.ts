@@ -3,7 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     // Miniaturas de publicaciones: las fotos viven en Cloudinary.
-    remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }],
+    // Unsplash: imágenes de los carruseles del portal general.
+    remotePatterns: [
+      { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+    ],
   },
 };
 

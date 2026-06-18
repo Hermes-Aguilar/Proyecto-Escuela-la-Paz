@@ -1,13 +1,37 @@
 // RUTA: src/app/(public)/librerias/page.tsx
 import Link from "next/link";
 import {
-  FaBook,
   FaMapMarkerAlt,
   FaClock,
   FaPhoneAlt,
   FaEnvelope,
   FaArrowRight,
 } from "react-icons/fa";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+
+const slidesHero: SlideHero[] = [
+  {
+    imagen: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600",
+    categoria: "LIBRERÍAS FRANCISCANAS",
+    titulo: "Fe, cultura y encuentro",
+    descripcion:
+      "Nuestras librerías son espacios de evangelización con libros, artículos religiosos y recursos espirituales",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600",
+    categoria: "MATERIAL RELIGIOSO",
+    titulo: "Recursos para tu vida espiritual",
+    descripcion:
+      "Encuentra todo lo que necesitas para nutrir tu fe y la de tu comunidad",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600",
+    categoria: "ENCUENTRO Y SERVICIO",
+    titulo: "Más que una librería",
+    descripcion:
+      "Un espacio de acogida, donde cada visita es una oportunidad de encuentro",
+  },
+];
 
 const librerias = [
   {
@@ -45,33 +69,8 @@ const librerias = [
 export default function Librerias() {
   return (
     <div className="bg-[#FAF7F2]">
-      {/* HERO */}
-      <section className="bg-[#3B2314] py-24 px-6 relative overflow-hidden">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-5">
-          <div className="h-full flex items-center justify-end pr-10">
-            <FaBook size={300} className="text-white" />
-          </div>
-        </div>
-        <div className="max-w-4xl mx-auto relative">
-          <Link href="/" className="text-[#C8B99A] text-sm hover:text-white mb-6 inline-flex items-center gap-1 transition-colors">
-            ← Inicio
-          </Link>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-[#8E9A3C]/30 p-3 rounded-xl">
-              <FaBook size={28} className="text-[#8E9A3C]" />
-            </div>
-            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Librerías Franciscanas</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-            Fe, cultura<br />
-            <span className="text-[#8E9A3C]">y encuentro</span>
-          </h1>
-          <p className="text-[#C8B99A] text-lg leading-relaxed max-w-2xl">
-            Nuestras librerías son espacios de evangelización donde encontrarás libros,
-            artículos religiosos y recursos para nutrir tu vida espiritual y la de tu comunidad.
-          </p>
-        </div>
-      </section>
+      {/* HERO — carrusel del portal general */}
+      <CarruselHero slides={slidesHero} />
 
       {/* DIRECTORIO DE LIBRERÍAS */}
       <section className="bg-[#F0EAE0] py-20 px-6">

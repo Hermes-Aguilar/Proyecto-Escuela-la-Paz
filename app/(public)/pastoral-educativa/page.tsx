@@ -1,7 +1,6 @@
 // RUTA: src/app/(public)/pastoral-educativa/page.tsx
 import Link from "next/link";
 import {
-  FaGraduationCap,
   FaLeaf,
   FaUsers,
   FaMapMarkerAlt,
@@ -18,6 +17,31 @@ import { MdChildCare } from "react-icons/md";
 
 import { SubmenuPastoral } from "./SubmenuPastoral";
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+
+const slidesHero: SlideHero[] = [
+  {
+    imagen: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600",
+    categoria: "PASTORAL EDUCATIVA",
+    titulo: "Sembrando vida desde la infancia",
+    descripcion:
+      "Educamos desde los valores del Evangelio y el carisma franciscano: amor, sencillez y fraternidad",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600",
+    categoria: "NUESTROS JARDINES",
+    titulo: "Dos comunidades educativas",
+    descripcion:
+      "La Paz y Porvenir: espacios donde los niños crecen como personas íntegras y felices",
+  },
+  {
+    imagen: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=1600",
+    categoria: "FORMACIÓN INTEGRAL",
+    titulo: "Más que conocimiento, valores",
+    descripcion:
+      "Cada jardín es un espacio donde la fe, el cariño y el respeto guían todo lo que hacemos",
+  },
+];
 
 const programas = [
   {
@@ -66,60 +90,8 @@ const jardines = [
 export default function PastoralEducativa() {
   return (
     <div className="bg-[#FAF7F2]">
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3f2d23] via-[#b5532f] to-[#5c6b1e] px-6 py-24">
-        {/* Patrón de puntos sutil (textura sin distraer) */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-        />
-        <div className="relative mx-auto max-w-4xl">
-          <Link
-            href="/pastoral-educativa"
-            className="mb-6 inline-flex items-center gap-1 text-sm text-[#E4D7BC] transition-colors hover:text-white"
-          >
-            ← Pastoral Educativa
-          </Link>
-
-          {/* Badge */}
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-terracota/40 bg-terracota/20 px-4 py-1.5">
-            <FaGraduationCap size={18} className="text-[#f2c4ad]" />
-            <span className="text-sm font-semibold uppercase tracking-widest text-[#f2c4ad]">
-              Pastoral Educativa
-            </span>
-          </div>
-
-          <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-6xl">
-            Sembrando vida<br />
-            <span className="text-[#E4D7BC]">desde la infancia</span>
-          </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-white/80">
-            Educamos desde los valores del Evangelio y el carisma franciscano: amor, sencillez,
-            respeto a la creación y fraternidad. Cada jardín es un espacio donde los niños crecen
-            como personas íntegras y felices.
-          </p>
-
-          {/* Llamados a la acción del hero */}
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#jardines"
-              className="inline-flex items-center gap-2 rounded-xl bg-terracota px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-terracota-oscuro"
-            >
-              Ver nuestros jardines
-            </a>
-            <a
-              href="#mision"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/60 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              Conocer la misión
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* HERO — carrusel del portal general */}
+      <CarruselHero slides={slidesHero} />
 
       {/* SUBMENÚ · navegación secundaria de Pastoral Educativa */}
       <SubmenuPastoral />

@@ -160,7 +160,7 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 - [ ] Modal de confirmación al borrar
 - [ ] Estados de carga y error en la UI
 
-**Semana 5 — Portal público (frontend): 🚧 EN PROGRESO**
+**Semana 5 — Portal público (frontend): ✅ COMPLETADA**
 - [x] Micro-sitio por jardín con menú lateral fijo (desktop) + drawer móvil
       (`components/public/SidebarJardin.tsx`) y tema por colores de BD
       inyectado como CSS vars (`--jardin-primario`/`--jardin-secundario`)
@@ -184,6 +184,17 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
       (ok → confirmación verde; VALIDATION → campos en rojo; INTERNAL →
       error general).
 - [x] Lazy loading de imágenes (`next/image loading="lazy"`), mobile-first.
+- [x] Carrusel hero genérico reutilizable del portal general
+      (`components/public/CarruselHero.tsx`: fade 700 ms, autoavance 8 s,
+      flechas y puntos, contenido centrado, color de acento configurable)
+      aplicado en Inicio y en las páginas de Pastoral
+      Vocacional/Educativa/Misionera, Comunidades y Librerías
+      (imágenes de Unsplash en `next.config.ts`).
+- [x] "Pastoral Juvenil" renombrada a "Comunidades" en navbar, footer e
+      Inicio (ruta `/pastoral-juvenil` sin cambios).
+- [x] Rediseño de la página de Contacto del portal general: hero cálido
+      con ilustración, tres columnas (formulario decorativo con validación
+      visual, redes/horarios y mapa) con entrada escalonada.
 
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración
