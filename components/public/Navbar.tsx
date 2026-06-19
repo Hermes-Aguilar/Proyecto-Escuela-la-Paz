@@ -22,84 +22,102 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="relative z-50">
       {/* ============================================================
           HEADER SUPERIOR — fondo crema, identidad de la congregación:
           escudo (izq) · nombre + lema (centro) · imágenes religiosas (der).
           ============================================================ */}
       <div className="bg-crema border-b border-arena">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3">
-          {/* 3 columnas: izquierda y derecha con ANCHO FIJO IGUAL (w-24/w-32)
-              para que la columna central quede matemáticamente centrada. */}
-          <div className="flex items-stretch justify-between gap-2 sm:gap-4">
-            {/* IZQUIERDA · Escudo (ancho fijo) */}
-            <div className="flex w-24 shrink-0 items-center justify-center sm:w-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          {/* Cabecera en 3 columnas. Las columnas izquierda y derecha tienen
+              EXACTAMENTE el mismo ancho (w-28 → w-56 → w-80) para que la
+              columna central (flex-1) quede matemáticamente centrada. */}
+          <div className="relative flex items-stretch justify-between gap-3 py-2 sm:gap-4">
+            {/* IZQUIERDA · Escudo con halo. Ancho fijo = columna derecha. */}
+            <div className="flex w-28 shrink-0 items-center justify-start sm:w-44 md:w-56 lg:w-80">
               <Link
                 href="/"
                 aria-label="Inicio"
-                className="relative isolate inline-flex"
+                className="relative flex items-center"
               >
                 {/* Halo/brillo suave detrás del escudo */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full blur-md"
+                  className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 rounded-full"
                   style={{
                     background:
-                      "radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(201,162,39,0.40) 45%, transparent 72%)",
+                      "radial-gradient(circle, rgba(201,162,39,0.40) 0%, rgba(255,255,255,0.55) 38%, transparent 70%)",
                   }}
                 />
+                {/* La máscara radial difumina el fondo oscuro del PNG. */}
                 <Image
                   src="/images/escudo.png"
                   alt="Escudo del Instituto de Misioneras del Señor de los Corazones y de Santa María de Guadalupe"
                   width={1024}
                   height={1536}
                   priority
-                  className="h-28 w-24 object-contain"
+                  className="h-28 w-auto object-contain sm:h-32 lg:h-36"
+                  style={{
+                    WebkitMaskImage:
+                      "radial-gradient(ellipse 68% 68% at 50% 47%, #000 62%, transparent 80%)",
+                    maskImage:
+                      "radial-gradient(ellipse 68% 68% at 50% 47%, #000 62%, transparent 80%)",
+                  }}
                 />
               </Link>
             </div>
 
-            {/* CENTRO · Nombre + lema (centrado horizontal y verticalmente) */}
-            <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center">
-              <p className="font-titulo text-sm font-bold leading-tight text-azul-institucional sm:text-base lg:text-lg">
-                Instituto de Misioneras del Señor de los Corazones
-                <br className="hidden sm:block" /> y de Santa María de Guadalupe
+            {/* CENTRO · Nombre + lema + línea, centrado horizontal y vertical. */}
+            <div className="flex min-w-0 flex-1 flex-col items-center justify-center px-1 text-center">
+              <h1 className="font-titulo text-base font-bold leading-tight text-marron sm:text-xl lg:text-2xl">
+                Instituto de Misioneras del
+                <br />
+                Señor de los Corazones
+                <br />
+                y de Santa María de Guadalupe
+              </h1>
+              <p className="mt-1 font-script text-xl leading-none text-terracota sm:text-2xl lg:text-3xl">
+                Alegrémonos de sufrir por Cristo en favor de su Iglesia
               </p>
-              <p className="mt-1 font-titulo text-xs italic text-dorado sm:text-sm">
-                «Alegrémonos de sufrir por Cristo en favor de su Iglesia»
-              </p>
-              {/* Línea decorativa bajo el lema */}
-              <div className="mt-2 w-64 border-t border-dorado/40 sm:w-80" />
+              {/* Línea decorativa bajo el lema (dorado al 40%, ancho moderado) */}
+              <div className="mx-auto mt-2 w-64 border-t border-dorado/40 lg:w-80" />
             </div>
 
-            {/* DERECHA · Dos imágenes religiosas (ancho fijo IGUAL a la izquierda).
-                Orden: Cristo (cerca del centro) · María (esquina externa). */}
-            <div className="flex w-24 shrink-0 items-end justify-end sm:w-32">
-              <div className="hidden items-end md:flex">
-                <Image
-                  src="/images/cristo.png"
-                  alt="Señor de los Corazones (Cristo crucificado)"
-                  width={1492}
-                  height={1054}
-                  className="h-25 w-auto rounded-lg object-contain drop-shadow-sm lg:h-30"
-                />
-                <Image
-                  src="/images/maria.png"
-                  alt="Santa María de Guadalupe"
-                  width={1153}
-                  height={1364}
-                  className="-ml-3 h-25 w-auto rounded-lg object-contain drop-shadow-sm lg:h-30"
-                />
-              </div>
+            {/* DERECHA · Cristo (interior) + María (esquina). Ancho fijo =
+                columna izquierda. Ocultas en móvil para no saturar. */}
+            <div className="hidden w-28 shrink-0 items-center justify-end gap-2 sm:w-44 md:flex md:w-56 lg:w-80 lg:gap-3">
+              {/* Cristo · más cerca del centro. Máscara radial para fundirlo. */}
+              <Image
+                src="/images/cristo.png"
+                alt="Señor de los Corazones (Cristo crucificado)"
+                width={1492}
+                height={1054}
+                className="h-20 w-auto object-contain md:h-24 lg:h-28"
+                style={{
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 64% 64% at 50% 50%, #000 60%, transparent 78%)",
+                  maskImage:
+                    "radial-gradient(ellipse 64% 64% at 50% 50%, #000 60%, transparent 78%)",
+                }}
+              />
+              {/* María · esquina externa derecha. */}
+              <Image
+                src="/images/12.png"
+                alt="Santa María de Guadalupe"
+                width={1153}
+                height={1364}
+                className="h-24 w-auto object-contain drop-shadow-sm md:h-28 lg:h-32"
+              />
             </div>
           </div>
         </div>
       </div>
 
       {/* ============================================================
-          BARRA DE NAVEGACIÓN — fondo oscuro (marrón institucional).
+          BARRA DE NAVEGACIÓN — fondo marrón institucional. El azul
+          institucional se usa SOLO como acento (link activo y hover).
           ============================================================ */}
-      <div className="bg-marron shadow-md">
+      <div className="bg-marron shadow-sm">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:justify-center">
           {/* Etiqueta solo visible en móvil (la navegación va en el drawer) */}
           <span className="font-titulo text-sm font-semibold text-arena lg:hidden">
@@ -136,7 +154,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="border-t border-white/10 bg-azul-oscuro lg:hidden">
+          <div className="border-t border-white/10 bg-marron lg:hidden">
             {links.map(({ href, label }) => (
               <Link
                 key={href}

@@ -38,6 +38,14 @@ interface Props {
   altura?: string;
   /** Color de acento de la categoría/botón. Default azul-institucional. */
   colorAcento?: string;
+  /**
+   * Si es true, SOLO las imágenes quedan fijas (position fixed, como fondo a
+   * pantalla completa detrás de todo), mientras la sección con la caja de texto
+   * y los controles permanece en el flujo normal. Así, al hacer scroll, la caja
+   * sube con la página mientras la imagen se queda quieta (efecto "reveal").
+   * El contenido posterior de la página debe ir en una capa opaca con z mayor.
+   */
+  fondoFijo?: boolean;
 }
 
 const INTERVALO_MS = 8_000;
@@ -46,6 +54,7 @@ export default function CarruselHero({
   slides,
   altura = "h-[520px]",
   colorAcento = "#2c5f7c",
+  fondoFijo = false,
 }: Props) {
   const [actual, setActual] = useState(0);
   const total = slides.length;
@@ -65,7 +74,9 @@ export default function CarruselHero({
 
   return (
     <section
-      className={`relative w-full overflow-hidden bg-marron ${altura}`}
+      className={`relative w-full overflow-hidden ${altura} ${
+        fondoFijo ? "" : "bg-marron"
+      }`}
       aria-roledescription="carrusel"
     >
       {/* CAPA DE IMÁGENES (con velo oscuro para legibilidad) */}
@@ -74,7 +85,9 @@ export default function CarruselHero({
         return (
           <div
             key={i}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            className={`${
+              fondoFijo ? "fixed inset-0 -z-10" : "absolute inset-0"
+            } transition-opacity duration-700 ease-in-out ${
               activa ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden={!activa}

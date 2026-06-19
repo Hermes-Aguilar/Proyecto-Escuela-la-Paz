@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Inter, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
 // Títulos del portal: Fraunces (serif con carácter).
@@ -18,6 +18,15 @@ const inter = Inter({
   display: "swap",
 });
 
+// Lema/caligrafía: Great Vibes (script formal, estilo invitación).
+// Genera la utilidad font-script (ver globals.css).
+const greatVibes = Great_Vibes({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Pastoral Educativa",
   description:
@@ -32,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${fraunces.variable} ${inter.variable} h-full scroll-smooth antialiased`}
+      className={`${fraunces.variable} ${inter.variable} ${greatVibes.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

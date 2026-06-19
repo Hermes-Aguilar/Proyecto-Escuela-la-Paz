@@ -94,16 +94,24 @@ const slidesHero: SlideHero[] = [
 ];
 
 export default function Home() {
+  // El contenedor raíz no lleva fondo opaco: taparía el hero fijo (-z-10).
+  // El fondo crema lo aportan la capa de contenido y el footer.
   return (
-    <div className={`${lora.variable} bg-[#FAF7F2]`}>
+    <div className={lora.variable}>
       {/* Serif solo para los títulos */}
       <style>{`
         .font-display { font-family: var(--font-lora), Georgia, serif; }
       `}</style>
 
-      {/* HERO — carrusel del portal general */}
-      <CarruselHero slides={slidesHero} />
+      {/* HERO — modo fondoFijo: SOLO las imágenes quedan fijas (fondo a pantalla
+          completa detrás de todo). La caja de texto y los controles van en el
+          flujo normal de la sección, así suben al hacer scroll mientras la imagen
+          permanece quieta y el menú/contenido se desplazan por encima.
+          La altura de la sección controla cuánta imagen se ve antes del contenido. */}
+      <CarruselHero slides={slidesHero} fondoFijo altura="h-[60vh]" />
 
+      {/* CONTENIDO — capa opaca que se desplaza por encima de la imagen fija. */}
+      <div className="relative z-10 bg-[#FAF7F2]">
       {/* BIENVENIDA / CARISMA */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -335,6 +343,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

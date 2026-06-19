@@ -21,6 +21,8 @@
   --color-azul-oscuro: #234c61;
   --color-dorado: #c9a227;
   --color-dorado-oscuro: #a8841c;
+  --color-terracota: #b5544a;
+  --color-terracota-oscuro: #9a4439;
   --color-arena: #e3d8cc;
   --color-error: #b00020;
 
@@ -30,6 +32,8 @@
      el subárbol (Fraunces global, Nunito dentro de los jardines). */
   --font-titulo: var(--font-titulo);
   --font-texto: var(--font-texto);
+  /* Caligrafía para el lema (font-script). */
+  --font-script: var(--font-script);
 }
 
 @media (prefers-color-scheme: dark) {
