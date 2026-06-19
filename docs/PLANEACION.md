@@ -1,6 +1,6 @@
 # Planeación del Proyecto — Sistema Web Congregación
 
-**Religiosas Franciscanas de Nuestra Señora del Refugio**
+**Instituto de Misioneras del Señor de los Corazones y de Santa María de Guadalupe**
 **Módulo principal: Pastoral Educativa — Jardines "La Paz" y "Porvenir"**
 **Prácticas profesionales UTM · 6to semestre Ingeniería en Computación**
 **Periodo: 1 de junio — 17 de julio de 2026**
@@ -89,8 +89,12 @@ Jardin (1) ──< MensajeContacto  · formulario de contacto por escuela
 | La Paz | `la-paz` | `#137E86` (teal) | `#18B4C7` | `admin_lapaz` |
 | Porvenir | `porvenir` | `#F4C430` (mostaza) | `#C25B35` | `admin_porvenir` |
 
-Paleta del portal global (franciscana): terracota `#C25B35`, olivo `#8E9A3C`,
-beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
+Paleta del portal global (institucional, basada en el escudo): azul
+`#2c5f7c` (`azul-institucional`), dorado `#c9a227` (`dorado`), marrón y arena.
+En código se usan SIEMPRE los tokens de `globals.css` (`bg-azul-institucional`,
+`text-dorado`, `text-marron`, `border-arena`…), nunca hex sueltos. Los colores
+de cada jardín (teal de La Paz, mostaza/terracota de Porvenir) son su identidad
+propia y se leen de la BD.
 
 ## 6. Documentación
 
@@ -195,6 +199,30 @@ beige `#E4D7BC`. En código admin: crema/marron/terracota (ver globals.css).
 - [x] Rediseño de la página de Contacto del portal general: hero cálido
       con ilustración, tres columnas (formulario decorativo con validación
       visual, redes/horarios y mapa) con entrada escalonada.
+- [x] **Corrección de identidad institucional** (el portal se había
+      construido con identidad franciscana por error). Congregación real:
+      Instituto de Misioneras del Señor de los Corazones y de Santa María de
+      Guadalupe (fundado el 12/05/1957 en Huajuapan de León, Oax., por el
+      Pbro. Lic. Luis Fiacro Guerrero Ramírez). Cambios:
+      - Nueva paleta del escudo en `globals.css`: `azul-institucional`
+        `#2c5f7c` (+ `azul-oscuro`) y `dorado` `#c9a227` (+ `dorado-oscuro`)
+        reemplazan a `terracota`/`olivo`. Migrados a tokens TODOS los usos de
+        hex/clase del viejo terracota-olivo en el portal y el panel admin
+        (los colores propios de los jardines no se tocaron).
+      - Navbar: nombre "Misioneras del Señor de los Corazones" + logo SVG
+        (cruz dentro de un óvalo) inspirado en el escudo. Footer: nombre
+        completo + lema "Alegrémonos de sufrir por Cristo en favor de su
+        Iglesia" + datos reales.
+      - Inicio: carisma real, lema, fundadores reales (Padre Luis Fiacro y
+        Madre Elisa María) y 6 comunidades reales en "Nuestras comunidades".
+      - Jardines: nueva subsección "Historia" en Nosotros
+        (`nosotros/historia`, texto por slug: Tepeyac→La Paz,
+        Nazareth→Porvenir) y mención del origen (1966) en "Quiénes somos".
+      - Contacto: teléfono (953 53 2 07 11) y correo
+        (mcgmayo12@hotmail.com) reales.
+      - Pastoral Vocacional/Misionera, Comunidades y Librerías: solo
+        recoloreadas a la nueva paleta (texto/estructura sin cambios, a la
+        espera de información real).
 
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración

@@ -86,7 +86,7 @@ export default function PastoralVocacional() {
       {/* MISIÓN */}
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center">
         <div>
-          <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Nuestra misión</span>
+          <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Nuestra misión</span>
           <h2 className="text-3xl font-bold text-[#3B2314] mt-2 mb-5">
             Acompañar el discernimiento vocacional
           </h2>
@@ -99,7 +99,7 @@ export default function PastoralVocacional() {
             Creemos que toda vocación es un regalo y una responsabilidad. Por eso nuestro
             acompañamiento es cercano, respetuoso del ritmo de cada persona y profundamente espiritual.
           </p>
-          <div className="bg-[#C25B35]/10 border-l-4 border-[#C25B35] pl-4 py-3 rounded-r-lg">
+          <div className="bg-azul-institucional/10 border-l-4 border-azul-institucional pl-4 py-3 rounded-r-lg">
             <p className="text-[#3B2314] italic text-sm">
               "El que escucha con amor, descubre lo que Dios quiere decirle."
             </p>
@@ -108,7 +108,7 @@ export default function PastoralVocacional() {
         <div className="grid grid-cols-2 gap-4">
           {actividades.map((act) => (
             <div key={act.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow">
-              <div className="text-[#C25B35] mb-3">{act.icon}</div>
+              <div className="text-azul-institucional mb-3">{act.icon}</div>
               <h4 className="font-bold text-[#3B2314] text-sm mb-1">{act.titulo}</h4>
               <p className="text-xs text-[#7A6352] leading-relaxed">{act.desc}</p>
             </div>
@@ -120,7 +120,7 @@ export default function PastoralVocacional() {
       <section className="bg-[#3B2314] py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">El camino</span>
+            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">El camino</span>
             <h2 className="text-3xl font-bold text-white mt-2">Etapas del proceso vocacional</h2>
             <p className="text-[#C8B99A] mt-3 max-w-xl mx-auto">
               Cada etapa es un paso de madurez, discernimiento y entrega progresiva.
@@ -129,10 +129,10 @@ export default function PastoralVocacional() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {etapas.map((e) => (
               <div key={e.num} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-                <span className="text-[#C25B35] text-4xl font-black opacity-60">{e.num}</span>
+                <span className="text-dorado text-4xl font-black opacity-80">{e.num}</span>
                 <h3 className="text-white font-bold text-lg mt-2 mb-2">{e.titulo}</h3>
                 <p className="text-[#C8B99A] text-sm leading-relaxed mb-4">{e.desc}</p>
-                <span className="text-xs bg-[#C25B35]/20 text-[#C25B35] px-3 py-1 rounded-full">
+                <span className="text-xs bg-dorado/20 text-dorado px-3 py-1 rounded-full">
                   {e.duracion}
                 </span>
               </div>
@@ -144,18 +144,18 @@ export default function PastoralVocacional() {
       {/* SEDES */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
-          <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Ubicaciones</span>
+          <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Ubicaciones</span>
           <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Sedes vocacionales</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {sedes.map((sede) => (
             <div key={sede.nombre} className="bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC]">
               <div className="flex items-center gap-3 mb-4">
-                <FaChurch className="text-[#C25B35]" size={20} />
+                <FaChurch className="text-azul-institucional" size={20} />
                 <h3 className="font-bold text-[#3B2314]">{sede.nombre}</h3>
               </div>
               <p className="text-sm text-[#5A4232] mb-1"><span className="font-medium">Responsable:</span> {sede.responsable}</p>
-              <a href={`mailto:${sede.contacto}`} className="text-sm text-[#C25B35] hover:underline flex items-center gap-1">
+              <a href={`mailto:${sede.contacto}`} className="text-sm text-azul-institucional hover:underline flex items-center gap-1">
                 <FaEnvelope size={12} /> {sede.contacto}
               </a>
             </div>
@@ -168,7 +168,7 @@ export default function PastoralVocacional() {
     <div className="max-w-3xl mx-auto px-6 text-center">
     <FaEnvelope
       size={40}
-      className="text-[#C25B35]/70 mx-auto mb-4"
+      className="text-azul-institucional/70 mx-auto mb-4"
     />
 
     <h2 className="font-display text-3xl font-bold text-[#3B2314] mb-4">
@@ -183,7 +183,7 @@ export default function PastoralVocacional() {
     <div className="flex flex-wrap justify-center gap-4">
       <Link
         href="/contacto"
-        className="bg-[#C25B35] hover:bg-[#a84928] text-white px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
+        className="bg-azul-institucional hover:bg-azul-oscuro text-white px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
       >
         <FaEnvelope />
         Escribirnos

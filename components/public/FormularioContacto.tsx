@@ -105,8 +105,8 @@ export default function FormularioContacto({ slug }: { slug: string }) {
   // Confirmación verde tras enviar (CU-04, paso 5).
   if (estado === "ok") {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-olivo/40 bg-olivo/10 px-6 py-12 text-center">
-        <CheckCircle2 size={48} className="text-olivo" />
+      <div className="flex flex-col items-center rounded-2xl border border-dorado/40 bg-dorado/10 px-6 py-12 text-center">
+        <CheckCircle2 size={48} className="text-dorado" />
         <h3 className="font-titulo mt-4 text-xl font-bold text-marron">
           ¡Mensaje enviado correctamente!
         </h3>

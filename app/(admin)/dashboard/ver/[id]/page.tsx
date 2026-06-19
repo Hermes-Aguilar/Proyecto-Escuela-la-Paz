@@ -28,8 +28,8 @@ import type { Bloque } from "@/types/bloques";
 
 const TIPO_BADGE: Record<TipoPublicacion, { etiqueta: string; clases: string }> =
   {
-    NOTICIA: { etiqueta: "Noticia", clases: "bg-olivo/15 text-olivo" },
-    EVENTO: { etiqueta: "Evento", clases: "bg-terracota/15 text-terracota" },
+    NOTICIA: { etiqueta: "Noticia", clases: "bg-dorado/15 text-dorado" },
+    EVENTO: { etiqueta: "Evento", clases: "bg-azul-institucional/15 text-azul-institucional" },
     AVISO: { etiqueta: "Aviso", clases: "bg-arena/70 text-marron-suave" },
   };
 

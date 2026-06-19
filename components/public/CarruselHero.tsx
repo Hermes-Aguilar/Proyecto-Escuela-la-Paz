@@ -12,7 +12,7 @@
 //  · El texto del slide hace fade junto con la imagen.
 //  · Navegación manual con flechas ← → y puntos indicadores.
 //
-// El color de acento llega como prop (default terracota institucional);
+// El color de acento llega como prop (default azul-institucional institucional);
 // nunca depende del jardín.
 // ============================================================
 "use client";
@@ -36,7 +36,7 @@ interface Props {
   slides: SlideHero[];
   /** Altura del carrusel (utilidad Tailwind). */
   altura?: string;
-  /** Color de acento de la categoría/botón. Default terracota. */
+  /** Color de acento de la categoría/botón. Default azul-institucional. */
   colorAcento?: string;
 }
 
@@ -45,7 +45,7 @@ const INTERVALO_MS = 8_000;
 export default function CarruselHero({
   slides,
   altura = "h-[520px]",
-  colorAcento = "#b5532f",
+  colorAcento = "#2c5f7c",
 }: Props) {
   const [actual, setActual] = useState(0);
   const total = slides.length;

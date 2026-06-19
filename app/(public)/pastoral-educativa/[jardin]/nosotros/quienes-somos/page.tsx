@@ -1,8 +1,9 @@
 // ============================================================
 // .../[jardin]/nosotros/quienes-somos/page.tsx
 // CU-02 · Sección "Quiénes somos" del jardín. SERVER COMPONENT
-// estático (contenido inspiracional franciscano). Incluye el ancla
-// #mision a la que apunta el sidebar ("Nuestra misión").
+// estático (obra educativa de las Misioneras del Señor de los Corazones
+// y de Santa María de Guadalupe). Incluye el ancla #mision a la que
+// apunta el sidebar ("Nuestra misión").
 // ============================================================
 import { notFound } from "next/navigation";
 import { Sparkles } from "lucide-react";
@@ -34,23 +35,22 @@ export default async function QuienesSomos({
         <p>
           {jardin.nombre} es un jardín de niños de las{" "}
           <strong className="text-marron">
-            Religiosas Franciscanas de Nuestra Señora del Refugio
+            Misioneras del Señor de los Corazones y de Santa María de Guadalupe
           </strong>
-          . Nacimos del deseo de ofrecer a las familias un espacio donde la
-          educación de la primera infancia se viva con amor, sencillez y
-          esperanza.
+          . Es parte de la obra educativa que la Congregación inició en 1966, del
+          deseo de ofrecer a las familias un espacio donde la educación de la
+          primera infancia se viva con amor, sencillez y esperanza.
         </p>
         <p>
-          Inspiradas en San Francisco de Asís, creemos que cada niña y cada niño
-          es un regalo único. Por eso acompañamos su crecimiento con paciencia y
-          alegría, cuidando no solo lo que aprenden, sino la persona en la que se
-          están convirtiendo: sensible, libre, respetuosa de los demás y de la
-          creación.
+          Creemos que cada niña y cada niño es un regalo único. Por eso
+          acompañamos su crecimiento con paciencia y alegría, cuidando no solo lo
+          que aprenden, sino la persona en la que se están convirtiendo: sensible,
+          libre y respetuosa de los demás.
         </p>
         <p>
-          Nuestra comunidad educativa es una fraternidad: maestras, familias y
-          niños caminamos juntos. Aquí el aula es un hogar, el juego es aprendizaje
-          y los valores del Evangelio se viven en lo cotidiano.
+          Nuestra comunidad educativa camina unida: maestras, familias y niños.
+          Aquí el aula es un hogar, el juego es aprendizaje y los valores del
+          Evangelio se viven en lo cotidiano.
         </p>
       </div>
 
@@ -74,17 +74,17 @@ export default async function QuienesSomos({
           </h2>
           <p className="mt-3 text-base leading-relaxed text-marron-suave">
             Formar a las niñas y los niños en sus primeros años desde los valores
-            del Evangelio y el carisma franciscano, promoviendo su desarrollo
-            integral —humano, espiritual, intelectual y social— en un ambiente de
-            cariño, seguridad y respeto, en estrecha colaboración con sus
-            familias.
+            del Evangelio y el carisma de las Misioneras del Señor de los Corazones
+            y de Santa María de Guadalupe, promoviendo su desarrollo integral
+            —humano, espiritual, intelectual y social— en un ambiente de cariño,
+            seguridad y respeto, en estrecha colaboración con sus familias.
           </p>
           <blockquote
             className="mt-6 border-l-4 pl-4 font-titulo text-lg italic text-marron"
             style={{ borderColor: "var(--jardin-primario)" }}
           >
-            “Comencemos, hermanos, a servir a Dios, porque hasta ahora poco o nada
-            hemos avanzado.” — San Francisco de Asís
+            «Alegrémonos de sufrir por Cristo en favor de su Iglesia» — Lema de la
+            Congregación
           </blockquote>
         </div>
       </section>

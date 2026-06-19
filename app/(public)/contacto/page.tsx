@@ -19,9 +19,9 @@ import {
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
 
 // Datos institucionales del portal general.
-const TELEFONO = "+52 953 532 0000";
-const TELEFONO_TEL = "+529535320000";
-const CORREO = "contacto@franciscanas.org";
+const TELEFONO = "953 53 2 07 11";
+const TELEFONO_TEL = "+529535320711";
+const CORREO = "mcgmayo12@hotmail.com";
 const DIRECCION =
   "Calle Matamoros Núm. 13, Col. Centro, Huajuapan de León, Oaxaca";
 const MAPS_URL =
@@ -59,13 +59,13 @@ const REDES = [
   {
     nombre: "WhatsApp",
     color: "#25D366",
-    href: "https://wa.me/529535320000",
+    href: "https://wa.me/529535320711",
     path: "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.892c0 2.096.546 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.582 0 11.94-5.359 11.943-11.893a11.821 11.821 0 0 0-3.416-8.408",
   },
 ];
 
-// Ilustración: paloma franciscana estilizada, en terracota translúcido.
-function PalomaFranciscana() {
+// Ilustración: paloma estilizada (símbolo de paz), en azul institucional translúcido.
+function PalomaInstitucional() {
   return (
     <svg
       viewBox="0 0 200 200"
@@ -73,7 +73,7 @@ function PalomaFranciscana() {
       height="200"
       role="img"
       aria-label="Paloma de la paz"
-      className="text-terracota"
+      className="text-azul-institucional"
     >
       <circle cx="100" cy="100" r="96" fill="currentColor" fillOpacity={0.08} />
       {/* Cuerpo y cabeza de la paloma en vuelo */}
@@ -154,7 +154,7 @@ export default function Contacto() {
     `w-full rounded-xl border bg-white px-4 py-3 text-sm text-marron placeholder:text-marron-suave/60 outline-none transition focus:ring-2 ${
       invalidos.has(campo)
         ? "border-error focus:ring-error/30"
-        : "border-arena focus:border-terracota focus:ring-terracota/20"
+        : "border-arena focus:border-azul-institucional focus:ring-azul-institucional/20"
     }`;
 
   return (
@@ -164,7 +164,7 @@ export default function Contacto() {
         <div className="mx-auto flex max-w-6xl flex-col-reverse items-center gap-10 md:flex-row md:justify-between">
           {/* Texto + datos rápidos */}
           <div className="w-full md:max-w-xl">
-            <span className="text-sm font-semibold uppercase tracking-widest text-terracota">
+            <span className="text-sm font-semibold uppercase tracking-widest text-azul-institucional">
               Contacto
             </span>
             <h1 className="font-titulo mt-2 text-4xl font-bold text-marron md:text-5xl">
@@ -184,7 +184,7 @@ export default function Contacto() {
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="flex items-start gap-3 rounded-2xl border border-arena bg-white/70 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
                 >
-                  <span className="rounded-lg bg-terracota/10 p-2 text-terracota">
+                  <span className="rounded-lg bg-azul-institucional/10 p-2 text-azul-institucional">
                     <Icon size={18} />
                   </span>
                   <span className="min-w-0">
@@ -202,7 +202,7 @@ export default function Contacto() {
 
           {/* Ilustración */}
           <div className="flex shrink-0 justify-center">
-            <PalomaFranciscana />
+            <PalomaInstitucional />
           </div>
         </div>
       </section>
@@ -218,8 +218,8 @@ export default function Contacto() {
               </h2>
 
               {enviado ? (
-                <div className="mt-6 flex flex-col items-center rounded-2xl border border-olivo/40 bg-olivo/10 px-6 py-10 text-center">
-                  <CheckCircle2 size={44} className="text-olivo" />
+                <div className="mt-6 flex flex-col items-center rounded-2xl border border-dorado/40 bg-dorado/10 px-6 py-10 text-center">
+                  <CheckCircle2 size={44} className="text-dorado" />
                   <h3 className="font-titulo mt-3 text-lg font-bold text-marron">
                     ¡Mensaje enviado!
                   </h3>
@@ -232,7 +232,7 @@ export default function Contacto() {
                       setEnviado(false);
                       setForm(VACIO);
                     }}
-                    className="mt-5 text-sm font-semibold text-terracota hover:underline"
+                    className="mt-5 text-sm font-semibold text-azul-institucional hover:underline"
                   >
                     Enviar otro mensaje
                   </button>
@@ -241,7 +241,7 @@ export default function Contacto() {
                 <form onSubmit={enviar} noValidate className="mt-6 space-y-4">
                   <div>
                     <label className="mb-1 block text-sm font-medium text-marron">
-                      Nombre <span className="text-terracota">*</span>
+                      Nombre <span className="text-azul-institucional">*</span>
                     </label>
                     <input
                       name="nombre"
@@ -254,7 +254,7 @@ export default function Contacto() {
 
                   <div>
                     <label className="mb-1 block text-sm font-medium text-marron">
-                      Correo <span className="text-terracota">*</span>
+                      Correo <span className="text-azul-institucional">*</span>
                     </label>
                     <input
                       name="email"
@@ -300,7 +300,7 @@ export default function Contacto() {
 
                   <div>
                     <label className="mb-1 block text-sm font-medium text-marron">
-                      Mensaje <span className="text-terracota">*</span>
+                      Mensaje <span className="text-azul-institucional">*</span>
                     </label>
                     <textarea
                       name="mensaje"
@@ -315,7 +315,7 @@ export default function Contacto() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-terracota px-5 py-3 font-semibold text-white shadow transition hover:bg-terracota-oscuro disabled:cursor-not-allowed disabled:opacity-70"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-azul-institucional px-5 py-3 font-semibold text-white shadow transition hover:bg-azul-oscuro disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {loading ? (
                       <span className="animate-pulse">Enviando…</span>
@@ -364,7 +364,7 @@ export default function Contacto() {
               </h3>
               <ul className="mt-4 space-y-3 text-sm">
                 <li className="flex items-start gap-3">
-                  <span className="rounded-lg bg-terracota/10 p-2 text-terracota">
+                  <span className="rounded-lg bg-azul-institucional/10 p-2 text-azul-institucional">
                     <Clock size={16} />
                   </span>
                   <span>
@@ -375,7 +375,7 @@ export default function Contacto() {
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="rounded-lg bg-terracota/10 p-2 text-terracota">
+                  <span className="rounded-lg bg-azul-institucional/10 p-2 text-azul-institucional">
                     <Clock size={16} />
                   </span>
                   <span>
@@ -396,13 +396,13 @@ export default function Contacto() {
 
               {/* Mapa placeholder */}
               <div className="mt-6 flex flex-col items-center rounded-2xl bg-arena/40 px-5 py-10 text-center">
-                <MapPin size={44} className="text-terracota" />
+                <MapPin size={44} className="text-azul-institucional" />
                 <p className="mt-3 text-sm font-medium text-marron">{DIRECCION}</p>
                 <a
                   href={MAPS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 rounded-xl bg-terracota px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-terracota-oscuro"
+                  className="mt-5 inline-flex items-center gap-2 rounded-xl bg-azul-institucional px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-azul-oscuro"
                 >
                   <MapPin size={16} /> Ver en Google Maps
                 </a>
@@ -412,18 +412,18 @@ export default function Contacto() {
               <div className="mt-6 space-y-3 text-sm">
                 <a
                   href={`mailto:${CORREO}`}
-                  className="flex items-center gap-3 text-marron transition-colors hover:text-terracota"
+                  className="flex items-center gap-3 text-marron transition-colors hover:text-azul-institucional"
                 >
-                  <span className="rounded-lg bg-terracota/10 p-2 text-terracota">
+                  <span className="rounded-lg bg-azul-institucional/10 p-2 text-azul-institucional">
                     <Mail size={16} />
                   </span>
                   {CORREO}
                 </a>
                 <a
                   href={`tel:${TELEFONO_TEL}`}
-                  className="flex items-center gap-3 text-marron transition-colors hover:text-terracota"
+                  className="flex items-center gap-3 text-marron transition-colors hover:text-azul-institucional"
                 >
-                  <span className="rounded-lg bg-terracota/10 p-2 text-terracota">
+                  <span className="rounded-lg bg-azul-institucional/10 p-2 text-azul-institucional">
                     <Phone size={16} />
                   </span>
                   {TELEFONO}

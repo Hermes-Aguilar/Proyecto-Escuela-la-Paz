@@ -76,29 +76,29 @@ export default function Librerias() {
       <section className="bg-[#F0EAE0] py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Directorio</span>
+            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Directorio</span>
             <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Nuestras librerías</h2>
           </div>
 
           <div className="space-y-8">
             {librerias.map((lib) => (
-              <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-[#C25B35]" : "border-[#E4D7BC]"}`}>
+              <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-azul-institucional" : "border-[#E4D7BC]"}`}>
                 <div className="p-8 grid md:grid-cols-3 gap-8">
                   {/* Info principal */}
                   <div className="md:col-span-2">
                     <h3 className="text-2xl font-bold text-[#3B2314] mb-1">{lib.nombre}</h3>
-                    <p className="text-[#C25B35] font-semibold text-sm mb-3">{lib.ciudad}</p>
+                    <p className="text-azul-institucional font-semibold text-sm mb-3">{lib.ciudad}</p>
                     <p className="text-[#5A4232] text-sm leading-relaxed mb-5">{lib.descripcion}</p>
                     <div className="flex items-start gap-2 text-sm text-[#7A6352] mb-2">
-                      <FaMapMarkerAlt className="mt-0.5 text-[#C25B35] shrink-0" />
+                      <FaMapMarkerAlt className="mt-0.5 text-azul-institucional shrink-0" />
                       <span>{lib.direccion}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-[#7A6352] mb-2">
-                      <FaPhoneAlt className="text-[#8E9A3C] shrink-0" />
+                      <FaPhoneAlt className="text-dorado shrink-0" />
                       <a href={`tel:${lib.telefono}`} className="hover:text-[#3B2314] transition-colors">{lib.telefono}</a>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-[#7A6352]">
-                      <FaEnvelope className="text-[#8E9A3C] shrink-0" />
+                      <FaEnvelope className="text-dorado shrink-0" />
                       <a href={`mailto:${lib.email}`} className="hover:text-[#3B2314] transition-colors">{lib.email}</a>
                     </div>
                   </div>
@@ -106,7 +106,7 @@ export default function Librerias() {
                   {/* Horarios */}
                   <div className="bg-[#FAF7F2] rounded-2xl p-5">
                     <h4 className="font-bold text-[#3B2314] flex items-center gap-2 mb-4">
-                      <FaClock className="text-[#C25B35]" size={14} /> Horarios de atención
+                      <FaClock className="text-azul-institucional" size={14} /> Horarios de atención
                     </h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
@@ -132,7 +132,7 @@ export default function Librerias() {
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="bg-[#8E9A3C] rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-dorado rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl font-bold text-white mb-2">¿Tienes alguna consulta o pedido especial?</h2>
             <p className="text-white/80">
@@ -141,7 +141,7 @@ export default function Librerias() {
           </div>
           <Link
             href="/contacto"
-            className="shrink-0 bg-white text-[#8E9A3C] hover:bg-[#F0EAE0] px-7 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors"
+            className="shrink-0 bg-white text-dorado hover:bg-[#F0EAE0] px-7 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors"
           >
             Ir a contacto <FaArrowRight />
           </Link>

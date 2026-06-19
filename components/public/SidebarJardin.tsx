@@ -62,6 +62,7 @@ function construirMenu(base: string): Item[] {
       hijos: [
         { label: "Quiénes somos", href: `${base}/nosotros/quienes-somos` },
         { label: "Nuestra misión", href: `${base}/nosotros/quienes-somos#mision` },
+        { label: "Historia", href: `${base}/nosotros/historia` },
         { label: "Nuestro equipo", href: `${base}/nosotros/equipo` },
       ],
     },
@@ -200,7 +201,7 @@ export default function SidebarJardin({
         <Link
           href="/pastoral-educativa"
           onClick={cerrarDrawer}
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-marron-suave transition-colors hover:text-terracota"
+          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-marron-suave transition-colors hover:text-azul-institucional"
         >
           <ArrowLeft size={16} className="shrink-0" />
           Regresar a Congregación

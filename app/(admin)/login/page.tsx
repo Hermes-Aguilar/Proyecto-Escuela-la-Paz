@@ -120,7 +120,7 @@ export default async function LoginPage({
 
               <button
                 type="submit"
-                className="mt-3 w-full rounded-lg bg-terracota px-4 py-2.5 font-medium text-white shadow-lg transition hover:bg-terracota-oscuro focus:outline-none focus:ring-2 focus:ring-white/50 active:translate-y-px"
+                className="mt-3 w-full rounded-lg bg-azul-institucional px-4 py-2.5 font-medium text-white shadow-lg transition hover:bg-azul-oscuro focus:outline-none focus:ring-2 focus:ring-white/50 active:translate-y-px"
               >
                 Ingresar
               </button>

@@ -9,16 +9,19 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Paleta institucional de la congregación (cálido franciscano).
-     Reutilizable en todo el panel admin: bg-crema, text-marron,
-     bg-terracota, border-arena, etc. */
+  /* Paleta institucional del Instituto de Misioneras del Señor de los
+     Corazones y de Santa María de Guadalupe, basada en los colores de su
+     escudo (azul cielo, dorado, verde y marrón tierra). Reutilizable en
+     todo el sitio: bg-crema, text-marron, bg-azul-institucional,
+     text-dorado, border-arena, etc. */
   --color-crema: #faf6f0;
   --color-marron: #3f2d23;
   --color-marron-suave: #6b5b4f;
-  --color-terracota: #b5532f;
-  --color-terracota-oscuro: #934126;
+  --color-azul-institucional: #2c5f7c;
+  --color-azul-oscuro: #234c61;
+  --color-dorado: #c9a227;
+  --color-dorado-oscuro: #a8841c;
   --color-arena: #e3d8cc;
-  --color-olivo: #8e9a3c;
   --color-error: #b00020;
 
   /* Conecta las variables de next/font con Tailwind 4: genera las

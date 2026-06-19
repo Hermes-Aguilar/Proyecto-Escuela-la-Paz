@@ -69,13 +69,13 @@ type BloqueUI =
   | { uid: string; tipo: "video"; url: string };
 
 const TIPOS: { valor: TipoPublicacion; etiqueta: string; activo: string }[] = [
-  { valor: "NOTICIA", etiqueta: "Noticia", activo: "bg-olivo/15 text-olivo ring-olivo" },
-  { valor: "EVENTO", etiqueta: "Evento", activo: "bg-terracota/15 text-terracota ring-terracota" },
+  { valor: "NOTICIA", etiqueta: "Noticia", activo: "bg-dorado/15 text-dorado ring-dorado" },
+  { valor: "EVENTO", etiqueta: "Evento", activo: "bg-azul-institucional/15 text-azul-institucional ring-azul-institucional" },
   { valor: "AVISO", etiqueta: "Aviso", activo: "bg-arena/70 text-marron-suave ring-marron-suave" },
 ];
 
 const CLASES_INPUT =
-  "w-full rounded-lg border border-arena bg-white px-3 py-2.5 text-marron outline-none transition placeholder:text-marron-suave/60 focus:border-terracota focus:ring-2 focus:ring-terracota/30";
+  "w-full rounded-lg border border-arena bg-white px-3 py-2.5 text-marron outline-none transition placeholder:text-marron-suave/60 focus:border-azul-institucional focus:ring-2 focus:ring-azul-institucional/30";
 
 const uid = () => crypto.randomUUID();
 

@@ -4,7 +4,7 @@
 // jardines de esta página + accesos directos a cada jardín.
 //
 // Client Component: usa usePathname para resaltar el enlace activo
-// (terracota). Es reutilizable — si esta barra se coloca también en
+// (azul-institucional). Es reutilizable — si esta barra se coloca también en
 // las páginas de jardín, "La Paz"/"Porvenir" se resaltan solas.
 //
 // Sticky bajo el Navbar (que es sticky top-0 z-50 h-16): por eso
@@ -60,8 +60,8 @@ export function SubmenuPastoral() {
                 aria-current={activo ? "page" : undefined}
                 className={`flex items-center border-b-2 px-3 py-4 font-medium transition-colors ${
                   activo
-                    ? "border-terracota bg-terracota/10 text-terracota"
-                    : "border-transparent text-marron-suave hover:text-terracota"
+                    ? "border-azul-institucional bg-azul-institucional/10 text-azul-institucional"
+                    : "border-transparent text-marron-suave hover:text-azul-institucional"
                 }`}
               >
                 {enlace.etiqueta}

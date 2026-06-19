@@ -101,7 +101,7 @@ export default function PastoralEducativa() {
         <AnimacionScroll>
           <div className="grid items-center gap-16 md:grid-cols-2">
             <div>
-              <span className="text-sm font-semibold uppercase tracking-widest text-terracota">
+              <span className="text-sm font-semibold uppercase tracking-widest text-azul-institucional">
                 Nuestra misión
               </span>
               <h2 className="mb-5 mt-2 text-3xl font-bold text-[#3B2314]">
@@ -118,13 +118,13 @@ export default function PastoralEducativa() {
                 construyendo así un mundo mejor desde la raíz.
               </p>
               <div className="flex flex-wrap gap-3">
-                <span className="flex items-center gap-2 rounded-full border border-terracota/20 bg-terracota/10 px-4 py-2 text-sm font-medium text-terracota">
+                <span className="flex items-center gap-2 rounded-full border border-azul-institucional/20 bg-azul-institucional/10 px-4 py-2 text-sm font-medium text-azul-institucional">
                   <FaChild size={14} /> Desarrollo integral
                 </span>
-                <span className="flex items-center gap-2 rounded-full border border-terracota/20 bg-terracota/10 px-4 py-2 text-sm font-medium text-terracota">
+                <span className="flex items-center gap-2 rounded-full border border-azul-institucional/20 bg-azul-institucional/10 px-4 py-2 text-sm font-medium text-azul-institucional">
                   <FaHeart size={14} /> Valores franciscanos
                 </span>
-                <span className="flex items-center gap-2 rounded-full border border-terracota/20 bg-terracota/10 px-4 py-2 text-sm font-medium text-terracota">
+                <span className="flex items-center gap-2 rounded-full border border-azul-institucional/20 bg-azul-institucional/10 px-4 py-2 text-sm font-medium text-azul-institucional">
                   <FaLeaf size={14} /> Amor a la creación
                 </span>
               </div>
@@ -135,7 +135,7 @@ export default function PastoralEducativa() {
                   key={p.titulo}
                   className="rounded-2xl border border-[#E4D7BC] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
-                  <div className="mb-3 text-[#8E9A3C]">{p.icon}</div>
+                  <div className="mb-3 text-dorado">{p.icon}</div>
                   <h4 className="mb-1 text-sm font-bold text-[#3B2314]">{p.titulo}</h4>
                   <p className="text-xs leading-relaxed text-[#7A6352]">{p.desc}</p>
                 </div>
@@ -150,7 +150,7 @@ export default function PastoralEducativa() {
         <div className="mx-auto max-w-7xl">
           <AnimacionScroll>
             <div className="mb-12 text-center">
-              <span className="text-sm font-semibold uppercase tracking-widest text-[#C25B35]">
+              <span className="text-sm font-semibold uppercase tracking-widest text-azul-institucional">
                 Nuestros jardines
               </span>
               <h2 className="mt-2 text-3xl font-bold text-[#3B2314]">Comunidades educativas</h2>
@@ -179,7 +179,7 @@ export default function PastoralEducativa() {
                       <div>
                         <h3 className="text-xl font-bold text-[#3B2314]">{jardín.nombre}</h3>
                         <p className="mt-1 flex items-center gap-1 text-sm text-[#7A6352]">
-                          <FaMapMarkerAlt size={11} className="text-terracota" /> {jardín.ciudad}
+                          <FaMapMarkerAlt size={11} className="text-azul-institucional" /> {jardín.ciudad}
                         </p>
                       </div>
                       <span
@@ -236,20 +236,20 @@ export default function PastoralEducativa() {
                   href="mailto:educativa@franciscanas.org"
                   className="flex items-center gap-3 text-[#E4D7BC] transition-colors hover:text-white"
                 >
-                  <FaEnvelope className="text-terracota" /> educativa@franciscanas.org
+                  <FaEnvelope className="text-dorado" /> educativa@franciscanas.org
                 </a>
                 <a
                   href="tel:+5255000001"
                   className="flex items-center gap-3 text-[#E4D7BC] transition-colors hover:text-white"
                 >
-                  <FaPhoneAlt className="text-terracota" /> +52 55 0000 0001
+                  <FaPhoneAlt className="text-dorado" /> +52 55 0000 0001
                 </a>
               </div>
             </div>
             <div className="text-center">
               <Link
                 href="/contacto"
-                className="inline-flex items-center gap-2 rounded-xl bg-terracota px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-terracota-oscuro"
+                className="inline-flex items-center gap-2 rounded-xl bg-azul-institucional px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-azul-oscuro"
               >
                 Ir a contacto <FaArrowRight />
               </Link>

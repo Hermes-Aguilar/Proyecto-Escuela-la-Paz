@@ -77,7 +77,7 @@ export default function PastoralMisionera() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="text-[#8E9A3C] text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
+            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
             <h2 className="text-3xl font-bold text-[#3B2314] mt-2 mb-5">
               Misioneras al estilo de Francisco
             </h2>
@@ -91,7 +91,7 @@ export default function PastoralMisionera() {
               en su dignidad, sus derechos, su cultura y su fe. Escuchamos antes de hablar.
               Servimos antes de enseñar.
             </p>
-            <div className="bg-[#8E9A3C]/10 border-l-4 border-[#8E9A3C] pl-4 py-3 rounded-r-lg">
+            <div className="bg-dorado/10 border-l-4 border-dorado pl-4 py-3 rounded-r-lg">
               <p className="text-[#3B2314] italic text-sm">
                 "Quien siembra en amor, cosecha para la eternidad."
               </p>
@@ -100,7 +100,7 @@ export default function PastoralMisionera() {
           <div className="grid grid-cols-2 gap-4">
             {programas.map((p) => (
               <div key={p.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow">
-                <div className="text-[#8E9A3C] mb-3">{p.icon}</div>
+                <div className="text-dorado mb-3">{p.icon}</div>
                 <h4 className="font-bold text-[#3B2314] text-sm mb-1">{p.titulo}</h4>
                 <p className="text-xs text-[#7A6352] leading-relaxed">{p.desc}</p>
               </div>
@@ -113,7 +113,7 @@ export default function PastoralMisionera() {
       <section className="bg-[#F0EAE0] py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Presencia territorial</span>
+            <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Presencia territorial</span>
             <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Zonas de misión</h2>
             <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
               Actualmente trabajamos en cuatro regiones prioritarias de México con alta vulnerabilidad y riqueza cultural.
@@ -123,15 +123,15 @@ export default function PastoralMisionera() {
             {zonas.map((z) => (
               <div key={z.zona} className="bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC]">
                 <div className="flex items-center justify-between mb-3">
-                  <FaMapMarkerAlt className="text-[#C25B35]" size={18} />
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${z.activa ? "bg-[#8E9A3C]/15 text-[#8E9A3C]" : "bg-gray-100 text-gray-500"}`}>
+                  <FaMapMarkerAlt className="text-azul-institucional" size={18} />
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${z.activa ? "bg-dorado/15 text-dorado" : "bg-gray-100 text-gray-500"}`}>
                     {z.activa ? "Activa" : "En pausa"}
                   </span>
                 </div>
                 <h3 className="font-bold text-[#3B2314] mb-1">{z.zona}</h3>
                 <p className="text-sm text-[#7A6352] mb-3">{z.estado}</p>
                 <p className="text-xs text-[#9A8B7A]">
-                  <span className="font-semibold text-[#C25B35]">{z.comunidades}</span> comunidades acompañadas
+                  <span className="font-semibold text-azul-institucional">{z.comunidades}</span> comunidades acompañadas
                 </p>
               </div>
             ))}
@@ -142,7 +142,7 @@ export default function PastoralMisionera() {
       {/* IMPACTO */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
-          <span className="text-[#C25B35] text-sm font-semibold tracking-widest uppercase">Números que hablan</span>
+          <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Números que hablan</span>
           <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Nuestra presencia en números</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -153,8 +153,8 @@ export default function PastoralMisionera() {
             { num: "20+", label: "Años de presencia misionera", icon: <FaStar /> },
           ].map((stat) => (
             <div key={stat.label} className="bg-white rounded-2xl p-7 text-center shadow-sm border border-[#E4D7BC]">
-              <div className="text-[#8E9A3C] flex justify-center mb-3 text-xl">{stat.icon}</div>
-              <p className="text-4xl font-black text-[#C25B35] mb-2">{stat.num}</p>
+              <div className="text-dorado flex justify-center mb-3 text-xl">{stat.icon}</div>
+              <p className="text-4xl font-black text-azul-institucional mb-2">{stat.num}</p>
               <p className="text-sm text-[#7A6352]">{stat.label}</p>
             </div>
           ))}
@@ -170,7 +170,7 @@ export default function PastoralMisionera() {
             en tu comunidad. Juntos llegamos más lejos.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contacto" className="bg-[#C25B35] hover:bg-[#a84928] text-white px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors">
+            <Link href="/contacto" className="bg-azul-institucional hover:bg-azul-oscuro text-white px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors">
               <FaEnvelope /> Contactar
             </Link>
             <a href="tel:+5255000000" className="border-2 border-white/30 text-white hover:bg-white/10 px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors">
