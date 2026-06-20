@@ -43,6 +43,21 @@ export default async function JardinLayout({
         {
           "--jardin-primario": jardin.colorPrimario,
           "--jardin-secundario": jardin.colorSecundario,
+          // El portal adoptó la identidad "litúrgico sobrio" (azul + oro).
+          // Aquí restauramos los valores ANTIGUOS de los neutros
+          // institucionales SOLO en el subárbol del jardín, para que sus
+          // rutas se vean IDÉNTICAS a antes (su tema por escuela vive en
+          // --jardin-primario/secundario y no se toca).
+          "--foreground": "#171717",
+          "--color-crema": "#faf6f0",
+          "--color-arena": "#e3d8cc",
+          "--color-marron": "#3f2d23",
+          "--color-marron-suave": "#6b5b4f",
+          "--color-azul-institucional": "#2c5f7c",
+          "--color-azul-oscuro": "#234c61",
+          "--color-dorado": "#c9a227",
+          "--color-dorado-oscuro": "#a8841c",
+          "--color-error": "#b00020",
         } as React.CSSProperties
       }
     >

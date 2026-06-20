@@ -53,7 +53,7 @@ const INTERVALO_MS = 8_000;
 export default function CarruselHero({
   slides,
   altura = "h-[520px]",
-  colorAcento = "#2c5f7c",
+  colorAcento = "#1f3a5a",
   fondoFijo = false,
 }: Props) {
   const [actual, setActual] = useState(0);

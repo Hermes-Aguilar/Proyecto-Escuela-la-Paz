@@ -2,29 +2,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1714;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  /* Paleta institucional del Instituto de Misioneras del Señor de los
-     Corazones y de Santa María de Guadalupe, basada en los colores de su
-     escudo (azul cielo, dorado, verde y marrón tierra). Reutilizable en
-     todo el sitio: bg-crema, text-marron, bg-azul-institucional,
-     text-dorado, border-arena, etc. */
-  --color-crema: #faf6f0;
-  --color-marron: #3f2d23;
-  --color-marron-suave: #6b5b4f;
-  --color-azul-institucional: #2c5f7c;
-  --color-azul-oscuro: #234c61;
-  --color-dorado: #c9a227;
-  --color-dorado-oscuro: #a8841c;
-  --color-terracota: #b5544a;
-  --color-terracota-oscuro: #9a4439;
-  --color-arena: #e3d8cc;
-  --color-error: #b00020;
 
   /* Conecta las variables de next/font con Tailwind 4: genera las
      utilidades font-titulo y font-texto. Al ser `inline`, la utilidad
@@ -34,6 +17,39 @@
   --font-texto: var(--font-texto);
   /* Caligrafía para el lema (font-script). */
   --font-script: var(--font-script);
+}
+
+/* Paleta institucional del Instituto de Misioneras del Señor de los
+   Corazones y de Santa María de Guadalupe. Identidad "litúrgico sobrio":
+   AZUL PROFUNDO + ORO como ÚNICO acento (ya NO hay terracota en el portal).
+   Títulos en azul-institucional, cuerpo casi-negro (marron/foreground)
+   sobre crema o blanco, oro solo en detalles (filetes, íconos, botones de
+   acento), preferentemente sobre azul.
+
+   IMPORTANTE — NO usar `@theme inline` aquí: al referenciar var(--color-*)
+   las utilidades (bg-crema, text-marron…) son sobreescribibles por cascada.
+   Así el subárbol de cada jardín restaura los valores ANTIGUOS de estos
+   neutros (ver app/(public)/pastoral-educativa/[jardin]/layout.tsx) y las
+   rutas de jardín se ven IDÉNTICAS, sin tocar su tema por escuela. */
+@theme {
+  --color-crema: #f7f2e9;
+  --color-arena: #cdc4b4;
+  --color-marron: #1a1714; /* texto principal (casi-negro) */
+  --color-marron-suave: #6b6456; /* texto secundario */
+  --color-azul-institucional: #1f3a5a; /* azul profundo · títulos y acento */
+  --color-azul-oscuro: #14283f; /* hover/paneles oscuros */
+  --color-azul-suave: #e9eef4; /* fondos de sección con tinte litúrgico */
+  --color-dorado: #c19a3a; /* oro · único acento */
+  --color-dorado-oscuro: #9e7c26; /* hover del oro */
+  --color-dorado-suave: #f3e8cf; /* fondos/realces suaves de oro */
+  --color-error: #a4243b;
+
+  /* terracota: ya NO forma parte de la paleta del portal (oro = único
+     acento). Se conserva EXCLUSIVAMENTE para el badge de EVENTO de las
+     publicaciones, compartido con el muro de los jardines, que debe verse
+     idéntico. No usar en páginas del portal institucional. */
+  --color-terracota: #b5544a;
+  --color-terracota-oscuro: #9a4439;
 }
 
 @media (prefers-color-scheme: dark) {

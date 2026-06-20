@@ -86,7 +86,7 @@ const grupos = [
 
 export default function PastoralJuvenil() {
   return (
-    <div className="bg-[#FAF7F2]">
+    <div className="bg-crema">
       {/* HERO — carrusel del portal general */}
       <CarruselHero slides={slidesHero} />
 
@@ -94,14 +94,14 @@ export default function PastoralJuvenil() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
           <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Nuestra propuesta</span>
-          <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Actividades y programas</h2>
-          <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
+          <h2 className="text-3xl font-bold text-azul-institucional mt-2">Actividades y programas</h2>
+          <p className="text-marron-suave mt-3 max-w-xl mx-auto">
             Una propuesta integral que combina espiritualidad, fraternidad, servicio y cultura franciscana.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {actividades.map((act) => (
-            <div key={act.titulo} className="bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] hover:shadow-md hover:-translate-y-0.5 transition-all group">
+            <div key={act.titulo} className="bg-white rounded-2xl p-6 shadow-sm border border-arena hover:shadow-md hover:-translate-y-0.5 transition-all group">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-azul-institucional bg-azul-institucional/10 p-3 rounded-xl group-hover:bg-azul-institucional group-hover:text-white transition-colors">
                   {act.icon}
@@ -110,20 +110,20 @@ export default function PastoralJuvenil() {
                   {act.frecuencia}
                 </span>
               </div>
-              <h3 className="font-bold text-[#3B2314] mb-2">{act.titulo}</h3>
-              <p className="text-sm text-[#7A6352] leading-relaxed">{act.desc}</p>
+              <h3 className="font-bold text-azul-institucional mb-2">{act.titulo}</h3>
+              <p className="text-sm text-marron-suave leading-relaxed">{act.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* GRUPOS */}
-      <section id="grupos" className="bg-[#3B2314] py-20 px-6">
+      <section id="grupos" className="bg-azul-oscuro py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Comunidades</span>
             <h2 className="text-3xl font-bold text-white mt-2">Grupos juveniles franciscanos</h2>
-            <p className="text-[#C8B99A] mt-3">Encuéntrate con el grupo más cercano a ti</p>
+            <p className="text-white/75 mt-3">Encuéntrate con el grupo más cercano a ti</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {grupos.map((g) => (
@@ -135,11 +135,11 @@ export default function PastoralJuvenil() {
                   </span>
                 </div>
                 <h3 className="text-white font-bold text-sm mb-1">{g.nombre}</h3>
-                <p className="text-[#C8B99A] text-xs flex items-center gap-1 mb-3">
+                <p className="text-white/75 text-xs flex items-center gap-1 mb-3">
                   <FaMapMarkerAlt size={10} /> {g.ciudad}
                 </p>
                 <p className="text-dorado font-bold text-xl">{g.miembros}</p>
-                <p className="text-[#9A8B7A] text-xs">miembros activos</p>
+                <p className="text-white/55 text-xs">miembros activos</p>
               </div>
             ))}
           </div>
@@ -150,9 +150,9 @@ export default function PastoralJuvenil() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-10">
           {/* Redes */}
-          <div className="bg-[#F0EAE0] rounded-3xl p-8">
-            <h3 className="text-xl font-bold text-[#3B2314] mb-3">Síguenos en redes</h3>
-            <p className="text-[#5A4232] text-sm mb-6">
+          <div className="bg-azul-suave rounded-3xl p-8">
+            <h3 className="text-xl font-bold text-azul-institucional mb-3">Síguenos en redes</h3>
+            <p className="text-marron text-sm mb-6">
               Comparte el carisma franciscano, conoce las últimas actividades y conecta con otros jóvenes.
             </p>
             <div className="space-y-3">
@@ -161,8 +161,8 @@ export default function PastoralJuvenil() {
                   <FaInstagram size={18} />
                 </div>
                 <div>
-                  <p className="font-semibold text-[#3B2314] text-sm">@pastoralfransciscana</p>
-                  <p className="text-xs text-[#7A6352]">Instagram · Fotos y stories</p>
+                  <p className="font-semibold text-marron text-sm">@pastoralfransciscana</p>
+                  <p className="text-xs text-marron-suave">Instagram · Fotos y stories</p>
                 </div>
               </a>
               <a href="#" className="flex items-center gap-4 bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
@@ -170,8 +170,8 @@ export default function PastoralJuvenil() {
                   <FaWhatsapp size={18} />
                 </div>
                 <div>
-                  <p className="font-semibold text-[#3B2314] text-sm">Grupo WhatsApp Juvenil</p>
-                  <p className="text-xs text-[#7A6352]">WhatsApp · Comunidad activa</p>
+                  <p className="font-semibold text-marron text-sm">Grupo WhatsApp Juvenil</p>
+                  <p className="text-xs text-marron-suave">WhatsApp · Comunidad activa</p>
                 </div>
               </a>
             </div>
@@ -189,7 +189,7 @@ export default function PastoralJuvenil() {
             <div className="space-y-3">
               <Link
                 href="/contacto"
-                className="flex items-center justify-center gap-2 bg-white text-azul-institucional hover:bg-[#F0EAE0] px-6 py-3 rounded-xl font-bold transition-colors"
+                className="flex items-center justify-center gap-2 bg-white text-azul-institucional hover:bg-azul-suave px-6 py-3 rounded-xl font-bold transition-colors"
               >
                 <FaEnvelope /> Escribirnos
               </Link>

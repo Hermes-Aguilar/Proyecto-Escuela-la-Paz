@@ -50,7 +50,7 @@ export default function Escudo() {
                 className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(201,162,39,0.25) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(193,154,58,0.25) 0%, transparent 70%)",
                 }}
               />
               <Image
@@ -73,7 +73,7 @@ export default function Escudo() {
               Rodeando el óvalo, el escudo lleva grabado nuestro lema:
             </p>
             <blockquote className="mt-4 rounded-2xl border-l-4 border-dorado bg-white p-6 shadow-sm">
-              <p className="font-script text-2xl leading-tight text-terracota md:text-3xl">
+              <p className="font-script text-2xl leading-tight text-dorado-oscuro md:text-3xl">
                 Alegrémonos de sufrir por Cristo en favor de su Iglesia
               </p>
             </blockquote>

@@ -69,7 +69,7 @@ const zonas = [
 
 export default function PastoralMisionera() {
   return (
-    <div className="bg-[#FAF7F2]">
+    <div className="bg-crema">
       {/* HERO — carrusel del portal general */}
       <CarruselHero slides={slidesHero} />
 
@@ -77,32 +77,32 @@ export default function PastoralMisionera() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
-            <h2 className="text-3xl font-bold text-[#3B2314] mt-2 mb-5">
+            <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
+            <h2 className="text-3xl font-bold text-azul-institucional mt-2 mb-5">
               Misioneras al estilo de Francisco
             </h2>
-            <p className="text-[#5A4232] leading-relaxed mb-4">
+            <p className="text-marron leading-relaxed mb-4">
               La Pastoral Misionera nació del espíritu itinerante de Francisco de Asís, que
               salía al encuentro del otro sin más equipaje que el amor. Hoy continuamos esa
               tradición llegando a comunidades indígenas, rurales y periurbanas de México.
             </p>
-            <p className="text-[#5A4232] leading-relaxed mb-6">
+            <p className="text-marron leading-relaxed mb-6">
               Nuestra misión no es solo religiosa: acompañamos integralmente a las personas
               en su dignidad, sus derechos, su cultura y su fe. Escuchamos antes de hablar.
               Servimos antes de enseñar.
             </p>
             <div className="bg-dorado/10 border-l-4 border-dorado pl-4 py-3 rounded-r-lg">
-              <p className="text-[#3B2314] italic text-sm">
+              <p className="text-marron italic text-sm">
                 "Quien siembra en amor, cosecha para la eternidad."
               </p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {programas.map((p) => (
-              <div key={p.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow">
+              <div key={p.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-arena hover:shadow-md transition-shadow">
                 <div className="text-dorado mb-3">{p.icon}</div>
-                <h4 className="font-bold text-[#3B2314] text-sm mb-1">{p.titulo}</h4>
-                <p className="text-xs text-[#7A6352] leading-relaxed">{p.desc}</p>
+                <h4 className="font-bold text-azul-institucional text-sm mb-1">{p.titulo}</h4>
+                <p className="text-xs text-marron-suave leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -110,27 +110,27 @@ export default function PastoralMisionera() {
       </section>
 
       {/* ZONAS MISIONERAS */}
-      <section className="bg-[#F0EAE0] py-20 px-6">
+      <section className="bg-azul-suave py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Presencia territorial</span>
-            <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Zonas de misión</h2>
-            <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold text-azul-institucional mt-2">Zonas de misión</h2>
+            <p className="text-marron-suave mt-3 max-w-xl mx-auto">
               Actualmente trabajamos en cuatro regiones prioritarias de México con alta vulnerabilidad y riqueza cultural.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {zonas.map((z) => (
-              <div key={z.zona} className="bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC]">
+              <div key={z.zona} className="bg-white rounded-2xl p-6 shadow-sm border border-arena">
                 <div className="flex items-center justify-between mb-3">
                   <FaMapMarkerAlt className="text-azul-institucional" size={18} />
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${z.activa ? "bg-dorado/15 text-dorado" : "bg-gray-100 text-gray-500"}`}>
                     {z.activa ? "Activa" : "En pausa"}
                   </span>
                 </div>
-                <h3 className="font-bold text-[#3B2314] mb-1">{z.zona}</h3>
-                <p className="text-sm text-[#7A6352] mb-3">{z.estado}</p>
-                <p className="text-xs text-[#9A8B7A]">
+                <h3 className="font-bold text-azul-institucional mb-1">{z.zona}</h3>
+                <p className="text-sm text-marron-suave mb-3">{z.estado}</p>
+                <p className="text-xs text-marron-suave">
                   <span className="font-semibold text-azul-institucional">{z.comunidades}</span> comunidades acompañadas
                 </p>
               </div>
@@ -143,7 +143,7 @@ export default function PastoralMisionera() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
           <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Números que hablan</span>
-          <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Nuestra presencia en números</h2>
+          <h2 className="text-3xl font-bold text-azul-institucional mt-2">Nuestra presencia en números</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
@@ -152,20 +152,20 @@ export default function PastoralMisionera() {
             { num: "4", label: "Zonas de misión en México", icon: <FaMapMarkerAlt /> },
             { num: "20+", label: "Años de presencia misionera", icon: <FaStar /> },
           ].map((stat) => (
-            <div key={stat.label} className="bg-white rounded-2xl p-7 text-center shadow-sm border border-[#E4D7BC]">
+            <div key={stat.label} className="bg-white rounded-2xl p-7 text-center shadow-sm border border-arena">
               <div className="text-dorado flex justify-center mb-3 text-xl">{stat.icon}</div>
               <p className="text-4xl font-black text-azul-institucional mb-2">{stat.num}</p>
-              <p className="text-sm text-[#7A6352]">{stat.label}</p>
+              <p className="text-sm text-marron-suave">{stat.label}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[#3B2314] py-16 px-6">
+      <section className="bg-azul-oscuro py-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">¿Quieres sumarte a la misión?</h2>
-          <p className="text-[#C8B99A] mb-8">
+          <p className="text-white/75 mb-8">
             Hay muchas formas de participar: oración, apoyo económico, voluntariado o animación misionera
             en tu comunidad. Juntos llegamos más lejos.
           </p>
