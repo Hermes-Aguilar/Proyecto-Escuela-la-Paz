@@ -1,7 +1,9 @@
 // RUTA: app/(public)/page.tsx
 import Link from "next/link";
+import Image from "next/image";
 import { Lora } from "next/font/google";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+import { AnimacionScroll } from "@/components/public/AnimacionScroll";
 import {
   FaCross,
   FaBook,
@@ -55,12 +57,12 @@ const areas = [
 ];
 
 const sedes = [
-  { ciudad: "Huajuapan de León, Oaxaca", nombre: "Casa General", tipo: "Sede principal" },
-  { ciudad: "San Juan Copala, Oaxaca", nombre: "Comunidad Santa Teresita", tipo: "Desde 1964" },
-  { ciudad: "Huajuapan de León, Oaxaca", nombre: "Jardines La Paz y Porvenir", tipo: "Desde 1966" },
-  { ciudad: "Tamazulapan del Progreso, Oaxaca", nombre: "Comunidad Niño de Praga", tipo: "Desde 1979" },
-  { ciudad: "El Molino, Huajuapan de León", nombre: "Casa Noviciado «Elisa María»", tipo: "Desde 2005" },
-  { ciudad: "Santiago Juxtlahuaca, Oaxaca", nombre: "Instituto Teresa de Cepeda y Ahumada", tipo: "Desde 1997" },
+  { ciudad: "Huajuapan de León, Oaxaca", nombre: "Casa General", tipo: "Casa fundadora · 1957" },
+  { ciudad: "San Juan Copala, Oaxaca", nombre: "Comunidad Santa Teresita", tipo: "1ª fundación · 1964" },
+  { ciudad: "Huajuapan de León, Oaxaca", nombre: "Jardines La Paz y Porvenir", tipo: "2ª fundación · 1966" },
+  { ciudad: "Tamazulapan del Progreso, Oaxaca", nombre: "Comunidad Niño de Praga", tipo: "4ª fundación · 1979" },
+  { ciudad: "Santiago Juxtlahuaca, Oaxaca", nombre: "Instituto Teresa de Cepeda y Ahumada", tipo: "10ª fundación · 1997" },
+  { ciudad: "El Molino, Huajuapan de León", nombre: "Casa Noviciado «Elisa María»", tipo: "Casa de Noviciado · 2005" },
 ];
 
 const librerias = [
@@ -71,21 +73,21 @@ const librerias = [
 
 const slidesHero: SlideHero[] = [
   {
-    imagen: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600",
+    imagen: "/images/hero-vida-consagrada.jpg",
     categoria: "SEÑOR DE LOS CORAZONES",
     titulo: "Misioneras al servicio de la Iglesia",
     descripcion:
       "Damos a conocer las riquezas de Jesucristo, Rey y Señor de los Corazones, y el amor maternal de Santa María de Guadalupe",
   },
   {
-    imagen: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1600",
+    imagen: "/images/hero-dispensario.jpg",
     categoria: "NUESTRA MISIÓN",
     titulo: "Sirviendo donde más se necesita",
     descripcion:
       "Llevamos la semilla del Evangelio a los pueblos de la Diócesis de Huajuapan y más allá, con los pies en la tierra y el corazón en Dios",
   },
   {
-    imagen: "https://images.unsplash.com/photo-1438232992991-995b671e4668?w=1600",
+    imagen: "/images/hero-paseo-hermanas.jpg",
     categoria: "ÚNETE A NOSOTRAS",
     titulo: "Una llamada que transforma vidas",
     descripcion:
@@ -114,6 +116,7 @@ export default function Home() {
       <div className="relative z-10 bg-[#FAF7F2]">
       {/* BIENVENIDA / CARISMA */}
       <section className="max-w-7xl mx-auto px-6 py-20">
+        <AnimacionScroll>
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
@@ -122,13 +125,13 @@ export default function Home() {
               <br />
               servicio del Reino de Dios
             </h2>
-            <p className="text-[#5A4232] leading-relaxed mb-4">
+            <p className="text-[#5A4232] leading-relaxed mb-4 text-justify">
               Somos el <strong className="text-[#3B2314]">Instituto de Misioneras del Señor de los
               Corazones y de Santa María de Guadalupe</strong>, una congregación religiosa fundada
               el 12 de mayo de 1957 en Huajuapan de León, Oaxaca, por el Pbro. Lic. Luis Fiacro
               Guerrero Ramírez.
             </p>
-            <p className="text-[#5A4232] leading-relaxed mb-6">
+            <p className="text-[#5A4232] leading-relaxed mb-6 text-justify">
               Nuestro carisma es ser en la Iglesia miembros activos en la construcción del Reino de
               Dios, mediante el dar a conocer a nuestros hermanos las riquezas de Jesucristo Rey y
               Señor de los Corazones y el amor maternal de Santa María de Guadalupe.
@@ -171,40 +174,51 @@ export default function Home() {
             ))}
           </div>
         </div>
+        </AnimacionScroll>
       </section>
 
       {/* FUNDADORES */}
       <section className="bg-[#F0EAE0] py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
-            <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Fundadores e inspiradores</h2>
-          </div>
+          <AnimacionScroll>
+            <div className="text-center mb-12">
+              <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
+              <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Fundadores e inspiradores</h2>
+            </div>
+          </AnimacionScroll>
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {[
               {
                 nombre: "Pbro. Lic. Luis Fiacro Guerrero Ramírez",
                 rol: "Nuestro Padre Fundador",
                 desc: "Inició el Instituto el 12 de mayo de 1957 en Huajuapan de León, Oaxaca, con el deseo de formar religiosas misioneras para la Diócesis.",
-                icon: <FaCross size={32} className="text-azul-institucional" />,
+                foto: "/images/fundador.jpeg",
               },
               {
                 nombre: "Madre Elisa María del Sagrado Corazón",
                 rol: "Primera Superiora General y Formadora",
                 desc: "Carmelita Misionera de Santa Teresa que acompañó a la Congregación durante 22 años, hasta su muerte en 1980.",
-                icon: <FaStar size={32} className="text-dorado" />,
+                foto: "/images/madre-elisa.jpeg",
               },
-            ].map((f) => (
-              <div key={f.nombre} className="bg-white rounded-2xl p-7 shadow-sm border border-[#E4D7BC] text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-[74px] h-[74px] rounded-full bg-[#F0EAE0] flex items-center justify-center">
-                    {f.icon}
+            ].map((f, i) => (
+              <AnimacionScroll key={f.nombre} delay={i * 120}>
+                <div className="bg-white rounded-2xl p-7 shadow-sm border border-[#E4D7BC] text-center h-full">
+                  <div className="flex justify-center mb-4">
+                    <div className="relative w-[110px] h-[110px] overflow-hidden rounded-full border-4 border-[#F0EAE0] shadow-inner">
+                      <Image
+                        src={f.foto}
+                        alt={f.nombre}
+                        fill
+                        sizes="110px"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
+                  <h3 className="font-display font-bold text-[#3B2314] text-lg mb-1">{f.nombre}</h3>
+                  <span className="text-xs text-azul-institucional font-semibold uppercase tracking-wide">{f.rol}</span>
+                  <p className="text-[#5A4232] text-sm leading-relaxed mt-3 text-justify">{f.desc}</p>
                 </div>
-                <h3 className="font-display font-bold text-[#3B2314] text-lg mb-1">{f.nombre}</h3>
-                <span className="text-xs text-azul-institucional font-semibold uppercase tracking-wide">{f.rol}</span>
-                <p className="text-[#5A4232] text-sm leading-relaxed mt-3">{f.desc}</p>
-              </div>
+              </AnimacionScroll>
             ))}
           </div>
         </div>
@@ -212,19 +226,21 @@ export default function Home() {
 
       {/* ÁREAS PASTORALES */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center mb-12">
-          <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Lo que hacemos</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-[#3B2314] mt-2">Áreas pastorales</h2>
-          <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
-            Nuestra misión se despliega en cuatro grandes áreas que abarcan todos los momentos de la vida.
-          </p>
-        </div>
+        <AnimacionScroll>
+          <div className="text-center mb-12">
+            <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Lo que hacemos</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#3B2314] mt-2">Áreas pastorales</h2>
+            <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
+              Nuestra misión se despliega en cuatro grandes áreas que abarcan todos los momentos de la vida.
+            </p>
+          </div>
+        </AnimacionScroll>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {areas.map((area) => (
+          {areas.map((area, i) => (
+            <AnimacionScroll key={area.title} delay={i * 90} className="h-full">
             <Link
-              key={area.title}
               href={area.href}
-              className="group bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] hover:shadow-lg hover:-translate-y-1 transition-all"
+              className="group flex h-full flex-col bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] hover:shadow-lg hover:-translate-y-1 transition-all"
             >
               <div
                 className={`${area.color} text-white rounded-xl p-3 inline-flex mb-4 group-hover:scale-110 transition-transform`}
@@ -233,10 +249,11 @@ export default function Home() {
               </div>
               <h3 className="font-display font-bold text-[#3B2314] mb-2 leading-snug">{area.title}</h3>
               <p className="text-sm text-[#7A6352] leading-relaxed mb-4">{area.desc}</p>
-              <span className="text-azul-institucional text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+              <span className="mt-auto text-azul-institucional text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
                 Conocer más <FaArrowRight size={12} />
               </span>
             </Link>
+            </AnimacionScroll>
           ))}
         </div>
       </section>
@@ -244,28 +261,29 @@ export default function Home() {
       {/* SEDES — claro */}
       <section className="bg-[#F0EAE0] py-16 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative">
-          <div className="text-center mb-12">
-            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Presencia</span>
-            <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Nuestras comunidades</h2>
-            <p className="text-[#7A6352] mt-2">Una congregación con presencia en México y el extranjero</p>
-          </div>
+          <AnimacionScroll>
+            <div className="text-center mb-12">
+              <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Presencia</span>
+              <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Nuestras comunidades</h2>
+              <p className="text-[#7A6352] mt-2">Una congregación con presencia en México y el extranjero</p>
+            </div>
+          </AnimacionScroll>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {sedes.map((sede) => (
-              <div
-                key={sede.nombre}
-                className="bg-white border border-[#E4D7BC] rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start gap-3">
-                  <FaMapMarkerAlt className="text-azul-institucional mt-1 shrink-0" />
-                  <div>
-                    <p className="text-[#3B2314] font-semibold">{sede.nombre}</p>
-                    <p className="text-[#7A6352] text-sm">{sede.ciudad}</p>
-                    <span className="inline-block mt-1 text-xs bg-[#E4D7BC] text-azul-institucional px-2 py-0.5 rounded-full">
-                      {sede.tipo}
-                    </span>
+            {sedes.map((sede, i) => (
+              <AnimacionScroll key={sede.nombre} delay={i * 90}>
+                <div className="bg-white border border-[#E4D7BC] rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow h-full">
+                  <div className="flex items-start gap-3">
+                    <FaMapMarkerAlt className="text-azul-institucional mt-1 shrink-0" />
+                    <div>
+                      <p className="text-[#3B2314] font-semibold">{sede.nombre}</p>
+                      <p className="text-[#7A6352] text-sm">{sede.ciudad}</p>
+                      <span className="inline-block mt-1 text-xs bg-[#E4D7BC] text-azul-institucional px-2 py-0.5 rounded-full">
+                        {sede.tipo}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </AnimacionScroll>
             ))}
           </div>
         </div>
@@ -273,6 +291,7 @@ export default function Home() {
 
       {/* LIBRERÍAS preview */}
       <section className="max-w-7xl mx-auto px-6 py-20">
+        <AnimacionScroll>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Librerías</span>
@@ -281,7 +300,7 @@ export default function Home() {
               <br />
               cultura y encuentro
             </h2>
-            <p className="text-[#5A4232] leading-relaxed mb-6">
+            <p className="text-[#5A4232] leading-relaxed mb-6 text-justify">
               Nuestras librerías son mucho más que puntos de venta: son lugares de
               encuentro, formación y evangelización. Encontrarás libros, artículos religiosos,
               música y recursos para tu vida espiritual.
@@ -315,11 +334,12 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        </AnimacionScroll>
       </section>
 
       {/* CTA final — suave */}
       <section className="bg-[#E4D7BC] py-16">
-        <div className="max-w-3xl mx-auto px-6 text-center">
+        <AnimacionScroll className="max-w-3xl mx-auto px-6 text-center">
           <FaChurch size={40} className="text-azul-institucional/70 mx-auto mb-4" />
           <h2 className="font-display text-3xl font-bold text-[#3B2314] mb-4">
             ¿Sientes el llamado a la vida misionera consagrada?
@@ -341,7 +361,7 @@ export default function Home() {
               Escríbenos
             </Link>
           </div>
-        </div>
+        </AnimacionScroll>
       </section>
       </div>
     </div>

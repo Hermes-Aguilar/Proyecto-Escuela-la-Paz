@@ -238,6 +238,38 @@ propia y se leen de la BD.
         `primeras-hermanas` (las 4 fundadoras con avatares de iniciales) y
         `escudo` (imagen grande + 4 cuadrantes, lema y leyenda perimetral).
 
+- [x] **Enriquecimiento con fotos reales y datos del documento completo**
+      (`docs/congregacion.md` versión completa + imágenes históricas en
+      `public/images/`):
+      - **Inicio:** hero del carrusel con 3 fotos reales (vida consagrada /
+        dispensario San Juan Copala / paseo de las hermanas) en lugar de
+        Unsplash; fotos reales del Padre Fundador y la Madre Elisa en
+        "Fundadores e inspiradores"; sedes con número de fundación
+        verificado contra el documento; fade-in al scroll con stagger en
+        Fundadores, Áreas y Comunidades; párrafos largos justificados.
+        (Librerías y datos de seed de jardines NO tocados, a la espera de
+        información real.)
+      - **La Congregación · Superioras:** bloque expandible "Consejo General
+        del periodo" (vicaría, consejeras, secretaría y ecónoma) para los
+        gobiernos 1986-1992, 2001-2007 y 2007-2013; fotos del gobierno
+        1986-1992 y de la Sup. Gral. Lucero Rosario.
+      - **La Congregación · Primeras Hermanas:** foto histórica real con la
+        Madre Elisa, los 4 nombres como pie de foto (se quitaron los avatares
+        de iniciales).
+      - **La Congregación · Historia:** timeline combinada (fundaciones +
+        acontecimientos: Bodas de Plata madres 1985, Bodas de Plata Instituto
+        1985, Bodas de Oro Ordenación 1990, Bodas de Plata Jardines 1991,
+        Aprobación Diocesana 2002, VII Capítulo General 2019) en orden
+        cronológico, con leyenda y distinción visual fundación/evento.
+      - **La Congregación · Fundador:** retrato real ("paseando en el jardín
+        de la Casa Central") al inicio del artículo.
+      - **Historia de cada jardín** (`pastoral-educativa/[jardin]/nosotros/
+        historia`): ampliada con las Bodas de Plata de 1991 y la pertenencia
+        inicial de las hermanas a la Casa General; Porvenir añade que fue la
+        octava comunidad (1° abril 1992).
+      - Transiciones (`AnimacionScroll`) y texto justificado en los párrafos
+        largos de las subpáginas de La Congregación.
+
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración
 - [ ] Deploy en Vercel + variables de entorno

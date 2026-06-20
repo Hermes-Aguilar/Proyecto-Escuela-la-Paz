@@ -17,16 +17,16 @@ const HISTORIAS: Record<
   "la-paz": {
     nombreAnterior: "Tepeyac",
     parrafos: [
-      "Nuestra historia comienza en 1966, cuando las Misioneras del Señor de los Corazones y de Santa María de Guadalupe iniciaron la educación de los niños pequeños bajo el nombre de Jardín de Niños Tepeyac.",
-      "Durante más de 50 años hemos acompañado a generaciones de familias en los primeros pasos de la educación de sus hijos, bajo el cuidado de las hermanas misioneras. En 1991 celebramos las Bodas de Plata de nuestro jardín.",
+      "Nuestra historia comienza en 1966, cuando las Misioneras del Señor de los Corazones y de Santa María de Guadalupe iniciaron la educación de los niños pequeños bajo el nombre de Jardín de Niños Tepeyac. En aquellos primeros años, las hermanas que atendían el jardín pertenecían a la Casa General de la Congregación.",
+      "Durante más de 50 años hemos acompañado a generaciones de familias en los primeros pasos de la educación de sus hijos, bajo el cuidado de las hermanas misioneras. En febrero de 1991 se celebraron las Bodas de Plata de los Jardines de Niños Tepeyac y Nazareth, al cumplirse 25 años de su fundación en 1966.",
       "Hoy seguimos firmes en nuestra misión: educar con amor, fe y dedicación a cada niño que llega a nuestras aulas.",
     ],
   },
   porvenir: {
     nombreAnterior: "Nazareth",
     parrafos: [
-      "Nuestra historia comienza en 1966, cuando las Misioneras del Señor de los Corazones y de Santa María de Guadalupe iniciaron la educación de los niños pequeños bajo el nombre de Jardín de Niños Nazareth.",
-      "El 1 de abril de 1992 se estableció formalmente la Comunidad Nazareth, viviendo en el mismo lugar donde se imparte la educación.",
+      "Nuestra historia comienza en 1966, cuando las Misioneras del Señor de los Corazones y de Santa María de Guadalupe iniciaron la educación de los niños pequeños bajo el nombre de Jardín de Niños Nazareth. En aquellos primeros años, las hermanas que atendían el jardín pertenecían a la Casa General de la Congregación.",
+      "En febrero de 1991 se celebraron las Bodas de Plata de los Jardines de Niños Tepeyac y Nazareth, al cumplirse 25 años de su fundación en 1966. Poco después, el 1° de abril de 1992, se estableció formalmente la Comunidad Nazareth —la octava comunidad fundada por el Instituto—, momento en que las hermanas decidieron vivir en el mismo domicilio que el Jardín de Niños.",
       "Desde entonces, generaciones de familias han confiado en nosotras el cuidado y la formación de sus pequeños, en un ambiente de fe, cariño y aprendizaje.",
     ],
   },

@@ -5,7 +5,10 @@
 // "Comunicación de la Idea", "La Casa", "Arreglo de la Casa",
 // "Nuevas Dificultades", "Principia el Instituto").
 // ============================================================
+import Image from "next/image";
+
 import { SubHero } from "../_components/SubHero";
+import { AnimacionScroll } from "@/components/public/AnimacionScroll";
 
 // Cada sección del relato, con su título y párrafos íntegros.
 const SECCIONES: { titulo: string; parrafos: string[] }[] = [
@@ -61,18 +64,37 @@ export default function Fundador() {
       />
 
       <article className="mx-auto max-w-3xl px-6 py-16 md:py-20">
+        {/* Retrato del Padre Fundador */}
+        <AnimacionScroll>
+          <figure className="mb-12 overflow-hidden rounded-2xl border border-arena bg-white shadow-sm">
+            <Image
+              src="/images/fundador-jardin.jpg"
+              alt="Nuestro Padre Fundador, Pbro. Lic. Luis Fiacro Guerrero Ramírez, paseando en el jardín de la Casa Central"
+              width={1024}
+              height={768}
+              className="h-auto w-full object-cover"
+              priority
+            />
+            <figcaption className="border-t border-arena px-6 py-3 text-center text-sm italic text-marron-suave">
+              Nuestro Padre Fundador paseando en el jardín de la Casa Central.
+            </figcaption>
+          </figure>
+        </AnimacionScroll>
+
         {SECCIONES.map((seccion, i) => (
-          <section key={seccion.titulo} className={i > 0 ? "mt-12" : ""}>
-            <h2 className="font-titulo text-2xl font-bold text-marron md:text-3xl">
-              {seccion.titulo}
-            </h2>
-            <div className="mt-3 h-1 w-16 rounded bg-dorado" />
-            <div className="mt-6 space-y-5 text-lg leading-relaxed text-marron-suave">
-              {seccion.parrafos.map((p, j) => (
-                <p key={j}>{p}</p>
-              ))}
-            </div>
-          </section>
+          <AnimacionScroll key={seccion.titulo}>
+            <section className={i > 0 ? "mt-12" : ""}>
+              <h2 className="font-titulo text-2xl font-bold text-marron md:text-3xl">
+                {seccion.titulo}
+              </h2>
+              <div className="mt-3 h-1 w-16 rounded bg-dorado" />
+              <div className="mt-6 space-y-5 text-justify text-lg leading-relaxed text-marron-suave">
+                {seccion.parrafos.map((p, j) => (
+                  <p key={j}>{p}</p>
+                ))}
+              </div>
+            </section>
+          </AnimacionScroll>
         ))}
 
         <p className="mt-12 border-t border-arena pt-6 text-center font-titulo italic text-marron-suave">
