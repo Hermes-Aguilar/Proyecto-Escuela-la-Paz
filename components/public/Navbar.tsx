@@ -107,7 +107,7 @@ export default function Navbar() {
             <div className="hidden w-28 shrink-0 items-center justify-end gap-2 sm:w-44 md:flex md:w-56 lg:w-80 lg:gap-3">
               {/* Cristo · más cerca del centro. Máscara radial para fundirlo. */}
               <Image
-                src="/images/cristo.png"
+                src="/images/cris.jpeg"
                 alt="Señor de los Corazones (Cristo crucificado)"
                 width={1492}
                 height={1054}
