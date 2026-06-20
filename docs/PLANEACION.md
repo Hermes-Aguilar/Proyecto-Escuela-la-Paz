@@ -223,6 +223,20 @@ propia y se leen de la BD.
       - Pastoral Vocacional/Misionera, Comunidades y Librerías: solo
         recoloreadas a la nueva paleta (texto/estructura sin cambios, a la
         espera de información real).
+- [x] **Apartado "La Congregación"** (nuevo, junto a "Inicio" en el Navbar
+      con submenú desplegable al hover/focus, mismo patrón que el resto de
+      la navegación). Contenido real tomado íntegro de `docs/congregacion.md`:
+      - `la-congregacion/page.tsx`: portada (hero con escudo + velo),
+        sección editorial (escudo + carisma + presencia: Oaxaca, Puebla,
+        Edo. Méx., Guerrero, Sonora/Guanajuato, Costa Rica y Malabo/África),
+        5 tarjetas a las subpáginas y "Situación Actual" (1 Aspirante ·
+        2 Novicias · 4 Junioras · 63 Votos Perpetuos).
+      - 5 subpáginas con hero pequeño compartido (`_components/SubHero.tsx`)
+        y botón "← Volver": `fundador` (relato del Padre Fundador),
+        `historia` (Historia de la Fundación + timeline de las 17
+        comunidades), `superioras` (las 8 Superioras Generales y sus obras),
+        `primeras-hermanas` (las 4 fundadoras con avatares de iniciales) y
+        `escudo` (imagen grande + 4 cuadrantes, lema y leyenda perimetral).
 
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración

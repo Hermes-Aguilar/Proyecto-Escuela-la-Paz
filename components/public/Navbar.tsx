@@ -5,10 +5,24 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 
-const links = [
+type SubLink = { href: string; label: string };
+type NavLink = { href: string; label: string; submenu?: SubLink[] };
+
+const links: NavLink[] = [
   { href: "/", label: "Inicio" },
+  {
+    href: "/la-congregacion",
+    label: "La Congregación",
+    submenu: [
+      { href: "/la-congregacion/fundador", label: "El Fundador" },
+      { href: "/la-congregacion/historia", label: "Nuestra Historia" },
+      { href: "/la-congregacion/superioras", label: "Superioras Generales" },
+      { href: "/la-congregacion/primeras-hermanas", label: "Primeras Hermanas" },
+      { href: "/la-congregacion/escudo", label: "Nuestro Escudo" },
+    ],
+  },
   { href: "/pastoral-vocacional", label: "Pastoral Vocacional" },
   { href: "/pastoral-educativa", label: "Pastoral Educativa" },
   { href: "/pastoral-misionera", label: "Pastoral Misionera" },
@@ -20,6 +34,11 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  // Un enlace está activo si coincide exactamente o si es una sección con
+  // subrutas (p. ej. /la-congregacion/fundador resalta «La Congregación»).
+  const esActivo = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header className="relative z-50">
@@ -126,19 +145,68 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-1 lg:flex">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  pathname === href
-                    ? "bg-azul-institucional text-white"
-                    : "text-white/90 hover:bg-azul-institucional hover:text-white"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const activo = esActivo(link.href);
+
+              // Enlace simple (sin submenú).
+              if (!link.submenu) {
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                      activo
+                        ? "bg-azul-institucional text-white"
+                        : "text-white/90 hover:bg-azul-institucional hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              }
+
+              // Enlace con submenú desplegable al hover (y focus-within para
+              // teclado). El click directo navega a la página principal.
+              return (
+                <div key={link.href} className="group relative">
+                  <Link
+                    href={link.href}
+                    className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                      activo
+                        ? "bg-azul-institucional text-white"
+                        : "text-white/90 hover:bg-azul-institucional hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                    <FaChevronDown
+                      size={10}
+                      className="transition-transform duration-200 group-hover:rotate-180"
+                    />
+                  </Link>
+
+                  {/* Panel del submenú: oculto por defecto, aparece en
+                      group-hover/focus-within con fade + slide. */}
+                  <div className="invisible absolute left-0 top-full z-50 w-60 translate-y-1 pt-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    <ul className="overflow-hidden rounded-xl border border-arena bg-white py-1 shadow-xl">
+                      {link.submenu.map((sub) => (
+                        <li key={sub.href}>
+                          <Link
+                            href={sub.href}
+                            className={`block px-4 py-2.5 text-sm transition-colors ${
+                              pathname === sub.href
+                                ? "bg-azul-institucional/10 font-semibold text-azul-institucional"
+                                : "text-marron hover:bg-crema hover:text-azul-institucional"
+                            }`}
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
           </nav>
 
           {/* Mobile toggle */}
@@ -155,20 +223,43 @@ export default function Navbar() {
         {/* Mobile menu */}
         {open && (
           <div className="border-t border-white/10 bg-marron lg:hidden">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setOpen(false)}
-                className={`block border-b border-white/5 px-6 py-3 text-sm transition-colors ${
-                  pathname === href
-                    ? "font-semibold text-dorado"
-                    : "text-arena hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const activo = esActivo(link.href);
+              return (
+                <div key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`block border-b border-white/5 px-6 py-3 text-sm transition-colors ${
+                      activo
+                        ? "font-semibold text-dorado"
+                        : "text-arena hover:bg-white/5 hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                  {/* Subenlaces indentados bajo la sección con submenú. */}
+                  {link.submenu && (
+                    <div className="bg-black/15">
+                      {link.submenu.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          onClick={() => setOpen(false)}
+                          className={`block border-b border-white/5 py-2.5 pl-10 pr-6 text-sm transition-colors ${
+                            pathname === sub.href
+                              ? "font-semibold text-dorado"
+                              : "text-arena/80 hover:bg-white/5 hover:text-white"
+                          }`}
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
