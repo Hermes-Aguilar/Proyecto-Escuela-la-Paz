@@ -89,7 +89,7 @@ const jardines = [
 
 export default function PastoralEducativa() {
   return (
-    <div className="bg-[#FAF7F2]">
+    <div className="bg-crema">
       {/* HERO — carrusel del portal general */}
       <CarruselHero slides={slidesHero} />
 
@@ -104,15 +104,15 @@ export default function PastoralEducativa() {
               <span className="text-sm font-semibold uppercase tracking-widest text-azul-institucional">
                 Nuestra misión
               </span>
-              <h2 className="mb-5 mt-2 text-3xl font-bold text-[#3B2314]">
+              <h2 className="mb-5 mt-2 text-3xl font-bold text-azul-institucional">
                 Una educación que transforma desde adentro
               </h2>
-              <p className="mb-4 leading-relaxed text-[#5A4232]">
+              <p className="mb-4 leading-relaxed text-marron">
                 Nuestra pastoral educativa cree que la educación es mucho más que transmitir
                 conocimientos: es acompañar el desarrollo integral de cada persona, desde sus
                 primeros años, en un ambiente de amor, seguridad y valores auténticos.
               </p>
-              <p className="mb-6 leading-relaxed text-[#5A4232]">
+              <p className="mb-6 leading-relaxed text-marron">
                 Inspiradas en el carisma de San Francisco, buscamos que nuestros jardines sean
                 comunidades donde los niños aprendan a amar a Dios, a los demás y a la naturaleza,
                 construyendo así un mundo mejor desde la raíz.
@@ -133,11 +133,11 @@ export default function PastoralEducativa() {
               {programas.map((p) => (
                 <div
                   key={p.titulo}
-                  className="rounded-2xl border border-[#E4D7BC] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  className="rounded-2xl border border-arena bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
                   <div className="mb-3 text-dorado">{p.icon}</div>
-                  <h4 className="mb-1 text-sm font-bold text-[#3B2314]">{p.titulo}</h4>
-                  <p className="text-xs leading-relaxed text-[#7A6352]">{p.desc}</p>
+                  <h4 className="mb-1 text-sm font-bold text-azul-institucional">{p.titulo}</h4>
+                  <p className="text-xs leading-relaxed text-marron-suave">{p.desc}</p>
                 </div>
               ))}
             </div>
@@ -146,15 +146,15 @@ export default function PastoralEducativa() {
       </section>
 
       {/* JARDINES */}
-      <section id="jardines" className="scroll-mt-32 bg-[#F0EAE0] px-6 py-20">
+      <section id="jardines" className="scroll-mt-32 bg-azul-suave px-6 py-20">
         <div className="mx-auto max-w-7xl">
           <AnimacionScroll>
             <div className="mb-12 text-center">
               <span className="text-sm font-semibold uppercase tracking-widest text-azul-institucional">
                 Nuestros jardines
               </span>
-              <h2 className="mt-2 text-3xl font-bold text-[#3B2314]">Comunidades educativas</h2>
-              <p className="mx-auto mt-3 max-w-xl text-[#7A6352]">
+              <h2 className="mt-2 text-3xl font-bold text-azul-institucional">Comunidades educativas</h2>
+              <p className="mx-auto mt-3 max-w-xl text-marron-suave">
                 Cada jardín tiene su propia identidad, sus colores, su nombre y su espíritu.
                 Aquí te presentamos nuestras comunidades educativas.
               </p>
@@ -166,7 +166,7 @@ export default function PastoralEducativa() {
               <AnimacionScroll key={jardín.nombre} delay={i * 150}>
                 <Link
                   href={`/pastoral-educativa/${jardín.slug}`}
-                  className="group block overflow-hidden rounded-2xl border border-[#E4D7BC] bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group block overflow-hidden rounded-2xl border border-arena bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   {/* Paleta de colores del jardín (barra gruesa, todo el ancho) */}
                   <div className="flex h-3">
@@ -177,8 +177,8 @@ export default function PastoralEducativa() {
                   <div className="p-8">
                     <div className="mb-3 flex items-start justify-between">
                       <div>
-                        <h3 className="text-xl font-bold text-[#3B2314]">{jardín.nombre}</h3>
-                        <p className="mt-1 flex items-center gap-1 text-sm text-[#7A6352]">
+                        <h3 className="text-xl font-bold text-azul-institucional">{jardín.nombre}</h3>
+                        <p className="mt-1 flex items-center gap-1 text-sm text-marron-suave">
                           <FaMapMarkerAlt size={11} className="text-azul-institucional" /> {jardín.ciudad}
                         </p>
                       </div>
@@ -193,7 +193,7 @@ export default function PastoralEducativa() {
                         {jardín.tag}
                       </span>
                     </div>
-                    <p className="mb-5 text-sm leading-relaxed text-[#5A4232]">{jardín.descripcion}</p>
+                    <p className="mb-5 text-sm leading-relaxed text-marron">{jardín.descripcion}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex gap-1.5">
                         {jardín.colores.map((c, j) => (
@@ -224,23 +224,23 @@ export default function PastoralEducativa() {
       {/* CONTACTO */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <AnimacionScroll>
-          <div className="grid items-center gap-10 rounded-3xl bg-[#3B2314] p-10 md:grid-cols-2">
+          <div className="grid items-center gap-10 rounded-3xl bg-azul-oscuro p-10 md:grid-cols-2">
             <div>
               <h2 className="mb-4 text-3xl font-bold text-white">¿Quieres inscribir a tu hija o hijo?</h2>
-              <p className="mb-6 leading-relaxed text-[#C8B99A]">
+              <p className="mb-6 leading-relaxed text-white/75">
                 Contáctate con el jardín de tu localidad. Con gusto te orientamos sobre el proceso
                 de inscripción, los programas disponibles y los valores que nos mueven.
               </p>
               <div className="space-y-3">
                 <a
                   href="mailto:educativa@franciscanas.org"
-                  className="flex items-center gap-3 text-[#E4D7BC] transition-colors hover:text-white"
+                  className="flex items-center gap-3 text-azul-suave transition-colors hover:text-white"
                 >
                   <FaEnvelope className="text-dorado" /> educativa@franciscanas.org
                 </a>
                 <a
                   href="tel:+5255000001"
-                  className="flex items-center gap-3 text-[#E4D7BC] transition-colors hover:text-white"
+                  className="flex items-center gap-3 text-azul-suave transition-colors hover:text-white"
                 >
                   <FaPhoneAlt className="text-dorado" /> +52 55 0000 0001
                 </a>

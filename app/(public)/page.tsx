@@ -113,43 +113,43 @@ export default function Home() {
       <CarruselHero slides={slidesHero} fondoFijo altura="h-[60vh]" />
 
       {/* CONTENIDO — capa opaca que se desplaza por encima de la imagen fija. */}
-      <div className="relative z-10 bg-[#FAF7F2]">
+      <div className="relative z-10 bg-crema">
       {/* BIENVENIDA / CARISMA */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <AnimacionScroll>
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#3B2314] mt-2 mb-5 leading-tight">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-azul-institucional mt-2 mb-5 leading-tight">
               Un carisma vivo al
               <br />
               servicio del Reino de Dios
             </h2>
-            <p className="text-[#5A4232] leading-relaxed mb-4 text-justify">
-              Somos el <strong className="text-[#3B2314]">Instituto de Misioneras del Señor de los
+            <p className="text-marron leading-relaxed mb-4 text-justify">
+              Somos el <strong className="text-marron">Instituto de Misioneras del Señor de los
               Corazones y de Santa María de Guadalupe</strong>, una congregación religiosa fundada
               el 12 de mayo de 1957 en Huajuapan de León, Oaxaca, por el Pbro. Lic. Luis Fiacro
               Guerrero Ramírez.
             </p>
-            <p className="text-[#5A4232] leading-relaxed mb-6 text-justify">
+            <p className="text-marron leading-relaxed mb-6 text-justify">
               Nuestro carisma es ser en la Iglesia miembros activos en la construcción del Reino de
               Dios, mediante el dar a conocer a nuestros hermanos las riquezas de Jesucristo Rey y
               Señor de los Corazones y el amor maternal de Santa María de Guadalupe.
             </p>
             <div className="bg-azul-institucional/10 border-l-4 border-azul-institucional pl-4 py-3 rounded-r-lg mb-6">
-              <p className="font-display text-lg italic text-[#3B2314]">
+              <p className="font-display text-lg italic text-marron">
                 «Alegrémonos de sufrir por Cristo en favor de su Iglesia»
               </p>
-              <span className="text-xs text-[#7A6352] uppercase tracking-wide">Nuestro lema</span>
+              <span className="text-xs text-marron-suave uppercase tracking-wide">Nuestro lema</span>
             </div>
             <div className="flex flex-wrap gap-3">
-              <span className="bg-[#F0EAE0] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <span className="bg-azul-suave text-marron px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
                 <FaCross className="text-azul-institucional" /> Señor de los Corazones
               </span>
-              <span className="bg-[#F0EAE0] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <span className="bg-azul-suave text-marron px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
                 <FaStar className="text-dorado" /> Santa María de Guadalupe
               </span>
-              <span className="bg-[#F0EAE0] text-[#3B2314] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+              <span className="bg-azul-suave text-marron px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
                 <FaUsers className="text-azul-institucional" /> Vida misionera
               </span>
             </div>
@@ -165,11 +165,11 @@ export default function Home() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="bg-white rounded-xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow"
+                className="bg-white rounded-xl p-5 shadow-sm border border-arena hover:shadow-md transition-shadow"
               >
                 <div className="text-azul-institucional mb-2 text-2xl">{c.icon}</div>
-                <h4 className="font-display font-bold text-[#3B2314] mb-1 text-lg">{c.title}</h4>
-                <p className="text-xs text-[#7A6352] leading-relaxed">{c.desc}</p>
+                <h4 className="font-display font-bold text-azul-institucional mb-1 text-lg">{c.title}</h4>
+                <p className="text-xs text-marron-suave leading-relaxed">{c.desc}</p>
               </div>
             ))}
           </div>
@@ -178,12 +178,12 @@ export default function Home() {
       </section>
 
       {/* FUNDADORES */}
-      <section className="bg-[#F0EAE0] py-16">
+      <section className="bg-azul-suave py-16">
         <div className="max-w-7xl mx-auto px-6">
           <AnimacionScroll>
             <div className="text-center mb-12">
-              <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
-              <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Fundadores e inspiradores</h2>
+              <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
+              <h2 className="font-display text-3xl font-bold text-azul-institucional mt-2">Fundadores e inspiradores</h2>
             </div>
           </AnimacionScroll>
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
@@ -202,9 +202,9 @@ export default function Home() {
               },
             ].map((f, i) => (
               <AnimacionScroll key={f.nombre} delay={i * 120}>
-                <div className="bg-white rounded-2xl p-7 shadow-sm border border-[#E4D7BC] text-center h-full">
+                <div className="bg-white rounded-2xl p-7 shadow-sm border border-arena text-center h-full">
                   <div className="flex justify-center mb-4">
-                    <div className="relative w-[110px] h-[110px] overflow-hidden rounded-full border-4 border-[#F0EAE0] shadow-inner">
+                    <div className="relative w-[110px] h-[110px] overflow-hidden rounded-full border-4 border-arena shadow-inner">
                       <Image
                         src={f.foto}
                         alt={f.nombre}
@@ -214,9 +214,9 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <h3 className="font-display font-bold text-[#3B2314] text-lg mb-1">{f.nombre}</h3>
+                  <h3 className="font-display font-bold text-azul-institucional text-lg mb-1">{f.nombre}</h3>
                   <span className="text-xs text-azul-institucional font-semibold uppercase tracking-wide">{f.rol}</span>
-                  <p className="text-[#5A4232] text-sm leading-relaxed mt-3 text-justify">{f.desc}</p>
+                  <p className="text-marron text-sm leading-relaxed mt-3 text-justify">{f.desc}</p>
                 </div>
               </AnimacionScroll>
             ))}
@@ -229,8 +229,8 @@ export default function Home() {
         <AnimacionScroll>
           <div className="text-center mb-12">
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Lo que hacemos</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#3B2314] mt-2">Áreas pastorales</h2>
-            <p className="text-[#7A6352] mt-3 max-w-xl mx-auto">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-azul-institucional mt-2">Áreas pastorales</h2>
+            <p className="text-marron-suave mt-3 max-w-xl mx-auto">
               Nuestra misión se despliega en cuatro grandes áreas que abarcan todos los momentos de la vida.
             </p>
           </div>
@@ -240,15 +240,15 @@ export default function Home() {
             <AnimacionScroll key={area.title} delay={i * 90} className="h-full">
             <Link
               href={area.href}
-              className="group flex h-full flex-col bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC] hover:shadow-lg hover:-translate-y-1 transition-all"
+              className="group flex h-full flex-col bg-white rounded-2xl p-6 shadow-sm border border-arena hover:shadow-lg hover:-translate-y-1 transition-all"
             >
               <div
                 className={`${area.color} text-white rounded-xl p-3 inline-flex mb-4 group-hover:scale-110 transition-transform`}
               >
                 {area.icon}
               </div>
-              <h3 className="font-display font-bold text-[#3B2314] mb-2 leading-snug">{area.title}</h3>
-              <p className="text-sm text-[#7A6352] leading-relaxed mb-4">{area.desc}</p>
+              <h3 className="font-display font-bold text-azul-institucional mb-2 leading-snug">{area.title}</h3>
+              <p className="text-sm text-marron-suave leading-relaxed mb-4">{area.desc}</p>
               <span className="mt-auto text-azul-institucional text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
                 Conocer más <FaArrowRight size={12} />
               </span>
@@ -259,25 +259,25 @@ export default function Home() {
       </section>
 
       {/* SEDES — claro */}
-      <section className="bg-[#F0EAE0] py-16 relative overflow-hidden">
+      <section className="bg-azul-suave py-16 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative">
           <AnimacionScroll>
             <div className="text-center mb-12">
-              <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Presencia</span>
-              <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2">Nuestras comunidades</h2>
-              <p className="text-[#7A6352] mt-2">Una congregación con presencia en México y el extranjero</p>
+              <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Presencia</span>
+              <h2 className="font-display text-3xl font-bold text-azul-institucional mt-2">Nuestras comunidades</h2>
+              <p className="text-marron-suave mt-2">Una congregación con presencia en México y el extranjero</p>
             </div>
           </AnimacionScroll>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {sedes.map((sede, i) => (
               <AnimacionScroll key={sede.nombre} delay={i * 90}>
-                <div className="bg-white border border-[#E4D7BC] rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow h-full">
+                <div className="bg-white border border-arena rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow h-full">
                   <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="text-azul-institucional mt-1 shrink-0" />
                     <div>
-                      <p className="text-[#3B2314] font-semibold">{sede.nombre}</p>
-                      <p className="text-[#7A6352] text-sm">{sede.ciudad}</p>
-                      <span className="inline-block mt-1 text-xs bg-[#E4D7BC] text-azul-institucional px-2 py-0.5 rounded-full">
+                      <p className="text-marron font-semibold">{sede.nombre}</p>
+                      <p className="text-marron-suave text-sm">{sede.ciudad}</p>
+                      <span className="inline-block mt-1 text-xs bg-arena text-azul-institucional px-2 py-0.5 rounded-full">
                         {sede.tipo}
                       </span>
                     </div>
@@ -294,13 +294,13 @@ export default function Home() {
         <AnimacionScroll>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Librerías</span>
-            <h2 className="font-display text-3xl font-bold text-[#3B2314] mt-2 mb-4">
+            <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Librerías</span>
+            <h2 className="font-display text-3xl font-bold text-azul-institucional mt-2 mb-4">
               Espacios de fe,
               <br />
               cultura y encuentro
             </h2>
-            <p className="text-[#5A4232] leading-relaxed mb-6 text-justify">
+            <p className="text-marron leading-relaxed mb-6 text-justify">
               Nuestras librerías son mucho más que puntos de venta: son lugares de
               encuentro, formación y evangelización. Encontrarás libros, artículos religiosos,
               música y recursos para tu vida espiritual.
@@ -316,14 +316,14 @@ export default function Home() {
             {librerias.map((lib) => (
               <div
                 key={lib.nombre}
-                className="bg-white border border-[#E4D7BC] rounded-xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white border border-arena rounded-xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="bg-dorado/10 rounded-lg p-3 shrink-0">
                   <FaBook className="text-dorado" size={22} />
                 </div>
                 <div>
-                  <p className="font-semibold text-[#3B2314]">{lib.nombre}</p>
-                  <p className="text-sm text-[#7A6352]">
+                  <p className="font-semibold text-marron">{lib.nombre}</p>
+                  <p className="text-sm text-marron-suave">
                     {lib.ciudad} · {lib.horario}
                   </p>
                 </div>
@@ -338,13 +338,13 @@ export default function Home() {
       </section>
 
       {/* CTA final — suave */}
-      <section className="bg-[#E4D7BC] py-16">
+      <section className="bg-azul-suave py-16">
         <AnimacionScroll className="max-w-3xl mx-auto px-6 text-center">
           <FaChurch size={40} className="text-azul-institucional/70 mx-auto mb-4" />
-          <h2 className="font-display text-3xl font-bold text-[#3B2314] mb-4">
+          <h2 className="font-display text-3xl font-bold text-azul-institucional mb-4">
             ¿Sientes el llamado a la vida misionera consagrada?
           </h2>
-          <p className="text-[#5A4232] text-lg mb-8">
+          <p className="text-marron text-lg mb-8">
             Acompáñanos en este camino de fe, entrega y servicio misionero. Siempre hay un lugar para ti.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -356,7 +356,7 @@ export default function Home() {
             </Link>
             <Link
               href="/contacto"
-              className="border-2 border-[#3B2314] text-[#3B2314] hover:bg-[#3B2314]/10 px-7 py-3 rounded-lg font-bold transition-colors"
+              className="border-2 border-azul-institucional text-azul-institucional hover:bg-azul-institucional/10 px-7 py-3 rounded-lg font-bold transition-colors"
             >
               Escríbenos
             </Link>

@@ -160,7 +160,7 @@ export default function Contacto() {
   return (
     <div className="bg-crema">
       {/* HERO — degradado cálido, sin imagen, dos columnas */}
-      <section className="bg-gradient-to-br from-[#faf6f0] to-[#e4d7bc] px-6 py-16 md:py-20">
+      <section className="bg-gradient-to-br from-crema to-arena px-6 py-16 md:py-20">
         <div className="mx-auto flex max-w-6xl flex-col-reverse items-center gap-10 md:flex-row md:justify-between">
           {/* Texto + datos rápidos */}
           <div className="w-full md:max-w-xl">

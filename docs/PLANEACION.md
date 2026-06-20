@@ -89,12 +89,18 @@ Jardin (1) ──< MensajeContacto  · formulario de contacto por escuela
 | La Paz | `la-paz` | `#137E86` (teal) | `#18B4C7` | `admin_lapaz` |
 | Porvenir | `porvenir` | `#F4C430` (mostaza) | `#C25B35` | `admin_porvenir` |
 
-Paleta del portal global (institucional, basada en el escudo): azul
-`#2c5f7c` (`azul-institucional`), dorado `#c9a227` (`dorado`), marrón y arena.
-En código se usan SIEMPRE los tokens de `globals.css` (`bg-azul-institucional`,
-`text-dorado`, `text-marron`, `border-arena`…), nunca hex sueltos. Los colores
-de cada jardín (teal de La Paz, mostaza/terracota de Porvenir) son su identidad
-propia y se leen de la BD.
+Paleta del portal global — identidad **"litúrgico sobrio": azul profundo +
+oro como ÚNICO acento** (ya NO hay terracota). Tokens en `globals.css`:
+azul-institucional `#1f3a5a` (+ azul-oscuro `#14283f`, azul-suave `#e9eef4`),
+dorado `#c19a3a` (+ dorado-oscuro `#9e7c26`, dorado-suave `#f3e8cf`), marrón
+casi-negro `#1a1714`, marrón-suave `#6b6456`, crema `#f7f2e9`, arena `#cdc4b4`,
+error `#a4243b`. Títulos en azul, cuerpo casi-negro sobre crema/blanco, oro
+solo en detalles y mejor sobre azul. En código se usan SIEMPRE los tokens
+(`bg-azul-institucional`, `text-dorado`, `text-marron`, `border-arena`…),
+nunca hex sueltos. Detalle completo en `docs/paleta.md`. Los colores de cada
+jardín (teal de La Paz, mostaza/terracota de Porvenir) son su identidad propia,
+se leen de la BD y **no se tocan**: el subárbol de cada jardín restaura los
+neutros antiguos en su `layout.tsx` para verse idéntico.
 
 ## 6. Documentación
 
@@ -269,6 +275,20 @@ propia y se leen de la BD.
         octava comunidad (1° abril 1992).
       - Transiciones (`AnimacionScroll`) y texto justificado en los párrafos
         largos de las subpáginas de La Congregación.
+
+- [x] **Re-paleta del portal a la identidad "litúrgico sobrio"** (azul
+      profundo + oro como único acento; se retira la terracota). Se
+      revaluaron los hex de los tokens institucionales conservando sus
+      nombres (azul-institucional `#1f3a5a`, azul-oscuro `#14283f`, dorado
+      `#c19a3a`, dorado-oscuro `#9e7c26`, crema `#f7f2e9`, arena `#cdc4b4`,
+      marron `#1a1714`, marron-suave `#6b6456`, error `#a4243b`) + tokens
+      nuevos azul-suave `#e9eef4` y dorado-suave `#f3e8cf`. Los colores se
+      movieron de `@theme inline` a `@theme` (utilidades vía `var(--color-*)`)
+      y el `layout.tsx` de cada jardín restaura los neutros antiguos en su
+      subárbol → **las rutas de jardín se ven idénticas**. Se migró a tokens
+      el resto de hex sueltos del portal (familia marrón cálida y restos
+      franciscanos). Títulos en azul, cuerpo casi-negro, oro solo en detalles
+      sobre azul. Contraste WCAG AA verificado. Ver `docs/paleta.md`.
 
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración

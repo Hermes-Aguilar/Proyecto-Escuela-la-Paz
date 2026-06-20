@@ -65,7 +65,7 @@ export default function Navbar() {
                   className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 rounded-full"
                   style={{
                     background:
-                      "radial-gradient(circle, rgba(201,162,39,0.40) 0%, rgba(255,255,255,0.55) 38%, transparent 70%)",
+                      "radial-gradient(circle, rgba(193,154,58,0.40) 0%, rgba(255,255,255,0.55) 38%, transparent 70%)",
                   }}
                 />
                 {/* La máscara radial difumina el fondo oscuro del PNG. */}
@@ -95,7 +95,7 @@ export default function Navbar() {
                 <br />
                 y de Santa María de Guadalupe
               </h1>
-              <p className="mt-1 font-script text-xl leading-none text-terracota sm:text-2xl lg:text-3xl">
+              <p className="mt-1 font-script text-xl leading-none text-dorado-oscuro sm:text-2xl lg:text-3xl">
                 Alegrémonos de sufrir por Cristo en favor de su Iglesia
               </p>
               {/* Línea decorativa bajo el lema (dorado al 40%, ancho moderado) */}

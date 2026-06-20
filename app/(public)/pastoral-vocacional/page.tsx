@@ -79,7 +79,7 @@ const sedes = [
 
 export default function PastoralVocacional() {
   return (
-    <div className="bg-[#FAF7F2]">
+    <div className="bg-crema">
       {/* HERO — carrusel del portal general */}
       <CarruselHero slides={slidesHero} />
 
@@ -87,42 +87,42 @@ export default function PastoralVocacional() {
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center">
         <div>
           <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Nuestra misión</span>
-          <h2 className="text-3xl font-bold text-[#3B2314] mt-2 mb-5">
+          <h2 className="text-3xl font-bold text-azul-institucional mt-2 mb-5">
             Acompañar el discernimiento vocacional
           </h2>
-          <p className="text-[#5A4232] leading-relaxed mb-4">
+          <p className="text-marron leading-relaxed mb-4">
             La Pastoral Vocacional de nuestra fraternidad busca despertar, acoger y acompañar
             a quienes sienten el llamado a la vida consagrada franciscana. No buscamos reclutar:
             buscamos escuchar junto con la persona lo que Dios está diciendo en su vida.
           </p>
-          <p className="text-[#5A4232] leading-relaxed mb-6">
+          <p className="text-marron leading-relaxed mb-6">
             Creemos que toda vocación es un regalo y una responsabilidad. Por eso nuestro
             acompañamiento es cercano, respetuoso del ritmo de cada persona y profundamente espiritual.
           </p>
           <div className="bg-azul-institucional/10 border-l-4 border-azul-institucional pl-4 py-3 rounded-r-lg">
-            <p className="text-[#3B2314] italic text-sm">
+            <p className="text-marron italic text-sm">
               "El que escucha con amor, descubre lo que Dios quiere decirle."
             </p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           {actividades.map((act) => (
-            <div key={act.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-[#E4D7BC] hover:shadow-md transition-shadow">
+            <div key={act.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-arena hover:shadow-md transition-shadow">
               <div className="text-azul-institucional mb-3">{act.icon}</div>
-              <h4 className="font-bold text-[#3B2314] text-sm mb-1">{act.titulo}</h4>
-              <p className="text-xs text-[#7A6352] leading-relaxed">{act.desc}</p>
+              <h4 className="font-bold text-azul-institucional text-sm mb-1">{act.titulo}</h4>
+              <p className="text-xs text-marron-suave leading-relaxed">{act.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ETAPAS DEL CAMINO */}
-      <section className="bg-[#3B2314] py-20 px-6">
+      <section className="bg-azul-oscuro py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-dorado text-sm font-semibold tracking-widest uppercase">El camino</span>
             <h2 className="text-3xl font-bold text-white mt-2">Etapas del proceso vocacional</h2>
-            <p className="text-[#C8B99A] mt-3 max-w-xl mx-auto">
+            <p className="text-white/75 mt-3 max-w-xl mx-auto">
               Cada etapa es un paso de madurez, discernimiento y entrega progresiva.
             </p>
           </div>
@@ -131,7 +131,7 @@ export default function PastoralVocacional() {
               <div key={e.num} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
                 <span className="text-dorado text-4xl font-black opacity-80">{e.num}</span>
                 <h3 className="text-white font-bold text-lg mt-2 mb-2">{e.titulo}</h3>
-                <p className="text-[#C8B99A] text-sm leading-relaxed mb-4">{e.desc}</p>
+                <p className="text-white/75 text-sm leading-relaxed mb-4">{e.desc}</p>
                 <span className="text-xs bg-dorado/20 text-dorado px-3 py-1 rounded-full">
                   {e.duracion}
                 </span>
@@ -144,17 +144,17 @@ export default function PastoralVocacional() {
       {/* SEDES */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
-          <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Ubicaciones</span>
-          <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Sedes vocacionales</h2>
+          <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Ubicaciones</span>
+          <h2 className="text-3xl font-bold text-azul-institucional mt-2">Sedes vocacionales</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {sedes.map((sede) => (
-            <div key={sede.nombre} className="bg-white rounded-2xl p-6 shadow-sm border border-[#E4D7BC]">
+            <div key={sede.nombre} className="bg-white rounded-2xl p-6 shadow-sm border border-arena">
               <div className="flex items-center gap-3 mb-4">
                 <FaChurch className="text-azul-institucional" size={20} />
-                <h3 className="font-bold text-[#3B2314]">{sede.nombre}</h3>
+                <h3 className="font-bold text-azul-institucional">{sede.nombre}</h3>
               </div>
-              <p className="text-sm text-[#5A4232] mb-1"><span className="font-medium">Responsable:</span> {sede.responsable}</p>
+              <p className="text-sm text-marron mb-1"><span className="font-medium">Responsable:</span> {sede.responsable}</p>
               <a href={`mailto:${sede.contacto}`} className="text-sm text-azul-institucional hover:underline flex items-center gap-1">
                 <FaEnvelope size={12} /> {sede.contacto}
               </a>
@@ -164,18 +164,18 @@ export default function PastoralVocacional() {
       </section>
 
     {/* CTA CONTACTO */}
-    <section className="bg-[#E4D7BC] py-16">
+    <section className="bg-azul-suave py-16">
     <div className="max-w-3xl mx-auto px-6 text-center">
     <FaEnvelope
       size={40}
       className="text-azul-institucional/70 mx-auto mb-4"
     />
 
-    <h2 className="font-display text-3xl font-bold text-[#3B2314] mb-4">
+    <h2 className="font-display text-3xl font-bold text-azul-institucional mb-4">
       ¿Te gustaría dar el primer paso?
     </h2>
 
-    <p className="text-[#5A4232] text-lg mb-8">
+    <p className="text-marron text-lg mb-8">
       No tienes que tener todo claro. Solo necesitas el deseo de escuchar.
       Contáctanos y conversemos sin compromiso.
     </p>
@@ -191,7 +191,7 @@ export default function PastoralVocacional() {
 
       <a
         href="tel:+5255000000"
-        className="border-2 border-[#3B2314] text-[#3B2314] hover:bg-[#3B2314]/10 px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
+        className="border-2 border-azul-institucional text-azul-institucional hover:bg-azul-institucional/10 px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
       >
         <FaPhoneAlt />
         Llamar

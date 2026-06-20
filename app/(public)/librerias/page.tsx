@@ -68,58 +68,58 @@ const librerias = [
 
 export default function Librerias() {
   return (
-    <div className="bg-[#FAF7F2]">
+    <div className="bg-crema">
       {/* HERO — carrusel del portal general */}
       <CarruselHero slides={slidesHero} />
 
       {/* DIRECTORIO DE LIBRERÍAS */}
-      <section className="bg-[#F0EAE0] py-20 px-6">
+      <section className="bg-azul-suave py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Directorio</span>
-            <h2 className="text-3xl font-bold text-[#3B2314] mt-2">Nuestras librerías</h2>
+            <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Directorio</span>
+            <h2 className="text-3xl font-bold text-azul-institucional mt-2">Nuestras librerías</h2>
           </div>
 
           <div className="space-y-8">
             {librerias.map((lib) => (
-              <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-azul-institucional" : "border-[#E4D7BC]"}`}>
+              <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-azul-institucional" : "border-arena"}`}>
                 <div className="p-8 grid md:grid-cols-3 gap-8">
                   {/* Info principal */}
                   <div className="md:col-span-2">
-                    <h3 className="text-2xl font-bold text-[#3B2314] mb-1">{lib.nombre}</h3>
+                    <h3 className="text-2xl font-bold text-azul-institucional mb-1">{lib.nombre}</h3>
                     <p className="text-azul-institucional font-semibold text-sm mb-3">{lib.ciudad}</p>
-                    <p className="text-[#5A4232] text-sm leading-relaxed mb-5">{lib.descripcion}</p>
-                    <div className="flex items-start gap-2 text-sm text-[#7A6352] mb-2">
+                    <p className="text-marron text-sm leading-relaxed mb-5">{lib.descripcion}</p>
+                    <div className="flex items-start gap-2 text-sm text-marron-suave mb-2">
                       <FaMapMarkerAlt className="mt-0.5 text-azul-institucional shrink-0" />
                       <span>{lib.direccion}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-[#7A6352] mb-2">
+                    <div className="flex items-center gap-2 text-sm text-marron-suave mb-2">
                       <FaPhoneAlt className="text-dorado shrink-0" />
-                      <a href={`tel:${lib.telefono}`} className="hover:text-[#3B2314] transition-colors">{lib.telefono}</a>
+                      <a href={`tel:${lib.telefono}`} className="hover:text-azul-institucional transition-colors">{lib.telefono}</a>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-[#7A6352]">
+                    <div className="flex items-center gap-2 text-sm text-marron-suave">
                       <FaEnvelope className="text-dorado shrink-0" />
-                      <a href={`mailto:${lib.email}`} className="hover:text-[#3B2314] transition-colors">{lib.email}</a>
+                      <a href={`mailto:${lib.email}`} className="hover:text-azul-institucional transition-colors">{lib.email}</a>
                     </div>
                   </div>
 
                   {/* Horarios */}
-                  <div className="bg-[#FAF7F2] rounded-2xl p-5">
-                    <h4 className="font-bold text-[#3B2314] flex items-center gap-2 mb-4">
+                  <div className="bg-crema rounded-2xl p-5">
+                    <h4 className="font-bold text-azul-institucional flex items-center gap-2 mb-4">
                       <FaClock className="text-azul-institucional" size={14} /> Horarios de atención
                     </h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-[#7A6352]">Lunes – Viernes</span>
-                        <span className="font-medium text-[#3B2314]">{lib.horario.semana.split(": ")[1]}</span>
+                        <span className="text-marron-suave">Lunes – Viernes</span>
+                        <span className="font-medium text-marron">{lib.horario.semana.split(": ")[1]}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#7A6352]">Sábado</span>
-                        <span className="font-medium text-[#3B2314]">{lib.horario.sabado.split(": ")[1]}</span>
+                        <span className="text-marron-suave">Sábado</span>
+                        <span className="font-medium text-marron">{lib.horario.sabado.split(": ")[1]}</span>
                       </div>
-                      <div className="flex justify-between border-t border-[#E4D7BC] pt-2 mt-2">
-                        <span className="text-[#7A6352]">Domingo</span>
-                        <span className="text-[#9A8B7A]">Cerrado</span>
+                      <div className="flex justify-between border-t border-arena pt-2 mt-2">
+                        <span className="text-marron-suave">Domingo</span>
+                        <span className="text-marron-suave">Cerrado</span>
                       </div>
                     </div>
                   </div>
@@ -141,7 +141,7 @@ export default function Librerias() {
           </div>
           <Link
             href="/contacto"
-            className="shrink-0 bg-white text-dorado hover:bg-[#F0EAE0] px-7 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors"
+            className="shrink-0 bg-white text-azul-institucional hover:bg-azul-suave px-7 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors"
           >
             Ir a contacto <FaArrowRight />
           </Link>
