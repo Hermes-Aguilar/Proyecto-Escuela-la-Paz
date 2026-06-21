@@ -48,12 +48,14 @@ export default function Navbar() {
           ============================================================ */}
       <div className="bg-crema border-b border-arena">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          {/* Cabecera en 3 columnas. Las columnas izquierda y derecha tienen
-              EXACTAMENTE el mismo ancho (w-28 → w-56 → w-80) para que la
-              columna central (flex-1) quede matemáticamente centrada. */}
-          <div className="relative flex items-stretch justify-between gap-3 py-2 sm:gap-4">
-            {/* IZQUIERDA · Escudo con halo. Ancho fijo = columna derecha. */}
-            <div className="flex w-28 shrink-0 items-center justify-start sm:w-44 md:w-56 lg:w-80">
+          {/* Cabecera mobile-first. En móvil y tablet se APILA (flex-col,
+              centrada) para no apretar el nombre largo del Instituto ni las
+              imágenes. Desde lg vuelve a 3 columnas en fila: las laterales con
+              el mismo ancho (lg:w-80) para que el centro (flex-1) quede
+              matemáticamente centrado. */}
+          <div className="relative flex flex-col items-center gap-3 py-3 lg:flex-row lg:items-stretch lg:justify-between lg:gap-4 lg:py-2">
+            {/* IZQUIERDA · Escudo con halo. En lg, ancho = columna derecha. */}
+            <div className="flex shrink-0 items-center justify-center lg:w-80 lg:justify-start">
               <Link
                 href="/"
                 aria-label="Inicio"
@@ -75,7 +77,7 @@ export default function Navbar() {
                   width={1024}
                   height={1536}
                   priority
-                  className="h-28 w-auto object-contain sm:h-32 lg:h-36"
+                  className="h-20 w-auto object-contain sm:h-24 lg:h-36"
                   style={{
                     WebkitMaskImage:
                       "radial-gradient(ellipse 68% 68% at 50% 47%, #000 62%, transparent 80%)",
@@ -95,23 +97,25 @@ export default function Navbar() {
                 <br />
                 y de Santa María de Guadalupe
               </h1>
-              <p className="mt-1 font-script text-xl leading-none text-dorado-oscuro sm:text-2xl lg:text-3xl">
+              <p className="mt-1 font-script text-lg leading-tight text-dorado-oscuro sm:text-2xl lg:text-3xl">
                 Alegrémonos de sufrir por Cristo en favor de su Iglesia
               </p>
-              {/* Línea decorativa bajo el lema (dorado al 40%, ancho moderado) */}
-              <div className="mx-auto mt-2 w-64 border-t border-dorado/40 lg:w-80" />
+              {/* Línea decorativa bajo el lema (dorado al 40%). Ancho responsivo
+                  con max-w-full para no desbordar el centro en móvil. */}
+              <div className="mx-auto mt-2 w-56 max-w-full border-t border-dorado/40 sm:w-64 lg:w-80" />
             </div>
 
-            {/* DERECHA · Cristo (interior) + María (esquina). Ancho fijo =
-                columna izquierda. Ocultas en móvil para no saturar. */}
-            <div className="hidden w-28 shrink-0 items-center justify-end gap-2 sm:w-44 md:flex md:w-56 lg:w-80 lg:gap-3">
+            {/* DERECHA · Cristo (interior) + María (esquina). En móvil/tablet
+                se apilan centradas bajo el texto; en lg pasan a columna de la
+                derecha (ancho = columna izquierda). Tamaños responsivos. */}
+            <div className="flex shrink-0 items-center justify-center gap-2 lg:w-80 lg:justify-end lg:gap-3">
               {/* Cristo · más cerca del centro. Máscara radial para fundirlo. */}
               <Image
                 src="/images/cris.jpeg"
                 alt="Señor de los Corazones (Cristo crucificado)"
                 width={1492}
                 height={1054}
-                className="h-20 w-auto object-contain md:h-24 lg:h-28"
+                className="h-20 w-auto object-contain sm:h-24 lg:h-28"
                 style={{
                   WebkitMaskImage:
                     "radial-gradient(ellipse 64% 64% at 50% 50%, #000 60%, transparent 78%)",
@@ -125,7 +129,7 @@ export default function Navbar() {
                 alt="Santa María de Guadalupe"
                 width={1153}
                 height={1364}
-                className="h-24 w-auto object-contain drop-shadow-sm md:h-28 lg:h-32"
+                className="h-24 w-auto object-contain drop-shadow-sm sm:h-28 lg:h-32"
               />
             </div>
           </div>

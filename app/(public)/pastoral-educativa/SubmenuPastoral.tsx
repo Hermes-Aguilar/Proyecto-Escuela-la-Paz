@@ -7,9 +7,9 @@
 // (azul-institucional). Es reutilizable — si esta barra se coloca también en
 // las páginas de jardín, "La Paz"/"Porvenir" se resaltan solas.
 //
-// Sticky bajo el Navbar (que es sticky top-0 z-50 h-16): por eso
-// esta barra se fija en top-16 y z-40 (debajo del Navbar, encima
-// del contenido). Mobile-first: scroll horizontal si no caben.
+// Va en el flujo normal de la página (NO sticky/fixed): scrollea junto
+// con el resto del contenido para no solaparse con el título ni el texto.
+// Mobile-first: scroll horizontal interno si las pestañas no caben.
 // ============================================================
 "use client";
 
@@ -40,7 +40,7 @@ export function SubmenuPastoral() {
   return (
     <nav
       aria-label="Navegación de Pastoral Educativa"
-      className="sticky top-16 z-40 bg-white shadow-sm"
+      className="bg-white shadow-sm"
     >
       <ul className="mx-auto flex max-w-7xl items-stretch overflow-x-auto whitespace-nowrap px-6 text-sm">
         {ENLACES.map((enlace, i) => {

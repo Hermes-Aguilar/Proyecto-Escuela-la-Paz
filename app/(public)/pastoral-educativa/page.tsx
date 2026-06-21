@@ -97,7 +97,7 @@ export default function PastoralEducativa() {
       <SubmenuPastoral />
 
       {/* MISIÓN */}
-      <section id="mision" className="mx-auto max-w-7xl scroll-mt-32 px-6 py-20">
+      <section id="mision" className="mx-auto max-w-7xl scroll-mt-20 px-6 py-20">
         <AnimacionScroll>
           <div className="grid items-center gap-16 md:grid-cols-2">
             <div>
@@ -146,7 +146,7 @@ export default function PastoralEducativa() {
       </section>
 
       {/* JARDINES */}
-      <section id="jardines" className="scroll-mt-32 bg-azul-suave px-6 py-20">
+      <section id="jardines" className="scroll-mt-20 bg-azul-suave px-6 py-20">
         <div className="mx-auto max-w-7xl">
           <AnimacionScroll>
             <div className="mb-12 text-center">

@@ -34,7 +34,7 @@ export interface SlideHero {
 
 interface Props {
   slides: SlideHero[];
-  /** Altura del carrusel (utilidad Tailwind). */
+  /** Altura del carrusel (utilidad Tailwind). Mobile-first por defecto. */
   altura?: string;
   /** Color de acento de la categoría/botón. Default azul-institucional. */
   colorAcento?: string;
@@ -52,7 +52,7 @@ const INTERVALO_MS = 8_000;
 
 export default function CarruselHero({
   slides,
-  altura = "h-[520px]",
+  altura = "h-[440px] sm:h-[500px] lg:h-[560px]",
   colorAcento = "#1f3a5a",
   fondoFijo = false,
 }: Props) {
@@ -117,24 +117,22 @@ export default function CarruselHero({
             aria-hidden={!activa}
           >
             <div className="max-w-2xl rounded-2xl bg-black/40 p-8 text-center text-white shadow-xl backdrop-blur-sm md:p-12">
-              {/* Categoría con línea decorativa a los lados */}
+              {/*
+                Categoría (eyebrow) con línea decorativa a los lados.
+                Va en ORO (dorado), no en colorAcento: el azul institucional se
+                perdía contra el velo oscuro de las imágenes. El oro es el acento
+                de la paleta (convenciones-ui) y, sobre el panel oscuro, cumple
+                contraste AA. El text-shadow lo refuerza sobre imágenes claras.
+              */}
               <div className="flex items-center justify-center gap-3">
+                <span aria-hidden className="h-px w-8 bg-dorado md:w-12" />
                 <span
-                  aria-hidden
-                  className="h-px w-8 md:w-12"
-                  style={{ backgroundColor: colorAcento }}
-                />
-                <span
-                  className="text-xs font-semibold uppercase tracking-widest md:text-sm"
-                  style={{ color: colorAcento }}
+                  className="text-xs font-semibold uppercase tracking-widest text-dorado md:text-sm"
+                  style={{ textShadow: "0 1px 6px rgba(0,0,0,0.6)" }}
                 >
                   {slide.categoria}
                 </span>
-                <span
-                  aria-hidden
-                  className="h-px w-8 md:w-12"
-                  style={{ backgroundColor: colorAcento }}
-                />
+                <span aria-hidden className="h-px w-8 bg-dorado md:w-12" />
               </div>
 
               <h2
