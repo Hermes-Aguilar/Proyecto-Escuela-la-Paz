@@ -28,14 +28,19 @@ export interface ActividadExtra {
 }
 
 export interface ContactoInstitucional {
-  telefono: string;
-  celular: string;
-  email: string;
-  direccion: string;
-  clave: string;
-  turno: string;
-  incorporacion: string;
-  numeroAcuerdo: string;
+  // Todos opcionales: cada jardín completa lo que tenga documentado.
+  telefono?: string;
+  celular?: string;
+  email?: string;
+  direccion?: string;
+  clave?: string;
+  turno?: string;
+  incorporacion?: string;
+  numeroAcuerdo?: string;
+  // Redes sociales (sección "Síguenos"). whatsapp puede ser número o URL.
+  facebook?: string;
+  youtube?: string;
+  whatsapp?: string;
 }
 
 export interface EspiritualidadContenido {
@@ -141,6 +146,14 @@ const EQUIPO_LA_PAZ: MiembroEquipo[] = [
   { rol: "Apoyo general" },
 ];
 
+// ── Equipo de trabajo de Porvenir (docs/jardin-porvenir.md) ─
+const EQUIPO_PORVENIR: MiembroEquipo[] = [
+  { nombre: "Bertha Figueroa Hernández", rol: "Directora" },
+  { nombre: "Yuritzi Reyes Cruz", rol: "Educadora · 1.er grupo" },
+  { nombre: "Erika Daniela Campos Vázquez", rol: "Educadora · 2.º grupo" },
+  { nombre: "Isabel Cruz Andrade", rol: "Educadora · 3.er grupo" },
+];
+
 // ── Historia íntegra de La Paz (docs/jardin-la-paz.md) ─────
 
 const HISTORIA_LA_PAZ = `Narran las crónicas que Nuestro Padre fundador Luis Fiacro Guerrero Ramírez en el año 1964 inició con la ayuda de los Señores Portillo la obra y bendición de la primera piedra del Jardín de niños, por Nuestro Padre y el Padre Narciso Villa, rector del seminario. Esto transcurrió en julio del año 1965 siendo el albañil el Sr. Procopio Martínez, colocando los cimientos de la primera parte de la casa, donde están los salones.
@@ -213,6 +226,9 @@ export const jardinesContenido: Record<string, JardinContenido> = {
       turno: "Matutino",
       incorporacion: "IEEPOO de Oaxaca (12 de agosto de 2003)",
       numeroAcuerdo: "202020803052",
+      // Links de redes pendientes de confirmar (placeholder por ahora).
+      facebook: "https://facebook.com",
+      youtube: "https://youtube.com",
     },
     espiritualidad: ESPIRITUALIDAD_MSCG,
     equipo: EQUIPO_LA_PAZ,
@@ -228,9 +244,17 @@ export const jardinesContenido: Record<string, JardinContenido> = {
     valores: VALORES_MSCG,
     clasesAdicionales: CLASES_PORVENIR,
     actividadesExtras: ACTIVIDADES_EXTRAS,
-    contacto: null,
+    contacto: {
+      // Datos documentados en docs/jardin-porvenir.md.
+      celular: "953 110 3700",
+      email: "jardinporvenir3@gmail.com",
+      clave: "20PJN0054C",
+      turno: "Matutino",
+      incorporacion: "2003",
+      facebook: "https://www.facebook.com/share/1CxmWG4Pat/",
+      whatsapp: "9531103700",
+    },
     espiritualidad: ESPIRITUALIDAD_MSCG,
-    // Porvenir aún no cuenta con su equipo de trabajo documentado.
-    equipo: [],
+    equipo: EQUIPO_PORVENIR,
   },
 };

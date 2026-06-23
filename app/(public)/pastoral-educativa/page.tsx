@@ -4,8 +4,6 @@ import {
   FaLeaf,
   FaUsers,
   FaMapMarkerAlt,
-  FaEnvelope,
-  FaPhoneAlt,
   FaChalkboardTeacher,
   FaPaintBrush,
   FaTree,
@@ -19,23 +17,22 @@ import { SubmenuPastoral } from "./SubmenuPastoral";
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
 
+// Carrusel sin fotos por ahora (se actualizarán luego): los slides van
+// sin `imagen`, así CarruselHero muestra un degradado de respaldo.
 const slidesHero: SlideHero[] = [
   {
-    imagen: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600",
     categoria: "PASTORAL EDUCATIVA",
     titulo: "Sembrando vida desde la infancia",
     descripcion:
-      "Educamos desde los valores del Evangelio y el carisma franciscano: amor, sencillez y fraternidad",
+      "Educamos desde los valores del Evangelio y el carisma de las MSCG: amor, servicio y alegría",
   },
   {
-    imagen: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600",
     categoria: "NUESTROS JARDINES",
     titulo: "Dos comunidades educativas",
     descripcion:
       "La Paz y Porvenir: espacios donde los niños crecen como personas íntegras y felices",
   },
   {
-    imagen: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=1600",
     categoria: "FORMACIÓN INTEGRAL",
     titulo: "Más que conocimiento, valores",
     descripcion:
@@ -52,7 +49,7 @@ const programas = [
   {
     icon: <FaChalkboardTeacher size={22} />,
     titulo: "Formación en valores",
-    desc: "Programa transversal que integra los valores franciscanos en todas las actividades del jardín.",
+    desc: "Programa transversal que integra los valores del Evangelio en todas las actividades del jardín.",
   },
   {
     icon: <FaPaintBrush size={22} />,
@@ -61,16 +58,16 @@ const programas = [
   },
   {
     icon: <FaTree size={22} />,
-    titulo: "Ecología franciscana",
-    desc: "Huerto escolar, cuidado de la naturaleza y educación ambiental inspirada en el amor de Francisco a la creación.",
+    titulo: "Cuidado de la casa común",
+    desc: "Huerto escolar, cuidado de la naturaleza y educación ambiental inspirada en el cuidado de la creación.",
   },
 ];
 
 const jardines = [
   {
     nombre: "Jardín La Paz",
-    ciudad: "Guadalajara",
-    descripcion: "Ambiente de calma y serenidad. Nos inspira en la paz interior y comunitaria que Francisco buscaba.",
+    ciudad: "Huajuapan de León, Oaxaca",
+    descripcion: "Ambiente de calma y serenidad, que invita a la paz interior y a la convivencia fraterna desde la infancia.",
     colores: ["#137E86", "#18B4C7", "#F4EFE3"],
     tag: "tema propio · calma",
     slug: "la-paz",
@@ -78,8 +75,8 @@ const jardines = [
   },
   {
     nombre: "Jardín Porvenir",
-    ciudad: "Monterrey",
-    descripcion: "Espacio soleado y esperanzador. Su nombre evoca el futuro, la alegría y el crecimiento de cada niña.",
+    ciudad: "Huajuapan de León, Oaxaca",
+    descripcion: "Espacio soleado y esperanzador. Su nombre evoca el futuro, la alegría y el crecimiento de cada niña y niño.",
     colores: ["#F4C438", "#C25B35", "#F6EBD0"],
     tag: "tema propio · esperanza",
     slug: "porvenir",
@@ -113,16 +110,17 @@ export default function PastoralEducativa() {
                 primeros años, en un ambiente de amor, seguridad y valores auténticos.
               </p>
               <p className="mb-6 leading-relaxed text-marron">
-                Inspiradas en el carisma de San Francisco, buscamos que nuestros jardines sean
-                comunidades donde los niños aprendan a amar a Dios, a los demás y a la naturaleza,
-                construyendo así un mundo mejor desde la raíz.
+                Inspiradas en el carisma de las Misioneras del Señor de los Corazones y de Santa
+                María de Guadalupe, buscamos que nuestros jardines sean comunidades donde los niños
+                aprendan a amar a Dios, a los demás y a la creación, construyendo así un mundo mejor
+                desde la raíz.
               </p>
               <div className="flex flex-wrap gap-3">
                 <span className="flex items-center gap-2 rounded-full border border-azul-institucional/20 bg-azul-institucional/10 px-4 py-2 text-sm font-medium text-azul-institucional">
                   <FaChild size={14} /> Desarrollo integral
                 </span>
                 <span className="flex items-center gap-2 rounded-full border border-azul-institucional/20 bg-azul-institucional/10 px-4 py-2 text-sm font-medium text-azul-institucional">
-                  <FaHeart size={14} /> Valores franciscanos
+                  <FaHeart size={14} /> Valores del Evangelio
                 </span>
                 <span className="flex items-center gap-2 rounded-full border border-azul-institucional/20 bg-azul-institucional/10 px-4 py-2 text-sm font-medium text-azul-institucional">
                   <FaLeaf size={14} /> Amor a la creación
@@ -226,33 +224,27 @@ export default function PastoralEducativa() {
         <AnimacionScroll>
           <div className="grid items-center gap-10 rounded-3xl bg-azul-oscuro p-10 md:grid-cols-2">
             <div>
-              <h2 className="mb-4 text-3xl font-bold text-white">¿Quieres inscribir a tu hija o hijo?</h2>
-              <p className="mb-6 leading-relaxed text-white/75">
-                Contáctate con el jardín de tu localidad. Con gusto te orientamos sobre el proceso
-                de inscripción, los programas disponibles y los valores que nos mueven.
+              <h2 className="mb-4 text-3xl font-bold text-white">¿Quieres inscribir a tus hijos?</h2>
+              <p className="leading-relaxed text-white/75">
+                Si deseas inscribir a tus hijas o hijos en cualquiera de nuestros dos jardines
+                —La Paz o Porvenir—, con gusto te orientamos sobre el proceso de inscripción, los
+                programas disponibles y los valores que nos mueven. Escríbele directamente al
+                jardín de tu preferencia.
               </p>
-              <div className="space-y-3">
-                <a
-                  href="mailto:educativa@franciscanas.org"
-                  className="flex items-center gap-3 text-azul-suave transition-colors hover:text-white"
-                >
-                  <FaEnvelope className="text-dorado" /> educativa@franciscanas.org
-                </a>
-                <a
-                  href="tel:+5255000001"
-                  className="flex items-center gap-3 text-azul-suave transition-colors hover:text-white"
-                >
-                  <FaPhoneAlt className="text-dorado" /> +52 55 0000 0001
-                </a>
-              </div>
             </div>
-            <div className="text-center">
-              <Link
-                href="/contacto"
-                className="inline-flex items-center gap-2 rounded-xl bg-azul-institucional px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-azul-oscuro"
-              >
-                Ir a contacto <FaArrowRight />
-              </Link>
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+              {jardines.map((j) => (
+                <Link
+                  key={j.slug}
+                  href={`/pastoral-educativa/${j.slug}/contacto`}
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-lg font-bold shadow transition-all hover:gap-3 ${
+                    j.slug === "porvenir" ? "text-marron" : "text-white"
+                  }`}
+                  style={{ backgroundColor: j.primario }}
+                >
+                  Contacto {j.nombre.replace("Jardín ", "")} <FaArrowRight />
+                </Link>
+              ))}
             </div>
           </div>
         </AnimacionScroll>

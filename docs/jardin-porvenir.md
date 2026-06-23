@@ -63,3 +63,20 @@ En el Jardín de Niños Porvenir educamos con amor, compromiso y excelencia, for
 ## Clave del Centro de Trabajo
 
 20PJN0054C
+
+
+## Equipo
+
+Directora. Bertha Figueroa Hernández 
+
+1° Yuritzi Reyes Cruz
+2° Erika Daniela Campos Vázquez 
+3° Isabel Cruz Andrade
+
+## Contacto 
+
+Facebook : https://www.facebook.com/share/1CxmWG4Pat/
+Correo. 
+jardinporvenir3@gmail.com
+
+Contacto WhatsApp 9531103700

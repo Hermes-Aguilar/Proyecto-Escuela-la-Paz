@@ -23,7 +23,9 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface SlideHero {
-  imagen: string;
+  /** Imagen de fondo del slide. Si falta, se usa un degradado con el
+   *  color de acento (útil mientras un jardín no tiene fotos todavía). */
+  imagen?: string;
   categoria: string;
   titulo: string;
   subtitulo?: string;
@@ -92,14 +94,25 @@ export default function CarruselHero({
             }`}
             aria-hidden={!activa}
           >
-            <Image
-              src={slide.imagen}
-              alt={slide.titulo}
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="object-cover"
-            />
+            {slide.imagen ? (
+              <Image
+                src={slide.imagen}
+                alt={slide.titulo}
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover"
+              />
+            ) : (
+              // Sin foto aún: degradado con el color de acento del jardín.
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${colorAcento}, #1f2937)`,
+                }}
+                aria-hidden
+              />
+            )}
             <div className="absolute inset-0 bg-black/45" />
           </div>
         );

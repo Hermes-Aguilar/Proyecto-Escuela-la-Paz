@@ -64,6 +64,35 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
         "Seis décadas ayudando a las familias en la formación integral de sus hijos.",
     },
   ],
+  // Porvenir aún no tiene fotos: los slides van sin imagen (fondo con
+  // degradado del color del jardín). Cuando lleguen las fotos, basta
+  // con agregar `imagen` a cada slide.
+  porvenir: [
+    {
+      categoria: "Jardín de Niños Porvenir",
+      titulo: "El presente que inspira, el futuro que transforma",
+      descripcion:
+        "Educamos con amor para que cada niña y niño construya un futuro lleno de esperanza.",
+    },
+    {
+      categoria: "Formación integral",
+      titulo: "Cada niño tiene talentos únicos",
+      descripcion:
+        "Favorecemos su desarrollo académico, físico, artístico y humano en un ambiente de alegría y valores.",
+    },
+    {
+      categoria: "60 años de historia",
+      titulo: "Una tradición que forma generaciones",
+      descripcion:
+        "Seis décadas y 60 generaciones acompañadas con amor, fe y valores.",
+    },
+    {
+      categoria: "Nuestra gran familia",
+      titulo: "Niñas y niños felices y seguros",
+      descripcion:
+        "Educamos con amor, compromiso y excelencia. ¡Ven y forma parte de nuestra gran familia educativa!",
+    },
+  ],
 };
 
 // Galería del inicio por jardín: el resto de las fotos, con una breve
