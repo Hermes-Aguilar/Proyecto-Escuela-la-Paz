@@ -290,6 +290,56 @@ neutros antiguos en su `layout.tsx` para verse idéntico.
       franciscanos). Títulos en azul, cuerpo casi-negro, oro solo en detalles
       sobre azul. Contraste WCAG AA verificado. Ver `docs/paleta.md`.
 
+- [x] **Rediseño del header de cada jardín** (La Paz y Porvenir): se
+      reemplazó el menú lateral vertical + carrusel por una cabecera más
+      simple de dos partes.
+      - **Menú horizontal superior** (`components/public/MenuJardin.tsx`,
+        reemplaza a `SidebarJardin.tsx`): barra blanca sticky, sin franja
+        de color encima; izquierda con ícono + "Jardín de Niños [nombre]";
+        derecha con los enlaces (Inicio, Nosotros▾, Oferta Educativa▾,
+        Publicaciones▾, Contacto) más "← Regresar a Congregación" discreto
+        al final. Enlace activo resaltado con `--jardin-primario`; dropdowns
+        al hover/focus y hamburguesa en móvil. El `layout.tsx` quitó el
+        `lg:pl-64` del antiguo sidebar fijo.
+      - **Hero estático** (`components/public/HeroJardin.tsx`, reemplaza a
+        `CarruselJardin.tsx`): dos columnas en escritorio (texto con
+        degradado de la paleta del jardín + una sola imagen representativa,
+        `h-[500px]`) y apilado en móvil (imagen arriba, texto debajo). Sin
+        rotación ni parallax. Imagen por jardín: La Paz `lapaz3.jpeg`,
+        Porvenir `porvenir2.jpeg`.
+      - **Paleta ampliada a 3 tonos por jardín:** se añadió `--jardin-acento`
+        en el `layout.tsx` (La Paz coral `#E8907A`, Porvenir azul `#5B8FA8`),
+        usado en el degradado del hero junto a `--jardin-primario`. El ícono
+        del jardín (paloma/estrella) se extrajo a `IconoJardin.tsx`,
+        compartido por menú y hero. Las páginas de Nosotros, Oferta,
+        Publicaciones y Contacto no se tocaron.
+
+- [x] **Contenido estático real de los jardines** centralizado en
+      `lib/data/jardines-contenido.ts` (transcrito íntegro de
+      `docs/jardin-la-paz.md`, sin resumir): historia, objetivo general,
+      misión, visión, valores, clases adicionales y actividades extra
+      (con nombre de ícono lucide), contacto institucional (clave, turno,
+      incorporación, número de acuerdo, correo) y `espiritualidad`. La
+      misión/visión/valores son institucionales (MSCG) y se comparten;
+      La Paz trae todo, Porvenir hereda lo institucional y deja en `null`
+      lo propio pendiente (historia, objetivo, contacto). Páginas
+      conectadas a estos datos (sin tocar hero, bienvenida, publicaciones
+      ni menú):
+      - **Quiénes somos:** objetivo general en blockquote del color del
+        jardín, misión (ícono Target) y visión (ícono Eye) desde datos, y
+        grid 4×2 de valores. `null` → "Información próximamente".
+      - **Historia:** texto íntegro (párrafos justificados + listas de
+        hermanas) y ficha de datos del jardín con fondo primario/10;
+        `null` → "Información próximamente".
+      - **Oferta educativa:** nuevas secciones "Clases adicionales" y
+        "Actividades extras" (#actividades) leídas de los datos; íconos
+        resueltos por nombre.
+      - **Contacto:** tarjeta "Datos del jardín" (clave, turno,
+        incorporación, número de acuerdo, correo) además del formulario.
+      - **Espiritualidad** (`nosotros/espiritualidad`, nueva): página en
+        construcción con ícono de corazón, lista para recibir el contenido
+        cuando `espiritualidad` deje de ser `null`.
+
 **Semana 6 — Despliegue:**
 - [ ] BD a la nube (Neon/Supabase) + migración
 - [ ] Deploy en Vercel + variables de entorno

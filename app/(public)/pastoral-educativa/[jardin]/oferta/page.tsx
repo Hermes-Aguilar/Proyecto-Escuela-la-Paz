@@ -1,17 +1,30 @@
 // ============================================================
 // .../[jardin]/oferta/page.tsx
 // CU-02 · Oferta educativa del jardín. SERVER COMPONENT estático.
-// Dos secciones ancladas desde el sidebar: #niveles y #actividades.
+// Secciones ancladas desde el menú: #niveles y #actividades.
+// Las clases adicionales y las actividades extra se leen de
+// lib/data/jardines-contenido (no se hardcodean); sus íconos llegan
+// como nombre de lucide-react y se resuelven con el registro ICONOS.
 // ============================================================
-import { Music, Palette, Leaf, HandHeart, Baby, GraduationCap } from "lucide-react";
+import { notFound } from "next/navigation";
+import {
+  GraduationCap,
+  Dumbbell,
+  Monitor,
+  Globe,
+  Music,
+  Trophy,
+  Tent,
+  Waves,
+  Moon,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
+
+import { getJardinBySlug } from "@/lib/dal/jardines";
+import { jardinesContenido } from "@/lib/data/jardines-contenido";
 
 const NIVELES = [
-  {
-    icon: Baby,
-    nombre: "Maternal",
-    edad: "1 a 3 años",
-    desc: "Primeros pasos en un entorno seguro y afectivo: estimulación temprana, juego y hábitos.",
-  },
   {
     icon: GraduationCap,
     nombre: "Preescolar 1",
@@ -32,30 +45,29 @@ const NIVELES = [
   },
 ];
 
-const ACTIVIDADES = [
-  {
-    icon: Music,
-    nombre: "Música",
-    desc: "Canto, ritmo e instrumentos para expresar emociones y desarrollar la sensibilidad.",
-  },
-  {
-    icon: Palette,
-    nombre: "Arte",
-    desc: "Pintura, modelado y manualidades que despiertan la creatividad y la motricidad fina.",
-  },
-  {
-    icon: Leaf,
-    nombre: "Educación ambiental",
-    desc: "Huerto escolar y cuidado de la naturaleza, inspirados en el amor franciscano a la creación.",
-  },
-  {
-    icon: HandHeart,
-    nombre: "Valores",
-    desc: "Formación en valores del Evangelio: respeto, generosidad, fraternidad y paz.",
-  },
-];
+// Registro nombre → componente de ícono (los datos guardan el nombre).
+const ICONOS: Record<string, LucideIcon> = {
+  Dumbbell,
+  Monitor,
+  Globe,
+  Music,
+  Trophy,
+  Tent,
+  Waves,
+  Moon,
+};
 
-export default function Oferta() {
+export default async function Oferta({
+  params,
+}: {
+  params: Promise<{ jardin: string }>;
+}) {
+  const { jardin: slug } = await params;
+  const jardin = await getJardinBySlug(slug);
+  if (!jardin) notFound();
+
+  const contenido = jardinesContenido[slug] ?? jardinesContenido["la-paz"]!;
+
   return (
     <div className="font-texto mx-auto max-w-4xl px-6 py-12 md:py-16">
       <p
@@ -84,7 +96,8 @@ export default function Oferta() {
               <span
                 className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
                 style={{
-                  backgroundColor: "color-mix(in srgb, var(--jardin-primario) 12%, white)",
+                  backgroundColor:
+                    "color-mix(in srgb, var(--jardin-primario) 12%, white)",
                   color: "var(--jardin-primario)",
                 }}
               >
@@ -98,7 +111,8 @@ export default function Oferta() {
                   <span
                     className="rounded-full px-2 py-0.5 text-xs font-semibold"
                     style={{
-                      backgroundColor: "color-mix(in srgb, var(--jardin-primario) 14%, white)",
+                      backgroundColor:
+                        "color-mix(in srgb, var(--jardin-primario) 14%, white)",
                       color: "var(--jardin-primario)",
                     }}
                   >
@@ -114,34 +128,74 @@ export default function Oferta() {
         </div>
       </section>
 
-      {/* ACTIVIDADES */}
+      {/* CLASES ADICIONALES */}
+      <section id="clases" className="mt-12 scroll-mt-24">
+        <h2 className="font-titulo text-2xl font-bold text-marron">
+          Clases adicionales
+        </h2>
+        <p className="mt-2 text-base leading-relaxed text-marron-suave">
+          Además del programa, en {jardin.nombre} se imparten clases que
+          enriquecen la formación de los niños.
+        </p>
+        <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-4">
+          {contenido.clasesAdicionales.map(({ nombre, icono }) => {
+            const Icono = ICONOS[icono] ?? Sparkles;
+            return (
+              <div
+                key={nombre}
+                className="flex flex-col items-center rounded-2xl border border-arena bg-white p-5 text-center shadow-sm"
+              >
+                <span
+                  className="flex h-12 w-12 items-center justify-center rounded-full"
+                  style={{
+                    backgroundColor:
+                      "color-mix(in srgb, var(--jardin-primario) 12%, white)",
+                    color: "var(--jardin-primario)",
+                  }}
+                >
+                  <Icono size={24} />
+                </span>
+                <h3 className="font-titulo mt-3 text-sm font-bold text-marron">
+                  {nombre}
+                </h3>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ACTIVIDADES EXTRA */}
       <section id="actividades" className="mt-12 scroll-mt-24">
         <h2 className="font-titulo text-2xl font-bold text-marron">
-          Actividades extracurriculares
+          Actividades extras
         </h2>
+        <p className="mt-2 text-base leading-relaxed text-marron-suave">
+          Experiencias que crean recuerdos y fortalecen la convivencia.
+        </p>
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
-          {ACTIVIDADES.map(({ icon: Icono, nombre, desc }) => (
-            <div
-              key={nombre}
-              className="rounded-2xl border border-arena bg-white p-6 shadow-sm"
-            >
-              <span
-                className="flex h-12 w-12 items-center justify-center rounded-full"
-                style={{
-                  backgroundColor: "color-mix(in srgb, var(--jardin-primario) 12%, white)",
-                  color: "var(--jardin-primario)",
-                }}
+          {contenido.actividadesExtras.map(({ nombre, icono }) => {
+            const Icono = ICONOS[icono] ?? Sparkles;
+            return (
+              <div
+                key={nombre}
+                className="flex items-center gap-4 rounded-2xl border border-arena bg-white p-6 shadow-sm"
               >
-                <Icono size={24} />
-              </span>
-              <h3 className="font-titulo mt-4 text-lg font-bold text-marron">
-                {nombre}
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
-                {desc}
-              </p>
-            </div>
-          ))}
+                <span
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+                  style={{
+                    backgroundColor:
+                      "color-mix(in srgb, var(--jardin-primario) 12%, white)",
+                    color: "var(--jardin-primario)",
+                  }}
+                >
+                  <Icono size={24} />
+                </span>
+                <h3 className="font-titulo text-lg font-bold text-marron">
+                  {nombre}
+                </h3>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

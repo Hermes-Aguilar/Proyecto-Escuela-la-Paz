@@ -4,8 +4,8 @@
 // congregación (Inicio y páginas de pastorales/librerías).
 // CLIENT COMPONENT (useState + useEffect para el temporizador).
 //
-// A diferencia de CarruselJardin.tsx (que usa los colores propios de
-// cada jardín y lleva parallax), éste es para el portal institucional:
+// A diferencia del hero de cada jardín (HeroJardin.tsx, que usa los
+// colores propios de la escuela), éste es para el portal institucional:
 // contenido CENTRADO en un cuadro translúcido, sin tema por jardín.
 //
 //  · Avanza solo cada 8 s, con transición de fundido (opacity 0→1, 700 ms).
@@ -116,7 +116,7 @@ export default function CarruselHero({
             }`}
             aria-hidden={!activa}
           >
-            <div className="max-w-2xl rounded-2xl bg-black/40 p-8 text-center text-white shadow-xl backdrop-blur-sm md:p-12">
+            <div className="max-w-2xl rounded-2xl bg-black/20 p-8 text-center text-white shadow-xl backdrop-blur-[2px] md:p-12">
               {/*
                 Categoría (eyebrow) con línea decorativa a los lados.
                 Va en ORO (dorado), no en colorAcento: el azul institucional se

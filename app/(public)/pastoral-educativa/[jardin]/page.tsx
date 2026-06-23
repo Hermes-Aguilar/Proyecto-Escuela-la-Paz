@@ -2,54 +2,100 @@
 // app/(public)/pastoral-educativa/[jardin]/page.tsx
 // CU-02 · Inicio del micro-sitio de cada jardín. SERVER COMPONENT.
 //
-// Carrusel de fotografías (nombre + slogan fuera de él), bienvenida,
-// las 3 publicaciones más recientes y los rasgos que distinguen al jardín.
-// El layout ya validó el jardín y tematizó el subárbol; aquí se
-// vuelve a leer por slug para disponer de sus datos.
+// Mismo lenguaje visual que el inicio de la congregación: carrusel hero
+// con fondo fijo (efecto "reveal" al hacer scroll, ver CarruselHero) y
+// secciones que entran con animación al scroll (AnimacionScroll). El
+// contenido va en una capa opaca (z-10 + bg-crema) que se desplaza por
+// encima de la imagen fija.
+//
+// Las fotos de cada jardín están en public/images/. Si un jardín aún no
+// tiene set de carrusel (p. ej. Porvenir), se usa el hero estático
+// (HeroJardin) como respaldo.
 // ============================================================
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Heart, Users, TreePine, ArrowRight } from "lucide-react";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { getPublicacionesPublicas } from "@/lib/dal/publicaciones";
 import TarjetaPublicacion from "@/components/public/TarjetaPublicacion";
-import CarruselJardin, {
-  type SlideCarrusel,
-} from "@/components/public/CarruselJardin";
+import HeroJardin from "@/components/public/HeroJardin";
+import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+import { AnimacionScroll } from "@/components/public/AnimacionScroll";
 
-// Fotografías por jardín (archivos en public/images/).
-const IMAGENES_JARDIN: Record<string, string[]> = {
-  "la-paz": ["/images/lapaz3.jpeg", "/images/paz.jpeg", "/images/paz2.jpg"],
-  porvenir: [
-    "/images/porvenir1.jpeg",
-    "/images/porvenir2.jpeg",
-    "/images/porvenir3.jpeg",
+// Carrusel hero por jardín (lapaz1–5). Si un slug no está aquí, el
+// inicio usa el hero estático de respaldo (HeroJardin).
+const SLIDES_HERO: Record<string, SlideHero[]> = {
+  "la-paz": [
+    {
+      imagen: "/images/lapaz11.jpeg",
+      categoria: "Jardín de Niños La Paz",
+      titulo: "Sembrando paz, amor y valores",
+      descripcion:
+        "Acompañamos los primeros pasos de tu hija o hijo en un ambiente seguro, alegre y lleno de fe.",
+    },
+    {
+      imagen: "/images/lapaz21.jpeg",
+      categoria: "Nuestra comunidad",
+      titulo: "Un lugar para crecer felices",
+      descripcion:
+        "Familias, maestras y niños caminamos juntos como una sola fraternidad.",
+    },
+    {
+      imagen: "/images/lapaz311.jpeg",
+      categoria: "Formación integral",
+      titulo: "Cuerpo, mente, corazón y espíritu",
+      descripcion:
+        "Cuidamos no solo lo que aprenden, sino la persona en la que se están convirtiendo.",
+    },
+    {
+      imagen: "/images/lapaz4.jpeg",
+      categoria: "Educación en la fe",
+      titulo: "Acompañamos con cariño",
+      descripcion:
+        "Sembramos valores evangélicos desde la infancia, con ternura y cercanía.",
+    },
+    {
+      imagen: "/images/lapaz5.jpeg",
+      categoria: "60 años de historia",
+      titulo: "Una tradición de formar con amor",
+      descripcion:
+        "Seis décadas ayudando a las familias en la formación integral de sus hijos.",
+    },
   ],
 };
 
-// Contenido estático de cada slide (genérico para un jardín de niños
-// franciscano); las imágenes cambian por jardín.
-const SLIDES_CONTENIDO: Omit<SlideCarrusel, "src">[] = [
-  {
-    categoria: "Nuestro jardín",
-    titulo: "Un hogar donde crecer felices",
-    descripcion:
-      "Un espacio seguro y alegre para los primeros pasos de tu hija o hijo.",
-  },
-  {
-    categoria: "Aprender jugando",
-    titulo: "Descubrir el mundo con asombro",
-    descripcion:
-      "Cada día es una aventura de juego, arte y exploración llena de cariño.",
-  },
-  {
-    categoria: "Valores franciscanos",
-    titulo: "Sembrar amor y fraternidad",
-    descripcion:
-      "Educamos el corazón con los valores del Evangelio y el amor a la creación.",
-  },
-];
+// Galería del inicio por jardín: el resto de las fotos, con una breve
+// descripción de lo que muestran.
+interface FotoGaleria {
+  src: string;
+  titulo: string;
+  descripcion: string;
+}
+
+const GALERIA: Record<string, FotoGaleria[]> = {
+  "la-paz": [
+    {
+      src: "/images/eventolapaz1.jpeg",
+      titulo: "Festivales y eventos",
+      descripcion:
+        "Celebramos juntos las fechas especiales con festivales llenos de alegría.",
+    },
+    {
+      src: "/images/lapaz6.jpeg",
+      titulo: "Juego y convivencia",
+      descripcion:
+        "Aprendemos jugando y conviviendo en un ambiente seguro y feliz.",
+    },
+    {
+      src: "/images/lapazcomputacion.jpeg",
+      titulo: "Clases de computación",
+      descripcion:
+        "Los niños dan sus primeros pasos en la tecnología desde temprana edad.",
+    },
+  ],
+};
 
 const RASGOS = [
   {
@@ -72,55 +118,16 @@ const RASGOS = [
   },
 ];
 
-// Slogan por jardín (estático). Fallback a la descripción de la BD.
+// Fotografía de respaldo (hero estático) y slogan por jardín.
+const IMAGEN_JARDIN: Record<string, string> = {
+  "la-paz": "/images/lapaz3.jpeg",
+  porvenir: "/images/porvenir2.jpeg",
+};
+
 const SLOGANS: Record<string, string> = {
   "la-paz": "Sembrando paz, amor y valores desde la infancia",
   porvenir: "Construyendo el futuro con alegría y fe",
 };
-
-// Nube decorativa (SVG inline). El color/opacidad se controlan por
-// className (text-white opacity-…).
-function Nube({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 70" fill="currentColor" aria-hidden className={className}>
-      <ellipse cx="40" cy="46" rx="30" ry="20" />
-      <ellipse cx="66" cy="38" rx="30" ry="24" />
-      <ellipse cx="90" cy="48" rx="22" ry="16" />
-      <rect x="28" y="44" width="68" height="24" rx="12" />
-    </svg>
-  );
-}
-
-// Ícono representativo del jardín: paloma (La Paz) o estrella (Porvenir).
-// Toma el color del jardín de la CSS var inyectada por el layout.
-function IconoJardin({ slug, className }: { slug: string; className?: string }) {
-  const color = { color: "var(--jardin-primario)" };
-  if (slug === "porvenir") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden
-        className={className}
-        style={color}
-      >
-        <path d="M12 2.6l2.7 5.9 6.4.6-4.8 4.3 1.4 6.3L12 16.9 6.3 19.7l1.4-6.3L2.9 9.1l6.4-.6z" />
-      </svg>
-    );
-  }
-  // La Paz (y por defecto): paloma en vuelo.
-  return (
-    <svg
-      viewBox="0 0 64 64"
-      fill="currentColor"
-      aria-hidden
-      className={className}
-      style={color}
-    >
-      <path d="M4 36C16 18 28 18 32 32 36 18 48 18 60 36 46 30 36 33 32 40 28 33 18 30 4 36Z" />
-    </svg>
-  );
-}
 
 export default async function InicioJardin({
   params,
@@ -133,159 +140,196 @@ export default async function InicioJardin({
 
   const recientes = await getPublicacionesPublicas(jardin.id, undefined, 3);
 
-  // Arma los slides combinando el contenido estático con las fotos del
-  // jardín. Si hubiera menos fotos que slides, se repiten (mín. 3).
-  const imagenes = IMAGENES_JARDIN[jardin.slug] ?? [];
-  const slides: SlideCarrusel[] = imagenes.length
-    ? SLIDES_CONTENIDO.map((c, i) => ({
-        ...c,
-        src: imagenes[i % imagenes.length],
-      }))
-    : [];
+  const slides = SLIDES_HERO[jardin.slug];
+  const galeria = GALERIA[jardin.slug] ?? [];
 
   const slogan = SLOGANS[jardin.slug] ?? jardin.descripcion ?? "";
+  const imagenHero =
+    IMAGEN_JARDIN[jardin.slug] ?? jardin.logoUrl ?? "/images/lapaz3.jpeg";
 
   return (
     <div className="font-texto">
-      {/* ── MEJORA 1 · Cabecera con toque de color del jardín y nubes ── */}
-      <header className="relative overflow-hidden bg-crema py-12">
-        {/* Toque suave (8%) del color primario sobre el crema */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{ backgroundColor: `${jardin.colorPrimario}14` }}
+      {/* ── HERO ── Carrusel con fondo fijo (efecto reveal) si el jardín
+            tiene set de fotos; si no, hero estático de respaldo. */}
+      {slides ? (
+        <CarruselHero
+          slides={slides}
+          fondoFijo
+          altura="h-[60vh]"
+          colorAcento={jardin.colorPrimario}
         />
+      ) : (
+        <HeroJardin
+          slug={jardin.slug}
+          nombreJardin={jardin.nombre}
+          src={imagenHero}
+          slogan={slogan}
+          descripcion={jardin.descripcion ?? undefined}
+        />
+      )}
 
-        {/* Nubes decorativas (las grandes se ocultan en móvil) */}
-        <Nube className="absolute -left-4 top-6 w-24 text-white opacity-70 sm:w-32" />
-        <Nube className="absolute right-6 top-3 hidden text-white opacity-60 md:block md:w-56" />
-        <Nube className="absolute bottom-1 left-1/4 hidden w-40 text-white opacity-60 md:block" />
-        <Nube className="absolute -bottom-3 right-0 w-28 text-white opacity-70 sm:w-44" />
-
-        {/* Contenido centrado sobre las nubes */}
-        <div className="relative mx-auto max-w-3xl px-6 text-center">
-          <IconoJardin slug={jardin.slug} className="mx-auto h-12 w-12" />
-          <p
-            className="mt-3 text-xs font-semibold uppercase tracking-[0.22em]"
-            style={{ color: `${jardin.colorPrimario}99` }}
-          >
-            Jardín de niños
-          </p>
-          <h1
-            className="font-titulo mt-1 text-4xl font-extrabold md:text-5xl"
-            style={{ color: "var(--jardin-primario)" }}
-          >
-            {jardin.nombre}
-          </h1>
-          {slogan && (
-            <p className="mx-auto mt-3 max-w-xl text-lg text-marron-suave">
-              {slogan}
-            </p>
-          )}
-        </div>
-      </header>
-
-      {/* ── MEJORA 2 · Carrusel con parallax real (ver CarruselJardin) ── */}
-      <CarruselJardin
-        slides={slides}
-        colorPrimario={jardin.colorPrimario}
-        nombreJardin={jardin.nombre}
-      />
-
-      {/* BIENVENIDA */}
-      <section className="mx-auto max-w-3xl px-6 py-14 text-center md:py-16">
-        <p
-          className="text-sm font-semibold uppercase tracking-widest"
-          style={{ color: "var(--jardin-primario)" }}
-        >
-          Bienvenida
-        </p>
-        <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
-          Un lugar para crecer felices
-        </h2>
-        <p className="mt-5 text-base leading-relaxed text-marron-suave">
-          En {jardin.nombre} cada día es una oportunidad para descubrir, jugar y
-          aprender. Acompañamos los primeros pasos de tu hija o hijo en un
-          ambiente seguro, alegre y lleno de valores, donde la fe, el cariño y el
-          respeto por los demás guían todo lo que hacemos.
-        </p>
-      </section>
-
-      {/* ÚLTIMAS PUBLICACIONES */}
-      <section className="bg-white/60 px-6 py-14 md:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
-            <div>
-              <p
-                className="text-sm font-semibold uppercase tracking-widest"
-                style={{ color: "var(--jardin-primario)" }}
-              >
-                Lo más reciente
-              </p>
-              <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
-                Novedades del jardín
-              </h2>
-            </div>
-            <Link
-              href={`/pastoral-educativa/${jardin.slug}/publicaciones/noticias`}
-              className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:gap-2.5"
+      {/* CONTENIDO — capa opaca que se desplaza por encima de la imagen fija. */}
+      <div className="relative z-10 bg-crema">
+        {/* BIENVENIDA */}
+        <section className="mx-auto max-w-3xl px-6 py-14 text-center md:py-16">
+          <AnimacionScroll>
+            <p
+              className="text-sm font-semibold uppercase tracking-widest"
               style={{ color: "var(--jardin-primario)" }}
             >
-              Ver todas <ArrowRight size={16} />
-            </Link>
-          </div>
-
-          {recientes.length === 0 ? (
-            <p className="mt-8 rounded-2xl border border-dashed border-arena bg-white px-6 py-12 text-center text-marron-suave">
-              Aún no hay publicaciones. ¡Vuelve pronto para conocer nuestras
-              novedades!
+              Bienvenida
             </p>
-          ) : (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {recientes.map((pub) => (
-                <TarjetaPublicacion
-                  key={pub.id}
-                  pub={pub}
-                  slugJardin={jardin.slug}
-                />
+            <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
+              Un lugar para crecer felices
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-marron-suave">
+              En {jardin.nombre} cada día es una oportunidad para descubrir,
+              jugar y aprender. Acompañamos los primeros pasos de tu hija o hijo
+              en un ambiente seguro, alegre y lleno de valores, donde la fe, el
+              cariño y el respeto por los demás guían todo lo que hacemos.
+            </p>
+
+            {/* LEMA INSTITUCIONAL · cita destacada con líneas decorativas. */}
+            <figure className="mt-10 flex flex-col items-center gap-4">
+              <span
+                className="h-0.5 w-12 rounded-full"
+                style={{ backgroundColor: "var(--jardin-primario)" }}
+                aria-hidden="true"
+              />
+              <blockquote
+                className="font-titulo text-xl font-semibold italic md:text-2xl"
+                style={{ color: "var(--jardin-primario)" }}
+              >
+                “Todo por el bien de la niñez”
+              </blockquote>
+              <span
+                className="h-0.5 w-12 rounded-full"
+                style={{ backgroundColor: "var(--jardin-primario)" }}
+                aria-hidden="true"
+              />
+            </figure>
+          </AnimacionScroll>
+        </section>
+
+        {/* ÚLTIMAS PUBLICACIONES */}
+        <section className="bg-white/60 px-6 py-14 md:py-16">
+          <div className="mx-auto max-w-5xl">
+            <AnimacionScroll>
+              <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
+                <div>
+                  <p
+                    className="text-sm font-semibold uppercase tracking-widest"
+                    style={{ color: "var(--jardin-primario)" }}
+                  >
+                    Lo más reciente
+                  </p>
+                  <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
+                    Novedades del jardín
+                  </h2>
+                </div>
+                <Link
+                  href={`/pastoral-educativa/${jardin.slug}/publicaciones/noticias`}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:gap-2.5"
+                  style={{ color: "var(--jardin-primario)" }}
+                >
+                  Ver todas <ArrowRight size={16} />
+                </Link>
+              </div>
+            </AnimacionScroll>
+
+            {recientes.length === 0 ? (
+              <p className="mt-8 rounded-2xl border border-dashed border-arena bg-white px-6 py-12 text-center text-marron-suave">
+                Aún no hay publicaciones. ¡Vuelve pronto para conocer nuestras
+                novedades!
+              </p>
+            ) : (
+              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {recientes.map((pub, i) => (
+                  <AnimacionScroll key={pub.id} delay={i * 90} className="h-full">
+                    <TarjetaPublicacion pub={pub} slugJardin={jardin.slug} />
+                  </AnimacionScroll>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* GALERÍA · el resto de las fotos del jardín con descripción */}
+        {galeria.length > 0 && (
+          <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
+            <AnimacionScroll>
+              <div className="text-center">
+                <p
+                  className="text-sm font-semibold uppercase tracking-widest"
+                  style={{ color: "var(--jardin-primario)" }}
+                >
+                  Nuestro día a día
+                </p>
+                <h2 className="font-titulo mt-2 text-2xl font-bold text-marron md:text-3xl">
+                  Galería
+                </h2>
+              </div>
+            </AnimacionScroll>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {galeria.map((foto, i) => (
+                <AnimacionScroll key={foto.src} delay={i * 90} className="h-full">
+                  <figure className="group flex h-full flex-col overflow-hidden rounded-2xl border border-arena bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                    <div className="relative aspect-4/3 overflow-hidden">
+                      <Image
+                        src={foto.src}
+                        alt={foto.titulo}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <figcaption className="flex flex-1 flex-col p-5">
+                      <h3 className="font-titulo text-lg font-bold text-marron">
+                        {foto.titulo}
+                      </h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
+                        {foto.descripcion}
+                      </p>
+                    </figcaption>
+                  </figure>
+                </AnimacionScroll>
               ))}
             </div>
-          )}
-        </div>
-      </section>
+          </section>
+        )}
 
-      {/* LO QUE NOS HACE ÚNICOS */}
-      <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
-        <h2 className="font-titulo text-center text-2xl font-bold text-marron md:text-3xl">
-          Lo que nos hace únicos
-        </h2>
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
-          {RASGOS.map(({ icon: Icono, titulo, texto }) => (
-            <div
-              key={titulo}
-              className="group flex flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-            >
-              {/* Círculo con el gradiente propio del jardín (su esencia):
-                  primario → secundario, ícono en blanco para buen
-                  contraste con cualquiera de las dos paletas. */}
-              <span
-                className="flex h-16 w-16 items-center justify-center rounded-full text-white shadow-sm"
-                style={{
-                  backgroundImage: `linear-gradient(135deg, ${jardin.colorPrimario}, ${jardin.colorSecundario})`,
-                }}
-              >
-                <Icono size={28} />
-              </span>
-              <h3 className="font-titulo mt-4 text-lg font-bold text-marron">
-                {titulo}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-marron-suave">
-                {texto}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* LO QUE NOS HACE ÚNICOS */}
+        <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
+          <AnimacionScroll>
+            <h2 className="font-titulo text-center text-2xl font-bold text-marron md:text-3xl">
+              Lo que nos hace únicos
+            </h2>
+          </AnimacionScroll>
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {RASGOS.map(({ icon: Icono, titulo, texto }, i) => (
+              <AnimacionScroll key={titulo} delay={i * 90} className="h-full">
+                <div className="group flex h-full flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                  {/* Círculo con el gradiente propio del jardín. */}
+                  <span
+                    className="flex h-16 w-16 items-center justify-center rounded-full text-white shadow-sm"
+                    style={{
+                      backgroundImage: `linear-gradient(135deg, ${jardin.colorPrimario}, ${jardin.colorSecundario})`,
+                    }}
+                  >
+                    <Icono size={28} />
+                  </span>
+                  <h3 className="font-titulo mt-4 text-lg font-bold text-marron">
+                    {titulo}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-marron-suave">
+                    {texto}
+                  </p>
+                </div>
+              </AnimacionScroll>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

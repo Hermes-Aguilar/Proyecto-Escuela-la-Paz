@@ -17,13 +17,22 @@ import { notFound } from "next/navigation";
 import { Nunito } from "next/font/google";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
-import SidebarJardin from "@/components/public/SidebarJardin";
+import MenuJardin from "@/components/public/MenuJardin";
 
 const nunito = Nunito({
   variable: "--font-titulo",
   subsets: ["latin"],
   display: "swap",
 });
+
+// Tercer tono (acento) de la paleta de cada jardín. La BD solo guarda
+// primario/secundario; el acento complementa el color base para dar más
+// riqueza visual (degradado del hero, detalles) sin que todo sea del
+// mismo tono. Fallback al secundario si el slug no está mapeado.
+const ACENTOS: Record<string, string> = {
+  "la-paz": "#E8907A", // coral suave que contrasta con el teal
+  porvenir: "#5B8FA8", // azul suave que complementa el amarillo
+};
 
 export default async function JardinLayout({
   children,
@@ -36,13 +45,16 @@ export default async function JardinLayout({
   const jardin = await getJardinBySlug(slug);
   if (!jardin) notFound();
 
+  const colorAcento = ACENTOS[jardin.slug] ?? jardin.colorSecundario;
+
   return (
     <div
-      className={`${nunito.variable} font-texto bg-crema`}
+      className={`${nunito.variable} font-texto`}
       style={
         {
           "--jardin-primario": jardin.colorPrimario,
           "--jardin-secundario": jardin.colorSecundario,
+          "--jardin-acento": colorAcento,
           // El portal adoptó la identidad "litúrgico sobrio" (azul + oro).
           // Aquí restauramos los valores ANTIGUOS de los neutros
           // institucionales SOLO en el subárbol del jardín, para que sus
@@ -61,14 +73,20 @@ export default async function JardinLayout({
         } as React.CSSProperties
       }
     >
-      {/* El sidebar es fixed en escritorio (ocupa 16rem a la izquierda);
-          el contenido se desplaza con lg:pl-64 para no quedar debajo. */}
-      <SidebarJardin
+      {/* Fondo crema base, FIJO detrás de todo (-z-20). Va por detrás del
+          hero con fondo fijo del inicio (-z-10), así no lo tapa pero sigue
+          dando el fondo crema a todas las páginas del jardín. */}
+      <div className="fixed inset-0 -z-20 bg-crema" aria-hidden="true" />
+
+      {/* Menú superior horizontal (sticky); el contenido fluye debajo a
+          ancho completo. */}
+      <MenuJardin
         nombreJardin={jardin.nombre}
         slug={jardin.slug}
         colorPrimario={jardin.colorPrimario}
+        logoUrl={jardin.logoUrl}
       />
-      <div className="min-h-screen lg:pl-64">{children}</div>
+      <div className="min-h-screen">{children}</div>
     </div>
   );
 }

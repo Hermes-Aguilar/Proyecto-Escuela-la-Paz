@@ -2,28 +2,19 @@
 // .../[jardin]/nosotros/equipo/page.tsx
 // CU-02 · Sección "Nuestro equipo" del jardín. SERVER COMPONENT
 // estático: grid de maestras con avatar de iniciales en el color del
-// jardín. Los datos son de muestra (placeholder) hasta contar con la
-// información real de cada escuela.
+// jardín. El equipo se lee de lib/data/jardines-contenido (no se
+// hardcodea). Los puestos sin nombre conocido se muestran solo con su
+// rol (avatar con ícono genérico). Si el jardín no tiene equipo
+// documentado → "Información próximamente".
 // ============================================================
-import { Mail } from "lucide-react";
+import { Mail, User } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
+import { jardinesContenido } from "@/lib/data/jardines-contenido";
 
-interface Maestra {
-  nombre: string;
-  rol: string;
-}
-
-const EQUIPO: Maestra[] = [
-  { nombre: "Hna. María Guadalupe", rol: "Directora" },
-  { nombre: "Mtra. Ana Sofía Ramírez", rol: "Maternal" },
-  { nombre: "Mtra. Lucía Hernández", rol: "Preescolar 1" },
-  { nombre: "Mtra. Daniela Torres", rol: "Preescolar 2" },
-  { nombre: "Mtra. Paola Jiménez", rol: "Preescolar 3" },
-  { nombre: "Mtra. Carmen Vargas", rol: "Educación ambiental" },
-];
+const PROXIMAMENTE = "Información próximamente.";
 
 // Iniciales a partir del nombre (omite títulos y abreviaturas con punto).
 function iniciales(nombre: string): string {
@@ -44,6 +35,9 @@ export default async function Equipo({
   const jardin = await getJardinBySlug(slug);
   if (!jardin) notFound();
 
+  const contenido = jardinesContenido[slug] ?? jardinesContenido["la-paz"]!;
+  const equipo = contenido.equipo;
+
   return (
     <div className="font-texto mx-auto max-w-4xl px-6 py-12 md:py-16">
       <p
@@ -60,33 +54,45 @@ export default async function Equipo({
         crecimiento de cada niña y niño de {jardin.nombre}.
       </p>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {EQUIPO.map((m) => (
-          <div
-            key={m.nombre}
-            className="flex flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm"
-          >
-            <span
-              className="font-titulo flex h-20 w-20 items-center justify-center rounded-full text-2xl font-bold"
-              style={{
-                backgroundColor: `${jardin.colorPrimario}1A`,
-                color: jardin.colorPrimario,
-              }}
+      {equipo.length > 0 ? (
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {equipo.map((m, i) => (
+            <div
+              key={m.nombre ?? `${m.rol}-${i}`}
+              className="flex flex-col items-center rounded-2xl border border-arena bg-white p-7 text-center shadow-sm"
             >
-              {iniciales(m.nombre)}
-            </span>
-            <h2 className="font-titulo mt-4 text-lg font-bold text-marron">
-              {m.nombre}
-            </h2>
-            <p
-              className="mt-1 text-sm font-semibold"
-              style={{ color: "var(--jardin-primario)" }}
-            >
-              {m.rol}
-            </p>
-          </div>
-        ))}
-      </div>
+              <span
+                className="font-titulo flex h-20 w-20 items-center justify-center rounded-full text-2xl font-bold"
+                style={{
+                  backgroundColor: `${jardin.colorPrimario}1A`,
+                  color: jardin.colorPrimario,
+                }}
+              >
+                {m.nombre ? iniciales(m.nombre) : <User size={32} />}
+              </span>
+              {m.nombre ? (
+                <>
+                  <h2 className="font-titulo mt-4 text-lg font-bold text-marron">
+                    {m.nombre}
+                  </h2>
+                  <p
+                    className="mt-1 text-sm font-semibold"
+                    style={{ color: "var(--jardin-primario)" }}
+                  >
+                    {m.rol}
+                  </p>
+                </>
+              ) : (
+                <h2 className="font-titulo mt-4 text-lg font-bold text-marron">
+                  {m.rol}
+                </h2>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-10 text-base text-marron-suave">{PROXIMAMENTE}</p>
+      )}
 
       {/* Nota */}
       <div className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-dashed border-arena bg-white px-6 py-8 text-center">

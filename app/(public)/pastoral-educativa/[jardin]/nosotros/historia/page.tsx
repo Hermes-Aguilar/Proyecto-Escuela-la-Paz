@@ -1,36 +1,36 @@
 // ============================================================
 // .../[jardin]/nosotros/historia/page.tsx
 // CU-02 · Sección "Historia" del jardín. SERVER COMPONENT estático.
-// El texto cambia según el slug del jardín (La Paz, antes "Tepeyac";
-// Porvenir, antes "Nazareth"). Tematiza con --jardin-primario.
+// El texto íntegro se lee de lib/data/jardines-contenido (sin resumir);
+// los listados de hermanas (líneas "- ") se renderizan como lista.
+// Al final, una ficha con los datos institucionales del jardín.
+// Si la historia aún no está cargada → "Información próximamente".
 // ============================================================
 import { notFound } from "next/navigation";
 import { History } from "lucide-react";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
+import { jardinesContenido } from "@/lib/data/jardines-contenido";
 
-// Contenido por jardín (según su nombre histórico).
-const HISTORIAS: Record<
-  string,
-  { nombreAnterior: string; parrafos: string[] }
-> = {
-  "la-paz": {
-    nombreAnterior: "Tepeyac",
-    parrafos: [
-      "Nuestra historia comienza en 1966, cuando las Misioneras del Señor de los Corazones y de Santa María de Guadalupe iniciaron la educación de los niños pequeños bajo el nombre de Jardín de Niños Tepeyac. En aquellos primeros años, las hermanas que atendían el jardín pertenecían a la Casa General de la Congregación.",
-      "Durante más de 50 años hemos acompañado a generaciones de familias en los primeros pasos de la educación de sus hijos, bajo el cuidado de las hermanas misioneras. En febrero de 1991 se celebraron las Bodas de Plata de los Jardines de Niños Tepeyac y Nazareth, al cumplirse 25 años de su fundación en 1966.",
-      "Hoy seguimos firmes en nuestra misión: educar con amor, fe y dedicación a cada niño que llega a nuestras aulas.",
-    ],
-  },
-  porvenir: {
-    nombreAnterior: "Nazareth",
-    parrafos: [
-      "Nuestra historia comienza en 1966, cuando las Misioneras del Señor de los Corazones y de Santa María de Guadalupe iniciaron la educación de los niños pequeños bajo el nombre de Jardín de Niños Nazareth. En aquellos primeros años, las hermanas que atendían el jardín pertenecían a la Casa General de la Congregación.",
-      "En febrero de 1991 se celebraron las Bodas de Plata de los Jardines de Niños Tepeyac y Nazareth, al cumplirse 25 años de su fundación en 1966. Poco después, el 1° de abril de 1992, se estableció formalmente la Comunidad Nazareth —la octava comunidad fundada por el Instituto—, momento en que las hermanas decidieron vivir en el mismo domicilio que el Jardín de Niños.",
-      "Desde entonces, generaciones de familias han confiado en nosotras el cuidado y la formación de sus pequeños, en un ambiente de fe, cariño y aprendizaje.",
-    ],
-  },
+// Nombre histórico de cada jardín (dato puntual, no vive en el .md de
+// contenido). Tepeyac → La Paz, Nazareth → Porvenir.
+const NOMBRE_ANTERIOR: Record<string, string> = {
+  "la-paz": "Tepeyac",
+  porvenir: "Nazareth",
 };
+
+// Convierte el texto íntegro (párrafos separados por `\n\n`, con
+// posibles líneas "- " de listado) en bloques renderizables.
+function bloquesHistoria(texto: string) {
+  return texto.split("\n\n").map((bloque) => {
+    const lineas = bloque.split("\n");
+    const intro = lineas.filter((l) => !l.startsWith("- ")).join(" ").trim();
+    const items = lineas
+      .filter((l) => l.startsWith("- "))
+      .map((l) => l.slice(2).trim());
+    return { intro, items };
+  });
+}
 
 export default async function Historia({
   params,
@@ -41,7 +41,8 @@ export default async function Historia({
   const jardin = await getJardinBySlug(slug);
   if (!jardin) notFound();
 
-  const historia = HISTORIAS[slug] ?? HISTORIAS["la-paz"]!;
+  const contenido = jardinesContenido[slug] ?? jardinesContenido["la-paz"]!;
+  const nombreAnterior = NOMBRE_ANTERIOR[slug];
 
   return (
     <div className="font-texto mx-auto max-w-3xl px-6 py-12 md:py-16">
@@ -56,37 +57,80 @@ export default async function Historia({
       </h1>
 
       {/* Origen: nombre histórico del jardín */}
-      <div
-        className="mt-6 inline-flex items-center gap-2 rounded-full border border-arena bg-white px-4 py-2 text-sm font-medium text-marron-suave shadow-sm"
-        style={{ borderColor: "color-mix(in srgb, var(--jardin-primario) 40%, white)" }}
-      >
-        <History size={16} style={{ color: "var(--jardin-primario)" }} />
-        Antes conocido como Jardín de Niños «{historia.nombreAnterior}»
-      </div>
-
-      <div className="mt-8 space-y-5 text-base leading-relaxed text-marron-suave">
-        {historia.parrafos.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
-
-      {/* Hito destacado */}
-      <div
-        className="mt-10 rounded-2xl border border-arena bg-white p-7 shadow-sm md:p-9"
-        style={{ borderTopColor: "var(--jardin-primario)", borderTopWidth: 4 }}
-      >
-        <p
-          className="font-titulo text-4xl font-extrabold"
-          style={{ color: "var(--jardin-primario)" }}
+      {nombreAnterior && (
+        <div
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-arena bg-white px-4 py-2 text-sm font-medium text-marron-suave shadow-sm"
+          style={{
+            borderColor: "color-mix(in srgb, var(--jardin-primario) 40%, white)",
+          }}
         >
-          1966
+          <History size={16} style={{ color: "var(--jardin-primario)" }} />
+          Antes conocido como Jardín de Niños «{nombreAnterior}»
+        </div>
+      )}
+
+      {contenido.historia ? (
+        <>
+          <div className="mt-8 space-y-7 text-base leading-relaxed text-marron-suave">
+            {bloquesHistoria(contenido.historia).map((b, i) => (
+              <div key={i} className="space-y-3">
+                {b.intro && <p className="text-justify">{b.intro}</p>}
+                {b.items.length > 0 && (
+                  <ul className="space-y-1.5 pl-1">
+                    {b.items.map((item) => (
+                      <li key={item} className="flex gap-2.5">
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                          style={{ backgroundColor: "var(--jardin-primario)" }}
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Ficha de datos del jardín */}
+          {contenido.contacto && (
+            <div
+              className="mt-10 rounded-2xl p-7 md:p-9"
+              style={{
+                backgroundColor:
+                  "color-mix(in srgb, var(--jardin-primario) 10%, white)",
+              }}
+            >
+              <h2 className="font-titulo text-xl font-bold text-marron">
+                Datos del jardín
+              </h2>
+              <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                {[
+                  { t: "Clave", v: contenido.contacto.clave },
+                  { t: "Turno", v: contenido.contacto.turno },
+                  { t: "Incorporación", v: contenido.contacto.incorporacion },
+                  { t: "Número de acuerdo", v: contenido.contacto.numeroAcuerdo },
+                  { t: "Correo", v: contenido.contacto.email },
+                ].map(({ t, v }) => (
+                  <div key={t}>
+                    <dt
+                      className="text-xs font-semibold uppercase tracking-widest"
+                      style={{ color: "var(--jardin-primario)" }}
+                    >
+                      {t}
+                    </dt>
+                    <dd className="mt-1 break-words text-marron">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
+        </>
+      ) : (
+        <p className="mt-8 text-base leading-relaxed text-marron-suave">
+          Información próximamente.
         </p>
-        <p className="mt-2 text-base leading-relaxed text-marron-suave">
-          Año en que las Misioneras del Señor de los Corazones y de Santa María de
-          Guadalupe iniciaron la obra educativa de la que {jardin.nombre} forma
-          parte, sirviendo desde entonces a las familias de Huajuapan de León.
-        </p>
-      </div>
+      )}
     </div>
   );
 }

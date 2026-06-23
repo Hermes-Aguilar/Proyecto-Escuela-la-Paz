@@ -137,7 +137,7 @@ export default async function LoginPage({
                 "0 2px 4px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5)",
             }}
           >
-            Paz y bien
+            Paz y bien por venir
           </h2>
           <p
             className="mt-4 max-w-md text-xl font-medium text-white"
@@ -146,7 +146,7 @@ export default async function LoginPage({
                 "0 2px 8px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)",
             }}
           >
-            Religiosas Franciscanas de Nuestra Señora del Refugio
+            Misioneras del Señor de los Corazones y de Santa María de Guadalupe
           </p>
         </div>
       </div>
