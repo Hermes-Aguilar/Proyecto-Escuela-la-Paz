@@ -73,6 +73,25 @@ export default async function Espiritualidad({
               </div>
             </div>
           )}
+
+          {/* Video destacado (p. ej. el retiro): embebido de YouTube
+              debajo de la galería. */}
+          {espiritualidad.video && (
+            <div className="pt-4">
+              <h2 className="font-titulo text-xl font-bold text-marron">
+                {espiritualidad.video.titulo}
+              </h2>
+              <div className="mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-arena bg-black shadow-sm">
+                <iframe
+                  src={`https://www.youtube.com/embed/${espiritualidad.video.id}?rel=0`}
+                  title={espiritualidad.video.titulo}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="h-full w-full"
+                />
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="mt-10 flex flex-col items-center gap-5 rounded-2xl border border-dashed border-arena bg-white px-6 py-14 text-center shadow-sm">

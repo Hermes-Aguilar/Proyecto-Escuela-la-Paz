@@ -51,6 +51,9 @@ export interface EspiritualidadContenido {
   /** Galería de fotos de la vida espiritual del jardín (rutas en
    *  /public). Opcional: si falta o está vacía, no se muestra galería. */
   imagenes?: string[];
+  /** Video destacado de YouTube (su ID y título), p. ej. un retiro. Se
+   *  muestra embebido debajo de la galería. Opcional. */
+  video?: { id: string; titulo: string };
 }
 
 export interface MiembroEquipo {
@@ -66,6 +69,9 @@ export interface JardinContenido {
   historia: string | null;
   /** Foto histórica opcional para la sección Historia (con su pie). */
   historiaImagen?: { src: string; pie: string };
+  /** Fotos del jardín (instalaciones/fachada) para "Quiénes somos".
+   *  Opcional: si falta o está vacía, no se muestran. */
+  quienesSomosImagenes?: string[];
   objetivoGeneral: string | null;
   mision: string | null;
   vision: string | null;
@@ -109,6 +115,7 @@ const ESPIRITUALIDAD_IMAGENES_LA_PAZ = [1, 2, 3, 4, 5, 6].map(
 );
 const ESPIRITUALIDAD_IMAGENES_PORVENIR = [
   ...[1, 2, 3, 4, 5, 6].map((n) => `/images/Espiritualidad${n}.jpeg`),
+  "/images/Espiritualiadad Prvenir.jpeg",
   ...[1, 2, 3].map((n) => `/images/ViacrusisPorvenir${n}.jpeg`),
 ];
 
@@ -226,6 +233,10 @@ Porque en el Jardín de Niños Porvenir, cada niña y cada niño son el presente
 export const jardinesContenido: Record<string, JardinContenido> = {
   "la-paz": {
     historia: HISTORIA_LA_PAZ,
+    quienesSomosImagenes: [
+      "/images/jardin la paz.jpeg",
+      "/images/La paz jardin.jpeg",
+    ],
     objetivoGeneral: OBJETIVO_GENERAL_MSCG,
     mision: MISION_MSCG,
     vision: VISION_MSCG,
@@ -284,6 +295,7 @@ export const jardinesContenido: Record<string, JardinContenido> = {
     espiritualidad: {
       ...ESPIRITUALIDAD_MSCG,
       imagenes: ESPIRITUALIDAD_IMAGENES_PORVENIR,
+      video: { id: "WnW7j-AXgkg", titulo: "Retiro de Maestros" },
     },
     equipo: EQUIPO_PORVENIR,
   },

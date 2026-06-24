@@ -35,6 +35,9 @@ const LOGOS_FALLBACK: Record<string, string> = {
   porvenir: "/images/logo_porvenir.png",
 };
 
+// Niño Jesús: símbolo compartido por ambos jardines, junto al logo propio.
+const NINO_JESUS = "/images/Niño jesus .png";
+
 // ---------- Modelo del menú ----------
 
 interface SubLink {
@@ -112,6 +115,15 @@ export default function MenuJardin({
           onClick={cerrar}
           className="flex shrink-0 items-center gap-2.5"
         >
+          {/* Niño Jesús · símbolo compartido, antes del logo del jardín. */}
+          <Image
+            src={NINO_JESUS}
+            alt="Niño Jesús"
+            width={56}
+            height={56}
+            className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14"
+            priority
+          />
           {logoSrc ? (
             <Image
               src={logoSrc}

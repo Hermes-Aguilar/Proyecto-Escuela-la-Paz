@@ -1,12 +1,20 @@
 // ============================================================
 // components/public/GaleriaInicio.tsx
 // Galería "Nuestro día a día" del inicio de cada jardín. Client
-// Component: muestra las fotos en tarjetas con título y descripción. Los
-// videos NO se listan uno a uno (crecerían demasiado y alargarían la
-// página): se agrupan en una sola tarjeta "Videos" que, al pulsarla, abre
-// una ventana con todos ellos. Tanto fotos como videos se amplían en un
-// visor (lightbox); los videos se reproducen embebidos. Se cierra con la
-// "X", clic en el fondo o Esc; flechas (teclado y botones) para navegar.
+// Component: muestra las fotos en tarjetas con título y descripción.
+//
+// Una celda puede ser de tres tipos:
+//   · Imagen suelta — una sola foto.
+//   · Álbum (`fotos: string[]`) — varias fotos del MISMO motivo (p. ej.
+//     "Recreación acuática", "Visita a la UTM"). Se muestran en una sola
+//     tarjeta con un badge "N fotos"; al pulsarla, el visor recorre todas
+//     las imágenes del álbum (sin alargar la cuadrícula con duplicados).
+//   · Video (`videoId`) — los videos NO se listan uno a uno: se agrupan en
+//     una sola tarjeta "Videos" que abre una ventana con todos ellos.
+//
+// Imágenes, álbumes y videos se amplían en un visor (lightbox); los videos
+// se reproducen embebidos. Se cierra con la "X", clic en el fondo o Esc;
+// flechas (teclado y botones) para navegar.
 // ============================================================
 "use client";
 
@@ -20,6 +28,7 @@ import {
   ChevronUp,
   Play,
   Film,
+  Images,
 } from "lucide-react";
 
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
@@ -29,21 +38,36 @@ import { AnimacionScroll } from "@/components/public/AnimacionScroll";
 const VISIBLES = 9;
 
 export interface FotoGaleria {
-  /** Imagen de la tarjeta. En los videos es opcional: si falta, se usa
-   *  la miniatura de YouTube. */
+  /** Imagen de la tarjeta. Opcional en álbumes (se usa la 1ª de `fotos`) y
+   *  en videos (se usa la miniatura de YouTube). */
   src?: string;
   titulo: string;
   descripcion: string;
   /** Si está presente, el elemento es un video de YouTube (su ID). */
   videoId?: string;
+  /** Si está presente, la celda es un ÁLBUM: varias fotos del mismo motivo.
+   *  La portada es la 1ª de la lista (o `src` si se indica). */
+  fotos?: string[];
 }
 
-// Miniatura a mostrar en la tarjeta: la propia imagen o, para videos, la
-// miniatura de YouTube.
+// Miniatura a mostrar en la tarjeta: la propia imagen, la portada del álbum
+// o, para videos, la miniatura de YouTube.
 function miniatura(foto: FotoGaleria): string {
   if (foto.src) return foto.src;
+  if (foto.fotos?.length) return foto.fotos[0];
   if (foto.videoId) return `https://img.youtube.com/vi/${foto.videoId}/hqdefault.jpg`;
   return "";
+}
+
+// Expande un álbum en la lista de imágenes que recorrerá el visor. Todas
+// comparten el título y la descripción del álbum.
+function fotosDeAlbum(album: FotoGaleria): FotoGaleria[] {
+  const fuentes = album.fotos ?? (album.src ? [album.src] : []);
+  return fuentes.map((src) => ({
+    src,
+    titulo: album.titulo,
+    descripcion: album.descripcion,
+  }));
 }
 
 // Estado del visor (lightbox): la lista que se está recorriendo y el
@@ -54,9 +78,10 @@ interface Visor {
 }
 
 export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
-  // Separamos imágenes de videos: las imágenes se muestran en la
-  // cuadrícula; los videos se agrupan en una sola tarjeta + ventana.
-  const imagenes = fotos.filter((f) => !f.videoId);
+  // Clasificamos las celdas: imágenes sueltas y álbumes se muestran en la
+  // cuadrícula; los videos se agrupan en una sola tarjeta + ventana. Las
+  // imágenes sueltas comparten un mismo visor (se navega entre todas).
+  const imagenes = fotos.filter((f) => !f.videoId && !f.fotos);
   const videos = fotos.filter((f) => f.videoId);
 
   // Ventana con todos los videos (la "galería de videos").
@@ -67,11 +92,12 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
   const [expandida, setExpandida] = useState(false);
 
   // Celdas de la cuadrícula: la tarjeta "Videos" primero (si hay videos),
-  // seguida de las imágenes. Marcamos la de videos con un centinela.
+  // seguida de álbumes e imágenes sueltas en el orden declarado. La de
+  // videos se marca con un centinela.
   const VIDEOS = "__videos__" as const;
   const celdas: (typeof VIDEOS | FotoGaleria)[] = [
     ...(videos.length > 0 ? [VIDEOS] : []),
-    ...imagenes,
+    ...fotos.filter((f) => !f.videoId),
   ];
   const visibles = expandida ? celdas : celdas.slice(0, VISIBLES);
 
@@ -154,6 +180,39 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
                   </h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
                     Mira todos nuestros videos en un solo lugar.
+                  </p>
+                </figcaption>
+              </button>
+            </AnimacionScroll>
+          ) : celda.fotos ? (
+            // Álbum: una tarjeta con badge "N fotos"; al abrirlo, el visor
+            // recorre todas las imágenes del mismo motivo.
+            <AnimacionScroll key={`album-${celda.titulo}`} delay={i * 90} className="h-full">
+              <button
+                type="button"
+                onClick={() => setVisor({ lista: fotosDeAlbum(celda), indice: 0 })}
+                aria-label={`Ver fotos: ${celda.titulo} (${celda.fotos.length})`}
+                className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-arena bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="relative aspect-4/3 overflow-hidden">
+                  <Image
+                    src={miniatura(celda)}
+                    alt={celda.titulo}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                    <Images size={14} />
+                    {celda.fotos.length} fotos
+                  </span>
+                </div>
+                <figcaption className="flex flex-1 flex-col p-5">
+                  <h3 className="font-titulo text-lg font-bold text-marron">
+                    {celda.titulo}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
+                    {celda.descripcion}
                   </p>
                 </figcaption>
               </button>
@@ -288,12 +347,13 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
           onClick={cerrarVisor}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
         >
-          {/* Cerrar */}
+          {/* Cerrar · fondo oscuro sólido + z alto para que se vea siempre,
+              también encima del video (la tarjeta blanca lo ocultaba). */}
           <button
             type="button"
             onClick={cerrarVisor}
             aria-label="Cerrar"
-            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+            className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/30 transition hover:bg-black/80"
           >
             <X size={22} />
           </button>
@@ -308,7 +368,7 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
                   anterior();
                 }}
                 aria-label="Anterior"
-                className="absolute left-2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:left-4"
+                className="absolute left-2 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/30 transition hover:bg-black/80 md:left-4"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -319,7 +379,7 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
                   siguiente();
                 }}
                 aria-label="Siguiente"
-                className="absolute right-2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:right-4"
+                className="absolute right-2 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/30 transition hover:bg-black/80 md:right-4"
               >
                 <ChevronRight size={24} />
               </button>
@@ -327,10 +387,13 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
           )}
 
           {/* Tarjeta ampliada: media + texto. stopPropagation evita que el
-              clic sobre ella cierre el modal. */}
+              clic sobre ella cierre el modal. `relative z-0` la mantiene en
+              un contexto de apilamiento POR DEBAJO de la X y las flechas
+              (z-20): si no, el iframe de YouTube se pinta encima y tapa los
+              botones (parecía que el video no tenía forma de cerrarse). */}
           <figure
             onClick={(e) => e.stopPropagation()}
-            className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="relative z-0 flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
           >
             {foto.videoId ? (
               // Video vertical (Short): contenedor 9/16 con altura limitada.
@@ -357,9 +420,16 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
               </div>
             )}
             <figcaption className="p-6">
-              <h3 className="font-titulo text-xl font-bold text-marron">
-                {foto.titulo}
-              </h3>
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="font-titulo text-xl font-bold text-marron">
+                  {foto.titulo}
+                </h3>
+                {visor!.lista.length > 1 && (
+                  <span className="mt-1 shrink-0 text-sm font-semibold text-marron-suave">
+                    {visor!.indice + 1} / {visor!.lista.length}
+                  </span>
+                )}
+              </div>
               <p className="mt-2 text-base leading-relaxed text-marron-suave">
                 {foto.descripcion}
               </p>

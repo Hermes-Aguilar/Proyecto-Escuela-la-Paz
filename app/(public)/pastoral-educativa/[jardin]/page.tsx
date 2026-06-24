@@ -9,8 +9,8 @@
 // encima de la imagen fija.
 //
 // Las fotos de cada jardín están en public/images/. Si un jardín aún no
-// tiene set de carrusel (p. ej. Porvenir), se usa el hero estático
-// (HeroJardin) como respaldo.
+// tiene set de carrusel, se usa el hero estático (HeroJardin) como
+// respaldo.
 // ============================================================
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -66,6 +66,20 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
       descripcion:
         "Seis décadas ayudando a las familias en la formación integral de sus hijos.",
     },
+    {
+      imagen: "/images/niño de praga principal.png",
+      categoria: "Niño Jesús de Praga",
+      titulo: "Cuanto más me honres, más te favoreceré",
+      descripcion:
+        "Bajo el amparo del Niño Jesús de Praga ponemos a cada niña y niño de nuestra familia educativa.",
+    },
+    {
+      imagen: "/images/Personal Jardines.jpeg",
+      categoria: "Nuestro personal",
+      titulo: "Un equipo entregado a la niñez",
+      descripcion:
+        "Maestras y personal comprometidos que acompañan con amor y dedicación el crecimiento de cada niña y niño.",
+    },
   ],
   porvenir: [
     {
@@ -76,7 +90,7 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
         "Educamos con amor para que cada niña y niño construya un futuro lleno de esperanza.",
     },
     {
-      imagen: "/images/Porvenirprincipal.jpeg",
+      imagen: "/images/principal2porvenir.jpeg",
       categoria: "Formación integral",
       titulo: "Cada niño tiene talentos únicos",
       descripcion:
@@ -95,6 +109,20 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
       titulo: "Niñas y niños felices y seguros",
       descripcion:
         "Educamos con amor, compromiso y excelencia. ¡Ven y forma parte de nuestra gran familia educativa!",
+    },
+    {
+      imagen: "/images/niño de praga principal.png",
+      categoria: "Niño Jesús de Praga",
+      titulo: "Cuanto más me honres, más te favoreceré",
+      descripcion:
+        "Bajo el amparo del Niño Jesús de Praga ponemos a cada niña y niño de nuestra familia educativa.",
+    },
+    {
+      imagen: "/images/Personal Jardines.jpeg",
+      categoria: "Nuestro personal",
+      titulo: "Un equipo entregado a la niñez",
+      descripcion:
+        "Maestras y personal comprometidos que acompañan con amor y dedicación el crecimiento de cada niña y niño.",
     },
   ],
 };
@@ -134,10 +162,21 @@ const GALERIA: Record<string, FotoGaleria[]> = {
         "Despertamos la sensibilidad y el ritmo de los niños a través de la música.",
     },
     {
-      src: "/images/acuaticopaz.jpeg",
       titulo: "Actividad acuática",
       descripcion:
         "Los niños disfrutan y aprenden en el agua en un entorno seguro y divertido.",
+      fotos: [
+        "/images/acuaticopaz.jpeg",
+        "/images/acuatico la paz.jpeg",
+        "/images/acuatico la paz2.jpeg",
+        "/images/acuatico la paz3.jpeg",
+      ],
+    },
+    {
+      src: "/images/Actividad Papalotes la paz.jpeg",
+      titulo: "Actividad de papalotes",
+      descripcion:
+        "Los niños vuelan papalotes y disfrutan del aire libre en una jornada llena de color y diversión.",
     },
     {
       src: "/images/Calaverita.jpeg",
@@ -146,16 +185,10 @@ const GALERIA: Record<string, FotoGaleria[]> = {
         "Vivimos nuestras tradiciones con calaveritas y altares llenos de color.",
     },
     {
-      src: "/images/VisitaUTM.jpeg",
       titulo: "Visita a la UTM",
       descripcion:
         "Visitamos la Universidad Tecnológica de la Mixteca, abriendo horizontes desde temprana edad.",
-    },
-    {
-      src: "/images/VisitaUTM2.jpeg",
-      titulo: "Visita a la UTM",
-      descripcion:
-        "Una jornada de aprendizaje y asombro recorriendo la Universidad Tecnológica de la Mixteca.",
+      fotos: ["/images/VisitaUTM.jpeg", "/images/VisitaUTM2.jpeg"],
     },
     {
       videoId: "I2hufQ_ZcHo",
@@ -172,34 +205,96 @@ const GALERIA: Record<string, FotoGaleria[]> = {
   ],
   porvenir: [
     {
-      src: "/images/Coronación del Virgen Maria en Mayo 2026.jpeg",
-      titulo: "Coronación de la Virgen María",
+      titulo: "Recreación acuática",
       descripcion:
-        "Honramos a la Santísima Virgen María con su tradicional coronación en el mes de mayo.",
+        "Las niñas y niños disfrutan y aprenden en el agua, en un entorno seguro y lleno de diversión.",
+      fotos: [
+        "/images/Recreación acuática. Jardín de niños Porvenir.jpeg",
+        "/images/Recreación acuática. Jardín de niños Porvenir2.jpeg",
+        "/images/Recreación acuática. Jardín de niños Porvenir3.jpeg",
+        "/images/Recreación acuática. Jardín de niños Porvenir4.jpeg",
+        "/images/Recreación acuática. Jardín de niños5.jpeg",
+        "/images/Recreación acuática. Jardín de niños Porvenir6.jpeg",
+        "/images/Recreación acuática. Jardín de niños Porvenir7.jpeg",
+      ],
     },
     {
-      src: "/images/Coronación del Virgen Maria en Mayo 2026 imagen 2.jpeg",
-      titulo: "Coronación de la Virgen María",
+      titulo: "Día del Niño",
       descripcion:
-        "Un momento de fe y devoción que vivimos en familia junto a nuestros niños.",
+        "Festejamos a nuestras niñas y niños con un día lleno de juegos, sorpresas y alegría.",
+      fotos: [
+        "/images/Festejo del dia del niño1.jpeg",
+        "/images/Festejo del dia del niño2.jpeg",
+        "/images/Festejo del dia del niño3.jpeg",
+        "/images/Festejo del dia del niño4.jpeg",
+        "/images/Festejo del dia del niño6.jpeg",
+      ],
     },
     {
-      src: "/images/VisitaUTM.jpeg",
+      titulo: "Pijamada",
+      descripcion:
+        "Una noche de convivencia, juegos y risas en la que las niñas y niños conviven y fortalecen su amistad.",
+      fotos: [
+        "/images/Pijamada. J. Porvenir.jpeg",
+        "/images/Pijamada. J. Porvenir2.jpeg",
+        "/images/Pijamada. J. Porvenir3.jpeg",
+        "/images/Pijamada. J. Porvenir4.jpeg",
+      ],
+    },
+    {
+      titulo: "Coronación de la Virgen María",
+      descripcion:
+        "Honramos a la Santísima Virgen María con su tradicional coronación en el mes de mayo, un momento de fe y devoción que vivimos en familia.",
+      fotos: [
+        "/images/Coronación del Virgen Maria en Mayo 2026.jpeg",
+        "/images/Coronación del Virgen Maria en Mayo 2026 imagen 2.jpeg",
+      ],
+    },
+    {
+      titulo: "Viacrucis",
+      descripcion:
+        "Acompañamos a Jesús en su camino a la cruz, viviendo en comunidad nuestras tradiciones de Semana Santa.",
+      fotos: [
+        "/images/ViacrusisPorvenir1.jpeg",
+        "/images/ViacrusisPorvenir2.jpeg",
+        "/images/ViacrusisPorvenir3.jpeg",
+      ],
+    },
+    {
       titulo: "Visita a la UTM",
       descripcion:
         "Visitamos la Universidad Tecnológica de la Mixteca, abriendo horizontes desde temprana edad.",
-    },
-    {
-      src: "/images/VisitaUTM2.jpeg",
-      titulo: "Visita a la UTM",
-      descripcion:
-        "Una jornada de aprendizaje y asombro recorriendo la Universidad Tecnológica de la Mixteca.",
+      fotos: ["/images/VisitaUTM.jpeg", "/images/VisitaUTM2.jpeg"],
     },
     {
       videoId: "I2hufQ_ZcHo",
       titulo: "La Calenda",
       descripcion:
         "Salimos a las calles a celebrar nuestra tradicional calenda llena de música, color y alegría.",
+    },
+    {
+      videoId: "AQIgx-NHbi0",
+      titulo: "Pijamada",
+      descripcion:
+        "Una noche de convivencia, juegos y risas en la que las niñas y niños fortalecen su amistad.",
+    },
+    {
+      videoId: "C0i-fHPDLgw",
+      titulo: "Danza",
+      descripcion:
+        "Nuestras niñas y niños expresan su alegría y talento a través del baile y la danza.",
+    },
+    {
+      videoId: "v8V-PbZwjO0",
+      titulo: "Día de la Familia",
+      descripcion:
+        "Celebramos a las familias de nuestra comunidad educativa con un día de convivencia, juegos y cariño.",
+    },
+    {
+      videoId: "QBw4iUHj8Ng",
+      titulo: "Día de la Familia",
+      descripcion:
+        "Más momentos de alegría y unión durante nuestro festejo del Día de la Familia.",
     },
     {
       src: "/images/60 aniversario de los Jardines Nazareth y Porvenir.jpeg",

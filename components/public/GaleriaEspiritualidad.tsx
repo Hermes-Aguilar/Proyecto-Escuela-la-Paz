@@ -86,12 +86,13 @@ export function GaleriaEspiritualidad({
           onClick={cerrar}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
         >
-          {/* Cerrar */}
+          {/* Cerrar · fondo oscuro sólido + z alto para que la X siempre se
+              vea sobre la foto. */}
           <button
             type="button"
             onClick={cerrar}
             aria-label="Cerrar"
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+            className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/30 transition hover:bg-black/80"
           >
             <X size={22} />
           </button>
@@ -106,7 +107,7 @@ export function GaleriaEspiritualidad({
                   anterior();
                 }}
                 aria-label="Foto anterior"
-                className="absolute left-2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:left-4"
+                className="absolute left-2 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/30 transition hover:bg-black/80 md:left-4"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -117,7 +118,7 @@ export function GaleriaEspiritualidad({
                   siguiente();
                 }}
                 aria-label="Foto siguiente"
-                className="absolute right-2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:right-4"
+                className="absolute right-2 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/30 transition hover:bg-black/80 md:right-4"
               >
                 <ChevronRight size={24} />
               </button>

@@ -9,6 +9,7 @@
 // lib/data/jardines-contenido (no se hardcodean). Si algún dato falta
 // para el jardín → "Información próximamente".
 // ============================================================
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Target, Eye } from "lucide-react";
 
@@ -57,6 +58,28 @@ export default async function QuienesSomos({
           libre y respetuosa de los demás.
         </p>
       </div>
+
+      {/* FOTOS DEL JARDÍN · instalaciones/fachada (si el jardín las tiene). */}
+      {contenido.quienesSomosImagenes &&
+        contenido.quienesSomosImagenes.length > 0 && (
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {contenido.quienesSomosImagenes.map((src, i) => (
+              <div
+                key={src}
+                className="overflow-hidden rounded-2xl border border-arena bg-white shadow-sm"
+              >
+                <Image
+                  src={src}
+                  alt={`${jardin.nombre} — foto ${i + 1}`}
+                  width={800}
+                  height={600}
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
       {/* OBJETIVO GENERAL · párrafo destacado en blockquote */}
       <section className="mt-12">
