@@ -1,18 +1,32 @@
 // ============================================================
 // components/public/GaleriaInicio.tsx
 // Galería "Nuestro día a día" del inicio de cada jardín. Client
-// Component: muestra fotos (y videos de YouTube) en tarjetas con título
-// y descripción. Al pulsar una, abre un lightbox que la amplía junto con
-// su texto; los videos se reproducen embebidos. Cierra con la "X", clic
-// en el fondo o Esc; flechas (teclado y botones) para navegar.
+// Component: muestra las fotos en tarjetas con título y descripción. Los
+// videos NO se listan uno a uno (crecerían demasiado y alargarían la
+// página): se agrupan en una sola tarjeta "Videos" que, al pulsarla, abre
+// una ventana con todos ellos. Tanto fotos como videos se amplían en un
+// visor (lightbox); los videos se reproducen embebidos. Se cierra con la
+// "X", clic en el fondo o Esc; flechas (teclado y botones) para navegar.
 // ============================================================
 "use client";
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { X, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Play,
+  Film,
+} from "lucide-react";
 
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
+
+// Cuántas tarjetas se muestran de inicio (cuadrícula 3×3). El resto queda
+// oculto tras el botón "Ver más" para no alargar la página.
+const VISIBLES = 9;
 
 export interface FotoGaleria {
   /** Imagen de la tarjeta. En los videos es opcional: si falta, se usa
@@ -32,31 +46,67 @@ function miniatura(foto: FotoGaleria): string {
   return "";
 }
 
-export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
-  // Índice de la foto abierta en el lightbox; null = cerrado.
-  const [abierta, setAbierta] = useState<number | null>(null);
+// Estado del visor (lightbox): la lista que se está recorriendo y el
+// índice activo dentro de ella. null = cerrado.
+interface Visor {
+  lista: FotoGaleria[];
+  indice: number;
+}
 
-  const cerrar = useCallback(() => setAbierta(null), []);
+export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
+  // Separamos imágenes de videos: las imágenes se muestran en la
+  // cuadrícula; los videos se agrupan en una sola tarjeta + ventana.
+  const imagenes = fotos.filter((f) => !f.videoId);
+  const videos = fotos.filter((f) => f.videoId);
+
+  // Ventana con todos los videos (la "galería de videos").
+  const [videosAbiertos, setVideosAbiertos] = useState(false);
+  // Visor que amplía/reproduce un elemento concreto.
+  const [visor, setVisor] = useState<Visor | null>(null);
+  // ¿Se muestran todas las tarjetas o solo las primeras VISIBLES?
+  const [expandida, setExpandida] = useState(false);
+
+  // Celdas de la cuadrícula: la tarjeta "Videos" primero (si hay videos),
+  // seguida de las imágenes. Marcamos la de videos con un centinela.
+  const VIDEOS = "__videos__" as const;
+  const celdas: (typeof VIDEOS | FotoGaleria)[] = [
+    ...(videos.length > 0 ? [VIDEOS] : []),
+    ...imagenes,
+  ];
+  const visibles = expandida ? celdas : celdas.slice(0, VISIBLES);
+
+  const cerrarVisor = useCallback(() => setVisor(null), []);
   const anterior = useCallback(
     () =>
-      setAbierta((i) =>
-        i === null ? i : (i - 1 + fotos.length) % fotos.length,
+      setVisor((v) =>
+        v === null
+          ? v
+          : { ...v, indice: (v.indice - 1 + v.lista.length) % v.lista.length },
       ),
-    [fotos.length],
+    [],
   );
   const siguiente = useCallback(
-    () => setAbierta((i) => (i === null ? i : (i + 1) % fotos.length)),
-    [fotos.length],
+    () =>
+      setVisor((v) =>
+        v === null
+          ? v
+          : { ...v, indice: (v.indice + 1) % v.lista.length },
+      ),
+    [],
   );
 
-  // Teclado: Esc cierra, flechas navegan. Bloquea el scroll del fondo
-  // mientras el lightbox está abierto.
+  // Teclado: Esc cierra (primero el visor, si no la ventana de videos),
+  // flechas navegan dentro del visor. Bloquea el scroll del fondo mientras
+  // haya algo abierto.
   useEffect(() => {
-    if (abierta === null) return;
+    const algoAbierto = visor !== null || videosAbiertos;
+    if (!algoAbierto) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") cerrar();
-      else if (e.key === "ArrowLeft") anterior();
-      else if (e.key === "ArrowRight") siguiente();
+      if (e.key === "Escape") {
+        if (visor !== null) cerrarVisor();
+        else setVideosAbiertos(false);
+      } else if (visor !== null && e.key === "ArrowLeft") anterior();
+      else if (visor !== null && e.key === "ArrowRight") siguiente();
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -64,68 +114,184 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [abierta, cerrar, anterior, siguiente]);
+  }, [visor, videosAbiertos, cerrarVisor, anterior, siguiente]);
 
-  const foto = abierta === null ? null : fotos[abierta];
+  const foto = visor === null ? null : visor.lista[visor.indice];
 
   return (
     <>
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {fotos.map((foto, i) => (
-          <AnimacionScroll key={foto.src ?? foto.videoId} delay={i * 90} className="h-full">
-            <button
-              type="button"
-              onClick={() => setAbierta(i)}
-              aria-label={
-                foto.videoId
-                  ? `Reproducir video: ${foto.titulo}`
-                  : `Ampliar foto: ${foto.titulo}`
-              }
-              className="group flex h-full w-full cursor-zoom-in flex-col overflow-hidden rounded-2xl border border-arena bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-            >
-              <div className="relative aspect-4/3 overflow-hidden">
-                <Image
-                  src={miniatura(foto)}
-                  alt={foto.titulo}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Botón de reproducción para los videos. */}
-                {foto.videoId && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors group-hover:bg-black/35">
+        {visibles.map((celda, i) =>
+          celda === VIDEOS ? (
+            // Tarjeta única que agrupa todos los videos (siempre primera).
+            <AnimacionScroll key="videos" delay={i * 90} className="h-full">
+              <button
+                type="button"
+                onClick={() => setVideosAbiertos(true)}
+                aria-label={`Ver todos los videos (${videos.length})`}
+                className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-arena bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="relative aspect-4/3 overflow-hidden">
+                  <Image
+                    src={miniatura(videos[0])}
+                    alt="Videos"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/45 transition-colors group-hover:bg-black/55">
                     <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-marron shadow-lg transition-transform group-hover:scale-110">
                       <Play size={26} className="ml-1 fill-current" />
                     </span>
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-marron">
+                      {videos.length} {videos.length === 1 ? "video" : "videos"}
+                    </span>
                   </span>
-                )}
-              </div>
-              <figcaption className="flex flex-1 flex-col p-5">
-                <h3 className="font-titulo text-lg font-bold text-marron">
-                  {foto.titulo}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
-                  {foto.descripcion}
-                </p>
-              </figcaption>
-            </button>
-          </AnimacionScroll>
-        ))}
+                </div>
+                <figcaption className="flex flex-1 flex-col p-5">
+                  <h3 className="font-titulo text-lg font-bold text-marron">
+                    Videos
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
+                    Mira todos nuestros videos en un solo lugar.
+                  </p>
+                </figcaption>
+              </button>
+            </AnimacionScroll>
+          ) : (
+            <AnimacionScroll key={celda.src} delay={i * 90} className="h-full">
+              <button
+                type="button"
+                onClick={() =>
+                  setVisor({ lista: imagenes, indice: imagenes.indexOf(celda) })
+                }
+                aria-label={`Ampliar foto: ${celda.titulo}`}
+                className="group flex h-full w-full cursor-zoom-in flex-col overflow-hidden rounded-2xl border border-arena bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="relative aspect-4/3 overflow-hidden">
+                  <Image
+                    src={miniatura(celda)}
+                    alt={celda.titulo}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <figcaption className="flex flex-1 flex-col p-5">
+                  <h3 className="font-titulo text-lg font-bold text-marron">
+                    {celda.titulo}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
+                    {celda.descripcion}
+                  </p>
+                </figcaption>
+              </button>
+            </AnimacionScroll>
+          ),
+        )}
       </div>
 
-      {/* Lightbox */}
+      {/* Ver más / Ver menos: solo si hay más tarjetas de las visibles. */}
+      {celdas.length > VISIBLES && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setExpandida((v) => !v)}
+            className="inline-flex items-center gap-2 rounded-full border-2 px-6 py-2.5 text-sm font-semibold text-marron transition-colors hover:bg-white"
+            style={{ borderColor: "var(--jardin-primario)" }}
+          >
+            {expandida ? (
+              <>
+                Ver menos <ChevronUp size={18} />
+              </>
+            ) : (
+              <>
+                Ver más <ChevronDown size={18} />
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* Ventana con la galería de videos. */}
+      {videosAbiertos && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Videos"
+          onClick={() => setVideosAbiertos(false)}
+          className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-black/80 p-4 backdrop-blur-sm sm:p-6"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="my-auto w-full max-w-4xl rounded-2xl bg-crema p-6 shadow-2xl sm:p-8"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="font-titulo flex items-center gap-2 text-xl font-bold text-marron md:text-2xl">
+                <Film size={22} style={{ color: "var(--jardin-primario)" }} />
+                Videos
+              </h3>
+              <button
+                type="button"
+                onClick={() => setVideosAbiertos(false)}
+                aria-label="Cerrar"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-marron shadow-sm transition hover:bg-arena/40"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {videos.map((video, i) => (
+                <button
+                  key={video.videoId}
+                  type="button"
+                  onClick={() => setVisor({ lista: videos, indice: i })}
+                  aria-label={`Reproducir video: ${video.titulo}`}
+                  className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-arena bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
+                      src={miniatura(video)}
+                      alt={video.titulo}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors group-hover:bg-black/35">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-marron shadow-lg transition-transform group-hover:scale-110">
+                        <Play size={22} className="ml-1 fill-current" />
+                      </span>
+                    </span>
+                  </div>
+                  <figcaption className="flex flex-1 flex-col p-4">
+                    <h4 className="font-titulo text-base font-bold text-marron">
+                      {video.titulo}
+                    </h4>
+                    <p className="mt-1 text-sm leading-relaxed text-marron-suave">
+                      {video.descripcion}
+                    </p>
+                  </figcaption>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Visor (lightbox): amplía una foto o reproduce un video. */}
       {foto && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label={foto.titulo}
-          onClick={cerrar}
+          onClick={cerrarVisor}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
         >
           {/* Cerrar */}
           <button
             type="button"
-            onClick={cerrar}
+            onClick={cerrarVisor}
             aria-label="Cerrar"
             className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
           >
@@ -133,7 +299,7 @@ export function GaleriaInicio({ fotos }: { fotos: FotoGaleria[] }) {
           </button>
 
           {/* Anterior / Siguiente (solo si hay más de un elemento) */}
-          {fotos.length > 1 && (
+          {visor!.lista.length > 1 && (
             <>
               <button
                 type="button"

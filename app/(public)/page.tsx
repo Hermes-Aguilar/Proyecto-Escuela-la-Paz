@@ -73,25 +73,32 @@ const librerias = [
 
 const slidesHero: SlideHero[] = [
   {
-    imagen: "/images/hero-vida-consagrada.jpg",
+    imagen: "/images/Principal1.jpeg",
     categoria: "SEÑOR DE LOS CORAZONES",
-    titulo: "Misioneras al servicio de la Iglesia",
+    titulo: "Una comunidad reunida en oración",
     descripcion:
-      "Damos a conocer las riquezas de Jesucristo, Rey y Señor de los Corazones, y el amor maternal de Santa María de Guadalupe",
+      "Ante el Señor de los Corazones y Santa María de Guadalupe, renovamos cada día nuestra entrega misionera al servicio de la Iglesia",
   },
   {
-    imagen: "/images/hero-dispensario.jpg",
-    categoria: "NUESTRA MISIÓN",
-    titulo: "Sirviendo donde más se necesita",
+    imagen: "/images/Principal3.jpeg",
+    categoria: "VIDA EN COMUNIDAD",
+    titulo: "Hermanas que caminan juntas",
     descripcion:
-      "Llevamos la semilla del Evangelio a los pueblos de la Diócesis de Huajuapan y más allá, con los pies en la tierra y el corazón en Dios",
+      "Nos reunimos como una sola familia para crecer en la fe, formarnos y compartir el carisma que nos une como Congregación",
   },
   {
-    imagen: "/images/hero-paseo-hermanas.jpg",
+    imagen: "/images/Principal2.jpeg",
+    categoria: "ALEGRÍA FRATERNA",
+    titulo: "La alegría de servir a Dios",
+    descripcion:
+      "Vivimos la vida consagrada con espíritu fraterno y gozoso, sosteniéndonos unas a otras en el camino de la entrega",
+  },
+  {
+    imagen: "/images/Principal4.jpeg",
     categoria: "ÚNETE A NOSOTRAS",
     titulo: "Una llamada que transforma vidas",
     descripcion:
-      "Si sientes el llamado a la vida consagrada y misionera, aquí te acompañamos a discernirlo",
+      "Si sientes el llamado a la vida consagrada y misionera, aquí te acompañamos a discernirlo con alegría y esperanza",
   },
 ];
 
