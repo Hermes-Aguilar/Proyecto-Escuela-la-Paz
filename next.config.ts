@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
+      // Miniaturas de los videos de YouTube embebidos en la galería.
+      { protocol: "https", hostname: "img.youtube.com" },
     ],
   },
 };

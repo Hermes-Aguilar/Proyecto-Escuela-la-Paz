@@ -10,6 +10,7 @@ import { Heart } from "lucide-react";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
+import { GaleriaEspiritualidad } from "@/components/public/GaleriaEspiritualidad";
 
 export default async function Espiritualidad({
   params,
@@ -55,6 +56,23 @@ export default async function Espiritualidad({
               {espiritualidad.nota}
             </p>
           </div>
+
+          {/* Galería: fotos de la vida espiritual del jardín. Masonry
+              (columnas CSS) para acomodar fotos verticales y horizontales
+              sin recortarlas y aprovechando el espacio. */}
+          {espiritualidad.imagenes && espiritualidad.imagenes.length > 0 && (
+            <div className="pt-4">
+              <h2 className="font-titulo text-xl font-bold text-marron">
+                Galería
+              </h2>
+              <div className="mt-5">
+                <GaleriaEspiritualidad
+                  imagenes={espiritualidad.imagenes}
+                  nombreJardin={jardin.nombre}
+                />
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="mt-10 flex flex-col items-center gap-5 rounded-2xl border border-dashed border-arena bg-white px-6 py-14 text-center shadow-sm">

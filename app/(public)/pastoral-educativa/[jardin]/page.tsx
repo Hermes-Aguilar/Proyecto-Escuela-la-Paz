@@ -13,7 +13,6 @@
 // (HeroJardin) como respaldo.
 // ============================================================
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Heart, Users, TreePine, ArrowRight } from "lucide-react";
 
@@ -23,6 +22,10 @@ import TarjetaPublicacion from "@/components/public/TarjetaPublicacion";
 import HeroJardin from "@/components/public/HeroJardin";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
+import {
+  GaleriaInicio,
+  type FotoGaleria,
+} from "@/components/public/GaleriaInicio";
 
 // Carrusel hero por jardín (lapaz1–5). Si un slug no está aquí, el
 // inicio usa el hero estático de respaldo (HeroJardin).
@@ -64,29 +67,30 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
         "Seis décadas ayudando a las familias en la formación integral de sus hijos.",
     },
   ],
-  // Porvenir aún no tiene fotos: los slides van sin imagen (fondo con
-  // degradado del color del jardín). Cuando lleguen las fotos, basta
-  // con agregar `imagen` a cada slide.
   porvenir: [
     {
+      imagen: "/images/Porvenirprincipal.jpeg",
       categoria: "Jardín de Niños Porvenir",
       titulo: "El presente que inspira, el futuro que transforma",
       descripcion:
         "Educamos con amor para que cada niña y niño construya un futuro lleno de esperanza.",
     },
     {
+      imagen: "/images/Porvenirprincipal.jpeg",
       categoria: "Formación integral",
       titulo: "Cada niño tiene talentos únicos",
       descripcion:
         "Favorecemos su desarrollo académico, físico, artístico y humano en un ambiente de alegría y valores.",
     },
     {
+      imagen: "/images/Porvenirprincipal.jpeg",
       categoria: "60 años de historia",
       titulo: "Una tradición que forma generaciones",
       descripcion:
         "Seis décadas y 60 generaciones acompañadas con amor, fe y valores.",
     },
     {
+      imagen: "/images/Porvenirprincipal.jpeg",
       categoria: "Nuestra gran familia",
       titulo: "Niñas y niños felices y seguros",
       descripcion:
@@ -96,13 +100,7 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
 };
 
 // Galería del inicio por jardín: el resto de las fotos, con una breve
-// descripción de lo que muestran.
-interface FotoGaleria {
-  src: string;
-  titulo: string;
-  descripcion: string;
-}
-
+// descripción de lo que muestran (tipo FotoGaleria en GaleriaInicio).
 const GALERIA: Record<string, FotoGaleria[]> = {
   "la-paz": [
     {
@@ -122,6 +120,92 @@ const GALERIA: Record<string, FotoGaleria[]> = {
       titulo: "Clases de computación",
       descripcion:
         "Los niños dan sus primeros pasos en la tecnología desde temprana edad.",
+    },
+    {
+      src: "/images/pazeduFisica.jpeg",
+      titulo: "Activación física",
+      descripcion:
+        "Comenzamos el día con energía: ejercicios y movimiento para despertar el cuerpo.",
+    },
+    {
+      src: "/images/musicapaz.jpeg",
+      titulo: "Clases de música",
+      descripcion:
+        "Despertamos la sensibilidad y el ritmo de los niños a través de la música.",
+    },
+    {
+      src: "/images/acuaticopaz.jpeg",
+      titulo: "Actividad acuática",
+      descripcion:
+        "Los niños disfrutan y aprenden en el agua en un entorno seguro y divertido.",
+    },
+    {
+      src: "/images/Calaverita.jpeg",
+      titulo: "Día de Muertos",
+      descripcion:
+        "Vivimos nuestras tradiciones con calaveritas y altares llenos de color.",
+    },
+    {
+      src: "/images/VisitaUTM.jpeg",
+      titulo: "Visita a la UTM",
+      descripcion:
+        "Visitamos la Universidad Tecnológica de la Mixteca, abriendo horizontes desde temprana edad.",
+    },
+    {
+      src: "/images/VisitaUTM2.jpeg",
+      titulo: "Visita a la UTM",
+      descripcion:
+        "Una jornada de aprendizaje y asombro recorriendo la Universidad Tecnológica de la Mixteca.",
+    },
+    {
+      videoId: "I2hufQ_ZcHo",
+      titulo: "La Calenda",
+      descripcion:
+        "Salimos a las calles a celebrar nuestra tradicional calenda llena de música, color y alegría.",
+    },
+    {
+      src: "/images/60 aniversario de los Jardines Nazareth y Porvenir.jpeg",
+      titulo: "60 aniversario",
+      descripcion:
+        "Celebramos seis décadas de historia formando a la niñez con amor, fe y valores.",
+    },
+  ],
+  porvenir: [
+    {
+      src: "/images/Coronación del Virgen Maria en Mayo 2026.jpeg",
+      titulo: "Coronación de la Virgen María",
+      descripcion:
+        "Honramos a la Santísima Virgen María con su tradicional coronación en el mes de mayo.",
+    },
+    {
+      src: "/images/Coronación del Virgen Maria en Mayo 2026 imagen 2.jpeg",
+      titulo: "Coronación de la Virgen María",
+      descripcion:
+        "Un momento de fe y devoción que vivimos en familia junto a nuestros niños.",
+    },
+    {
+      src: "/images/VisitaUTM.jpeg",
+      titulo: "Visita a la UTM",
+      descripcion:
+        "Visitamos la Universidad Tecnológica de la Mixteca, abriendo horizontes desde temprana edad.",
+    },
+    {
+      src: "/images/VisitaUTM2.jpeg",
+      titulo: "Visita a la UTM",
+      descripcion:
+        "Una jornada de aprendizaje y asombro recorriendo la Universidad Tecnológica de la Mixteca.",
+    },
+    {
+      videoId: "I2hufQ_ZcHo",
+      titulo: "La Calenda",
+      descripcion:
+        "Salimos a las calles a celebrar nuestra tradicional calenda llena de música, color y alegría.",
+    },
+    {
+      src: "/images/60 aniversario de los Jardines Nazareth y Porvenir.jpeg",
+      titulo: "60 aniversario",
+      descripcion:
+        "Celebramos seis décadas de historia formando a la niñez con amor, fe y valores.",
     },
   ],
 };
@@ -299,31 +383,7 @@ export default async function InicioJardin({
                 </h2>
               </div>
             </AnimacionScroll>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {galeria.map((foto, i) => (
-                <AnimacionScroll key={foto.src} delay={i * 90} className="h-full">
-                  <figure className="group flex h-full flex-col overflow-hidden rounded-2xl border border-arena bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                    <div className="relative aspect-4/3 overflow-hidden">
-                      <Image
-                        src={foto.src}
-                        alt={foto.titulo}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <figcaption className="flex flex-1 flex-col p-5">
-                      <h3 className="font-titulo text-lg font-bold text-marron">
-                        {foto.titulo}
-                      </h3>
-                      <p className="mt-1.5 text-sm leading-relaxed text-marron-suave">
-                        {foto.descripcion}
-                      </p>
-                    </figcaption>
-                  </figure>
-                </AnimacionScroll>
-              ))}
-            </div>
+            <GaleriaInicio fotos={galeria} />
           </section>
         )}
 

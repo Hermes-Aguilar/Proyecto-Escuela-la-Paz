@@ -48,6 +48,9 @@ export interface EspiritualidadContenido {
   descripcion: string;
   /** Llamada/compromiso destacado (p. ej. el retiro de los papás). */
   nota: string;
+  /** Galería de fotos de la vida espiritual del jardín (rutas en
+   *  /public). Opcional: si falta o está vacía, no se muestra galería. */
+  imagenes?: string[];
 }
 
 export interface MiembroEquipo {
@@ -61,6 +64,8 @@ export interface JardinContenido {
   /** Texto íntegro de la sección Historia (párrafos separados por `\n\n`;
    *  los listados de hermanas son líneas que empiezan con "- "). */
   historia: string | null;
+  /** Foto histórica opcional para la sección Historia (con su pie). */
+  historiaImagen?: { src: string; pie: string };
   objetivoGeneral: string | null;
   mision: string | null;
   vision: string | null;
@@ -95,6 +100,17 @@ const VALORES_MSCG = [
 
 const OBJETIVO_GENERAL_MSCG =
   "Desde la espiritualidad de las MSCG crear un ambiente evangelizador centrado en promover los valores entre los alumnos prioritariamente fomentando el diálogo para suscitar un ambiente de reflexión y aprendizaje profundo.";
+
+// Galerías de la vida espiritual. El texto es institucional (MSCG), pero
+// las fotos son propias de cada jardín. La Paz usa las "…paz", Porvenir
+// las que no llevan sufijo.
+const ESPIRITUALIDAD_IMAGENES_LA_PAZ = [1, 2, 3, 4, 5, 6].map(
+  (n) => `/images/Espiritualidad${n}paz.jpeg`,
+);
+const ESPIRITUALIDAD_IMAGENES_PORVENIR = [
+  ...[1, 2, 3, 4, 5, 6].map((n) => `/images/Espiritualidad${n}.jpeg`),
+  ...[1, 2, 3].map((n) => `/images/ViacrusisPorvenir${n}.jpeg`),
+];
 
 // Formación espiritual: institucional (MSCG), compartida por los jardines.
 const ESPIRITUALIDAD_MSCG: EspiritualidadContenido = {
@@ -228,14 +244,21 @@ export const jardinesContenido: Record<string, JardinContenido> = {
       numeroAcuerdo: "202020803052",
       // Links de redes pendientes de confirmar (placeholder por ahora).
       facebook: "https://facebook.com",
-      youtube: "https://youtube.com",
+      youtube: "https://www.youtube.com/@PazyPorvenir",
     },
-    espiritualidad: ESPIRITUALIDAD_MSCG,
+    espiritualidad: {
+      ...ESPIRITUALIDAD_MSCG,
+      imagenes: ESPIRITUALIDAD_IMAGENES_LA_PAZ,
+    },
     equipo: EQUIPO_LA_PAZ,
   },
 
   porvenir: {
     historia: HISTORIA_PORVENIR,
+    historiaImagen: {
+      src: "/images/VISITA DE NUESTRO PADRE FUNDADOR AL JARDIN DE NIÑOS NAZARETH..jpg",
+      pie: "Visita de nuestro Padre Fundador al Jardín de Niños Nazareth.",
+    },
     // Objetivo general, misión, visión y valores son institucionales
     // (MSCG): idénticos a La Paz.
     objetivoGeneral: OBJETIVO_GENERAL_MSCG,
@@ -246,15 +269,22 @@ export const jardinesContenido: Record<string, JardinContenido> = {
     actividadesExtras: ACTIVIDADES_EXTRAS,
     contacto: {
       // Datos documentados en docs/jardin-porvenir.md.
+      telefono: "953 532 2315",
       celular: "953 110 3700",
       email: "jardinporvenir3@gmail.com",
+      direccion:
+        "Calle Matamoros No. 13, col. Centro, Heroica Ciudad de Huajuapan de León, Oaxaca.",
       clave: "20PJN0054C",
       turno: "Matutino",
       incorporacion: "2003",
       facebook: "https://www.facebook.com/share/1CxmWG4Pat/",
+      youtube: "https://www.youtube.com/@PazyPorvenir",
       whatsapp: "9531103700",
     },
-    espiritualidad: ESPIRITUALIDAD_MSCG,
+    espiritualidad: {
+      ...ESPIRITUALIDAD_MSCG,
+      imagenes: ESPIRITUALIDAD_IMAGENES_PORVENIR,
+    },
     equipo: EQUIPO_PORVENIR,
   },
 };

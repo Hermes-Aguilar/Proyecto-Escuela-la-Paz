@@ -6,6 +6,7 @@
 // Al final, una ficha con los datos institucionales del jardín.
 // Si la historia aún no está cargada → "Información próximamente".
 // ============================================================
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { History } from "lucide-react";
 
@@ -91,6 +92,23 @@ export default async function Historia({
               </div>
             ))}
           </div>
+
+          {/* Foto histórica del jardín (si la hay) */}
+          {contenido.historiaImagen && (
+            <figure className="mt-10 overflow-hidden rounded-2xl border border-arena bg-white shadow-sm">
+              <Image
+                src={contenido.historiaImagen.src}
+                alt={contenido.historiaImagen.pie}
+                width={1208}
+                height={788}
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="h-auto w-full object-cover"
+              />
+              <figcaption className="border-t border-arena px-5 py-4 text-center text-sm italic text-marron-suave">
+                {contenido.historiaImagen.pie}
+              </figcaption>
+            </figure>
+          )}
 
           {/* Ficha de datos del jardín */}
           {contenido.contacto && (
