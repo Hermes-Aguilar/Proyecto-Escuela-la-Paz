@@ -197,6 +197,12 @@ const GALERIA: Record<string, FotoGaleria[]> = {
         "Salimos a las calles a celebrar nuestra tradicional calenda llena de música, color y alegría.",
     },
     {
+      videoId: "oIbcvwWzEVw",
+      titulo: "Momentos del jardín",
+      descripcion:
+        "Un vistazo a la vida diaria en el jardín: aprendizaje, juego y alegría compartida.",
+    },
+    {
       src: "/images/60 aniversario de los Jardines Nazareth y Porvenir.jpeg",
       titulo: "60 aniversario",
       descripcion:
