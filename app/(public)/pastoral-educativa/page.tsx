@@ -104,12 +104,12 @@ export default function PastoralEducativa() {
               <h2 className="mb-5 mt-2 text-3xl font-bold text-azul-institucional">
                 Una educación que transforma desde adentro
               </h2>
-              <p className="mb-4 leading-relaxed text-marron">
+              <p className="mb-4 text-justify leading-relaxed text-marron">
                 Nuestra pastoral educativa cree que la educación es mucho más que transmitir
                 conocimientos: es acompañar el desarrollo integral de cada persona, desde sus
                 primeros años, en un ambiente de amor, seguridad y valores auténticos.
               </p>
-              <p className="mb-6 leading-relaxed text-marron">
+              <p className="mb-6 text-justify leading-relaxed text-marron">
                 Inspiradas en el carisma de las Misioneras del Señor de los Corazones y de Santa
                 María de Guadalupe, buscamos que nuestros jardines sean comunidades donde los niños
                 aprendan a amar a Dios, a los demás y a la creación, construyendo así un mundo mejor
@@ -225,7 +225,7 @@ export default function PastoralEducativa() {
           <div className="grid items-center gap-10 rounded-3xl bg-azul-oscuro p-10 md:grid-cols-2">
             <div>
               <h2 className="mb-4 text-3xl font-bold text-white">¿Quieres inscribir a tus hijos?</h2>
-              <p className="leading-relaxed text-white/75">
+              <p className="text-justify leading-relaxed text-white/75">
                 Si deseas inscribir a tus hijas o hijos en cualquiera de nuestros dos jardines
                 —La Paz o Porvenir—, con gusto te orientamos sobre el proceso de inscripción, los
                 programas disponibles y los valores que nos mueven. Escríbele directamente al

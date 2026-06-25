@@ -68,7 +68,7 @@ function construirMenu(base: string): Item[] {
       label: "Oferta Educativa",
       prefijo: `${base}/oferta`,
       hijos: [
-        { label: "Niveles", href: `${base}/oferta#niveles` },
+        { label: "Niveles", href: `${base}/oferta#oferta` },
         { label: "Actividades", href: `${base}/oferta#actividades` },
       ],
     },

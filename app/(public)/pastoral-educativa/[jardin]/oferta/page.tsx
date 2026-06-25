@@ -71,7 +71,8 @@ export default async function Oferta({
   return (
     <div className="font-texto mx-auto max-w-4xl px-6 py-12 md:py-16">
       <p
-        className="text-sm font-semibold uppercase tracking-widest"
+        id="oferta"
+        className="scroll-mt-24 text-sm font-semibold uppercase tracking-widest"
         style={{ color: "var(--jardin-primario)" }}
       >
         Oferta educativa
