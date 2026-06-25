@@ -17,6 +17,12 @@ const fotosJuxtlahuaca = Array.from(
   (_, i) => `/images/libreria-Juxtlahuaca${i + 1}.jpeg`,
 );
 
+// Fotos de la Librería "La Purísima" de Chila de las Flores (public/images).
+const fotosChila = Array.from(
+  { length: 13 },
+  (_, i) => `/images/libreria-ChiladelasFlores${i + 1}.jpeg`,
+);
+
 const slidesHero: SlideHero[] = [
   {
     imagen: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600",
@@ -45,8 +51,8 @@ type Libreria = {
   nombre: string;
   ciudad: string;
   direccion: string;
-  /** Horario de atención en texto libre. */
-  horario: string;
+  /** Horario de atención en texto libre. Opcional si aún no se confirma. */
+  horario?: string;
   telefono?: string;
   email?: string;
   principal: boolean;
@@ -81,7 +87,28 @@ const librerias: Libreria[] = [
     ],
     fotos: fotosJuxtlahuaca,
   },
-  // TODO: agregar las otras 4 librerías (nombre, ciudad, dirección,
+  {
+    nombre: 'Librería "La Purísima"',
+    ciudad: "Chila de las Flores, Puebla",
+    direccion:
+      "Mercado Municipal, planta alta, a un costado de la parroquia, Chila de las Flores, Pue.",
+    // Horario pendiente de confirmar.
+    principal: false,
+    descripcion:
+      "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Chila de las Flores. Artículos religiosos y devocionales para acompañar la vida de fe de la comunidad.",
+    productos: [
+      "Rosarios",
+      "Escapularios",
+      "Ofrendas",
+      "Velas",
+      "Artículos de primera comunión",
+      "Artículos de confirmación",
+      "Pulseras",
+      "Libros en variedad",
+    ],
+    fotos: fotosChila,
+  },
+  // TODO: agregar las otras 3 librerías (nombre, ciudad, dirección,
   // horario, descripción, productos y fotos). Para las fotos, sube las
   // imágenes a public/images y crea su arreglo igual que `fotosJuxtlahuaca`.
 ];
@@ -156,7 +183,9 @@ export default function Librerias() {
                       <h4 className="font-bold text-azul-institucional flex items-center gap-2 mb-4">
                         <FaClock className="text-azul-institucional" size={14} /> Horario de atención
                       </h4>
-                      <p className="text-sm font-medium text-marron">{lib.horario}</p>
+                      <p className={`text-sm font-medium ${lib.horario ? "text-marron" : "italic text-marron-suave"}`}>
+                        {lib.horario ?? "Días y horario por confirmar"}
+                      </p>
                     </div>
                   </div>
                 </div>
