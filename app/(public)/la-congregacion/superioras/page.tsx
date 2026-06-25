@@ -1,6 +1,6 @@
 // ============================================================
 // app/(public)/la-congregacion/superioras/page.tsx
-// Superioras Generales — las 8 superioras con sus periodos y obras,
+// Superioras Generales — las 9 superioras con sus periodos y obras,
 // texto íntegro de docs/congregacion.md, en orden cronológico.
 // Para los periodos con gobierno general documentado (1986-1992,
 // 2001-2007 y 2007-2013) se incluye el detalle del Consejo General
@@ -109,9 +109,17 @@ const SUPERIORAS: {
   {
     orden: "8ª Superiora General",
     nombre: "M. Ana Lidia del Sagrado Corazón de María (Méndez Barragán)",
-    periodo: "1 de agosto de 2019 – actual",
+    periodo: "1 de agosto de 2019 – 31 de julio de 2025",
     obras: [
       "Electa el 31 de julio del año 2019 durante el VII Capítulo General.",
+    ],
+  },
+  {
+    orden: "9ª Superiora General",
+    nombre: "M. Celia Teodora del Corazón Eucarístico (Corro Salazar)",
+    periodo: "31 de julio de 2025 – actual",
+    obras: [
+      "Electa el 31 de julio del año 2025, actual Superiora General de la Congregación.",
     ],
   },
 ];
@@ -122,7 +130,7 @@ export default function Superioras() {
       <SubHero
         eyebrow="Superioras Generales"
         titulo="Quienes han guiado la Congregación"
-        descripcion="Ocho Superioras Generales y las obras realizadas durante su servicio, desde 1957 hasta hoy."
+        descripcion="Nueve Superioras Generales y las obras realizadas durante su servicio, desde 1957 hasta hoy."
       />
 
       <section className="mx-auto max-w-4xl px-6 py-16 md:py-20">

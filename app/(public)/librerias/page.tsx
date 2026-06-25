@@ -6,20 +6,28 @@ import {
   FaPhoneAlt,
   FaEnvelope,
   FaArrowRight,
+  FaCheck,
 } from "react-icons/fa";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
+import { GaleriaLibreriaModal } from "@/components/public/GaleriaLibreriaModal";
+
+// Fotos de la Librería MSCG de Juxtlahuaca (public/images).
+const fotosJuxtlahuaca = Array.from(
+  { length: 7 },
+  (_, i) => `/images/libreria-Juxtlahuaca${i + 1}.jpeg`,
+);
 
 const slidesHero: SlideHero[] = [
   {
     imagen: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600",
-    categoria: "LIBRERÍAS FRANCISCANAS",
+    categoria: "LIBRERÍAS MSCG",
     titulo: "Fe, cultura y encuentro",
     descripcion:
-      "Nuestras librerías son espacios de evangelización con libros, artículos religiosos y recursos espirituales",
+      "Nuestras librerías son espacios de evangelización con artículos religiosos, libros y recursos espirituales",
   },
   {
     imagen: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600",
-    categoria: "MATERIAL RELIGIOSO",
+    categoria: "ARTÍCULOS RELIGIOSOS",
     titulo: "Recursos para tu vida espiritual",
     descripcion:
       "Encuentra todo lo que necesitas para nutrir tu fe y la de tu comunidad",
@@ -33,37 +41,49 @@ const slidesHero: SlideHero[] = [
   },
 ];
 
-const librerias = [
+type Libreria = {
+  nombre: string;
+  ciudad: string;
+  direccion: string;
+  /** Horario de atención en texto libre. */
+  horario: string;
+  telefono?: string;
+  email?: string;
+  principal: boolean;
+  descripcion: string;
+  /** Artículos religiosos que ofrece la librería. */
+  productos?: string[];
+  /** Fotos de la librería; se muestran en un carrusel dentro de un modal. */
+  fotos?: string[];
+};
+
+const librerias: Libreria[] = [
   {
-    nombre: "Librería San Francisco",
-    ciudad: "CDMX — Centro Histórico",
-    direccion: "Av. Madero 15, Col. Centro, CDMX",
-    horario: { semana: "Lun–Vie: 9:00 – 18:00 h", sabado: "Sáb: 9:00 – 15:00 h", domingo: "Dom: Cerrado" },
-    telefono: "+52 55 1234 5678",
-    email: "sanfrancisco@libreriasfran.org",
+    nombre: 'Librería MSCG "Señor de los Corazones"',
+    ciudad: "Juxtlahuaca, Oaxaca",
+    direccion: "Lázaro Cárdenas Norte #304, Juxtlahuaca, Oax.",
+    horario: "Todos los días: 9:00 – 17:00 h",
     principal: true,
-    descripcion: "Nuestra librería insignia, ubicada en el corazón del Centro Histórico. La más completa colección de material franciscano y espiritualidad cristiana.",
+    descripcion:
+      "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe. Un espacio de evangelización donde encontrarás artículos religiosos, imágenes sagradas y todo lo necesario para la vida litúrgica y devocional de tu comunidad.",
+    productos: [
+      "Imágenes de bulto",
+      "Cuadros de resina y de marco dorado",
+      "Cristos",
+      "Rosarios y pulseras",
+      "Libros y novenas",
+      "Manteles, casullas, palios y lienzos sagrados",
+      "Cálices, vinajeras y relicarios",
+      "Material para sacramentos",
+      "Cirios y floreros",
+      "Bases y varillas para estandarte",
+      "Objetos sagrados",
+    ],
+    fotos: fotosJuxtlahuaca,
   },
-  {
-    nombre: "Librería La Porciúncula",
-    ciudad: "Guadalajara, Jalisco",
-    direccion: "Av. Hidalgo 340, Col. Guadalajara Centro",
-    horario: { semana: "Lun–Vie: 9:00 – 17:00 h", sabado: "Sáb: 9:00 – 14:00 h", domingo: "Dom: Cerrado" },
-    telefono: "+52 33 9876 5432",
-    email: "porciuncula@libreriasfran.org",
-    principal: false,
-    descripcion: "Espacio de encuentro y evangelización en Guadalajara. Especializada en material para grupos juveniles y catequesis.",
-  },
-  {
-    nombre: "Librería Paz y Bien",
-    ciudad: "Monterrey, Nuevo León",
-    direccion: "Calle Morelos 88, Col. Centro, Monterrey",
-    horario: { semana: "Lun–Vie: 10:00 – 18:00 h", sabado: "Sáb: 10:00 – 16:00 h", domingo: "Dom: Cerrado" },
-    telefono: "+52 81 5555 1212",
-    email: "pazbien@libreriasfran.org",
-    principal: false,
-    descripcion: "La librería más nueva de nuestra red, con especial enfoque en espiritualidad franciscana contemporánea y recursos digitales.",
-  },
+  // TODO: agregar las otras 4 librerías (nombre, ciudad, dirección,
+  // horario, descripción, productos y fotos). Para las fotos, sube las
+  // imágenes a public/images y crea su arreglo igual que `fotosJuxtlahuaca`.
 ];
 
 export default function Librerias() {
@@ -83,44 +103,60 @@ export default function Librerias() {
           <div className="space-y-8">
             {librerias.map((lib) => (
               <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-azul-institucional" : "border-arena"}`}>
-                <div className="p-8 grid md:grid-cols-3 gap-8">
-                  {/* Info principal */}
-                  <div className="md:col-span-2">
-                    <h3 className="text-2xl font-bold text-azul-institucional mb-1">{lib.nombre}</h3>
-                    <p className="text-azul-institucional font-semibold text-sm mb-3">{lib.ciudad}</p>
-                    <p className="text-marron text-sm leading-relaxed mb-5">{lib.descripcion}</p>
-                    <div className="flex items-start gap-2 text-sm text-marron-suave mb-2">
-                      <FaMapMarkerAlt className="mt-0.5 text-azul-institucional shrink-0" />
-                      <span>{lib.direccion}</span>
+                <div className="flex flex-col md:flex-row md:items-stretch">
+                  {/* Portada / galería de la librería */}
+                  {lib.fotos && lib.fotos.length > 0 && (
+                    <div className="p-4 md:w-2/5 md:shrink-0 md:p-5">
+                      <GaleriaLibreriaModal imagenes={lib.fotos} titulo={lib.nombre} />
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-marron-suave mb-2">
-                      <FaPhoneAlt className="text-dorado shrink-0" />
-                      <a href={`tel:${lib.telefono}`} className="hover:text-azul-institucional transition-colors">{lib.telefono}</a>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-marron-suave">
-                      <FaEnvelope className="text-dorado shrink-0" />
-                      <a href={`mailto:${lib.email}`} className="hover:text-azul-institucional transition-colors">{lib.email}</a>
-                    </div>
-                  </div>
+                  )}
 
-                  {/* Horarios */}
-                  <div className="bg-crema rounded-2xl p-5">
-                    <h4 className="font-bold text-azul-institucional flex items-center gap-2 mb-4">
-                      <FaClock className="text-azul-institucional" size={14} /> Horarios de atención
-                    </h4>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-marron-suave">Lunes – Viernes</span>
-                        <span className="font-medium text-marron">{lib.horario.semana.split(": ")[1]}</span>
+                  {/* Contenido */}
+                  <div className="flex-1 p-8 grid sm:grid-cols-3 gap-8">
+                    {/* Info principal */}
+                    <div className="sm:col-span-2">
+                      <h3 className="text-2xl font-bold text-azul-institucional mb-1">{lib.nombre}</h3>
+                      <p className="text-azul-institucional font-semibold text-sm mb-3">{lib.ciudad}</p>
+                      <p className="text-marron text-sm leading-relaxed mb-5">{lib.descripcion}</p>
+                      <div className="flex items-start gap-2 text-sm text-marron-suave mb-2">
+                        <FaMapMarkerAlt className="mt-0.5 text-azul-institucional shrink-0" />
+                        <span>{lib.direccion}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-marron-suave">Sábado</span>
-                        <span className="font-medium text-marron">{lib.horario.sabado.split(": ")[1]}</span>
-                      </div>
-                      <div className="flex justify-between border-t border-arena pt-2 mt-2">
-                        <span className="text-marron-suave">Domingo</span>
-                        <span className="text-marron-suave">Cerrado</span>
-                      </div>
+                      {lib.telefono && (
+                        <div className="flex items-center gap-2 text-sm text-marron-suave mb-2">
+                          <FaPhoneAlt className="text-dorado shrink-0" />
+                          <a href={`tel:${lib.telefono}`} className="hover:text-azul-institucional transition-colors">{lib.telefono}</a>
+                        </div>
+                      )}
+                      {lib.email && (
+                        <div className="flex items-center gap-2 text-sm text-marron-suave">
+                          <FaEnvelope className="text-dorado shrink-0" />
+                          <a href={`mailto:${lib.email}`} className="hover:text-azul-institucional transition-colors">{lib.email}</a>
+                        </div>
+                      )}
+
+                      {/* Artículos que ofrece */}
+                      {lib.productos && (
+                        <div className="mt-6">
+                          <h4 className="font-bold text-azul-institucional mb-3">Artículos que ofrecemos</h4>
+                          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+                            {lib.productos.map((p) => (
+                              <li key={p} className="flex items-start gap-2 text-sm text-marron-suave">
+                                <FaCheck className="mt-0.5 text-dorado shrink-0" size={12} />
+                                <span>{p}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Horario */}
+                    <div className="bg-crema rounded-2xl p-5 self-start">
+                      <h4 className="font-bold text-azul-institucional flex items-center gap-2 mb-4">
+                        <FaClock className="text-azul-institucional" size={14} /> Horario de atención
+                      </h4>
+                      <p className="text-sm font-medium text-marron">{lib.horario}</p>
                     </div>
                   </div>
                 </div>
