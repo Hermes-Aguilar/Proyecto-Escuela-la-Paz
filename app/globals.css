@@ -78,3 +78,14 @@
   }
 }
 
+/* Efecto "Ken Burns": zoom/paneo lento de la imagen activa del carrusel.
+   Lo usa CarruselHero con la prop `zoom` (p. ej. Pastoral Educativa). */
+@keyframes kenburns {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.12) translate(-1.5%, -1.5%);
+  }
+}
+

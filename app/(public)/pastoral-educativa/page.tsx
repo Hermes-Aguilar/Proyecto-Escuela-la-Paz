@@ -90,8 +90,9 @@ const jardines = [
 export default function PastoralEducativa() {
   return (
     <div className="bg-crema">
-      {/* HERO — carrusel del portal general */}
-      <CarruselHero slides={slidesHero} />
+      {/* HERO — carrusel con efecto Ken Burns (zoom lento), distinto del
+          resto del portal que usa el efecto reveal con fondo fijo. */}
+      <CarruselHero slides={slidesHero} zoom />
 
       {/* SUBMENÚ · navegación secundaria de Pastoral Educativa */}
       <SubmenuPastoral />

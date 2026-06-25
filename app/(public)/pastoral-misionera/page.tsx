@@ -72,9 +72,13 @@ const programas = [
 
 export default function PastoralMisionera() {
   return (
-    <div className="bg-crema">
-      {/* HERO */}
-      <CarruselHero slides={slidesHero} />
+    <div>
+      {/* HERO — carrusel con efecto reveal: la imagen queda fija y el
+          contenido sube por encima al hacer scroll (como el inicio). */}
+      <CarruselHero slides={slidesHero} fondoFijo altura="h-[60vh]" />
+
+      {/* CONTENIDO — capa opaca que se desplaza sobre la imagen fija. */}
+      <div className="relative z-10 bg-crema">
 
       {/* MISIÓN */}
       <section className="max-w-7xl mx-auto px-6 py-20">
@@ -319,6 +323,7 @@ export default function PastoralMisionera() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

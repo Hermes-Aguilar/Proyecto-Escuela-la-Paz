@@ -60,13 +60,15 @@ const situacion = [
 
 export default function LaCongregacion() {
   return (
-    <div className="bg-crema">
+    <div>
       {/* ============================================================
-          1 · HERO — imagen estática (gradiente institucional + escudo).
+          1 · HERO — efecto reveal: el fondo (gradiente institucional +
+          escudo) queda FIJO detrás y el contenido sube por encima al
+          hacer scroll, igual que en el inicio.
           ============================================================ */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-azul-institucional via-azul-oscuro to-marron">
-        {/* Velo oscuro encima para realzar el texto. */}
-        <div className="absolute inset-0 -z-10 bg-black/30" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-azul-institucional via-azul-oscuro to-marron">
+        {/* Velo oscuro para realzar el texto. */}
+        <div className="absolute inset-0 bg-black/30" />
         {/* Escudo difuminado como textura de fondo. */}
         <Image
           src="/images/escudo.png"
@@ -74,8 +76,12 @@ export default function LaCongregacion() {
           aria-hidden
           width={1024}
           height={1536}
-          className="pointer-events-none absolute -right-10 top-1/2 -z-10 hidden h-[120%] w-auto -translate-y-1/2 opacity-10 md:block"
+          className="pointer-events-none absolute -right-10 top-1/2 hidden h-[120%] w-auto -translate-y-1/2 opacity-10 md:block"
         />
+      </div>
+
+      {/* Texto del hero: en el flujo normal, se desplaza sobre el fondo fijo. */}
+      <section className="relative">
         <div className="mx-auto flex min-h-[60vh] max-w-5xl flex-col items-center justify-center px-6 py-24 text-center">
           <p className="font-titulo text-sm font-semibold uppercase tracking-widest text-dorado">
             Instituto de Misioneras
@@ -90,6 +96,9 @@ export default function LaCongregacion() {
           <div className="mx-auto mt-7 w-28 border-t border-dorado/60" />
         </div>
       </section>
+
+      {/* CONTENIDO — capa opaca que se desplaza sobre el fondo fijo. */}
+      <div className="relative z-10 bg-crema">
 
       {/* ============================================================
           2 · SECCIÓN PRINCIPAL — escudo + texto editorial.
@@ -232,6 +241,7 @@ export default function LaCongregacion() {
           </div>
         </AnimacionScroll>
       </section>
+      </div>
     </div>
   );
 }

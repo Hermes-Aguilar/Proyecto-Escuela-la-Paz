@@ -79,9 +79,13 @@ const sedes = [
 
 export default function PastoralVocacional() {
   return (
-    <div className="bg-crema">
-      {/* HERO — carrusel del portal general */}
-      <CarruselHero slides={slidesHero} />
+    <div>
+      {/* HERO — carrusel con efecto reveal: la imagen queda fija y el
+          contenido sube por encima al hacer scroll (como el inicio). */}
+      <CarruselHero slides={slidesHero} fondoFijo altura="h-[60vh]" />
+
+      {/* CONTENIDO — capa opaca que se desplaza sobre la imagen fija. */}
+      <div className="relative z-10 bg-crema">
 
       {/* MISIÓN */}
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center">
@@ -199,6 +203,7 @@ export default function PastoralVocacional() {
     </div>
   </div>
 </section>
+      </div>
     </div>
   );
 }

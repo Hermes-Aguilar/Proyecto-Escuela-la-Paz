@@ -88,9 +88,13 @@ const librerias: Libreria[] = [
 
 export default function Librerias() {
   return (
-    <div className="bg-crema">
-      {/* HERO — carrusel del portal general */}
-      <CarruselHero slides={slidesHero} />
+    <div>
+      {/* HERO — carrusel con efecto reveal: la imagen queda fija y el
+          contenido sube por encima al hacer scroll (como el inicio). */}
+      <CarruselHero slides={slidesHero} fondoFijo altura="h-[60vh]" />
+
+      {/* CONTENIDO — capa opaca que se desplaza sobre la imagen fija. */}
+      <div className="relative z-10 bg-crema">
 
       {/* DIRECTORIO DE LIBRERÍAS */}
       <section className="bg-azul-suave py-20 px-6">
@@ -183,6 +187,7 @@ export default function Librerias() {
           </Link>
         </div>
       </section>
+      </div>
     </div>
   );
 }

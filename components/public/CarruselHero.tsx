@@ -48,6 +48,12 @@ interface Props {
    * El contenido posterior de la página debe ir en una capa opaca con z mayor.
    */
   fondoFijo?: boolean;
+  /**
+   * Efecto "Ken Burns": la imagen activa hace un zoom/paneo lento mientras
+   * está visible. Alternativa al `fondoFijo` para diferenciar un carrusel
+   * (p. ej. Pastoral Educativa) del resto del portal.
+   */
+  zoom?: boolean;
 }
 
 const INTERVALO_MS = 8_000;
@@ -57,6 +63,7 @@ export default function CarruselHero({
   altura = "h-[440px] sm:h-[500px] lg:h-[560px]",
   colorAcento = "#1f3a5a",
   fondoFijo = false,
+  zoom = false,
 }: Props) {
   const [actual, setActual] = useState(0);
   const total = slides.length;
@@ -101,7 +108,12 @@ export default function CarruselHero({
                 fill
                 priority={i === 0}
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover will-change-transform"
+                style={
+                  zoom && activa
+                    ? { animation: `kenburns ${INTERVALO_MS}ms ease-out both` }
+                    : undefined
+                }
               />
             ) : (
               // Sin foto aún: degradado con el color de acento del jardín.
