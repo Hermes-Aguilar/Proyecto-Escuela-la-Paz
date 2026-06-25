@@ -21,18 +21,21 @@ import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
 // sin `imagen`, así CarruselHero muestra un degradado de respaldo.
 const slidesHero: SlideHero[] = [
   {
+    imagen: "/images/Principal Educativa 1.jpeg",
     categoria: "PASTORAL EDUCATIVA",
     titulo: "Sembrando vida desde la infancia",
     descripcion:
       "Educamos desde los valores del Evangelio y el carisma de las MSCG: amor, servicio y alegría",
   },
   {
+    imagen: "/images/Principal Educativa 2.jpeg",
     categoria: "NUESTROS JARDINES",
     titulo: "Dos comunidades educativas",
     descripcion:
       "La Paz y Porvenir: espacios donde los niños crecen como personas íntegras y felices",
   },
   {
+    imagen: "/images/Principal Educativa 31.jpeg",
     categoria: "FORMACIÓN INTEGRAL",
     titulo: "Más que conocimiento, valores",
     descripcion:

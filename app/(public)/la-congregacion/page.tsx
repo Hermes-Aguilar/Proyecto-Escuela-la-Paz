@@ -52,10 +52,10 @@ const tarjetas = [
 ];
 
 const situacion = [
-  { numero: "1", label: "Aspirante" },
-  { numero: "2", label: "Novicias" },
-  { numero: "4", label: "Junioras" },
-  { numero: "63", label: "Votos Perpetuos" },
+  { numero: "2", label: "Pre-aspirantes" },
+  { numero: "3", label: "Aspirantes" },
+  { numero: "6", label: "Junioras" },
+  { numero: "64", label: "Votos Perpetuos" },
 ];
 
 export default function LaCongregacion() {
