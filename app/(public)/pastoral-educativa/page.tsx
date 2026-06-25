@@ -35,7 +35,7 @@ const slidesHero: SlideHero[] = [
       "La Paz y Porvenir: espacios donde los niños crecen como personas íntegras y felices",
   },
   {
-    imagen: "/images/Principal Educativa 31.jpeg",
+    imagen: "/images/Educativa Principal 3.png",
     categoria: "FORMACIÓN INTEGRAL",
     titulo: "Más que conocimiento, valores",
     descripcion:
