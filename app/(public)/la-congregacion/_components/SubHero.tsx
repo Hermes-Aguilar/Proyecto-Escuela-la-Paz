@@ -14,6 +14,7 @@ export function SubHero({
   patron,
   imagenFondo,
   posicionFondo = "bg-center",
+  alturaClase = "",
   veloClase = "bg-gradient-to-br from-azul-institucional/85 to-azul-oscuro/90",
 }: {
   eyebrow?: string;
@@ -31,6 +32,10 @@ export function SubHero({
    *  Por defecto centrada; usa `bg-top` cuando las caras de una foto
    *  grupal queden cortadas por el recorte del hero. */
   posicionFondo?: string;
+  /** Altura mínima del hero (utilidad Tailwind, p. ej. `min-h-[78vh]`).
+   *  Útil con fotos casi cuadradas: dar más alto deja ver el grupo
+   *  completo en vez de un recorte muy cercano. */
+  alturaClase?: string;
   /** Clases del velo que cubre `imagenFondo`. Por defecto azul
    *  institucional; para fotos cálidas conviene un velo marrón
    *  (p. ej. la pintura de la Historia) para no chocar de color. */
@@ -60,7 +65,9 @@ export function SubHero({
           style={{ backgroundImage: `url('${patron}')` }}
         />
       )}
-      <div className="relative mx-auto max-w-4xl px-6 py-14 text-center md:py-20">
+      <div
+        className={`relative mx-auto flex max-w-4xl flex-col items-center justify-center px-6 py-14 text-center md:py-20 ${alturaClase}`}
+      >
         <Link
           href="/la-congregacion"
           className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
