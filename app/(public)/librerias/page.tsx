@@ -25,21 +25,21 @@ const fotosChila = Array.from(
 
 const slidesHero: SlideHero[] = [
   {
-    imagen: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600",
+    imagen: "/images/libreriacarrusel1.png",
     categoria: "LIBRERÍAS MSCG",
     titulo: "Fe, cultura y encuentro",
     descripcion:
       "Nuestras librerías son espacios de evangelización con artículos religiosos, libros y recursos espirituales",
   },
   {
-    imagen: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600",
+    imagen: "/images/libreriacarrusel2.png",
     categoria: "ARTÍCULOS RELIGIOSOS",
     titulo: "Recursos para tu vida espiritual",
     descripcion:
       "Encuentra todo lo que necesitas para nutrir tu fe y la de tu comunidad",
   },
   {
-    imagen: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600",
+    imagen: "/images/libreriacarrusel3.png",
     categoria: "ENCUENTRO Y SERVICIO",
     titulo: "Más que una librería",
     descripcion:
