@@ -66,18 +66,16 @@ export default function LaCongregacion() {
           escudo) queda FIJO detrás y el contenido sube por encima al
           hacer scroll, igual que en el inicio.
           ============================================================ */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-azul-institucional via-azul-oscuro to-marron">
-        {/* Velo oscuro para realzar el texto. */}
-        <div className="absolute inset-0 bg-black/30" />
-        {/* Escudo difuminado como textura de fondo. */}
-        <Image
-          src="/images/escudo.png"
-          alt=""
+      <div className="fixed inset-0 -z-10 bg-marron">
+        {/* Fotografía del retablo de la Congregación con efecto reveal
+            (queda fija al hacer scroll). */}
+        <div
           aria-hidden
-          width={1024}
-          height={1536}
-          className="pointer-events-none absolute -right-10 top-1/2 hidden h-[120%] w-auto -translate-y-1/2 opacity-10 md:block"
+          className="pointer-events-none absolute inset-0 bg-fixed bg-center bg-cover"
+          style={{ backgroundImage: "url('/images/congregacion principal.png')" }}
         />
+        {/* Velo cálido para realzar el texto blanco sin perder el dorado. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-marron/75 via-marron/45 to-marron/80" />
       </div>
 
       {/* Texto del hero: en el flujo normal, se desplaza sobre el fondo fijo. */}
