@@ -11,14 +11,51 @@ export function SubHero({
   eyebrow = "La Congregación",
   titulo,
   descripcion,
+  patron,
+  imagenFondo,
+  veloClase = "bg-gradient-to-br from-azul-institucional/85 to-azul-oscuro/90",
 }: {
   eyebrow?: string;
   titulo: string;
   descripcion?: string;
+  /** Imagen de patrón (p. ej. cruces) que se superpone al gradiente
+   *  como textura de fondo. Opcional: si no se pasa, el header queda
+   *  con el gradiente liso como en el resto de subpáginas. */
+  patron?: string;
+  /** Fotografía de fondo a pantalla completa del cuadro (p. ej. un
+   *  jardín). Lleva un velo encima para mantener el contraste del
+   *  texto blanco y que combine con la paleta de la congregación. */
+  imagenFondo?: string;
+  /** Clases del velo que cubre `imagenFondo`. Por defecto azul
+   *  institucional; para fotos cálidas conviene un velo marrón
+   *  (p. ej. la pintura de la Historia) para no chocar de color. */
+  veloClase?: string;
 }) {
   return (
-    <header className="bg-gradient-to-br from-azul-institucional to-azul-oscuro">
-      <div className="mx-auto max-w-4xl px-6 py-14 text-center md:py-20">
+    <header className="relative overflow-hidden bg-gradient-to-br from-azul-institucional to-azul-oscuro">
+      {imagenFondo && (
+        <>
+          {/* Foto de fondo con efecto reveal (queda fija al hacer scroll). */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-fixed bg-center bg-cover"
+            style={{ backgroundImage: `url('${imagenFondo}')` }}
+          />
+          {/* Velo para legibilidad y armonía de paleta (color configurable). */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute inset-0 ${veloClase}`}
+          />
+        </>
+      )}
+      {patron && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-fixed bg-center bg-cover opacity-60"
+          style={{ backgroundImage: `url('${patron}')` }}
+        />
+      )}
+      <div className="relative mx-auto max-w-4xl px-6 py-14 text-center md:py-20">
         <Link
           href="/la-congregacion"
           className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"

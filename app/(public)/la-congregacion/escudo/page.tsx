@@ -38,6 +38,7 @@ export default function Escudo() {
         eyebrow="Nuestro Escudo"
         titulo="Los símbolos de nuestra identidad"
         descripcion="Cada elemento del escudo cuenta una parte de quiénes somos y de la misión que nos fue confiada."
+        patron="/images/patron_cruces.png"
       />
 
       <section className="mx-auto max-w-5xl px-6 py-16 md:py-20">

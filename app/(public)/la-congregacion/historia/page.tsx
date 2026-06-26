@@ -213,6 +213,8 @@ export default function Historia() {
         eyebrow="Nuestra Historia"
         titulo="Historia de la Fundación"
         descripcion="Desde una casa prestada en 1957 hasta 17 comunidades en México, Costa Rica y África."
+        imagenFondo="/images/historia fondo.jpeg"
+        veloClase="bg-gradient-to-br from-marron/85 to-marron/95"
       />
 
       {/* Historia de la Fundación */}

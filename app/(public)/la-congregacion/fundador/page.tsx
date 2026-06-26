@@ -61,6 +61,7 @@ export default function Fundador() {
         eyebrow="El Fundador"
         titulo="Pbro. Lic. Luis Fiacro Guerrero Ramírez"
         descripcion="El relato, de su puño y letra, del nacimiento de esta obra de Dios."
+        imagenFondo="/images/jardin para fundador.jpeg"
       />
 
       <article className="mx-auto max-w-3xl px-6 py-16 md:py-20">
