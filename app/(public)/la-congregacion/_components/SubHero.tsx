@@ -13,6 +13,7 @@ export function SubHero({
   descripcion,
   patron,
   imagenFondo,
+  posicionFondo = "bg-center",
   veloClase = "bg-gradient-to-br from-azul-institucional/85 to-azul-oscuro/90",
 }: {
   eyebrow?: string;
@@ -26,6 +27,10 @@ export function SubHero({
    *  jardín). Lleva un velo encima para mantener el contraste del
    *  texto blanco y que combine con la paleta de la congregación. */
   imagenFondo?: string;
+  /** Posición de `imagenFondo` (utilidad Tailwind, p. ej. `bg-top`).
+   *  Por defecto centrada; usa `bg-top` cuando las caras de una foto
+   *  grupal queden cortadas por el recorte del hero. */
+  posicionFondo?: string;
   /** Clases del velo que cubre `imagenFondo`. Por defecto azul
    *  institucional; para fotos cálidas conviene un velo marrón
    *  (p. ej. la pintura de la Historia) para no chocar de color. */
@@ -38,7 +43,7 @@ export function SubHero({
           {/* Foto de fondo con efecto reveal (queda fija al hacer scroll). */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-fixed bg-center bg-cover"
+            className={`pointer-events-none absolute inset-0 bg-fixed ${posicionFondo} bg-cover`}
             style={{ backgroundImage: `url('${imagenFondo}')` }}
           />
           {/* Velo para legibilidad y armonía de paleta (color configurable). */}
