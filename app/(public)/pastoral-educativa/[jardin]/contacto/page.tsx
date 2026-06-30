@@ -90,7 +90,6 @@ export default async function ContactoJardin({
         { t: "Clave", v: datosJardin.clave },
         { t: "Turno", v: datosJardin.turno },
         { t: "Incorporación", v: datosJardin.incorporacion },
-        { t: "Número de acuerdo", v: datosJardin.numeroAcuerdo },
         { t: "Correo", v: datosJardin.email },
       ].filter((d) => d.v) as { t: string; v: string }[])
     : [];
@@ -175,8 +174,8 @@ export default async function ContactoJardin({
             )}
           </div>
 
-          {/* Datos institucionales del jardín (clave, turno, incorporación,
-              número de acuerdo y correo). Solo los que estén cargados. */}
+          {/* Datos institucionales del jardín (clave, turno, incorporación
+              y correo). Solo los que estén cargados. */}
           {datosInstitucionales.length > 0 && (
             <div
               className="rounded-2xl p-6 md:p-7"

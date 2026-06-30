@@ -127,7 +127,6 @@ export default async function Historia({
                   { t: "Clave", v: contenido.contacto.clave },
                   { t: "Turno", v: contenido.contacto.turno },
                   { t: "Incorporación", v: contenido.contacto.incorporacion },
-                  { t: "Número de acuerdo", v: contenido.contacto.numeroAcuerdo },
                   { t: "Correo", v: contenido.contacto.email },
                 ].map(({ t, v }) => (
                   <div key={t}>
