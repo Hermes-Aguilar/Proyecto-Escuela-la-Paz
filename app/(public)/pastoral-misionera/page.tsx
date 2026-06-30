@@ -128,44 +128,6 @@ export default function PastoralMisionera() {
         </div>
       </section>
 
-      {/* CARISMA — el rectángulo antes era azul sólido; ahora usa el
-          patrón de corazones como fondo FIJO (bg-fixed), de modo que el
-          patrón queda quieto y el contenido se desliza por encima al
-          hacer scroll, igual que el efecto reveal del inicio. */}
-      <section
-        className="relative bg-azul-institucional bg-fixed bg-center bg-cover py-20 px-6"
-        style={{ backgroundImage: "url('/images/patron_corazones.png')" }}
-      >
-        {/* Velo sutil para reforzar el contraste del texto blanco sin
-            apagar el patrón de corazones. */}
-        <div aria-hidden className="absolute inset-0 bg-azul-oscuro/30" />
-        <div className="relative max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span aria-hidden className="h-px w-8 bg-dorado sm:w-12" />
-            <span className="text-dorado text-sm font-semibold tracking-widest uppercase">Nuestro carisma</span>
-            <span aria-hidden className="h-px w-8 bg-dorado sm:w-12" />
-          </div>
-          <FaCross className="text-dorado mx-auto mb-6" size={24} />
-          <blockquote className="font-texto text-base md:text-lg leading-relaxed text-white/90 text-balance max-w-3xl mx-auto">
-            "Ser misioneras, viviendo el amor oblativo del Señor de los Corazones, llevando con alegría
-            la semilla del Evangelio preferencialmente a los más necesitados a ejemplo de Santa María de
-            Guadalupe, para gloria de Dios y edificación de la Iglesia."
-          </blockquote>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 sm:gap-x-8">
-            {["Misionero", "Oblativo", "Liberador"].map((palabra, i) => (
-              <span key={palabra} className="flex items-center gap-5 sm:gap-8">
-                {i > 0 && (
-                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-dorado/60" />
-                )}
-                <span className="font-titulo text-xl md:text-2xl font-bold uppercase tracking-wide text-dorado">
-                  {palabra}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* OBJETIVOS */}
       <section className="bg-azul-suave py-20 px-6">
         <div className="max-w-7xl mx-auto">

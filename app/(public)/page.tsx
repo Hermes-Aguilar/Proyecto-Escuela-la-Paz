@@ -139,9 +139,9 @@ export default function Home() {
               Guerrero Ramírez.
             </p>
             <p className="text-marron leading-relaxed mb-6 text-justify">
-              Nuestro carisma es ser en la Iglesia miembros activos en la construcción del Reino de
-              Dios, mediante el dar a conocer a nuestros hermanos las riquezas de Jesucristo Rey y
-              Señor de los Corazones y el amor maternal de Santa María de Guadalupe.
+              Nuestro carisma es ser misioneras, viviendo el amor oblativo del Señor de los Corazones,
+              llevando con alegría la semilla del Evangelio preferencialmente a los más necesitados a
+              ejemplo de Santa María de Guadalupe, para gloria de Dios y edificación de la Iglesia.
             </p>
             <div className="bg-azul-institucional/10 border-l-4 border-azul-institucional pl-4 py-3 rounded-r-lg mb-6">
               <p className="font-display text-lg italic text-marron">
