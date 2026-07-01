@@ -43,14 +43,27 @@ export interface ContactoInstitucional {
   whatsapp?: string;
 }
 
+export interface AlbumEspiritualidad {
+  /** Rótulo del álbum (el motivo de las fotos, p. ej. "Pastorela"). Opcional. */
+  titulo?: string;
+  /** Pie descriptivo del álbum. Opcional. */
+  descripcion?: string;
+  /** Fotos del álbum (rutas en /public). */
+  fotos: string[];
+}
+
 export interface EspiritualidadContenido {
   /** Texto íntegro de la formación espiritual del jardín. */
   descripcion: string;
   /** Llamada/compromiso destacado (p. ej. el retiro de los papás). */
   nota: string;
-  /** Galería de fotos de la vida espiritual del jardín (rutas en
-   *  /public). Opcional: si falta o está vacía, no se muestra galería. */
+  /** Galería en mosaico simple (rutas en /public). Se usa solo cuando NO hay
+   *  `albumes`. Opcional: si falta o está vacía, no se muestra galería. */
   imagenes?: string[];
+  /** Uno o varios álbumes: cada uno agrupa las fotos de un mismo motivo en
+   *  una tarjeta (portada + badge "N fotos") que abre un visor para
+   *  recorrerlas. Tiene prioridad sobre `imagenes`. Opcional. */
+  albumes?: AlbumEspiritualidad[];
   /** Video destacado de YouTube (su ID y título), p. ej. un retiro. Se
    *  muestra embebido debajo de la galería. Opcional. */
   video?: { id: string; titulo: string };
@@ -69,9 +82,10 @@ export interface JardinContenido {
   historia: string | null;
   /** Foto histórica opcional para la sección Historia (con su pie). */
   historiaImagen?: { src: string; pie: string };
-  /** Fotos del jardín (instalaciones/fachada) para "Quiénes somos".
-   *  Opcional: si falta o está vacía, no se muestran. */
-  quienesSomosImagenes?: string[];
+  /** Fotos del jardín (instalaciones/fachada) para "Quiénes somos". Cada una
+   *  lleva sus dimensiones reales para renderizarse en su proporción natural
+   *  (horizontales y verticales conviven sin recortes). Opcional. */
+  quienesSomosImagenes?: { src: string; width: number; height: number }[];
   objetivoGeneral: string | null;
   mision: string | null;
   vision: string | null;
@@ -113,10 +127,26 @@ const OBJETIVO_GENERAL_MSCG =
 const ESPIRITUALIDAD_IMAGENES_LA_PAZ = [1, 2, 3, 4, 5, 6].map(
   (n) => `/images/Espiritualidad${n}paz.jpeg`,
 );
-const ESPIRITUALIDAD_IMAGENES_PORVENIR = [
-  ...[1, 2, 3, 4, 5, 6].map((n) => `/images/Espiritualidad${n}.jpeg`),
-  "/images/Espiritualiadad Prvenir.jpeg",
-  ...[1, 2, 3].map((n) => `/images/ViacrusisPorvenir${n}.jpeg`),
+
+// Álbumes de Porvenir: las fotos se agrupan por motivo (cada álbum abre un
+// visor para recorrer las suyas).
+const ALBUMES_ESPIRITUALIDAD_PORVENIR: AlbumEspiritualidad[] = [
+  {
+    titulo: "Pastorela",
+    fotos: [1, 2, 3].map((n) => `/images/Espiritualidad${n}.jpeg`),
+  },
+  {
+    titulo: "Recorrido del día de la acostadita",
+    fotos: [4, 5, 6].map((n) => `/images/Espiritualidad${n}.jpeg`),
+  },
+  {
+    titulo: "Retiro espiritual con los maestros",
+    fotos: ["/images/Espiritualiadad Prvenir.jpeg"],
+  },
+  {
+    titulo: "Viacrucis del Jardín de Niños La Paz a la Catedral",
+    fotos: [1, 2, 3].map((n) => `/images/ViacrusisPorvenir${n}.jpeg`),
+  },
 ];
 
 // Formación espiritual: institucional (MSCG), compartida por los jardines.
@@ -234,8 +264,9 @@ export const jardinesContenido: Record<string, JardinContenido> = {
   "la-paz": {
     historia: HISTORIA_LA_PAZ,
     quienesSomosImagenes: [
-      "/images/jardin la paz.jpeg",
-      "/images/La paz jardin.jpeg",
+      { src: "/images/jardin la paz.jpeg", width: 1280, height: 960 },
+      { src: "/images/lapaz quienes somos.jpeg", width: 1200, height: 1600 },
+      { src: "/images/acividades fisica la paz.jpeg", width: 1280, height: 960 },
     ],
     objetivoGeneral: OBJETIVO_GENERAL_MSCG,
     mision: MISION_MSCG,
@@ -258,7 +289,13 @@ export const jardinesContenido: Record<string, JardinContenido> = {
     },
     espiritualidad: {
       ...ESPIRITUALIDAD_MSCG,
-      imagenes: ESPIRITUALIDAD_IMAGENES_LA_PAZ,
+      albumes: [
+        {
+          descripcion:
+            "Celebraciones mensuales en honor al Divino Niño Jesús de Praga",
+          fotos: ESPIRITUALIDAD_IMAGENES_LA_PAZ,
+        },
+      ],
     },
     equipo: EQUIPO_LA_PAZ,
   },
@@ -293,7 +330,7 @@ export const jardinesContenido: Record<string, JardinContenido> = {
     },
     espiritualidad: {
       ...ESPIRITUALIDAD_MSCG,
-      imagenes: ESPIRITUALIDAD_IMAGENES_PORVENIR,
+      albumes: ALBUMES_ESPIRITUALIDAD_PORVENIR,
       video: { id: "WnW7j-AXgkg", titulo: "Retiro de Maestros" },
     },
     equipo: EQUIPO_PORVENIR,

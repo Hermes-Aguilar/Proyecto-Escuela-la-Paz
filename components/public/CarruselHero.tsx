@@ -30,6 +30,10 @@ export interface SlideHero {
   titulo: string;
   subtitulo?: string;
   descripcion: string;
+  /** Encuadre de la imagen (CSS object-position). Por defecto "center". Útil
+   *  cuando lo importante está arriba o abajo y el recorte de object-cover lo
+   *  deja fuera (p. ej. "bottom", "top", "center 30%"). */
+  posicion?: string;
   /** Botón opcional "Más información" del slide. */
   boton?: { texto: string; href: string };
 }
@@ -109,11 +113,12 @@ export default function CarruselHero({
                 priority={i === 0}
                 sizes="100vw"
                 className="object-cover will-change-transform"
-                style={
-                  zoom && activa
+                style={{
+                  objectPosition: slide.posicion,
+                  ...(zoom && activa
                     ? { animation: `kenburns ${INTERVALO_MS}ms ease-out both` }
-                    : undefined
-                }
+                    : {}),
+                }}
               />
             ) : (
               // Sin foto aún: degradado con el color de acento del jardín.

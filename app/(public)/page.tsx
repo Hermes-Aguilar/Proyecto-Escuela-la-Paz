@@ -100,6 +100,13 @@ const slidesHero: SlideHero[] = [
     descripcion:
       "Si sientes el llamado a la vida consagrada y misionera, aquí te acompañamos a discernirlo con alegría y esperanza",
   },
+  {
+    imagen: "/images/principalinicio 1.jpeg",
+    categoria: "NUESTRA CONGREGACIÓN",
+    titulo: "Un carisma que sigue vivo",
+    descripcion:
+      "Servimos a la Iglesia con el corazón puesto en Dios y en los más necesitados, fieles al espíritu de nuestras fundadoras",
+  },
 ];
 
 export default function Home() {

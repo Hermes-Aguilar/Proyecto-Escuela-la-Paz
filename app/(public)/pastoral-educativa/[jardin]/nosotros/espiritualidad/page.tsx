@@ -57,10 +57,11 @@ export default async function Espiritualidad({
             </p>
           </div>
 
-          {/* Galería: fotos de la vida espiritual del jardín. Masonry
-              (columnas CSS) para acomodar fotos verticales y horizontales
-              sin recortarlas y aprovechando el espacio. */}
-          {espiritualidad.imagenes && espiritualidad.imagenes.length > 0 && (
+          {/* Galería: fotos de la vida espiritual del jardín. Se muestra en
+              álbumes (una tarjeta por motivo que abre el visor) cuando el
+              jardín define `espiritualidad.albumes`; si no, en mosaico. */}
+          {((espiritualidad.albumes && espiritualidad.albumes.length > 0) ||
+            (espiritualidad.imagenes && espiritualidad.imagenes.length > 0)) && (
             <div className="pt-4">
               <h2 className="font-titulo text-xl font-bold text-marron">
                 Galería
@@ -68,6 +69,7 @@ export default async function Espiritualidad({
               <div className="mt-5">
                 <GaleriaEspiritualidad
                   imagenes={espiritualidad.imagenes}
+                  albumes={espiritualidad.albumes}
                   nombreJardin={jardin.nombre}
                 />
               </div>

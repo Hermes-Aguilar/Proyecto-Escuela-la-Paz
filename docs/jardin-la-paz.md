@@ -30,7 +30,7 @@ El señor Obispo D. José López Lara realizó la primera visita al Jardín desp
 
 Se realizó el primer desfile en las calles, el 21 de marzo de 1970, iniciando los alumnos de primaria.
 
-El 12 de agosto del año 2003 se realizó la incorporación al IEEPOO de Oaxaca con el número de acuerdo 202020803052, llevando el nombre de: JARDÍN DE NIÑOS LA PAZ, otorgando la clave: 20PJN0055B, turno matutino. Cuenta con correo electrónico: jnlapaz12@gmail.com. Conformando en ese año la comunidad:
+El 12 de agosto del año 2003 se realizó la incorporación al IEEPOO de Oaxaca, llevando el nombre de: JARDÍN DE NIÑOS LA PAZ, otorgando la clave: 20PJN0055B, turno matutino. Cuenta con correo electrónico: jnlapaz12@gmail.com. Conformando en ese año la comunidad:
 
 - Superiora local: M. Ma. De Jesús Salvador (Enríquez Espinoza)
 - Hna. Gloria del Dulce Corazón de María (Martínez Martínez)
@@ -161,4 +161,3 @@ INSCRIPCIONES ABIERTAS DE 8:00 A.M. A 2:00 P.M.
 - Clave: 20PJN0055B
 - Turno: Matutino
 - Incorporación: IEEPOO de Oaxaca (12 de agosto de 2003)
-- Número de acuerdo: 202020803052

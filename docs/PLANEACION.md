@@ -319,7 +319,7 @@ neutros antiguos en su `layout.tsx` para verse idéntico.
       `docs/jardin-la-paz.md`, sin resumir): historia, objetivo general,
       misión, visión, valores, clases adicionales y actividades extra
       (con nombre de ícono lucide), contacto institucional (clave, turno,
-      incorporación, número de acuerdo, correo) y `espiritualidad`. La
+      incorporación, correo) y `espiritualidad`. La
       misión/visión/valores son institucionales (MSCG) y se comparten;
       La Paz trae todo, Porvenir hereda lo institucional y deja en `null`
       lo propio pendiente (historia, objetivo, contacto). Páginas
@@ -335,7 +335,7 @@ neutros antiguos en su `layout.tsx` para verse idéntico.
         "Actividades extras" (#actividades) leídas de los datos; íconos
         resueltos por nombre.
       - **Contacto:** tarjeta "Datos del jardín" (clave, turno,
-        incorporación, número de acuerdo, correo) además del formulario.
+        incorporación, correo) además del formulario.
       - **Espiritualidad** (`nosotros/espiritualidad`, nueva): página en
         construcción con ícono de corazón, lista para recibir el contenido
         cuando `espiritualidad` deje de ser `null`.

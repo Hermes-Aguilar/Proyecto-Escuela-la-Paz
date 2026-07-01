@@ -80,6 +80,20 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
       descripcion:
         "Maestras y personal comprometidos que acompañan con amor y dedicación el crecimiento de cada niña y niño.",
     },
+    {
+      imagen: "/images/lapazprincipal 2.jpeg",
+      categoria: "Aprender jugando",
+      titulo: "Cada día una nueva aventura",
+      descripcion:
+        "Descubren el mundo a través del juego, la creatividad y el acompañamiento cercano.",
+    },
+    {
+      imagen: "/images/lapazprincipal 3.jpeg",
+      categoria: "Familia educativa",
+      titulo: "Creciendo juntos en comunidad",
+      descripcion:
+        "Familias, maestras y niños unidos en la formación integral de cada pequeño.",
+    },
   ],
   porvenir: [
     {

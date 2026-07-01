@@ -62,19 +62,19 @@ export default async function QuienesSomos({
       {/* FOTOS DEL JARDÍN · instalaciones/fachada (si el jardín las tiene). */}
       {contenido.quienesSomosImagenes &&
         contenido.quienesSomosImagenes.length > 0 && (
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {contenido.quienesSomosImagenes.map((src, i) => (
+          <div className="mt-8 grid items-start gap-4 sm:grid-cols-2">
+            {contenido.quienesSomosImagenes.map((img, i) => (
               <div
-                key={src}
+                key={img.src}
                 className="overflow-hidden rounded-2xl border border-arena bg-white shadow-sm"
               >
                 <Image
-                  src={src}
+                  src={img.src}
                   alt={`${jardin.nombre} — foto ${i + 1}`}
-                  width={800}
-                  height={600}
+                  width={img.width}
+                  height={img.height}
                   sizes="(min-width: 640px) 50vw, 100vw"
-                  className="h-full w-full object-cover"
+                  className="h-auto w-full"
                 />
               </div>
             ))}
