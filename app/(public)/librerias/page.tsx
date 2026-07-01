@@ -36,10 +36,13 @@ const fotosAcatlan = Array.from(
 );
 
 // Fotos de la Librería MSCG del Atrio de la Catedral, Huajuapan (public/images).
-const fotosCatedral = Array.from(
-  { length: 4 },
-  (_, i) => `/images/libreria-Catedral${i + 1}.jpeg`,
-);
+// La foto 1 es .png; las demás .jpeg, por eso se listan explícitamente.
+const fotosCatedral = [
+  "/images/libreria-Catedral1.png",
+  "/images/libreria-Catedral2.jpeg",
+  "/images/libreria-Catedral3.jpeg",
+  "/images/libreria-Catedral4.jpeg",
+];
 
 // Fotos de la Librería MSCG Casa Central, Huajuapan (public/images).
 const fotosCasaCentral = Array.from(
