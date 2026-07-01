@@ -59,25 +59,38 @@ export default async function QuienesSomos({
         </p>
       </div>
 
-      {/* FOTOS DEL JARDÍN · instalaciones/fachada (si el jardín las tiene). */}
+      {/* FOTOS DEL JARDÍN · instalaciones/fachada (si el jardín las tiene).
+          Se reparten en dos columnas verticales (índices pares a la izquierda,
+          impares a la derecha) para que se apilen sin huecos aunque tengan
+          distintas proporciones (horizontales y verticales). */}
       {contenido.quienesSomosImagenes &&
         contenido.quienesSomosImagenes.length > 0 && (
           <div className="mt-8 grid items-start gap-4 sm:grid-cols-2">
-            {contenido.quienesSomosImagenes.map((img, i) => (
-              <div
-                key={img.src}
-                className="overflow-hidden rounded-2xl border border-arena bg-white shadow-sm"
-              >
-                <Image
-                  src={img.src}
-                  alt={`${jardin.nombre} — foto ${i + 1}`}
-                  width={img.width}
-                  height={img.height}
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="h-auto w-full"
-                />
-              </div>
-            ))}
+            {[0, 1].map((col) => {
+              const imgs = contenido.quienesSomosImagenes!.filter(
+                (_, i) => i % 2 === col,
+              );
+              if (imgs.length === 0) return null;
+              return (
+                <div key={col} className="flex flex-col gap-4">
+                  {imgs.map((img) => (
+                    <div
+                      key={img.src}
+                      className="overflow-hidden rounded-2xl border border-arena bg-white shadow-sm"
+                    >
+                      <Image
+                        src={img.src}
+                        alt={`Jardín ${jardin.nombre}`}
+                        width={img.width}
+                        height={img.height}
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="h-auto w-full"
+                      />
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
           </div>
         )}
 

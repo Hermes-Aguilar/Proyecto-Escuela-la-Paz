@@ -16,6 +16,7 @@ import {
   FaDove,
   FaHandHoldingHeart,
   FaGraduationCap,
+  FaQuoteLeft,
 } from "react-icons/fa";
 
 // Tipografía serif elegante para los títulos
@@ -128,6 +129,65 @@ export default function Home() {
 
       {/* CONTENIDO — capa opaca que se desplaza por encima de la imagen fija. */}
       <div className="relative z-10 bg-crema">
+      {/* MENSAJE DE BIENVENIDA · Superiora General. Fondo azul-suave (litúrgico),
+          alternando con las secciones crema como el resto del portal. */}
+      <section className="bg-azul-suave py-16">
+        <div className="max-w-7xl mx-auto px-6">
+        <AnimacionScroll>
+          <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+            {/* Foto de la superiora */}
+            <div className="mx-auto w-full max-w-xs sm:max-w-sm">
+              <div className="overflow-hidden rounded-2xl border border-arena shadow-md">
+                <Image
+                  src="/images/Superiora.png"
+                  alt="Superiora General de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe"
+                  width={1122}
+                  height={1402}
+                  sizes="(min-width: 640px) 24rem, 80vw"
+                  className="h-auto w-full object-cover"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm uppercase tracking-widest text-marron-suave">
+                Superiora General
+              </p>
+            </div>
+
+            {/* Mensaje */}
+            <div>
+              <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">
+                Mensaje de bienvenida
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-azul-institucional mt-2 mb-5 leading-tight">
+                Un saludo desde el corazón de la Congregación
+              </h2>
+              <FaQuoteLeft className="text-dorado text-2xl mb-3" />
+              <p className="text-marron leading-relaxed mb-4 text-justify">
+                Con inmensa alegría les doy la bienvenida a este espacio, donde
+                deseamos compartir con ustedes el carisma que Dios ha sembrado en
+                nuestro Instituto. Cada rincón de esta casa está animado por el
+                amor del Señor de los Corazones y la ternura de Santa María de
+                Guadalupe.
+              </p>
+              <p className="text-marron leading-relaxed mb-6 text-justify">
+                Que quienes nos visiten encuentren aquí una familia que ora,
+                sirve y camina con esperanza. Los llevamos en nuestra oración,
+                confiando en que el Señor siga bendiciendo a cada una de sus
+                familias.
+              </p>
+              <div className="border-t border-arena pt-4">
+                <p className="font-display text-lg font-bold text-azul-institucional">
+                  Madre María del Carmen Lucero Rosario
+                </p>
+                <span className="text-xs uppercase tracking-wide text-marron-suave">
+                  Superiora General · MSCG
+                </span>
+              </div>
+            </div>
+          </div>
+        </AnimacionScroll>
+        </div>
+      </section>
+
       {/* BIENVENIDA / CARISMA */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <AnimacionScroll>
