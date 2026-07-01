@@ -169,7 +169,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Cards de carisma */}
+          {/* Cards de carisma + foto */}
+          <div>
           <div className="grid grid-cols-2 gap-4">
             {[
               { icon: <FaGlobeAmericas />, title: "Misión", desc: "Llevar el Evangelio a los pueblos de la Diócesis y más allá" },
@@ -186,6 +187,19 @@ export default function Home() {
                 <p className="text-xs text-marron-suave leading-relaxed">{c.desc}</p>
               </div>
             ))}
+          </div>
+
+          {/* Foto del carisma, bajo las tarjetas */}
+          <div className="mt-4 overflow-hidden rounded-xl border border-arena shadow-sm">
+            <Image
+              src="/images/inicio 12.jpeg"
+              alt="Misioneras del Señor de los Corazones en misión"
+              width={1280}
+              height={720}
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="h-auto w-full"
+            />
+          </div>
           </div>
         </div>
         </AnimacionScroll>
