@@ -8,6 +8,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Images, X } from "lucide-react";
 import { CarruselGaleria } from "./CarruselGaleria";
 
@@ -19,6 +20,10 @@ export function GaleriaLibreriaModal({
   titulo: string;
 }) {
   const [abierto, setAbierto] = useState(false);
+  // El modal se monta en <body> con un portal (ver más abajo). Este flag
+  // evita usar document.body durante el render del servidor (SSR).
+  const [montado, setMontado] = useState(false);
+  useEffect(() => setMontado(true), []);
 
   // Esc cierra la ventana y se bloquea el scroll del fondo mientras
   // está abierta.
@@ -72,13 +77,15 @@ export function GaleriaLibreriaModal({
         </span>
       </button>
 
-      {abierto && (
+      {abierto &&
+        montado &&
+        createPortal(
         <div
           role="dialog"
           aria-modal="true"
           aria-label={`Fotos de ${titulo}`}
           onClick={() => setAbierto(false)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -103,8 +110,9 @@ export function GaleriaLibreriaModal({
               permitirAmpliar={false}
             />
           </div>
-        </div>
-      )}
+        </div>,
+          document.body,
+        )}
     </>
   );
 }

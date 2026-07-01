@@ -23,6 +23,30 @@ const fotosChila = Array.from(
   (_, i) => `/images/libreria-ChiladelasFlores${i + 1}.jpeg`,
 );
 
+// Fotos de la Librería MSCG "San José" de Tehuitzingo (public/images).
+const fotosTehuitzingo = Array.from(
+  { length: 12 },
+  (_, i) => `/images/libreria-Tehuitzingo${i + 1}.jpeg`,
+);
+
+// Fotos de la Librería "La Providencia" de Acatlán de Osorio (public/images).
+const fotosAcatlan = Array.from(
+  { length: 29 },
+  (_, i) => `/images/libreria-Acatlan${i + 1}.jpeg`,
+);
+
+// Fotos de la Librería MSCG del Atrio de la Catedral, Huajuapan (public/images).
+const fotosCatedral = Array.from(
+  { length: 4 },
+  (_, i) => `/images/libreria-Catedral${i + 1}.jpeg`,
+);
+
+// Fotos de la Librería MSCG Casa Central, Huajuapan (public/images).
+const fotosCasaCentral = Array.from(
+  { length: 6 },
+  (_, i) => `/images/libreria-Casacentral${i + 1}.jpeg`,
+);
+
 const slidesHero: SlideHero[] = [
   {
     imagen: "/images/libreriacarrusel1.png",
@@ -53,7 +77,8 @@ type Libreria = {
   direccion: string;
   /** Horario de atención en texto libre. Opcional si aún no se confirma. */
   horario?: string;
-  telefono?: string;
+  /** Teléfonos de contacto (uno o varios). Opcional. */
+  telefono?: string[];
   email?: string;
   principal: boolean;
   descripcion: string;
@@ -62,6 +87,25 @@ type Libreria = {
   /** Fotos de la librería; se muestran en un carrusel dentro de un modal. */
   fotos?: string[];
 };
+
+// Artículos compartidos por los dos puntos de la Librería MSCG de Huajuapan
+// (Casa Central y Atrio Catedral): cuando falta algo en uno, se surte del otro.
+const productosHuajuapan = [
+  "Imágenes de bulto",
+  "Cuadros de resina y de marco dorado",
+  "Cristos y lienzos sagrados",
+  "Rosarios, pulseras y escapularios",
+  "Medallas, llaveros y separadores",
+  "Libros, biblias y novenas",
+  "Estampas, cédulas y pósters",
+  "Manteles, casullas, albas y juego de altar",
+  "Cortinas, floreros y recuerdos",
+  "Cálices, copones, vinajeras y relicarios",
+  "Incensarios, acetres y vasos ciriales",
+  "Cirios, incienso y carbón litúrgico",
+  "Bases y varillas para estandarte",
+  "Vino de consagrar y material para sacramentos",
+];
 
 const librerias: Libreria[] = [
   {
@@ -92,7 +136,8 @@ const librerias: Libreria[] = [
     ciudad: "Chila de las Flores, Puebla",
     direccion:
       "Mercado Municipal, planta alta, a un costado de la parroquia, Chila de las Flores, Pue.",
-    // Horario pendiente de confirmar.
+    horario: "Domingo a viernes: 10:00 – 14:00 h",
+    telefono: ["55 6178 3237"],
     principal: false,
     descripcion:
       "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Chila de las Flores. Artículos religiosos y devocionales para acompañar la vida de fe de la comunidad.",
@@ -107,6 +152,79 @@ const librerias: Libreria[] = [
       "Libros en variedad",
     ],
     fotos: fotosChila,
+  },
+  {
+    nombre: "Librería MSCG Casa Central",
+    ciudad: "Huajuapan de León, Oaxaca",
+    direccion: "Matamoros N°13, Colonia Centro, Huajuapan de León, Oax.",
+    horario: "Todos los días: 8:00 – 18:00 h",
+    principal: false,
+    descripcion:
+      "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Huajuapan de León. Punto principal con artículos religiosos, objetos litúrgicos y material para sacramentos al servicio de la comunidad.",
+    productos: productosHuajuapan,
+    fotos: fotosCasaCentral,
+  },
+  {
+    nombre: "Librería MSCG Atrio Catedral",
+    ciudad: "Huajuapan de León, Oaxaca",
+    direccion: "Atrio de la Catedral, Huajuapan de León, Oax.",
+    horario: "Lunes a viernes: 10:00 – 14:00 h y 18:00 – 19:00 h",
+    principal: false,
+    descripcion:
+      "Segundo punto de atención de la Librería MSCG en Huajuapan de León, ubicado en el atrio de la Catedral. Complementa a la Casa Central para acercar los artículos religiosos y litúrgicos a la comunidad.",
+    productos: productosHuajuapan,
+    fotos: fotosCatedral,
+  },
+  {
+    nombre: 'Librería MSCG "San José"',
+    ciudad: "Tehuitzingo, Puebla",
+    direccion: "Calle Venustiano Carranza, Tehuitzingo, Pue.",
+    horario: "Martes a domingo: 9:00 – 16:00 h",
+    principal: false,
+    descripcion:
+      'Librería de artículos religiosos "San José" de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Tehuitzingo. Ofrece imágenes, objetos litúrgicos y material para sacramentos al servicio de la comunidad.',
+    productos: [
+      "Imágenes y cuadros",
+      "Cristos",
+      "Rosarios y pulseras",
+      "Libros y libros de catequesis escolarizada",
+      "Manteles y ornamentos",
+      "Cirios y velas para sacramentos",
+      "Cáliz, vinajeras y relicario",
+      "Incensario e incienso",
+      "Campanas",
+      "Vino para consagrar y hostias",
+      "Objetos litúrgicos",
+    ],
+    fotos: fotosTehuitzingo,
+  },
+  {
+    nombre: 'Librería "La Providencia"',
+    ciudad: "Acatlán de Osorio, Puebla",
+    direccion:
+      "Calle Revolución #9, Zona Centro, a un costado del templo parroquial de San Juan Bautista, Acatlán de Osorio, Pue.",
+    telefono: ["953 534 1283", "953 100 0659"],
+    horario:
+      "Lun, mar, jue, vie y sáb: 9:30 – 17:00 h · Domingos: 9:30 – 15:00 h",
+    principal: false,
+    descripcion:
+      'Artículos religiosos "La Providencia" de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Acatlán de Osorio. Un espacio de evangelización con artículos religiosos y devocionales para la comunidad.',
+    // Artículos observados en las fotos de la librería (public/images).
+    productos: [
+      "Imágenes de bulto y estatuas de santos",
+      "Cristos y crucifijos",
+      "Cuadros y láminas religiosas",
+      "Rosarios y pulseras",
+      "Escapularios y medallas",
+      "Estampas y cédulas de santos",
+      "Libros, biblias y catecismos",
+      "Novenas, misales y devocionarios",
+      "Manteles y purificadores de altar",
+      "Ornamentos litúrgicos",
+      "Veladoras y cirios",
+      "Artículos para primera comunión y sacramentos",
+    ],
+    fotos: fotosAcatlan,
   },
   // TODO: agregar las otras 3 librerías (nombre, ciudad, dirección,
   // horario, descripción, productos y fotos). Para las fotos, sube las
@@ -153,12 +271,12 @@ export default function Librerias() {
                         <FaMapMarkerAlt className="mt-0.5 text-azul-institucional shrink-0" />
                         <span>{lib.direccion}</span>
                       </div>
-                      {lib.telefono && (
-                        <div className="flex items-center gap-2 text-sm text-marron-suave mb-2">
+                      {lib.telefono?.map((tel) => (
+                        <div key={tel} className="flex items-center gap-2 text-sm text-marron-suave mb-2">
                           <FaPhoneAlt className="text-dorado shrink-0" />
-                          <a href={`tel:${lib.telefono}`} className="hover:text-azul-institucional transition-colors">{lib.telefono}</a>
+                          <a href={`tel:${tel.replace(/\s+/g, "")}`} className="hover:text-azul-institucional transition-colors">{tel}</a>
                         </div>
-                      )}
+                      ))}
                       {lib.email && (
                         <div className="flex items-center gap-2 text-sm text-marron-suave">
                           <FaEnvelope className="text-dorado shrink-0" />

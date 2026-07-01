@@ -78,16 +78,27 @@ export function CarruselGaleria({
                 "aria-label": `Ampliar foto ${actual + 1} de ${imagenes.length}`,
               }
             : {})}
-          className={`group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl border border-arena bg-white shadow-sm ${
+          className={`group relative block aspect-4/3 w-full overflow-hidden rounded-2xl border border-arena bg-crema shadow-sm ${
             permitirAmpliar ? "cursor-zoom-in" : ""
           }`}
         >
+          {/* Fondo: la misma foto difuminada y ampliada rellena la caja para
+              que las fotos verticales no dejen barras vacías. */}
+          <Image
+            src={imagenes[actual]}
+            alt=""
+            aria-hidden
+            fill
+            sizes="(min-width: 768px) 48rem, 100vw"
+            className="scale-110 object-cover blur-xl brightness-95"
+          />
+          {/* Foto completa (sin recortar) encima del fondo. */}
           <Image
             src={imagenes[actual]}
             alt={`${titulo} — foto ${actual + 1}`}
             fill
             sizes="(min-width: 768px) 48rem, 100vw"
-            className={`object-cover transition-transform duration-300 ${
+            className={`relative object-contain transition-transform duration-300 ${
               permitirAmpliar ? "group-hover:scale-[1.03]" : ""
             }`}
             priority={actual === 0}

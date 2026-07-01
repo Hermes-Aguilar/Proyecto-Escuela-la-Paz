@@ -67,9 +67,12 @@ const sedes = [
 ];
 
 const librerias = [
-  { nombre: "Librería San Francisco", ciudad: "CDMX Centro", horario: "Lun–Sáb 9–18h" },
-  { nombre: "Librería La Porciúncula", ciudad: "Guadalajara", horario: "Lun–Vie 9–17h" },
-  { nombre: "Librería Paz y Bien", ciudad: "Monterrey", horario: "Lun–Sáb 10–18h" },
+  { nombre: 'Librería MSCG "Señor de los Corazones"', ciudad: "Juxtlahuaca, Oax.", horario: "Todos los días 9–17h" },
+  { nombre: 'Librería "La Purísima"', ciudad: "Chila de las Flores, Pue.", horario: "Dom–Vie 10–14h" },
+  { nombre: "Librería MSCG Casa Central", ciudad: "Huajuapan de León, Oax.", horario: "Todos los días 8–18h" },
+  { nombre: "Librería MSCG Atrio Catedral", ciudad: "Huajuapan de León, Oax.", horario: "Lun–Vie 10–14 y 18–19h" },
+  { nombre: 'Librería MSCG "San José"', ciudad: "Tehuitzingo, Pue.", horario: "Mar–Dom 9–16h" },
+  { nombre: 'Librería "La Providencia"', ciudad: "Acatlán de Osorio, Pue.", horario: "Lun–Sáb 9:30–17h" },
 ];
 
 const slidesHero: SlideHero[] = [
@@ -401,7 +404,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="space-y-3">
-            {librerias.map((lib) => (
+            {librerias.slice(0, 3).map((lib) => (
               <div
                 key={lib.nombre}
                 className="bg-white border border-arena rounded-xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
