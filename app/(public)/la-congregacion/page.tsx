@@ -16,6 +16,19 @@ import {
 } from "react-icons/fa";
 
 import { AnimacionScroll } from "@/components/public/AnimacionScroll";
+import { GaleriaMisionera } from "@/components/public/GaleriaMisionera";
+
+// Fotos de la congregación reunida (una celebración con toda la comunidad).
+// Las grupales van primero; luego los momentos de la liturgia.
+const fotosCongregacion = [
+  "/images/Congegacion3.jpeg",
+  "/images/Congegacion7.jpeg",
+  "/images/Congegacion5.jpeg",
+  "/images/Congegacion.jpeg",
+  "/images/Congegacion2.jpeg",
+  "/images/Congegacion4.jpeg",
+  "/images/Congegacion6.jpeg",
+];
 
 // Las 5 subpáginas, en tarjetas enlazadas.
 const tarjetas = [
@@ -208,7 +221,33 @@ export default function LaCongregacion() {
       </section>
 
       {/* ============================================================
-          4 · SITUACIÓN ACTUAL — números destacados.
+          4 · GALERÍA — la congregación reunida.
+          ============================================================ */}
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <AnimacionScroll>
+          <div className="mb-12 text-center">
+            <span className="font-titulo text-sm font-semibold uppercase tracking-widest text-azul-institucional">
+              Una sola familia
+            </span>
+            <h2 className="font-titulo mt-2 text-3xl font-bold text-marron">
+              La Congregación reunida
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-marron-suave">
+              Nuestras hermanas de las distintas comunidades, congregadas en la
+              oración y la fraternidad. Haz clic en una foto para ampliarla.
+            </p>
+          </div>
+        </AnimacionScroll>
+        <AnimacionScroll>
+          <GaleriaMisionera
+            imagenes={fotosCongregacion}
+            etiqueta="la Congregación reunida"
+          />
+        </AnimacionScroll>
+      </section>
+
+      {/* ============================================================
+          5 · SITUACIÓN ACTUAL — números destacados.
           ============================================================ */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <AnimacionScroll>

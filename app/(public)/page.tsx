@@ -188,7 +188,7 @@ export default function Home() {
               </p>
               <div className="border-t border-arena pt-4">
                 <p className="font-display text-lg font-bold text-azul-institucional">
-                  Madre María del Carmen Lucero Rosario
+                  M. Celia Teodora Corro Salazar
                 </p>
                 <span className="text-xs uppercase tracking-wide text-marron-suave">
                   Superiora General · MSCG
@@ -217,11 +217,20 @@ export default function Home() {
               el 12 de mayo de 1957 en Huajuapan de León, Oaxaca, por el Pbro. Lic. Luis Fiacro
               Guerrero Ramírez.
             </p>
-            <p className="text-marron leading-relaxed mb-6 text-justify">
-              Nuestro carisma es ser misioneras, viviendo el amor oblativo del Señor de los Corazones,
-              llevando con alegría la semilla del Evangelio preferencialmente a los más necesitados a
-              ejemplo de Santa María de Guadalupe, para gloria de Dios y edificación de la Iglesia.
-            </p>
+            {/* Carisma resaltado: etiqueta en caligrafía (font-script) y el
+                texto en la tipografía de títulos, con frases clave en oro. */}
+            <div className="mb-6 rounded-2xl border border-dorado/30 bg-dorado-suave/40 p-6">
+              <p className="font-script text-3xl leading-none text-dorado-oscuro">
+                Nuestro carisma
+              </p>
+              <p className="font-titulo text-marron text-xl md:text-2xl leading-relaxed mt-3">
+                Ser <span className="font-semibold text-dorado-oscuro">misioneras</span>, viviendo el{" "}
+                <span className="font-semibold text-dorado-oscuro">amor oblativo del Señor de los Corazones</span>,
+                llevando con alegría la semilla del Evangelio preferencialmente a los más necesitados a
+                ejemplo de <span className="font-semibold text-dorado-oscuro">Santa María de Guadalupe</span>,
+                para gloria de Dios y edificación de la Iglesia.
+              </p>
+            </div>
             <div className="bg-azul-institucional/10 border-l-4 border-azul-institucional pl-4 py-3 rounded-r-lg mb-6">
               <p className="font-display text-lg italic text-marron">
                 «Alegrémonos de sufrir por Cristo en favor de su Iglesia»
