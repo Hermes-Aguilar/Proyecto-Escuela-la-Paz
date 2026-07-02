@@ -234,7 +234,7 @@ export default function LaCongregacion() {
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-marron-suave">
               Nuestras hermanas de las distintas comunidades, congregadas en la
-              oración y la fraternidad. Haz clic en una foto para ampliarla.
+              oración y la fraternidads.
             </p>
           </div>
         </AnimacionScroll>
