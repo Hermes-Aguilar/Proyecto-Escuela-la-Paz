@@ -12,6 +12,7 @@ import { History } from "lucide-react";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 // Nombre histórico de cada jardín (dato puntual, no vive en el .md de
 // contenido). Tepeyac → La Paz, Nazareth → Porvenir.
@@ -46,21 +47,14 @@ export default async function Historia({
   const nombreAnterior = NOMBRE_ANTERIOR[slug];
 
   return (
-    <div className="font-texto mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <p
-        className="text-sm font-semibold uppercase tracking-widest"
-        style={{ color: "var(--jardin-primario)" }}
-      >
-        Nosotros
-      </p>
-      <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-        Historia
-      </h1>
-
+    <div className="font-texto">
+      <EncabezadoApartado eyebrow="Nosotros" titulo="Historia" />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
       {/* Origen: nombre histórico del jardín */}
       {nombreAnterior && (
         <div
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-arena bg-white px-4 py-2 text-sm font-medium text-marron-suave shadow-sm"
+          className="inline-flex items-center gap-2 rounded-full border border-arena bg-white px-4 py-2 text-sm font-medium text-marron-suave shadow-sm"
           style={{
             borderColor: "color-mix(in srgb, var(--jardin-primario) 40%, white)",
           }}
@@ -148,6 +142,8 @@ export default async function Historia({
           Información próximamente.
         </p>
       )}
+        </div>
+      </section>
     </div>
   );
 }

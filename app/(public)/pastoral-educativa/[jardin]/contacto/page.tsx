@@ -13,6 +13,7 @@ import { MapPin, Phone, Smartphone, Mail, Clock } from "lucide-react";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 // Íconos de marca (SVG inline) con su color oficial. Los links salen de
 // los datos de cada jardín (lib/data/jardines-contenido).
@@ -118,25 +119,16 @@ export default async function ContactoJardin({
     : [];
 
   return (
-    <div className="font-texto mx-auto max-w-5xl px-6 py-12 md:py-16">
-      {/* Encabezado */}
-      <div className="flex flex-col items-center text-center">
-        <p
-          className="text-sm font-semibold uppercase tracking-widest"
-          style={{ color: "var(--jardin-primario)" }}
-        >
-          Contacto
-        </p>
-        <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-          Escríbenos
-        </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-marron-suave">
-          ¿Tienes preguntas sobre inscripciones, niveles o nuestras actividades?
-          Con gusto te atendemos en {jardin.nombre}.
-        </p>
-      </div>
+    <div className="font-texto">
+      <EncabezadoApartado eyebrow="Contacto" titulo="Escríbenos" />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
+      <p className="max-w-2xl text-base leading-relaxed text-marron-suave">
+        ¿Tienes preguntas sobre inscripciones, niveles o nuestras actividades?
+        Con gusto te atendemos en {jardin.nombre}.
+      </p>
 
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
+      <div className="mt-10 grid gap-8 md:grid-cols-2">
         {/* COLUMNA 1 — Datos de contacto + datos del jardín */}
         <div className="space-y-8">
           <div className="rounded-2xl border border-arena bg-white p-6 shadow-sm md:p-7">
@@ -322,6 +314,8 @@ export default async function ContactoJardin({
           </div>
         </div>
       </div>
+        </div>
+      </section>
     </div>
   );
 }

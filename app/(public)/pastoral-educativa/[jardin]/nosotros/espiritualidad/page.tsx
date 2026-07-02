@@ -11,6 +11,7 @@ import { Heart } from "lucide-react";
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
 import { GaleriaEspiritualidad } from "@/components/public/GaleriaEspiritualidad";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 export default async function Espiritualidad({
   params,
@@ -24,19 +25,12 @@ export default async function Espiritualidad({
   const espiritualidad = jardinesContenido[slug]?.espiritualidad ?? null;
 
   return (
-    <div className="font-texto mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <p
-        className="text-sm font-semibold uppercase tracking-widest"
-        style={{ color: "var(--jardin-primario)" }}
-      >
-        Nosotros
-      </p>
-      <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-        Espiritualidad
-      </h1>
-
+    <div className="font-texto">
+      <EncabezadoApartado eyebrow="Nosotros" titulo="Espiritualidad" />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
       {espiritualidad ? (
-        <div className="mt-8 space-y-5 text-base leading-relaxed text-marron-suave">
+        <div className="space-y-5 text-base leading-relaxed text-marron-suave">
           <p className="text-justify">{espiritualidad.descripcion}</p>
           <div
             className="flex items-start gap-4 rounded-2xl border border-arena bg-white p-6 shadow-sm"
@@ -76,27 +70,34 @@ export default async function Espiritualidad({
             </div>
           )}
 
-          {/* Video destacado (p. ej. el retiro): embebido de YouTube
-              debajo de la galería. */}
-          {espiritualidad.video && (
+          {/* Videos: cuadrícula de reproductores de YouTube, debajo de la
+              galería (varios videos de la vida espiritual del jardín). */}
+          {espiritualidad.videos && espiritualidad.videos.length > 0 && (
             <div className="pt-4">
               <h2 className="font-titulo text-xl font-bold text-marron">
-                {espiritualidad.video.titulo}
+                Videos
               </h2>
-              <div className="mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-arena bg-black shadow-sm">
-                <iframe
-                  src={`https://www.youtube.com/embed/${espiritualidad.video.id}?rel=0`}
-                  title={espiritualidad.video.titulo}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="h-full w-full"
-                />
+              <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                {espiritualidad.videos.map((id, i) => (
+                  <div
+                    key={id}
+                    className="aspect-video w-full overflow-hidden rounded-2xl border border-arena bg-black shadow-sm"
+                  >
+                    <iframe
+                      src={`https://www.youtube.com/embed/${id}?rel=0`}
+                      title={`Video ${i + 1} de la vida espiritual de ${jardin.nombre}`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="h-full w-full"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           )}
         </div>
       ) : (
-        <div className="mt-10 flex flex-col items-center gap-5 rounded-2xl border border-dashed border-arena bg-white px-6 py-14 text-center shadow-sm">
+        <div className="flex flex-col items-center gap-5 rounded-2xl border border-dashed border-arena bg-white px-6 py-14 text-center shadow-sm">
           <span
             className="flex h-16 w-16 items-center justify-center rounded-full"
             style={{
@@ -116,6 +117,8 @@ export default async function Espiritualidad({
           </p>
         </div>
       )}
+        </div>
+      </section>
     </div>
   );
 }

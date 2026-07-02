@@ -15,6 +15,7 @@ import { Target, Eye } from "lucide-react";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 const PROXIMAMENTE = "Información próximamente.";
 
@@ -30,18 +31,11 @@ export default async function QuienesSomos({
   const contenido = jardinesContenido[slug] ?? jardinesContenido["la-paz"]!;
 
   return (
-    <div className="font-texto mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <p
-        className="text-sm font-semibold uppercase tracking-widest"
-        style={{ color: "var(--jardin-primario)" }}
-      >
-        Nosotros
-      </p>
-      <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-        Quiénes somos
-      </h1>
-
-      <div className="mt-8 space-y-5 text-base leading-relaxed text-marron-suave">
+    <div className="font-texto">
+      <EncabezadoApartado eyebrow="Nosotros" titulo="Quiénes somos" />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
+      <div className="space-y-5 text-base leading-relaxed text-marron-suave">
         <p>
           {jardin.nombre} es un jardín de niños de las{" "}
           <strong className="text-marron">
@@ -189,6 +183,8 @@ export default async function QuienesSomos({
         ) : (
           <p className="mt-4 text-base text-marron-suave">{PROXIMAMENTE}</p>
         )}
+      </section>
+        </div>
       </section>
     </div>
   );

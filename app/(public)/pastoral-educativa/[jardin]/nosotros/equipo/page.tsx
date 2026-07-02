@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 const PROXIMAMENTE = "Información próximamente.";
 
@@ -39,17 +40,11 @@ export default async function Equipo({
   const equipo = contenido.equipo;
 
   return (
-    <div className="font-texto mx-auto max-w-4xl px-6 py-12 md:py-16">
-      <p
-        className="text-sm font-semibold uppercase tracking-widest"
-        style={{ color: "var(--jardin-primario)" }}
-      >
-        Nosotros
-      </p>
-      <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-        Nuestro equipo
-      </h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-marron-suave">
+    <div className="font-texto">
+      <EncabezadoApartado eyebrow="Nosotros" titulo="Nuestro equipo" />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
+      <p className="max-w-2xl text-base leading-relaxed text-marron-suave">
         Un grupo de maestras y religiosas que acompañan con vocación y cariño el
         crecimiento de cada niña y niño de {jardin.nombre}.
       </p>
@@ -108,6 +103,8 @@ export default async function Equipo({
           <Mail size={16} /> Ir a contacto
         </Link>
       </div>
+        </div>
+      </section>
     </div>
   );
 }

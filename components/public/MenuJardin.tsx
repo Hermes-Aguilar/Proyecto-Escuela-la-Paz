@@ -108,12 +108,22 @@ export default function MenuJardin({
 
   return (
     <header className="sticky top-0 z-40 border-b border-arena bg-white">
+      {/* Franja superior con el degradado propio del jardín (primario →
+          secundario): identifica cada escuela sin sacrificar legibilidad. */}
+      <div
+        className="h-1"
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, var(--jardin-primario), var(--jardin-secundario))",
+        }}
+        aria-hidden="true"
+      />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
         {/* IZQUIERDA · ícono + nombre del jardín */}
         <Link
           href={base}
           onClick={cerrar}
-          className="flex shrink-0 items-center gap-2.5"
+          className="group flex shrink-0 items-center gap-2.5"
         >
           {/* Niño Jesús · símbolo compartido, antes del logo del jardín. */}
           <Image
@@ -121,7 +131,7 @@ export default function MenuJardin({
             alt="Niño Jesús"
             width={56}
             height={56}
-            className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14"
+            className="h-12 w-12 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-14 sm:w-14"
             priority
           />
           {logoSrc ? (
@@ -130,7 +140,7 @@ export default function MenuJardin({
               alt={`Logo de ${nombreJardin}`}
               width={56}
               height={56}
-              className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14"
+              className="h-12 w-12 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-14 sm:w-14"
               priority
             />
           ) : (
@@ -163,7 +173,9 @@ export default function MenuJardin({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-arena/40"
+                  className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--jardin-primario)_8%,white)] after:absolute after:bottom-0.5 after:left-3 after:right-3 after:h-0.5 after:origin-left after:rounded-full after:bg-[var(--jardin-primario)] after:transition-transform after:duration-300 ${
+                    act ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"
+                  }`}
                   style={
                     act
                       ? { color: colorPrimario }
@@ -182,7 +194,11 @@ export default function MenuJardin({
               <div key={item.label} className="group relative">
                 <button
                   type="button"
-                  className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-arena/40"
+                  className={`relative flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-[color-mix(in_srgb,var(--jardin-primario)_8%,white)] after:absolute after:bottom-0.5 after:left-3 after:right-3 after:h-0.5 after:origin-left after:rounded-full after:bg-[var(--jardin-primario)] after:transition-transform after:duration-300 ${
+                    activoGrupo
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0 group-hover:after:scale-x-100"
+                  }`}
                   style={
                     activoGrupo
                       ? { color: colorPrimario }
@@ -192,11 +208,11 @@ export default function MenuJardin({
                   {item.label}
                   <ChevronDown
                     size={13}
-                    className="transition-transform duration-200 group-hover:rotate-180"
+                    className="transition-transform duration-300 group-hover:rotate-180"
                   />
                 </button>
 
-                <div className="invisible absolute left-0 top-full z-50 w-60 translate-y-1 pt-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                <div className="invisible absolute left-0 top-full z-50 w-60 origin-top translate-y-1 scale-95 pt-1 opacity-0 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100">
                   <ul className="overflow-hidden rounded-xl border border-arena bg-white py-1 shadow-xl">
                     {item.hijos.map((h) => {
                       const act = linkActivo(h.href, pathname);
@@ -204,7 +220,7 @@ export default function MenuJardin({
                         <li key={h.href}>
                           <Link
                             href={h.href}
-                            className="block px-4 py-2.5 text-sm text-marron transition-colors hover:bg-crema"
+                            className="block px-4 py-2.5 text-sm text-marron transition-all duration-200 hover:bg-[color-mix(in_srgb,var(--jardin-primario)_8%,white)] hover:pl-5"
                             style={
                               act
                                 ? { backgroundColor: `${colorPrimario}1A`, color: colorPrimario }
@@ -238,15 +254,27 @@ export default function MenuJardin({
           onClick={() => setAbierto((o) => !o)}
           aria-label="Menú"
           aria-expanded={abierto}
-          className="rounded-lg p-2 text-marron transition-colors hover:bg-arena/40 lg:hidden"
+          className="rounded-lg p-2 text-marron transition-colors hover:bg-[color-mix(in_srgb,var(--jardin-primario)_8%,white)] lg:hidden"
         >
-          {abierto ? <X size={24} /> : <Menu size={24} />}
+          <span
+            className={`block transition-transform duration-300 ${
+              abierto ? "rotate-90" : "rotate-0"
+            }`}
+          >
+            {abierto ? <X size={24} /> : <Menu size={24} />}
+          </span>
         </button>
       </div>
 
-      {/* Menú móvil desplegable */}
-      {abierto && (
-        <div className="border-t border-arena bg-white lg:hidden">
+      {/* Menú móvil desplegable: siempre montado; se anima abriendo/cerrando
+          con grid-template-rows (0fr → 1fr), sin saltos. */}
+      <div
+        className={`grid overflow-hidden bg-white transition-[grid-template-rows] duration-300 ease-out lg:hidden ${
+          abierto ? "grid-rows-[1fr] border-t border-arena" : "grid-rows-[0fr]"
+        }`}
+      >
+        {/* inert: al estar cerrado, sus links no reciben foco ni lectura. */}
+        <div className="min-h-0 overflow-hidden" inert={!abierto}>
           <nav className="mx-auto max-w-7xl px-4 py-2 sm:px-6">
             <Link
               href="/pastoral-educativa"
@@ -315,7 +343,7 @@ export default function MenuJardin({
             </ul>
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }

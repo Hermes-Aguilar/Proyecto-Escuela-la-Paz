@@ -23,6 +23,7 @@ import {
 
 import { getJardinBySlug } from "@/lib/dal/jardines";
 import { jardinesContenido } from "@/lib/data/jardines-contenido";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 const NIVELES = [
   {
@@ -69,18 +70,15 @@ export default async function Oferta({
   const contenido = jardinesContenido[slug] ?? jardinesContenido["la-paz"]!;
 
   return (
-    <div className="font-texto mx-auto max-w-4xl px-6 py-12 md:py-16">
-      <p
+    <div className="font-texto">
+      <EncabezadoApartado
         id="oferta"
-        className="scroll-mt-24 text-sm font-semibold uppercase tracking-widest"
-        style={{ color: "var(--jardin-primario)" }}
-      >
-        Oferta educativa
-      </p>
-      <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-        Lo que ofrecemos
-      </h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-marron-suave">
+        eyebrow="Oferta educativa"
+        titulo="Lo que ofrecemos"
+      />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
+      <p className="max-w-2xl text-base leading-relaxed text-marron-suave">
         Acompañamos a cada niña y niño según su edad, con actividades que cultivan
         su cuerpo, su mente, su corazón y su espíritu.
       </p>
@@ -197,6 +195,8 @@ export default async function Oferta({
               </div>
             );
           })}
+        </div>
+      </section>
         </div>
       </section>
     </div>

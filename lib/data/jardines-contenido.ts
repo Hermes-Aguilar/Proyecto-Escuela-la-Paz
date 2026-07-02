@@ -64,9 +64,9 @@ export interface EspiritualidadContenido {
    *  una tarjeta (portada + badge "N fotos") que abre un visor para
    *  recorrerlas. Tiene prioridad sobre `imagenes`. Opcional. */
   albumes?: AlbumEspiritualidad[];
-  /** Video destacado de YouTube (su ID y título), p. ej. un retiro. Se
-   *  muestra embebido debajo de la galería. Opcional. */
-  video?: { id: string; titulo: string };
+  /** Galería de videos de YouTube (solo sus IDs). Se muestran en una sección
+   *  "Videos" con una cuadrícula de reproductores, debajo de la galería. */
+  videos?: string[];
 }
 
 export interface MiembroEquipo {
@@ -147,6 +147,24 @@ const ALBUMES_ESPIRITUALIDAD_PORVENIR: AlbumEspiritualidad[] = [
     titulo: "Viacrucis del Jardín de Niños La Paz a la Catedral",
     fotos: [1, 2, 3].map((n) => `/images/ViacrusisPorvenir${n}.jpeg`),
   },
+];
+
+// Retiro de padres de familia: es un retiro CONJUNTO de ambos jardines, por eso
+// el mismo álbum se muestra en la espiritualidad de La Paz y de Porvenir.
+const ALBUM_RETIRO_PADRES: AlbumEspiritualidad = {
+  titulo: "Retiro de padres de familia del Jardín de Niños Porvenir y la Paz",
+  fotos: [1, 2, 3].map(
+    (n) =>
+      `/images/Retiro de padres de familia del Jardín de Niños Porvenir y la Paz${n}.jpeg`,
+  ),
+};
+
+// Videos de espiritualidad (IDs de YouTube), compartidos por ambos jardines.
+const VIDEOS_ESPIRITUALIDAD = [
+  "LlrJimYiDQc",
+  "3R2Tkb7z7s4",
+  "0g1Bw9a1si8",
+  "Pb-SR6z0vxw",
 ];
 
 // Formación espiritual: institucional (MSCG), compartida por los jardines.
@@ -295,7 +313,9 @@ export const jardinesContenido: Record<string, JardinContenido> = {
             "Celebraciones mensuales en honor al Divino Niño Jesús de Praga",
           fotos: ESPIRITUALIDAD_IMAGENES_LA_PAZ,
         },
+        ALBUM_RETIRO_PADRES,
       ],
+      videos: VIDEOS_ESPIRITUALIDAD,
     },
     equipo: EQUIPO_LA_PAZ,
   },
@@ -330,8 +350,10 @@ export const jardinesContenido: Record<string, JardinContenido> = {
     },
     espiritualidad: {
       ...ESPIRITUALIDAD_MSCG,
-      albumes: ALBUMES_ESPIRITUALIDAD_PORVENIR,
-      video: { id: "WnW7j-AXgkg", titulo: "Retiro de Maestros" },
+      albumes: [...ALBUMES_ESPIRITUALIDAD_PORVENIR, ALBUM_RETIRO_PADRES],
+      // "WnW7j-AXgkg" es el retiro de maestros, propio de Porvenir; va junto
+      // con los videos compartidos en la misma cuadrícula.
+      videos: ["WnW7j-AXgkg", ...VIDEOS_ESPIRITUALIDAD],
     },
     equipo: EQUIPO_PORVENIR,
   },

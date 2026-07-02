@@ -375,6 +375,13 @@ export default async function InicioJardin({
   const imagenHero =
     IMAGEN_JARDIN[jardin.slug] ?? jardin.logoUrl ?? "/images/lapaz3.jpeg";
 
+  // Fondo tenue con el color propio del jardín (equivalente al azul-suave del
+  // portal general). Alterna con crema para separar los apartados: La Paz da
+  // un teal suave y Porvenir un amarillo suave, según --jardin-primario.
+  const fondoSuave = {
+    backgroundColor: "color-mix(in srgb, var(--jardin-primario) 12%, white)",
+  };
+
   return (
     <div className="font-texto">
       {/* ── HERO ── Carrusel con fondo fijo (efecto reveal) si el jardín
@@ -398,8 +405,9 @@ export default async function InicioJardin({
 
       {/* CONTENIDO — capa opaca que se desplaza por encima de la imagen fija. */}
       <div className="relative z-10 bg-crema">
-        {/* BIENVENIDA */}
-        <section className="mx-auto max-w-3xl px-6 py-14 text-center md:py-16">
+        {/* BIENVENIDA · fondo con el tinte del jardín. */}
+        <section className="py-14 md:py-16" style={fondoSuave}>
+          <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimacionScroll>
             <p
               className="text-sm font-semibold uppercase tracking-widest"
@@ -437,10 +445,11 @@ export default async function InicioJardin({
               />
             </figure>
           </AnimacionScroll>
+          </div>
         </section>
 
-        {/* ÚLTIMAS PUBLICACIONES */}
-        <section className="bg-white/60 px-6 py-14 md:py-16">
+        {/* ÚLTIMAS PUBLICACIONES · crema (hereda del contenedor). */}
+        <section className="px-6 py-14 md:py-16">
           <div className="mx-auto max-w-5xl">
             <AnimacionScroll>
               <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
@@ -484,7 +493,8 @@ export default async function InicioJardin({
 
         {/* GALERÍA · el resto de las fotos del jardín con descripción */}
         {galeria.length > 0 && (
-          <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
+          <section className="py-14 md:py-16" style={fondoSuave}>
+            <div className="mx-auto max-w-5xl px-6">
             <AnimacionScroll>
               <div className="text-center">
                 <p
@@ -499,6 +509,7 @@ export default async function InicioJardin({
               </div>
             </AnimacionScroll>
             <GaleriaInicio fotos={galeria} />
+            </div>
           </section>
         )}
 

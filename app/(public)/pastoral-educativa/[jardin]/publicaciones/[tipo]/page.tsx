@@ -14,6 +14,7 @@ import { getJardinBySlug } from "@/lib/dal/jardines";
 import { getPublicacionesPublicas } from "@/lib/dal/publicaciones";
 import { TIPOS, slugATipo } from "@/lib/publicaciones-ui";
 import TarjetaPublicacion from "@/components/public/TarjetaPublicacion";
+import { EncabezadoApartado } from "@/components/public/EncabezadoApartado";
 
 export default async function MuroPorTipo({
   params,
@@ -32,19 +33,12 @@ export default async function MuroPorTipo({
   const publicaciones = await getPublicacionesPublicas(jardin.id, tipo);
 
   return (
-    <div className="font-texto mx-auto max-w-5xl px-6 py-12 md:py-16">
-      <p
-        className="text-sm font-semibold uppercase tracking-widest"
-        style={{ color: "var(--jardin-primario)" }}
-      >
-        Publicaciones
-      </p>
-      <h1 className="font-titulo mt-2 text-3xl font-extrabold text-marron md:text-4xl">
-        {info.plural}
-      </h1>
-
+    <div className="font-texto">
+      <EncabezadoApartado eyebrow="Publicaciones" titulo={info.plural} />
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-6">
       {publicaciones.length === 0 ? (
-        <div className="mt-10 rounded-2xl border border-dashed border-arena bg-white px-6 py-16 text-center">
+        <div className="rounded-2xl border border-dashed border-arena bg-white px-6 py-16 text-center">
           <p className="font-titulo text-lg font-semibold text-marron">
             {info.vacio}
           </p>
@@ -53,7 +47,7 @@ export default async function MuroPorTipo({
           </p>
         </div>
       ) : (
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {publicaciones.map((pub) => (
             <TarjetaPublicacion
               key={pub.id}
@@ -63,6 +57,8 @@ export default async function MuroPorTipo({
           ))}
         </div>
       )}
+        </div>
+      </section>
     </div>
   );
 }
