@@ -8,7 +8,14 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-export function GaleriaMisionera({ imagenes }: { imagenes: string[] }) {
+export function GaleriaMisionera({
+  imagenes,
+  etiqueta = "la pastoral misionera",
+}: {
+  imagenes: string[];
+  // Nombre de la pastoral para alt/aria (la galería se reutiliza en varias).
+  etiqueta?: string;
+}) {
   // Índice de la foto abierta en el lightbox; null = cerrado.
   const [abierta, setAbierta] = useState<number | null>(null);
 
@@ -54,11 +61,11 @@ export function GaleriaMisionera({ imagenes }: { imagenes: string[] }) {
             type="button"
             onClick={() => setAbierta(i)}
             className="group relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl border border-arena bg-white shadow-sm"
-            aria-label={`Ampliar foto ${i + 1} de la pastoral misionera`}
+            aria-label={`Ampliar foto ${i + 1} de ${etiqueta}`}
           >
             <Image
               src={src}
-              alt={`Pastoral misionera — foto ${i + 1}`}
+              alt={`Foto ${i + 1} de ${etiqueta}`}
               fill
               sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
               className="object-cover transition-transform duration-300 group-hover:scale-[1.05]"
@@ -122,7 +129,7 @@ export function GaleriaMisionera({ imagenes }: { imagenes: string[] }) {
           >
             <Image
               src={imagenes[abierta]}
-              alt={`Pastoral misionera — foto ${abierta + 1}`}
+              alt={`Foto ${abierta + 1} de ${etiqueta}`}
               width={1600}
               height={1600}
               sizes="90vw"
