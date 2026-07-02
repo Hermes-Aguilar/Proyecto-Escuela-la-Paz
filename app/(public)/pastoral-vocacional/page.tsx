@@ -9,9 +9,11 @@ import {
   FaHandsHelping,
   FaLeaf,
   FaPhoneAlt,
+  FaPlay,
   FaPray,
   FaQuoteLeft,
   FaSeedling,
+  FaYoutube,
 } from "react-icons/fa";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
 import { GaleriaMisionera } from "@/components/public/GaleriaMisionera";
@@ -333,8 +335,66 @@ export default function PastoralVocacional() {
         </div>
       </section>
 
+      {/* VIDEOS — uno horizontal (video normal) y uno vertical (Short). */}
+      <section className="bg-azul-suave py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Míranos</span>
+            <h2 className="text-3xl font-bold text-azul-institucional mt-2">La vocación en video</h2>
+            <p className="text-marron-suave mt-3 max-w-2xl mx-auto text-center">
+              Conoce de cerca nuestra pastoral vocacional y déjate interpelar por la invitación del
+              Señor: &ldquo;Ven y sígueme&rdquo;.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-5 md:items-center">
+            {/* Video principal — horizontal (16:9), reproductor incrustado */}
+            <div className="md:col-span-3 aspect-video overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
+              <iframe
+                src="https://www.youtube.com/embed/GlQgFQtMQ1M?rel=0"
+                title="Pastoral vocacional — video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+
+            {/* Short — vertical (9:16). El autor deshabilitó la reproducción
+                incrustada, así que se muestra la miniatura y se abre en
+                YouTube al hacer clic. */}
+            <a
+              href="https://youtube.com/shorts/SaZyamDQ-Nc"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ver el Short de pastoral vocacional en YouTube"
+              className="group relative md:col-span-2 mx-auto block aspect-9/16 w-full max-w-[300px] overflow-hidden rounded-2xl border border-arena bg-black shadow-md"
+            >
+              <Image
+                src="https://img.youtube.com/vi/SaZyamDQ-Nc/oardefault.jpg"
+                alt="Short de pastoral vocacional en YouTube"
+                fill
+                sizes="(min-width: 768px) 300px, 100vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Velo + botón de reproducción */}
+              <span className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10" />
+              <span className="absolute inset-0 flex items-center justify-center">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-110">
+                  <FaPlay className="ml-1 text-azul-institucional" size={22} />
+                </span>
+              </span>
+              <span className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-4">
+                <FaYoutube className="text-red-600" size={22} />
+                <span className="text-sm font-semibold text-white drop-shadow">
+                  Ver el Short en YouTube
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* GALERÍA DE IMÁGENES */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
           <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Testimonio</span>
           <h2 className="text-3xl font-bold text-azul-institucional mt-2">La pastoral vocacional en imágenes</h2>
