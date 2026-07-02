@@ -40,7 +40,10 @@ export type Libreria = {
 const estadoDe = (lib: Libreria) => lib.ciudad.split(",").pop()!.trim();
 
 export function DirectorioLibrerias({ librerias }: { librerias: Libreria[] }) {
-  const [sel, setSel] = useState(0);
+  // Al cargar se muestra la librería principal (o la primera si no hay).
+  const [sel, setSel] = useState(() =>
+    Math.max(0, librerias.findIndex((l) => l.principal)),
+  );
   const lib = librerias[sel];
 
   // Grupos por estado conservando el orden de aparición.

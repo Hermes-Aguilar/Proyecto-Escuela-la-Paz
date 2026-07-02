@@ -91,12 +91,24 @@ const productosHuajuapan = [
 
 const librerias: Libreria[] = [
   {
+    nombre: "Librería MSCG Casa Central",
+    corto: "Casa Central",
+    ciudad: "Huajuapan de León, Oaxaca",
+    direccion: "Matamoros N°13, Colonia Centro, Huajuapan de León, Oax.",
+    horario: "Todos los días: 8:00 – 18:00 h",
+    principal: true,
+    descripcion:
+      "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Huajuapan de León. Punto principal con artículos religiosos, objetos litúrgicos y material para sacramentos al servicio de la comunidad.",
+    productos: productosHuajuapan,
+    fotos: fotosCasaCentral,
+  },
+  {
     nombre: 'Librería MSCG "Señor de los Corazones"',
     corto: "Señor de los Corazones",
     ciudad: "Juxtlahuaca, Oaxaca",
     direccion: "Lázaro Cárdenas Norte #304, Juxtlahuaca, Oax.",
     horario: "Todos los días: 9:00 – 17:00 h",
-    principal: true,
+    principal: false,
     descripcion:
       "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe. Un espacio de evangelización donde encontrarás artículos religiosos, imágenes sagradas y todo lo necesario para la vida litúrgica y devocional de tu comunidad.",
     productos: [
@@ -136,18 +148,6 @@ const librerias: Libreria[] = [
       "Libros en variedad",
     ],
     fotos: fotosChila,
-  },
-  {
-    nombre: "Librería MSCG Casa Central",
-    corto: "Casa Central",
-    ciudad: "Huajuapan de León, Oaxaca",
-    direccion: "Matamoros N°13, Colonia Centro, Huajuapan de León, Oax.",
-    horario: "Todos los días: 8:00 – 18:00 h",
-    principal: false,
-    descripcion:
-      "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Huajuapan de León. Punto principal con artículos religiosos, objetos litúrgicos y material para sacramentos al servicio de la comunidad.",
-    productos: productosHuajuapan,
-    fotos: fotosCasaCentral,
   },
   {
     nombre: "Librería MSCG Atrio Catedral",
