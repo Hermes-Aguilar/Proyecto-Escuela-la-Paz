@@ -78,6 +78,19 @@
   }
 }
 
+/* Aparición suave (fundido + leve subida). La usa el panel del
+   directorio de librerías al cambiar la librería seleccionada. */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Efecto "Ken Burns": zoom/paneo lento de la imagen activa del carrusel.
    Lo usa CarruselHero con la prop `zoom` (p. ej. Pastoral Educativa). */
 @keyframes kenburns {

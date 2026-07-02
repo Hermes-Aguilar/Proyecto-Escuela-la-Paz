@@ -1,15 +1,11 @@
 // RUTA: src/app/(public)/librerias/page.tsx
 import Link from "next/link";
-import {
-  FaMapMarkerAlt,
-  FaClock,
-  FaPhoneAlt,
-  FaEnvelope,
-  FaArrowRight,
-  FaCheck,
-} from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
-import { GaleriaLibreriaModal } from "@/components/public/GaleriaLibreriaModal";
+import {
+  DirectorioLibrerias,
+  type Libreria,
+} from "@/components/public/DirectorioLibrerias";
 
 // Fotos de la Librería MSCG de Juxtlahuaca (public/images).
 const fotosJuxtlahuaca = Array.from(
@@ -74,23 +70,6 @@ const slidesHero: SlideHero[] = [
   },
 ];
 
-type Libreria = {
-  nombre: string;
-  ciudad: string;
-  direccion: string;
-  /** Horario de atención en texto libre. Opcional si aún no se confirma. */
-  horario?: string;
-  /** Teléfonos de contacto (uno o varios). Opcional. */
-  telefono?: string[];
-  email?: string;
-  principal: boolean;
-  descripcion: string;
-  /** Artículos religiosos que ofrece la librería. */
-  productos?: string[];
-  /** Fotos de la librería; se muestran en un carrusel dentro de un modal. */
-  fotos?: string[];
-};
-
 // Artículos compartidos por los dos puntos de la Librería MSCG de Huajuapan
 // (Casa Central y Atrio Catedral): cuando falta algo en uno, se surte del otro.
 const productosHuajuapan = [
@@ -113,6 +92,7 @@ const productosHuajuapan = [
 const librerias: Libreria[] = [
   {
     nombre: 'Librería MSCG "Señor de los Corazones"',
+    corto: "Señor de los Corazones",
     ciudad: "Juxtlahuaca, Oaxaca",
     direccion: "Lázaro Cárdenas Norte #304, Juxtlahuaca, Oax.",
     horario: "Todos los días: 9:00 – 17:00 h",
@@ -136,6 +116,7 @@ const librerias: Libreria[] = [
   },
   {
     nombre: 'Librería "La Purísima"',
+    corto: "La Purísima",
     ciudad: "Chila de las Flores, Puebla",
     direccion:
       "Mercado Municipal, planta alta, a un costado de la parroquia, Chila de las Flores, Pue.",
@@ -158,6 +139,7 @@ const librerias: Libreria[] = [
   },
   {
     nombre: "Librería MSCG Casa Central",
+    corto: "Casa Central",
     ciudad: "Huajuapan de León, Oaxaca",
     direccion: "Matamoros N°13, Colonia Centro, Huajuapan de León, Oax.",
     horario: "Todos los días: 8:00 – 18:00 h",
@@ -169,6 +151,7 @@ const librerias: Libreria[] = [
   },
   {
     nombre: "Librería MSCG Atrio Catedral",
+    corto: "Atrio Catedral",
     ciudad: "Huajuapan de León, Oaxaca",
     direccion: "Atrio de la Catedral, Huajuapan de León, Oax.",
     horario: "Lunes a viernes: 10:00 – 14:00 h y 18:00 – 19:00 h",
@@ -180,6 +163,7 @@ const librerias: Libreria[] = [
   },
   {
     nombre: 'Librería MSCG "San José"',
+    corto: "San José",
     ciudad: "Tehuitzingo, Puebla",
     direccion: "Calle Venustiano Carranza, Tehuitzingo, Pue.",
     horario: "Martes a domingo: 9:00 – 16:00 h",
@@ -203,6 +187,7 @@ const librerias: Libreria[] = [
   },
   {
     nombre: 'Librería "La Providencia"',
+    corto: "La Providencia",
     ciudad: "Acatlán de Osorio, Puebla",
     direccion:
       "Calle Revolución #9, Zona Centro, a un costado del templo parroquial de San Juan Bautista, Acatlán de Osorio, Pue.",
@@ -250,73 +235,13 @@ export default function Librerias() {
           <div className="text-center mb-12">
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Directorio</span>
             <h2 className="text-3xl font-bold text-azul-institucional mt-2">Nuestras librerías</h2>
+            <p className="text-marron-suave mt-3 max-w-xl mx-auto">
+              Elige una librería de la lista para ver sus fotos, horarios, datos de
+              contacto y los artículos que ofrece.
+            </p>
           </div>
 
-          <div className="space-y-8">
-            {librerias.map((lib) => (
-              <div key={lib.nombre} className={`bg-white rounded-3xl overflow-hidden shadow-sm border ${lib.principal ? "border-azul-institucional" : "border-arena"}`}>
-                <div className="flex flex-col md:flex-row md:items-stretch">
-                  {/* Portada / galería de la librería */}
-                  {lib.fotos && lib.fotos.length > 0 && (
-                    <div className="p-4 md:w-2/5 md:shrink-0 md:p-5">
-                      <GaleriaLibreriaModal imagenes={lib.fotos} titulo={lib.nombre} />
-                    </div>
-                  )}
-
-                  {/* Contenido */}
-                  <div className="flex-1 p-8 grid sm:grid-cols-3 gap-8">
-                    {/* Info principal */}
-                    <div className="sm:col-span-2">
-                      <h3 className="text-2xl font-bold text-azul-institucional mb-1">{lib.nombre}</h3>
-                      <p className="text-azul-institucional font-semibold text-sm mb-3">{lib.ciudad}</p>
-                      <p className="text-marron text-sm leading-relaxed mb-5">{lib.descripcion}</p>
-                      <div className="flex items-start gap-2 text-sm text-marron-suave mb-2">
-                        <FaMapMarkerAlt className="mt-0.5 text-azul-institucional shrink-0" />
-                        <span>{lib.direccion}</span>
-                      </div>
-                      {lib.telefono?.map((tel) => (
-                        <div key={tel} className="flex items-center gap-2 text-sm text-marron-suave mb-2">
-                          <FaPhoneAlt className="text-dorado shrink-0" />
-                          <a href={`tel:${tel.replace(/\s+/g, "")}`} className="hover:text-azul-institucional transition-colors">{tel}</a>
-                        </div>
-                      ))}
-                      {lib.email && (
-                        <div className="flex items-center gap-2 text-sm text-marron-suave">
-                          <FaEnvelope className="text-dorado shrink-0" />
-                          <a href={`mailto:${lib.email}`} className="hover:text-azul-institucional transition-colors">{lib.email}</a>
-                        </div>
-                      )}
-
-                      {/* Artículos que ofrece */}
-                      {lib.productos && (
-                        <div className="mt-6">
-                          <h4 className="font-bold text-azul-institucional mb-3">Artículos que ofrecemos</h4>
-                          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
-                            {lib.productos.map((p) => (
-                              <li key={p} className="flex items-start gap-2 text-sm text-marron-suave">
-                                <FaCheck className="mt-0.5 text-dorado shrink-0" size={12} />
-                                <span>{p}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Horario */}
-                    <div className="bg-crema rounded-2xl p-5 self-start">
-                      <h4 className="font-bold text-azul-institucional flex items-center gap-2 mb-4">
-                        <FaClock className="text-azul-institucional" size={14} /> Horario de atención
-                      </h4>
-                      <p className={`text-sm font-medium ${lib.horario ? "text-marron" : "italic text-marron-suave"}`}>
-                        {lib.horario ?? "Días y horario por confirmar"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <DirectorioLibrerias librerias={librerias} />
         </div>
       </section>
 
