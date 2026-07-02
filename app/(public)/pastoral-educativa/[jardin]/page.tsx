@@ -80,20 +80,6 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
       descripcion:
         "Maestras y personal comprometidos que acompañan con amor y dedicación el crecimiento de cada niña y niño.",
     },
-    {
-      imagen: "/images/lapazprincipal 2.jpeg",
-      categoria: "Aprender jugando",
-      titulo: "Cada día una nueva aventura",
-      descripcion:
-        "Descubren el mundo a través del juego, la creatividad y el acompañamiento cercano.",
-    },
-    {
-      imagen: "/images/lapazprincipal 3.jpeg",
-      categoria: "Familia educativa",
-      titulo: "Creciendo juntos en comunidad",
-      descripcion:
-        "Familias, maestras y niños unidos en la formación integral de cada pequeño.",
-    },
   ],
   porvenir: [
     {
@@ -111,14 +97,14 @@ const SLIDES_HERO: Record<string, SlideHero[]> = {
         "Favorecemos su desarrollo académico, físico, artístico y humano en un ambiente de alegría y valores.",
     },
     {
-      imagen: "/images/Porvenirprincipal.jpeg",
+      imagen: "/images/lapazprincipal 2.jpeg",
       categoria: "60 años de historia",
       titulo: "Una tradición que forma generaciones",
       descripcion:
         "Seis décadas y 60 generaciones acompañadas con amor, fe y valores.",
     },
     {
-      imagen: "/images/Porvenirprincipal.jpeg",
+      imagen: "/images/lapazprincipal 3.jpeg",
       categoria: "Nuestra gran familia",
       titulo: "Niñas y niños felices y seguros",
       descripcion:
