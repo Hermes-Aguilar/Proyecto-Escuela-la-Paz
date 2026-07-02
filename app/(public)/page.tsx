@@ -57,13 +57,22 @@ const areas = [
   },
 ];
 
-const sedes = [
-  { ciudad: "Huajuapan de León, Oaxaca", nombre: "Casa General", tipo: "Casa fundadora · 1957" },
-  { ciudad: "San Juan Copala, Oaxaca", nombre: "Comunidad Santa Teresita", tipo: "1ª fundación · 1964" },
-  { ciudad: "Huajuapan de León, Oaxaca", nombre: "Jardines La Paz y Porvenir", tipo: "2ª fundación · 1966" },
-  { ciudad: "Tamazulapan del Progreso, Oaxaca", nombre: "Comunidad Niño de Praga", tipo: "4ª fundación · 1979" },
-  { ciudad: "Santiago Juxtlahuaca, Oaxaca", nombre: "Instituto Teresa de Cepeda y Ahumada", tipo: "10ª fundación · 1997" },
-  { ciudad: "El Molino, Huajuapan de León", nombre: "Casa Noviciado «Elisa María»", tipo: "Casa de Noviciado · 2005" },
+// Comunidades de la congregación. Debe coincidir con el apartado de
+// Comunidades (app/(public)/pastoral-juvenil/page.tsx). En el inicio solo se
+// muestra un adelanto (las primeras 6); las que aún no tienen ubicación van al
+// final para no mostrarse en ese adelanto.
+const comunidades = [
+  { nombre: "Comunidad Espíritu Santo", ciudad: "Riaba, Malabo · Guinea Ecuatorial" },
+  { nombre: "Comunidad Santa Teresita", ciudad: "San Juan Copala, Juxtlahuaca, Oaxaca" },
+  { nombre: "Comunidad Nazaret", ciudad: "Huajuapan de León, Oaxaca" },
+  { nombre: "Comunidad San José", ciudad: "Tehuitzingo, Puebla" },
+  { nombre: "Comunidad Niño de Praga", ciudad: "Tamazulapam del Progreso, Teposcolula, Oaxaca" },
+  { nombre: "Comunidad Luis Fiacro", ciudad: "Isla de Chira, Costa Rica" },
+  { nombre: "Comunidad de los Ángeles", ciudad: "Acatlán de Osorio, Puebla" },
+  { nombre: "Misioneras del Señor de los Corazones y de Santa María de Guadalupe", ciudad: "Chila de las Flores, Puebla" },
+  { nombre: "Comunidad Sagrada Familia", ciudad: "Por confirmar" },
+  { nombre: "Comunidad Cuna de Belén", ciudad: "Por confirmar" },
+  { nombre: "Comunidad Nuestra Señora del Pilar", ciudad: "Por confirmar" },
 ];
 
 const librerias = [
@@ -360,22 +369,27 @@ export default function Home() {
             </div>
           </AnimacionScroll>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {sedes.map((sede, i) => (
-              <AnimacionScroll key={sede.nombre} delay={i * 90}>
+            {comunidades.slice(0, 6).map((com, i) => (
+              <AnimacionScroll key={com.nombre} delay={i * 90}>
                 <div className="bg-white border border-arena rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow h-full">
                   <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="text-azul-institucional mt-1 shrink-0" />
                     <div>
-                      <p className="text-marron font-semibold">{sede.nombre}</p>
-                      <p className="text-marron-suave text-sm">{sede.ciudad}</p>
-                      <span className="inline-block mt-1 text-xs bg-arena text-azul-institucional px-2 py-0.5 rounded-full">
-                        {sede.tipo}
-                      </span>
+                      <p className="text-marron font-semibold">{com.nombre}</p>
+                      <p className="text-marron-suave text-sm">{com.ciudad}</p>
                     </div>
                   </div>
                 </div>
               </AnimacionScroll>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/pastoral-juvenil"
+              className="inline-flex items-center gap-2 text-azul-institucional font-semibold hover:underline"
+            >
+              Ver todas las comunidades <FaArrowRight />
+            </Link>
           </div>
         </div>
       </section>
