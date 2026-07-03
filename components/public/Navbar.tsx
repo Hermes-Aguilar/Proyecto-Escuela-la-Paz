@@ -1,7 +1,7 @@
 // RUTA: components/public/Navbar.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -34,6 +34,21 @@ const links: NavLink[] = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  // Con el menú móvil abierto se bloquea el scroll del fondo; se cierra con
+  // Esc (o al elegir un enlace / pulsar la ✕, que ponen open en false).
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   // Un enlace está activo si coincide exactamente o si es una sección con
   // subrutas (p. ej. /la-congregacion/fundador resalta «La Congregación»).
@@ -224,46 +239,65 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu — panel a pantalla completa con scroll propio, para
+            que el fondo no se mueva mientras está abierto. */}
         {open && (
-          <div className="border-t border-white/10 bg-marron lg:hidden">
-            {links.map((link) => {
-              const activo = esActivo(link.href);
-              return (
-                <div key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={`block border-b border-white/5 px-6 py-3 text-sm transition-colors ${
-                      activo
-                        ? "font-semibold text-dorado"
-                        : "text-arena hover:bg-white/5 hover:text-white"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                  {/* Subenlaces indentados bajo la sección con submenú. */}
-                  {link.submenu && (
-                    <div className="bg-black/15">
-                      {link.submenu.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          href={sub.href}
-                          onClick={() => setOpen(false)}
-                          className={`block border-b border-white/5 py-2.5 pl-10 pr-6 text-sm transition-colors ${
-                            pathname === sub.href
-                              ? "font-semibold text-dorado"
-                              : "text-arena/80 hover:bg-white/5 hover:text-white"
-                          }`}
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+          <div className="fixed inset-0 z-50 flex flex-col bg-marron lg:hidden">
+            {/* Barra superior (misma altura que la de navegación) con cerrar. */}
+            <div className="flex h-14 shrink-0 items-center justify-between px-4 sm:px-6">
+              <span className="font-titulo text-sm font-semibold text-arena">
+                Navegación
+              </span>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Cerrar menú"
+                className="p-2 text-white"
+              >
+                <FaTimes size={22} />
+              </button>
+            </div>
+
+            {/* Lista de enlaces, desplazable dentro del panel. */}
+            <nav className="flex-1 overflow-y-auto overscroll-contain border-t border-white/10 pb-8">
+              {links.map((link) => {
+                const activo = esActivo(link.href);
+                return (
+                  <div key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className={`block border-b border-white/5 px-6 py-3 text-sm transition-colors ${
+                        activo
+                          ? "font-semibold text-dorado"
+                          : "text-arena hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                    {/* Subenlaces indentados bajo la sección con submenú. */}
+                    {link.submenu && (
+                      <div className="bg-black/15">
+                        {link.submenu.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            onClick={() => setOpen(false)}
+                            className={`block border-b border-white/5 py-2.5 pl-10 pr-6 text-sm transition-colors ${
+                              pathname === sub.href
+                                ? "font-semibold text-dorado"
+                                : "text-arena/80 hover:bg-white/5 hover:text-white"
+                            }`}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </nav>
           </div>
         )}
       </div>
