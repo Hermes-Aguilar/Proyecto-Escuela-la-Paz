@@ -16,6 +16,7 @@ import {
   FaPhoneAlt,
   FaWhatsapp,
   FaGlobeAfrica,
+  FaGlobeAmericas,
   FaChurch,
   FaPray,
   FaUsers,
@@ -35,6 +36,11 @@ export type Comunidad = {
   whatsapp?: string;
   /** Foto representativa (tarjeta del directorio). */
   foto?: string;
+  /**
+   * Encuadre de la foto en la tarjeta (clase object-position de Tailwind,
+   * p. ej. "object-top"). Por defecto se centra.
+   */
+  fotoPosicion?: string;
   /**
    * Galería de fotos para el modal. Con más de una imagen aparece un
    * carrusel con flechas (sin ampliar). Si se omite, se usa `foto`.
@@ -64,6 +70,12 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
   // Una comunidad sin áreas de servicio todavía no tiene información
   // completa: aparece en el directorio, pero no abre ventana.
   const pendiente = comunidad.areas.length === 0;
+
+  // ¿La comunidad está fuera de México? (misión en el extranjero). Se deduce
+  // de la ubicación; las de México muestran otra etiqueta.
+  const enExtranjero = /áfrica|costa rica|marruecos|guinea/i.test(
+    comunidad.ubicacion,
+  );
 
   // Fotos del modal: la galería si existe; si no, la foto única.
   const galeria =
@@ -109,7 +121,7 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
             alt={comunidad.nombre}
             fill
             sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw"
-            className={`object-cover transition-transform duration-500 ${
+            className={`object-cover ${comunidad.fotoPosicion ?? "object-center"} transition-transform duration-500 ${
               pendiente ? "opacity-70" : "group-hover:scale-105"
             }`}
           />
@@ -119,7 +131,12 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
             </span>
           ) : (
             <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-              <FaGlobeAfrica size={12} /> Misión
+              {enExtranjero ? (
+                <FaGlobeAfrica size={12} />
+              ) : (
+                <FaGlobeAmericas size={12} />
+              )}{" "}
+              Misión
             </span>
           )}
         </div>
@@ -223,7 +240,15 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
               ) : null}
               <div>
                 <span className="inline-flex items-center gap-2 text-azul-institucional text-sm font-semibold tracking-widest uppercase">
-                  <FaGlobeAfrica size={16} /> Misión en el extranjero
+                  {enExtranjero ? (
+                    <>
+                      <FaGlobeAfrica size={16} /> Misión en el extranjero
+                    </>
+                  ) : (
+                    <>
+                      <FaGlobeAmericas size={16} /> Misión en México
+                    </>
+                  )}
                 </span>
                 <h2 className="mt-2 text-3xl font-bold text-azul-institucional md:text-4xl">
                   {comunidad.nombre}

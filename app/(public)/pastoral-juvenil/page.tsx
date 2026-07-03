@@ -285,7 +285,9 @@ const comunidadNuestraSenoraDelPilar = {
 const comunidadLuisFiacro = {
   nombre: "Comunidad Luis Fiacro",
   ubicacion: "San Antonio, Isla de Chira, Puntarenas, Costa Rica",
-  foto: "/images/comunidad-costarica.png",
+  foto: "/images/Costa Rica1.jpeg",
+  fotoPosicion: "object-top",
+  fotos: ["/images/Costa Rica1.jpeg", "/images/Costa Rica2.jpeg"],
   intro:
     "La Comunidad Luis Fiacro se encuentra en San Antonio, Isla de Chira, Puntarenas, Costa Rica. Su apostolado se centra en la atención a las comunidades de la isla, la catequesis y el acompañamiento cercano a las familias y a quienes más lo necesitan.",
   areas: [
