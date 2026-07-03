@@ -89,6 +89,7 @@ const comunidadNazaret = {
   nombre: "Comunidad Nazaret",
   ubicacion: "Huajuapan de León, Oaxaca",
   foto: "/images/comunidad-Nazaret.png",
+  video: "https://youtube.com/shorts/_H68i9sU2wU?feature=share",
   intro:
     "El 1° de abril de 1992 inició oficialmente el caminar de la Comunidad Nazaret, abrazando un proyecto que ya había dado abundantes frutos: el Jardín de Niños Nazaret, que para entonces contaba con 26 años de servicio en la educación preescolar. A lo largo de los años, muchas hermanas han dejado una huella imborrable, sembrando con dulzura y paciencia la semilla del Evangelio en los más pequeños y también en los padres de familia, transformando hogares enteros. Hoy esa semilla sigue floreciendo con la misma vocación y alegría de servir a Dios a través de la educación y la cercanía con su pueblo.",
   areas: [
@@ -116,13 +117,55 @@ const comunidadNazaret = {
   ],
 };
 
-// Comunidad Sagrada Familia. Ubicación e información pendientes de confirmar.
+// Comunidad Tepeyac (Huajuapan de León, Oaxaca). Apostolado educativo en el
+// Jardín de Niños La Paz (antes Tepeyac). Fundada el 17 de febrero de 1966.
+const comunidadTepeyac = {
+  nombre: "Comunidad Tepeyac",
+  ubicacion: "Huajuapan de León, Oaxaca",
+  telefono: "953 532 0634",
+  foto: "/images/Tepeyac.jpeg",
+  intro:
+    "La Comunidad Tepeyac se encuentra en Huajuapan de León, Oaxaca (calle Morelos 121, colonia Tepeyac). Inició su misión el 17 de febrero de 1966 y, tras dos años, quedó establecida. Su apostolado prioritario es la educación en el Jardín de Niños La Paz (antes Tepeyac): 60 años educando a niños de muchas colonias, priorizando a los más desprovistos con una atención personalizada —espiritual, pedagógica y psicológica— junto con los padres de familia. Sembrando la semilla del Evangelio, apoya en la Parroquia de Santa María de Guadalupe y en cuantos servicios se han requerido, siempre en bien de la niñez y alegrándose de sufrir por Cristo en favor de su Iglesia.",
+  areas: [
+    {
+      titulo: "Apostolado educativo",
+      items: [
+        "Educación en el Jardín de Niños La Paz (antes Tepeyac), con 60 años de servicio",
+        "Atención a niños de muchas colonias, priorizando a los más desprovistos",
+        "Acompañamiento personalizado en lo espiritual, pedagógico y psicológico",
+        "Formación junto con los padres de familia",
+      ],
+    },
+    {
+      titulo: "Servicio pastoral",
+      items: [
+        "Apoyo en la Parroquia de Santa María de Guadalupe",
+        "Sembrar la semilla del Evangelio en cuantos servicios se requieran, en bien de la niñez",
+      ],
+    },
+  ],
+};
+
+// Comunidad Sagrada Familia (Santo Domingo Tonalá). Atención a jóvenes
+// estudiantes en su formación humana, cristiana y espiritual.
 const comunidadSagradaFamilia = {
   nombre: "Comunidad Sagrada Familia",
-  ubicacion: "Ubicación por confirmar",
+  ubicacion: "Santo Domingo Tonalá, Oaxaca",
+  telefono: "953 531 0022",
   foto: "/images/comunidad-Sagradafamilia.png",
-  intro: "Información próximamente.",
-  areas: [],
+  intro:
+    "Comunidad Sagrada Familia de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe, en Santo Domingo Tonalá. Dirección: calle Lázaro Cárdenas #8. Su misión principal es atender a los jóvenes estudiantes en su formación humana, cristiana y espiritual.",
+  areas: [
+    {
+      titulo: "Nuestra misión",
+      items: [
+        "Atención a jóvenes estudiantes",
+        "Formación humana",
+        "Formación cristiana",
+        "Formación espiritual",
+      ],
+    },
+  ],
 };
 
 // Comunidad San José (Tehuitzingo, Puebla). Apostolado en la Parroquia de
@@ -192,13 +235,49 @@ const comunidadAngeles = {
   ],
 };
 
-// Comunidad Nuestra Señora del Pilar. Ubicación e información por confirmar.
+// Comunidad Nuestra Señora del Pilar (Asilah, Marruecos · norte de África).
+// Misión en la parroquia de San Bartolomé Apóstol, Arquidiócesis de Tánger.
 const comunidadNuestraSenoraDelPilar = {
   nombre: "Comunidad Nuestra Señora del Pilar",
-  ubicacion: "Ubicación por confirmar",
+  ubicacion: "Asilah, Marruecos, África",
+  whatsapp: "+52 55 2675 5063",
+  telefono: "+212 5394-16204",
   foto: "/images/comunidad-Señoradelpilar.png",
-  intro: "Información próximamente.",
-  areas: [],
+  fotos: [
+    "/images/comunidad-Señoradelpilar.png",
+    "/images/Marruecos Pilar.jpeg",
+    "/images/Marruecos Pilar1.jpeg",
+  ],
+  intro:
+    "La Comunidad Nuestra Señora del Pilar se encuentra en Asilah, al norte de África (Marruecos), en la parroquia de San Bartolomé Apóstol, perteneciente a la Arquidiócesis de Tánger. Somos tres hermanas en esta misión, fundada el 12 de octubre de 2024. Dirección: Avenida Príncipe Héritier n.º 24, 90050 Asilah, Marruecos.",
+  areas: [
+    {
+      titulo: "Apostolado en la parroquia",
+      items: [
+        "Mantener vivo el Culto Divino, con especial atención a la Iglesia parroquial de San Bartolomé Apóstol",
+        "Actividades culturales con grupos de niños y adolescentes de la población, dando prioridad a los más necesitados",
+        "Campamentos de verano para niños de diferentes edades, con jóvenes voluntarios de España acogidos en la misión",
+      ],
+    },
+    {
+      titulo: "Atención a migrantes africanos",
+      items: [
+        "Formación de niños migrantes africanos acogidos por la Delegación Diocesana de Migración (Tánger)",
+        "Cursos de idiomas en verano para adolescentes migrantes africanos, organizados por la misma Delegación",
+      ],
+    },
+    {
+      titulo: "Centro Cultural para mujeres",
+      items: [
+        "Taller de corte y confección",
+        "Taller de máquinas de coser industriales",
+        "Cursos de alfabetización árabe, con personal capacitado",
+        "Cursos de idiomas abiertos a toda la población durante el año",
+        "Objetivo: ofrecer a las mujeres de Asilah un espacio propio y seguro para fortalecer sus capacidades, autonomía y formación para el empleo",
+        "Proyecto sostenido por la Fundación Kambia",
+      ],
+    },
+  ],
 };
 
 // Comunidad Luis Fiacro (Isla de Chira, Costa Rica). Información por confirmar.
@@ -243,6 +322,7 @@ const comunidadesMisioneras = [
   comunidadEspirituSanto,
   comunidadSantaTeresita,
   comunidadNazaret,
+  comunidadTepeyac,
   comunidadSagradaFamilia,
   comunidadSanJose,
   comunidadCunaDeBelen,

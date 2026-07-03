@@ -19,11 +19,9 @@ export function GaleriaLibreriaModal({
   imagenes: string[];
   titulo: string;
 }) {
+  // `abierto` solo pasa a true por un clic (evento de cliente), así que el
+  // portal a document.body nunca se evalúa durante el render del servidor.
   const [abierto, setAbierto] = useState(false);
-  // El modal se monta en <body> con un portal (ver más abajo). Este flag
-  // evita usar document.body durante el render del servidor (SSR).
-  const [montado, setMontado] = useState(false);
-  useEffect(() => setMontado(true), []);
 
   // Esc cierra la ventana y se bloquea el scroll del fondo mientras
   // está abierta.
@@ -78,7 +76,6 @@ export function GaleriaLibreriaModal({
       </button>
 
       {abierto &&
-        montado &&
         createPortal(
         <div
           role="dialog"

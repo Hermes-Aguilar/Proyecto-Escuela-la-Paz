@@ -97,6 +97,7 @@ const librerias: Libreria[] = [
     ciudad: "Huajuapan de León, Oaxaca",
     direccion: "Matamoros N°13, Colonia Centro, Huajuapan de León, Oax.",
     horario: "Todos los días: 8:00 – 18:00 h",
+    telefono: ["953 532 2315"],
     principal: true,
     descripcion:
       "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Huajuapan de León. Punto principal con artículos religiosos, objetos litúrgicos y material para sacramentos al servicio de la comunidad.",
@@ -156,6 +157,7 @@ const librerias: Libreria[] = [
     ciudad: "Huajuapan de León, Oaxaca",
     direccion: "Atrio de la Catedral, Huajuapan de León, Oax.",
     horario: "Lunes a viernes: 10:00 – 14:00 h y 18:00 – 19:00 h",
+    telefono: ["953 690 1954"],
     principal: false,
     descripcion:
       "Segundo punto de atención de la Librería MSCG en Huajuapan de León, ubicado en el atrio de la Catedral. Complementa a la Casa Central para acercar los artículos religiosos y litúrgicos a la comunidad.",
@@ -168,6 +170,7 @@ const librerias: Libreria[] = [
     ciudad: "Tehuitzingo, Puebla",
     direccion: "Calle Venustiano Carranza, Tehuitzingo, Pue.",
     horario: "Martes a domingo: 9:00 – 16:00 h",
+    telefono: ["953 537 1121"],
     principal: false,
     descripcion:
       'Librería de artículos religiosos "San José" de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Tehuitzingo. Ofrece imágenes, objetos litúrgicos y material para sacramentos al servicio de la comunidad.',

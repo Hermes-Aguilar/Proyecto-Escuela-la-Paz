@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaWhatsapp,
   FaGlobeAfrica,
   FaChurch,
   FaPray,
@@ -20,14 +22,29 @@ import {
   FaRegClock,
 } from "react-icons/fa";
 import { X } from "lucide-react";
+import { CarruselMedios, type Medio } from "./CarruselMedios";
 
 export type AreaComunidad = { titulo: string; items: string[] };
 
 export type Comunidad = {
   nombre: string;
   ubicacion: string;
-  /** Foto representativa de la comunidad (en /public/images). */
+  /** Teléfono fijo de contacto (opcional). */
+  telefono?: string;
+  /** WhatsApp de contacto (opcional). */
+  whatsapp?: string;
+  /** Foto representativa (tarjeta del directorio). */
   foto?: string;
+  /**
+   * Galería de fotos para el modal. Con más de una imagen aparece un
+   * carrusel con flechas (sin ampliar). Si se omite, se usa `foto`.
+   */
+  fotos?: string[];
+  /**
+   * Video de YouTube (enlace o ID) que se suma a la galería del modal
+   * como un medio más, navegable con las mismas flechas.
+   */
+  video?: string;
   /** Párrafo de presentación. */
   intro: string;
   /** Áreas de servicio con sus actividades. */
@@ -38,15 +55,30 @@ export type Comunidad = {
 const iconoArea = [FaChurch, FaPray, FaUsers];
 
 export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
+  // `abierto` solo pasa a true por un clic (evento de cliente), así que el
+  // portal a document.body nunca se evalúa durante el render del servidor.
   const [abierto, setAbierto] = useState(false);
-  // El modal se monta en <body> con un portal (ver más abajo). Este flag
-  // evita usar document.body durante el render del servidor (SSR).
-  const [montado, setMontado] = useState(false);
-  useEffect(() => setMontado(true), []);
 
   // Una comunidad sin áreas de servicio todavía no tiene información
   // completa: aparece en el directorio, pero no abre ventana.
   const pendiente = comunidad.areas.length === 0;
+
+  // Fotos del modal: la galería si existe; si no, la foto única.
+  const galeria =
+    comunidad.fotos && comunidad.fotos.length > 0
+      ? comunidad.fotos
+      : comunidad.foto
+        ? [comunidad.foto]
+        : [];
+
+  // Medios del modal: las fotos + el video (si lo hay), todos navegables
+  // con las mismas flechas.
+  const medios: Medio[] = [
+    ...galeria.map((src): Medio => ({ tipo: "imagen", src })),
+    ...(comunidad.video
+      ? [{ tipo: "video", youtube: comunidad.video } as Medio]
+      : []),
+  ];
 
   // Esc cierra la ventana y se bloquea el scroll del fondo.
   useEffect(() => {
@@ -136,7 +168,6 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
 
       {/* Ventana / modal */}
       {abierto &&
-        montado &&
         createPortal(
         <div
           role="dialog"
@@ -160,11 +191,18 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
 
             {/* Foto + presentación */}
             <div className="grid gap-8 p-8 sm:p-10 md:grid-cols-2 md:items-center">
-              {comunidad.foto && (
+              {medios.length > 1 ? (
+                // Varias fotos y/o video: carrusel con flechas, sin ampliar.
+                // El envoltorio w-full evita que el carrusel se encoja al ser
+                // hijo directo del grid con items-center.
+                <div className="w-full">
+                  <CarruselMedios medios={medios} titulo={comunidad.nombre} />
+                </div>
+              ) : medios.length === 1 && galeria.length === 1 ? (
                 <figure className="overflow-hidden rounded-2xl border border-arena bg-white shadow-sm">
                   <div className="relative aspect-4/3 w-full">
                     <Image
-                      src={comunidad.foto}
+                      src={galeria[0]}
                       alt={comunidad.nombre}
                       fill
                       sizes="(min-width: 768px) 32rem, 90vw"
@@ -172,7 +210,12 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
                     />
                   </div>
                 </figure>
-              )}
+              ) : medios.length === 1 ? (
+                // Solo video, sin fotos.
+                <div className="w-full">
+                  <CarruselMedios medios={medios} titulo={comunidad.nombre} />
+                </div>
+              ) : null}
               <div>
                 <span className="inline-flex items-center gap-2 text-azul-institucional text-sm font-semibold tracking-widest uppercase">
                   <FaGlobeAfrica size={16} /> Misión en el extranjero
@@ -180,10 +223,34 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
                 <h2 className="mt-2 text-3xl font-bold text-azul-institucional md:text-4xl">
                   {comunidad.nombre}
                 </h2>
-                <p className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-marron">
-                  <FaMapMarkerAlt className="text-dorado" size={15} />
+                <p className="mt-2 flex items-center gap-2 text-base font-semibold text-marron">
+                  <FaMapMarkerAlt className="shrink-0 text-dorado" size={15} />
                   {comunidad.ubicacion}
                 </p>
+                {comunidad.whatsapp && (
+                  <p className="mt-1.5 flex items-center gap-2 text-base font-semibold text-marron">
+                    <FaWhatsapp className="text-dorado" size={15} />
+                    <a
+                      href={`https://wa.me/${comunidad.whatsapp.replace(/[^\d]/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-azul-institucional"
+                    >
+                      {comunidad.whatsapp}
+                    </a>
+                  </p>
+                )}
+                {comunidad.telefono && (
+                  <p className="mt-1.5 flex items-center gap-2 text-base font-semibold text-marron">
+                    <FaPhoneAlt className="text-dorado" size={14} />
+                    <a
+                      href={`tel:${comunidad.telefono.replace(/[\s-]/g, "")}`}
+                      className="transition-colors hover:text-azul-institucional"
+                    >
+                      {comunidad.telefono}
+                    </a>
+                  </p>
+                )}
                 <p className="mt-4 text-base leading-relaxed text-marron-suave text-justify">
                   {comunidad.intro}
                 </p>
