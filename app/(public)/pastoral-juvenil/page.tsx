@@ -90,6 +90,7 @@ const comunidadNazaret = {
   ubicacion: "Huajuapan de León, Oaxaca",
   foto: "/images/comunidad-Nazaret.png",
   video: "https://youtube.com/shorts/_H68i9sU2wU?feature=share",
+  fotosDespuesVideo: ["/images/Comunidad Nazaret.png"],
   intro:
     "El 1° de abril de 1992 inició oficialmente el caminar de la Comunidad Nazaret, abrazando un proyecto que ya había dado abundantes frutos: el Jardín de Niños Nazaret, que para entonces contaba con 26 años de servicio en la educación preescolar. A lo largo de los años, muchas hermanas han dejado una huella imborrable, sembrando con dulzura y paciencia la semilla del Evangelio en los más pequeños y también en los padres de familia, transformando hogares enteros. Hoy esa semilla sigue floreciendo con la misma vocación y alegría de servir a Dios a través de la educación y la cercanía con su pueblo.",
   areas: [
@@ -283,10 +284,29 @@ const comunidadNuestraSenoraDelPilar = {
 // Comunidad Luis Fiacro (Isla de Chira, Costa Rica). Información por confirmar.
 const comunidadLuisFiacro = {
   nombre: "Comunidad Luis Fiacro",
-  ubicacion: "Isla de Chira, Costa Rica",
+  ubicacion: "San Antonio, Isla de Chira, Puntarenas, Costa Rica",
   foto: "/images/comunidad-costarica.png",
-  intro: "Información próximamente.",
-  areas: [],
+  intro:
+    "La Comunidad Luis Fiacro se encuentra en San Antonio, Isla de Chira, Puntarenas, Costa Rica. Su apostolado se centra en la atención a las comunidades de la isla, la catequesis y el acompañamiento cercano a las familias y a quienes más lo necesitan.",
+  areas: [
+    {
+      titulo: "Atención a las comunidades",
+      items: [
+        "Celebración de la Palabra los domingos en cada comunidad",
+        "Catequesis de niños",
+        "Pláticas presacramentales",
+        "Acompañamiento a grupos",
+      ],
+    },
+    {
+      titulo: "Cercanía y acompañamiento",
+      items: [
+        "Visitas a las familias y a los enfermos",
+        "Atención a personas que necesitan ser escuchadas",
+        "Apoyo ocasional en la cabecera parroquial",
+      ],
+    },
+  ],
 };
 
 // Comunidad Niño de Praga (Tamazulapam del Progreso, Teposcolula, Oaxaca).
@@ -295,6 +315,10 @@ const comunidadNinoDePraga = {
   nombre: "Comunidad Niño de Praga",
   ubicacion: "Tamazulapam del Progreso, Teposcolula, Oaxaca",
   foto: "/images/comunidad-NiñodePraga.png",
+  fotos: [
+    "/images/comunidad-NiñodePraga.png",
+    "/images/Comunidad Praga.png",
+  ],
   intro:
     "Las Hermanas Misioneras del Señor de los Corazones y de Santa María de Guadalupe se encuentran en la Parroquia de Nuestra Señora de la Natividad, en la Villa de Tamazulapam del Progreso, Teposcolula, Oaxaca. Dirección: Calle Emilio Carranza #14A, Barrio San Francisco.",
   areas: [
@@ -318,6 +342,21 @@ const comunidadNinoDePraga = {
   ],
 };
 
+// Casa de Formación (Preaspirantado y Aspirantado) en Chila de las Flores.
+const comunidadCasaFormacion = {
+  nombre: "Misioneras del Señor de los Corazones y de Santa María de Guadalupe",
+  ubicacion: "Chila de las Flores, Puebla",
+  foto: "/images/Comunidad Chila.jpeg",
+  intro:
+    "Comunidad en Chila de las Flores, Puebla. Es la Casa de Formación del Preaspirantado y Aspirantado, donde inicia la formación de las jóvenes que quieren consagrarse a Dios y ser religiosas.",
+  areas: [
+    {
+      titulo: "Etapas de formación inicial",
+      items: ["Preaspirantado", "Aspirantado"],
+    },
+  ],
+};
+
 const comunidadesMisioneras = [
   comunidadEspirituSanto,
   comunidadSantaTeresita,
@@ -327,6 +366,7 @@ const comunidadesMisioneras = [
   comunidadSanJose,
   comunidadCunaDeBelen,
   comunidadAngeles,
+  comunidadCasaFormacion,
   comunidadNuestraSenoraDelPilar,
   comunidadLuisFiacro,
   comunidadNinoDePraga,

@@ -92,7 +92,11 @@ export function DirectorioComunidades({
         className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {visibles.map((c, i) => (
-          <Revelar key={c.nombre} delay={(i % 3) * 90} className="h-full">
+          <Revelar
+            key={`${c.nombre} · ${c.ubicacion}`}
+            delay={(i % 3) * 90}
+            className="h-full"
+          >
             <ComunidadModal comunidad={c} />
           </Revelar>
         ))}

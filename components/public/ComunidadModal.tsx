@@ -45,6 +45,8 @@ export type Comunidad = {
    * como un medio más, navegable con las mismas flechas.
    */
   video?: string;
+  /** Fotos que van DESPUÉS del video en el carrusel del modal. */
+  fotosDespuesVideo?: string[];
   /** Párrafo de presentación. */
   intro: string;
   /** Áreas de servicio con sus actividades. */
@@ -78,6 +80,9 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
     ...(comunidad.video
       ? [{ tipo: "video", youtube: comunidad.video } as Medio]
       : []),
+    ...(comunidad.fotosDespuesVideo ?? []).map(
+      (src): Medio => ({ tipo: "imagen", src }),
+    ),
   ];
 
   // Esc cierra la ventana y se bloquea el scroll del fondo.

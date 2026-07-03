@@ -80,12 +80,26 @@ export default function PastoralMisionera() {
       {/* CONTENIDO — capa opaca que se desplaza sobre la imagen fija. */}
       <div className="relative z-10 bg-crema">
 
-      {/* MISIÓN */}
+      {/* MISIÓN — misma composición editorial (foto al costado, cita como
+          pieza central y programas en franja con filetes) pero abierta sobre
+          el fondo claro de la página, sin panel que la encierre. Así se
+          distingue del "Quiénes somos" del inicio (tarjetas 2×2). */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid gap-10 lg:grid-cols-[2fr_3fr] lg:gap-14">
+          {/* Foto alta que acompaña todo el texto */}
+          <div className="relative min-h-72 overflow-hidden rounded-3xl shadow-md lg:min-h-full">
+            <Image
+              src="/images/pastoral-misionera.png"
+              alt="Hermanas MSCG en misión"
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+
           <div>
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Quiénes somos</span>
-            <h2 className="text-3xl font-bold text-azul-institucional mt-2 mb-5">
+            <h2 className="text-3xl font-bold text-azul-institucional mt-2 mb-6 leading-snug">
               Instituto de Misioneras del Señor de los Corazones y de Santa María de Guadalupe
             </h2>
             <p className="text-marron leading-relaxed mb-4 text-justify">
@@ -94,37 +108,34 @@ export default function PastoralMisionera() {
               de este Proyecto, también queremos alcanzar que la MSCG transmita el mensaje evangélico
               con dinamismo, alegría y oblación.
             </p>
-            <p className="text-marron leading-relaxed mb-4 text-justify">
+            <p className="text-marron leading-relaxed mb-8 text-justify">
               Es una herramienta que se brinda a la Congregación para unificar criterios en la realización
               de la misión desde las etapas iniciales de formación. Todas las hermanas en las misiones den
               a conocer los valores del Reino que son las riquezas del Señor de los Corazones, y el amor
               maternal de Santa María de Guadalupe.
             </p>
-            <div className="bg-dorado/10 border-l-4 border-dorado pl-4 py-3 rounded-r-lg">
-              <p className="text-marron italic text-sm text-justify">
-                "Id por todo el mundo y predicad el Evangelio a toda criatura." (Cfr. Mc. 16,15)
+            {/* Cita bíblica como pieza central, con filete dorado */}
+            <div className="border-t border-dorado/40 pt-6">
+              <p className="font-titulo text-dorado-oscuro text-xl md:text-2xl leading-relaxed">
+                «Id por todo el mundo y predicad el Evangelio a toda criatura»
               </p>
+              <span className="mt-2 block text-xs uppercase tracking-widest text-marron-suave">
+                Cfr. Mc. 16, 15
+              </span>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-md">
-              <Image
-                src="/images/pastoral-misionera.png"
-                alt="Hermanas MSCG en misión"
-                fill
-                className="object-cover"
-              />
+        </div>
+
+        {/* Programas: franja horizontal con filetes finos (gap-px), abierta
+            sobre el fondo de la página. */}
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-arena bg-arena sm:grid-cols-2 lg:grid-cols-4">
+          {programas.map((p) => (
+            <div key={p.titulo} className="bg-crema p-6">
+              <div className="text-dorado mb-3">{p.icon}</div>
+              <h4 className="font-bold text-azul-institucional text-sm mb-1">{p.titulo}</h4>
+              <p className="text-xs text-marron-suave leading-relaxed">{p.desc}</p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {programas.map((p) => (
-                <div key={p.titulo} className="bg-white rounded-2xl p-5 shadow-sm border border-arena hover:shadow-md transition-shadow">
-                  <div className="text-dorado mb-3">{p.icon}</div>
-                  <h4 className="font-bold text-azul-institucional text-sm mb-1">{p.titulo}</h4>
-                  <p className="text-xs text-marron-suave leading-relaxed text-justify">{p.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -135,9 +146,9 @@ export default function PastoralMisionera() {
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Nuestro norte</span>
             <h2 className="text-3xl font-bold text-azul-institucional mt-2">Objetivos de la pastoral misionera</h2>
             <p className="text-marron-suave mt-3 max-w-2xl mx-auto text-justify">
-              "Fortalecer y vivir el espíritu misionero de la MSCG, desde la Palabra de Dios, el Magisterio
+              «Fortalecer y vivir el espíritu misionero de la MSCG, desde la Palabra de Dios, el Magisterio
               de la Iglesia y de nuestras Constituciones, para transmitir con dinamismo, alegría y espíritu
-              de oblación, el mensaje evangelizador a todos nuestros hermanos."
+              de oblación, el mensaje evangelizador a todos nuestros hermanos.»
             </p>
           </div>
           <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-5">
