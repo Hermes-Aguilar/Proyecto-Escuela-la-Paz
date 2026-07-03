@@ -69,7 +69,7 @@ const comunidadSantaTeresita = {
         "Misiones en Semana Santa",
         "Días de muertos, en noviembre",
         "Novena de las posadas de Navidad",
-        "Rezo del santo rosario en mayo y junio, en la parroquia y en las casas de familia",
+        "Rezo del santo rosario en mayo, junio y octubre, en la parroquia y en las casas de familia",
         "Acompañamiento en los novenarios de difuntos, con la representación de los finados",
       ],
     },

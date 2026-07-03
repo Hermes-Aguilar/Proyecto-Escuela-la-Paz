@@ -256,9 +256,7 @@ export default function PastoralVocacional() {
               nos ayudan con su testimonio. Tristemente, en la actualidad se han perdido los valores
               humanos y cristianos en varias familias y la juventud se ha dejado arrastrar por el
               mal uso de la tecnología, a lo que se agrega el anti-testimonio de los diferentes
-              estados de vida, especialmente de la vida consagrada. Por parte de las promotoras
-              vocacionales ha faltado implementar estrategias para contactar y visitar a las
-              jóvenes.
+              estados de vida, especialmente de la vida consagrada.
             </p>
           </div>
 
