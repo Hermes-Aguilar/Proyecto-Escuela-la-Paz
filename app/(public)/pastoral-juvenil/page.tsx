@@ -1,6 +1,7 @@
 // RUTA: src/app/(public)/pastoral-juvenil/page.tsx
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
-import { ComunidadModal } from "@/components/public/ComunidadModal";
+import { DirectorioComunidades } from "@/components/public/DirectorioComunidades";
+import { Revelar } from "@/components/public/Revelar";
 
 // Comunidad misionera de la MSCG (tarjeta + ventana con su información).
 const comunidadEspirituSanto = {
@@ -165,17 +166,28 @@ const comunidadCunaDeBelen = {
   areas: [],
 };
 
-// Casa de Formación (Preaspirantado y Aspirantado) en Chila de las Flores.
-const comunidadCasaFormacion = {
+// Comunidad "de los Ángeles" (Acatlán de Osorio, Puebla). Apostolado en las
+// parroquias de San Juan Bautista y San Gabriel.
+const comunidadAngeles = {
   nombre: "Misioneras del Señor de los Corazones y de Santa María de Guadalupe",
-  ubicacion: "Chila de las Flores, Puebla",
-  foto: "/images/comunidad-MisionerasChila.jpeg",
+  ubicacion: "Reforma #77, Acatlán de Osorio, Puebla",
+  foto: "/images/comunidad-Acatlan.jpeg",
   intro:
-    "Comunidad en Chila de las Flores, Puebla. En la Casa de Formación del Preaspirantado y Aspirantado, donde inicia la formación de las jóvenes que quieren consagrarse a Dios y ser religiosas.",
+    "Comunidad «de los Ángeles» de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe, ubicada en Reforma #77, Acatlán de Osorio, Puebla. Su apostolado propaga la fe a través de libros y artículos religiosos y acompaña la vida sacramental de la comunidad, en colaboración con las parroquias de San Juan Bautista y San Gabriel.",
   areas: [
     {
-      titulo: "Etapas de formación inicial",
-      items: ["Preaspirantado", "Aspirantado"],
+      titulo: "Apostolado",
+      items: [
+        "Propagar la fe a través de libros y artículos religiosos",
+        "Pláticas pre-sacramentales para papás y padrinos, en la parroquia de San Juan Bautista",
+      ],
+    },
+    {
+      titulo: "Colaboración en la parroquia de San Gabriel",
+      items: [
+        "Comisión social, penitenciaria y liturgia (CERESO Acatlán)",
+        "Ministerios",
+      ],
     },
   ],
 };
@@ -194,15 +206,6 @@ const comunidadLuisFiacro = {
   nombre: "Comunidad Luis Fiacro",
   ubicacion: "Isla de Chira, Costa Rica",
   foto: "/images/comunidad-costarica.png",
-  intro: "Información próximamente.",
-  areas: [],
-};
-
-// Comunidad de los Ángeles (Acatlán de Osorio, Puebla). Información por confirmar.
-const comunidadLosAngeles = {
-  nombre: "Comunidad de los Ángeles",
-  ubicacion: "Acatlán de Osorio, Puebla",
-  foto: "/images/comunidad-Acatlan.jpeg",
   intro: "Información próximamente.",
   areas: [],
 };
@@ -243,10 +246,9 @@ const comunidadesMisioneras = [
   comunidadSagradaFamilia,
   comunidadSanJose,
   comunidadCunaDeBelen,
-  comunidadCasaFormacion,
+  comunidadAngeles,
   comunidadNuestraSenoraDelPilar,
   comunidadLuisFiacro,
-  comunidadLosAngeles,
   comunidadNinoDePraga,
 ];
 
@@ -286,18 +288,14 @@ export default function PastoralJuvenil() {
 
       {/* COMUNIDADES MISIONERAS */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center mb-12">
+        <Revelar className="text-center mb-12">
           <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Dónde estamos</span>
           <h2 className="text-3xl font-bold text-azul-institucional mt-2">Nuestras comunidades misioneras</h2>
           <p className="text-marron-suave mt-3 max-w-xl mx-auto">
             Conoce las comunidades de la MSCG. Haz clic en una tarjeta para ver toda su información.
           </p>
-        </div>
-        <div className="max-w-5xl mx-auto space-y-8">
-          {comunidadesMisioneras.map((c, i) => (
-            <ComunidadModal key={i} comunidad={c} />
-          ))}
-        </div>
+        </Revelar>
+        <DirectorioComunidades comunidades={comunidadesMisioneras} />
       </section>
       </div>
     </div>

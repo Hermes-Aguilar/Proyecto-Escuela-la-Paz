@@ -6,6 +6,7 @@ import {
   DirectorioLibrerias,
   type Libreria,
 } from "@/components/public/DirectorioLibrerias";
+import { Revelar } from "@/components/public/Revelar";
 
 // Fotos de la Librería MSCG de Juxtlahuaca (public/images).
 const fotosJuxtlahuaca = Array.from(
@@ -232,22 +233,24 @@ export default function Librerias() {
       {/* DIRECTORIO DE LIBRERÍAS */}
       <section className="bg-azul-suave py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
+          <Revelar className="text-center mb-12">
             <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Directorio</span>
             <h2 className="text-3xl font-bold text-azul-institucional mt-2">Nuestras librerías</h2>
             <p className="text-marron-suave mt-3 max-w-xl mx-auto">
               Elige una librería de la lista para ver sus fotos, horarios, datos de
               contacto y los artículos que ofrece.
             </p>
-          </div>
+          </Revelar>
 
-          <DirectorioLibrerias librerias={librerias} />
+          <Revelar delay={120}>
+            <DirectorioLibrerias librerias={librerias} />
+          </Revelar>
         </div>
       </section>
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="bg-dorado rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <Revelar className="bg-dorado rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl font-bold text-white mb-2">¿Tienes alguna consulta o pedido especial?</h2>
             <p className="text-white/80">
@@ -256,11 +259,12 @@ export default function Librerias() {
           </div>
           <Link
             href="/contacto"
-            className="shrink-0 bg-white text-azul-institucional hover:bg-azul-suave px-7 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors"
+            className="group shrink-0 bg-white text-azul-institucional hover:bg-azul-suave px-7 py-3 rounded-xl font-bold flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
           >
-            Ir a contacto <FaArrowRight />
+            Ir a contacto{" "}
+            <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        </div>
+        </Revelar>
       </section>
       </div>
     </div>

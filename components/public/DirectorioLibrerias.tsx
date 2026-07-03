@@ -66,10 +66,10 @@ export function DirectorioLibrerias({ librerias }: { librerias: Libreria[] }) {
                       type="button"
                       onClick={() => setSel(i)}
                       aria-current={i === sel ? "true" : undefined}
-                      className={`w-full rounded-xl px-4 py-3 text-left transition-colors ${
+                      className={`w-full rounded-xl px-4 py-3 text-left transition-all duration-300 ${
                         i === sel
                           ? "bg-azul-institucional text-white shadow-sm"
-                          : "bg-white text-marron border border-arena hover:border-azul-institucional/40 hover:bg-white/60"
+                          : "bg-white text-marron border border-arena hover:translate-x-1 hover:border-azul-institucional/40 hover:bg-white/60 hover:shadow-sm"
                       }`}
                     >
                       <span className="flex items-center gap-2 text-sm font-bold">
@@ -205,7 +205,7 @@ export function DirectorioLibrerias({ librerias }: { librerias: Libreria[] }) {
                 {lib.productos.map((p) => (
                   <li
                     key={p}
-                    className="rounded-full border border-dorado/40 bg-dorado/10 px-3.5 py-1.5 text-xs font-medium text-marron"
+                    className="rounded-full border border-dorado/40 bg-dorado/10 px-3.5 py-1.5 text-xs font-medium text-marron transition-all duration-300 hover:-translate-y-0.5 hover:border-dorado hover:bg-dorado/20"
                   >
                     {p}
                   </li>
