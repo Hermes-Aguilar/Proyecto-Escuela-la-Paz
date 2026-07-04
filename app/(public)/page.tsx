@@ -299,7 +299,7 @@ export default function Home() {
             {[
               {
                 nombre: "Pbro. Lic. Luis Fiacro Guerrero Ramírez",
-                rol: "Nuestro Padre Fundador",
+                rol: "Fundador e Inspirador",
                 desc: "Inició el Instituto el 12 de mayo de 1957 en Huajuapan de León, Oaxaca, con el deseo de formar religiosas misioneras para la Diócesis.",
                 foto: "/images/fundador.jpeg",
               },

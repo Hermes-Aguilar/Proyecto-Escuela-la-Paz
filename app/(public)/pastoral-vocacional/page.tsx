@@ -9,11 +9,9 @@ import {
   FaHandsHelping,
   FaLeaf,
   FaPhoneAlt,
-  FaPlay,
   FaPray,
   FaQuoteLeft,
   FaSeedling,
-  FaYoutube,
 } from "react-icons/fa";
 import CarruselHero, { type SlideHero } from "@/components/public/CarruselHero";
 import { GaleriaMisionera } from "@/components/public/GaleriaMisionera";
@@ -123,6 +121,12 @@ const imagenesGaleria = [
   "/images/Pastoral4.jpeg",
   "/images/Pastoral9.jpeg",
   "/images/Pastoral10.jpeg",
+  "/images/Vocacional1.jpeg",
+  "/images/Vocacional2.jpeg",
+  "/images/Vocacional3.jpeg",
+  "/images/Vocacional4.jpeg",
+  "/images/Vocacional5.jpeg",
+  "/images/Vocacional6.jpeg",
 ];
 
 export default function PastoralVocacional() {
@@ -344,49 +348,65 @@ export default function PastoralVocacional() {
               Señor: &ldquo;Ven y sígueme&rdquo;.
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-5 md:items-center">
-            {/* Video principal — horizontal (16:9), reproductor incrustado */}
-            <div className="md:col-span-3 aspect-video overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
+          {/* Videos horizontales (16:9), reproductor incrustado */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="aspect-video overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
+              <iframe
+                src="https://www.youtube.com/embed/oWrClvE80Sg?rel=0"
+                title="Pastoral vocacional — video 1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+            <div className="aspect-video overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
               <iframe
                 src="https://www.youtube.com/embed/GlQgFQtMQ1M?rel=0"
-                title="Pastoral vocacional — video"
+                title="Pastoral vocacional — video 2"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+            <figure>
+              <div className="aspect-video overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
+                <iframe
+                  src="https://www.youtube.com/embed/vpSlvmTf6Pw?rel=0"
+                  title="Encuentro Vocacional Juvenil"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="h-full w-full"
+                />
+              </div>
+              <figcaption className="mt-3 text-center text-sm font-semibold text-azul-institucional">
+                Encuentro Vocacional Juvenil
+              </figcaption>
+            </figure>
+          </div>
+
+          {/* Shorts verticales (9:16) */}
+          <div className="mt-6 flex flex-wrap justify-center gap-6">
+            {/* Short incrustado */}
+            <div className="aspect-9/16 w-full max-w-[300px] overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
+              <iframe
+                src="https://www.youtube.com/embed/kldAVolAKc8?rel=0"
+                title="Pastoral vocacional — Short"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 className="h-full w-full"
               />
             </div>
 
-            {/* Short — vertical (9:16). El autor deshabilitó la reproducción
-                incrustada, así que se muestra la miniatura y se abre en
-                YouTube al hacer clic. */}
-            <a
-              href="https://youtube.com/shorts/SaZyamDQ-Nc"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Ver el Short de pastoral vocacional en YouTube"
-              className="group relative md:col-span-2 mx-auto block aspect-9/16 w-full max-w-[300px] overflow-hidden rounded-2xl border border-arena bg-black shadow-md"
-            >
-              <Image
-                src="https://img.youtube.com/vi/SaZyamDQ-Nc/oardefault.jpg"
-                alt="Short de pastoral vocacional en YouTube"
-                fill
-                sizes="(min-width: 768px) 300px, 100vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+            {/* Short incrustado */}
+            <div className="aspect-9/16 w-full max-w-[300px] overflow-hidden rounded-2xl border border-arena bg-black shadow-md">
+              <iframe
+                src="https://www.youtube.com/embed/SaZyamDQ-Nc?rel=0"
+                title="Pastoral vocacional — Short 2"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
               />
-              {/* Velo + botón de reproducción */}
-              <span className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10" />
-              <span className="absolute inset-0 flex items-center justify-center">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-110">
-                  <FaPlay className="ml-1 text-azul-institucional" size={22} />
-                </span>
-              </span>
-              <span className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-4">
-                <FaYoutube className="text-red-600" size={22} />
-                <span className="text-sm font-semibold text-white drop-shadow">
-                  Ver el Short en YouTube
-                </span>
-              </span>
-            </a>
+            </div>
           </div>
         </div>
       </section>

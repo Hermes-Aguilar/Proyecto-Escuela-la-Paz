@@ -201,19 +201,47 @@ const comunidadSanJose = {
   ],
 };
 
-// Comunidad Cuna de Belén. Ubicación e información pendientes de confirmar.
+// Comunidad Cuna de Belén: Casa Central del Instituto, sede de la Madre
+// General y su Consejo, en Huajuapan de León, Oaxaca.
 const comunidadCunaDeBelen = {
   nombre: "Comunidad Cuna de Belén",
-  ubicacion: "Ubicación por confirmar",
+  ubicacion: "Matamoros #13, Centro, Huajuapan de León, Oaxaca",
+  telefono: "953 532 0711",
   foto: "/images/comunidad-Cunadebelén.jpeg",
-  intro: "Información próximamente.",
-  areas: [],
+  video: "https://youtube.com/shorts/KD0C9_L4ZsU?feature=share",
+  intro:
+    "La Casa Central, denominada «Cuna de Belén», se encuentra en la Calle Matamoros No. 13, Colonia Centro, C.P. 69000, Heroica Ciudad de Huajuapan de León, Oaxaca (correo: secmscg@gmail.com). En ella vive la Madre General y su Consejo, junto con hermanas que realizan diversos servicios y algunas hermanas mayores.",
+  areas: [
+    {
+      titulo: "Madre General y su Consejo",
+      items: [
+        "M. Teodora del Corazón Eucarístico — Superiora General",
+        "M. María Estela de la Encarnación — Vicaria General",
+        "M. Ana Lidia del Sagrado Corazón de María — Consejera",
+        "M. Gloria del Buen Pastor — Consejera",
+        "M. Zeferina Magdalena del Espíritu Santo — Consejera y Secretaria General",
+      ],
+    },
+    {
+      titulo: "Servicios",
+      items: [
+        "Atención en el Obispado",
+        "Librería",
+        "Sagrada Mitra",
+        "Catequesis en instituciones educativas",
+        "Servicio en Comisiones y Dimensiones Diocesanas",
+        "Misiones esporádicas",
+        "Coro para la celebración Eucarística",
+        "Acompañamiento en novenarios de difuntos",
+      ],
+    },
+  ],
 };
 
 // Comunidad "de los Ángeles" (Acatlán de Osorio, Puebla). Apostolado en las
 // parroquias de San Juan Bautista y San Gabriel.
 const comunidadAngeles = {
-  nombre: "Misioneras del Señor de los Corazones y de Santa María de Guadalupe",
+  nombre: "Comunidad de los Ángeles",
   ubicacion: "Reforma #77, Acatlán de Osorio, Puebla",
   foto: "/images/comunidad-Acatlan.jpeg",
   intro:
@@ -245,6 +273,7 @@ const comunidadNuestraSenoraDelPilar = {
   telefono: "+212 5394-16204",
   foto: "/images/comunidadseñoradelpilar2.jpeg",
   fotos: [
+    "/images/Pilar Comunidad.jpeg",
     "/images/comunidadseñoradelpilar1.jpeg",
     "/images/comunidadseñoradelpilar2.jpeg",
   ],
@@ -358,14 +387,49 @@ const comunidadCasaFormacion = {
   ],
 };
 
+// Casa de la Misericordia: hogar para jóvenes estudiantes en Huajuapan de León.
+const comunidadCasaMisericordia = {
+  nombre: "Comunidad Casa de la Misericordia",
+  ubicacion: "Valerio Trujano #101 A, El Calvario, Huajuapan de León, Oaxaca",
+  telefono: "953 532 0094",
+  foto: "/images/comunidad Casa de la misericordia 1.jpeg",
+  fotos: [
+    "/images/comunidad Casa de la misericordia 1.jpeg",
+    "/images/comunidad Casa de la misericordia 2.jpeg",
+  ],
+  video: "https://youtu.be/il03VRi1EEw",
+  intro:
+    "Un hogar que acoge, forma y acompaña a la juventud. La Casa de la Misericordia es un espacio creado con amor para brindar a las jóvenes estudiantes un ambiente seguro, fraterno y propicio para su crecimiento humano, académico, espiritual y personal. Nuestro compromiso es acompañar a cada estudiante en su proceso de formación integral para que pueda construir un futuro lleno de esperanza. Dirección: Calle Valerio Trujano No. 101 «A», Colonia El Calvario, Huajuapan de León, Oaxaca.",
+  areas: [
+    {
+      titulo: "Un hogar que acoge",
+      items: [
+        "Espacio creado con amor para las jóvenes estudiantes",
+        "Ambiente seguro, fraterno y propicio para su crecimiento",
+        "Acogida, formación y esperanza para transformar su vida",
+      ],
+    },
+    {
+      titulo: "Formación integral",
+      items: [
+        "Acompañamiento en su crecimiento humano, académico, espiritual y personal",
+        "Promoción de valores, responsabilidad y solidaridad",
+        "Desarrollo de sus capacidades para construir un futuro de esperanza",
+        "Formar a las jóvenes para servir mejor a la sociedad",
+      ],
+    },
+  ],
+};
+
 const comunidadesMisioneras = [
+  comunidadCunaDeBelen,
   comunidadEspirituSanto,
   comunidadSantaTeresita,
   comunidadNazaret,
   comunidadTepeyac,
   comunidadSagradaFamilia,
   comunidadSanJose,
-  comunidadCunaDeBelen,
+  comunidadCasaMisericordia,
   comunidadAngeles,
   comunidadCasaFormacion,
   comunidadNuestraSenoraDelPilar,
