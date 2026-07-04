@@ -97,7 +97,7 @@ const librerias: Libreria[] = [
     ciudad: "Huajuapan de León, Oaxaca",
     direccion: "Matamoros N°13, Colonia Centro, Huajuapan de León, Oax.",
     horario: "Todos los días: 8:00 – 18:00 h",
-    telefono: ["953 532 2315"],
+    telefono: ["953 532 0711"],
     principal: true,
     descripcion:
       "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe en Huajuapan de León. Punto principal con artículos religiosos, objetos litúrgicos y material para sacramentos al servicio de la comunidad.",
