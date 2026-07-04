@@ -239,18 +239,7 @@ export function ComunidadModal({ comunidad }: { comunidad: Comunidad }) {
                 </div>
               ) : null}
               <div>
-                <span className="inline-flex items-center gap-2 text-azul-institucional text-sm font-semibold tracking-widest uppercase">
-                  {enExtranjero ? (
-                    <>
-                      <FaGlobeAfrica size={16} /> Misión en el extranjero
-                    </>
-                  ) : (
-                    <>
-                      <FaGlobeAmericas size={16} /> Misión en México
-                    </>
-                  )}
-                </span>
-                <h2 className="mt-2 text-3xl font-bold text-azul-institucional md:text-4xl">
+                <h2 className="text-3xl font-bold text-azul-institucional md:text-4xl">
                   {comunidad.nombre}
                 </h2>
                 <p className="mt-2 flex items-center gap-2 text-base font-semibold text-marron">

@@ -243,11 +243,10 @@ const comunidadNuestraSenoraDelPilar = {
   ubicacion: "Asilah, Marruecos, África",
   whatsapp: "+52 55 2675 5063",
   telefono: "+212 5394-16204",
-  foto: "/images/comunidad-Señoradelpilar.png",
+  foto: "/images/comunidadseñoradelpilar2.jpeg",
   fotos: [
-    "/images/comunidad-Señoradelpilar.png",
-    "/images/Marruecos Pilar.jpeg",
-    "/images/Marruecos Pilar1.jpeg",
+    "/images/comunidadseñoradelpilar1.jpeg",
+    "/images/comunidadseñoradelpilar2.jpeg",
   ],
   intro:
     "La Comunidad Nuestra Señora del Pilar se encuentra en Asilah, al norte de África (Marruecos), en la parroquia de San Bartolomé Apóstol, perteneciente a la Arquidiócesis de Tánger. Somos tres hermanas en esta misión, fundada el 12 de octubre de 2024. Dirección: Avenida Príncipe Héritier n.º 24, 90050 Asilah, Marruecos.",
@@ -268,7 +267,7 @@ const comunidadNuestraSenoraDelPilar = {
       ],
     },
     {
-      titulo: "Centro Cultural para mujeres",
+      titulo: "Centro Cultural",
       items: [
         "Taller de corte y confección",
         "Taller de máquinas de coser industriales",
