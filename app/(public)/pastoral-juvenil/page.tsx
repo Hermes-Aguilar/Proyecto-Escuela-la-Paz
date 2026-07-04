@@ -271,7 +271,7 @@ const comunidadNuestraSenoraDelPilar = {
   ubicacion: "Asilah, Marruecos, África",
   whatsapp: "+52 55 2675 5063",
   telefono: "+212 5394-16204",
-  foto: "/images/comunidadseñoradelpilar2.jpeg",
+  foto: "/images/Pilar Comunidad.jpeg",
   fotos: [
     "/images/Pilar Comunidad.jpeg",
     "/images/comunidadseñoradelpilar1.jpeg",
