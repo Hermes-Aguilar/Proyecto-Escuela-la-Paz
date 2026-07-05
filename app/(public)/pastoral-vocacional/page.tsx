@@ -121,20 +121,11 @@ const imagenesGaleria = [
   "/images/Pastoral4.jpeg",
   "/images/Pastoral9.jpeg",
   "/images/Pastoral10.jpeg",
-<<<<<<< HEAD
-  "/images/Vocacional1.jpeg",
-  "/images/Vocacional2.jpeg",
-  "/images/Vocacional3.jpeg",
-  "/images/Vocacional4.jpeg",
-  "/images/Vocacional5.jpeg",
-  "/images/Vocacional6.jpeg",
-=======
   "/images/vocacional1.jpeg",
   "/images/vocacional2.jpeg",
   "/images/vocacional3.jpeg",
   "/images/vocacional4.jpeg",
   "/images/vocacional5.jpeg",
->>>>>>> front
 ];
 
 export default function PastoralVocacional() {
