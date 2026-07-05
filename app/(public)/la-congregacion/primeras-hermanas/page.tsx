@@ -1,6 +1,6 @@
 // ============================================================
 // app/(public)/la-congregacion/primeras-hermanas/page.tsx
-// Primeras Hermanas — las 4 fundadoras de la Congregación
+// Primeras Hermanas — las 4 iniciadoras de la Congregación
 // (docs/congregacion.md). Se usa la foto histórica real de las
 // primeras hermanas con la Madre Elisa María, y los nombres como
 // pie de foto (en el orden "de izq. a der." del documento).
@@ -39,7 +39,7 @@ export default function PrimerasHermanas() {
     <div className="bg-crema">
       <SubHero
         eyebrow="Primeras Hermanas"
-        titulo="Las cuatro fundadoras"
+        titulo="Las cuatro iniciadoras"
         descripcion="Las jovencitas que el 12 de mayo de 1957 dieron inicio a esta obra de Dios y de la Santísima Virgen."
         imagenFondo="/images/fundadoras principal1.png"
         posicionFondo="bg-[center_55%]"
