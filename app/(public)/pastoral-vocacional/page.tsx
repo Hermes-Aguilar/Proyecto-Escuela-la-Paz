@@ -123,6 +123,11 @@ const imagenesGaleria = [
   "/images/Pastoral4.jpeg",
   "/images/Pastoral9.jpeg",
   "/images/Pastoral10.jpeg",
+  "/images/vocacional1.jpeg",
+  "/images/vocacional2.jpeg",
+  "/images/vocacional3.jpeg",
+  "/images/vocacional4.jpeg",
+  "/images/vocacional5.jpeg",
 ];
 
 export default function PastoralVocacional() {
@@ -425,7 +430,7 @@ export default function PastoralVocacional() {
               className="bg-azul-institucional hover:bg-azul-oscuro text-white px-7 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
             >
               <FaEnvelope />
-              Escribirnos
+              Escríbenos
             </Link>
 
             <a
