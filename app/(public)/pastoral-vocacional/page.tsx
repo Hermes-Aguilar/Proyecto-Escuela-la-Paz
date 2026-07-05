@@ -126,6 +126,13 @@ const imagenesGaleria = [
   "/images/vocacional3.jpeg",
   "/images/vocacional4.jpeg",
   "/images/vocacional5.jpeg",
+  "/images/pastoral-vocacional1.jpeg",
+  "/images/pastoral-vocacional2.jpeg",
+  "/images/pastoral-vocacional3.jpeg",
+  "/images/pastoral-vocacional4.jpeg",
+  "/images/pastoral-vocacional5.jpeg",
+  "/images/pastoral-vocacional6.jpeg",
+  "/images/pastoral-vocacional7.jpeg",
 ];
 
 export default function PastoralVocacional() {
