@@ -110,6 +110,7 @@ const librerias: Libreria[] = [
     ciudad: "Juxtlahuaca, Oaxaca",
     direccion: "Lázaro Cárdenas Norte #304, Juxtlahuaca, Oax.",
     horario: "Todos los días: 9:00 – 17:00 h",
+    telefono: ["953 116 2871"],
     principal: false,
     descripcion:
       "Librería de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe. Un espacio de evangelización donde encontrarás artículos religiosos, imágenes sagradas y todo lo necesario para la vida litúrgica y devocional de tu comunidad.",
