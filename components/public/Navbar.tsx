@@ -152,10 +152,10 @@ export default function Navbar() {
       </div>
 
       {/* ============================================================
-          BARRA DE NAVEGACIÓN — fondo marrón institucional. El azul
-          institucional se usa SOLO como acento (link activo y hover).
+          BARRA DE NAVEGACIÓN — fondo azul institucional. El dorado se
+          usa como acento (link activo); el hover aclara con blanco.
           ============================================================ */}
-      <div className="bg-marron shadow-sm">
+      <div className="bg-azul-institucional shadow-sm">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:justify-center">
           {/* Etiqueta solo visible en móvil (la navegación va en el drawer) */}
           <span className="font-titulo text-sm font-semibold text-arena lg:hidden">
@@ -175,8 +175,8 @@ export default function Navbar() {
                     href={link.href}
                     className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                       activo
-                        ? "bg-azul-institucional text-white"
-                        : "text-white/90 hover:bg-azul-institucional hover:text-white"
+                        ? "bg-dorado text-marron"
+                        : "text-white/90 hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     {link.label}
@@ -192,8 +192,8 @@ export default function Navbar() {
                     href={link.href}
                     className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                       activo
-                        ? "bg-azul-institucional text-white"
-                        : "text-white/90 hover:bg-azul-institucional hover:text-white"
+                        ? "bg-dorado text-marron"
+                        : "text-white/90 hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     {link.label}
@@ -242,7 +242,7 @@ export default function Navbar() {
         {/* Mobile menu — panel a pantalla completa con scroll propio, para
             que el fondo no se mueva mientras está abierto. */}
         {open && (
-          <div className="fixed inset-0 z-50 flex flex-col bg-marron lg:hidden">
+          <div className="fixed inset-0 z-50 flex flex-col bg-azul-institucional lg:hidden">
             {/* Barra superior (misma altura que la de navegación) con cerrar. */}
             <div className="flex h-14 shrink-0 items-center justify-between px-4 sm:px-6">
               <span className="font-titulo text-sm font-semibold text-arena">

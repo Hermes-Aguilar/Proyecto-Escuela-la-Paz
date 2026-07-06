@@ -1,14 +1,14 @@
 // RUTA: src/components/public/Footer.tsx
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaYoutube, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-marron text-arena">
+    <footer className="bg-azul-institucional text-arena">
       <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Identidad */}
         <div>
-          <h3 className="text-white text-lg font-bold mb-3 border-l-4 border-azul-institucional pl-3 leading-snug">
+          <h3 className="text-white text-lg font-bold mb-3 border-l-4 border-dorado pl-3 leading-snug">
             Instituto de Misioneras del Señor de los Corazones y de Santa María de Guadalupe
           </h3>
           <p className="text-sm leading-relaxed text-arena/80">
@@ -19,11 +19,6 @@ export default function Footer() {
           <p className="mt-4 font-titulo text-sm italic text-dorado">
             «Alegrémonos de sufrir por Cristo en favor de su Iglesia»
           </p>
-          <div className="flex gap-4 mt-5">
-            <a href="#" aria-label="Facebook" className="hover:text-dorado transition-colors"><FaFacebook size={20} /></a>
-            <a href="#" aria-label="Instagram" className="hover:text-dorado transition-colors"><FaInstagram size={20} /></a>
-            <a href="#" aria-label="YouTube" className="hover:text-dorado transition-colors"><FaYoutube size={20} /></a>
-          </div>
         </div>
 
         {/* Navegación */}
@@ -52,7 +47,7 @@ export default function Footer() {
 
         {/* Contacto */}
         <div>
-          <h3 className="text-white text-lg font-bold mb-3 border-l-4 border-azul-institucional pl-3">
+          <h3 className="text-white text-lg font-bold mb-3 border-l-4 border-dorado pl-3">
             Contáctanos
           </h3>
           <ul className="space-y-3 text-sm">
