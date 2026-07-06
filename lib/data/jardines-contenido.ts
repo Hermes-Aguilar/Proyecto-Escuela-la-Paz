@@ -33,6 +33,13 @@ export interface ContactoInstitucional {
   celular?: string;
   email?: string;
   direccion?: string;
+  // URL directa de Google Maps (p. ej. un enlace corto maps.app.goo.gl que
+  // abre la ficha del lugar). Si se define, tiene prioridad sobre todo.
+  mapaUrl?: string;
+  // Consulta exacta para el enlace de Google Maps. Si se define, se usa
+  // en lugar de `direccion` para abrir el mapa (útil cuando la dirección
+  // mostrada es descriptiva pero no la ideal para geolocalizar).
+  mapaQuery?: string;
   clave?: string;
   turno?: string;
   incorporacion?: string;
@@ -298,6 +305,9 @@ export const jardinesContenido: Record<string, JardinContenido> = {
       email: "jnlapaz12@gmail.com",
       direccion:
         "Calle Morelos 121, esq. con Guadalupe Victoria, col. Tepeyac, Heroica Ciudad de Huajuapan de León, Oaxaca.",
+      // Ficha del Jardín de Niños "La Paz" en Google Maps (Guadalupe Victoria
+      // 6A, Los Presidentes, Huajuapan de León).
+      mapaUrl: "https://maps.app.goo.gl/n7U4sTEmwcT4x9f68",
       clave: "20PJN0055B",
       turno: "Matutino",
       incorporacion: "IEEPOO de Oaxaca (12 de agosto de 2003)",
@@ -341,6 +351,8 @@ export const jardinesContenido: Record<string, JardinContenido> = {
       email: "jardinporvenir3@gmail.com",
       direccion:
         "Calle Matamoros No. 13, col. Centro, Heroica Ciudad de Huajuapan de León, Oaxaca.",
+      // Consulta limpia para que Google Maps geolocalice bien la ubicación.
+      mapaQuery: "Calle Matamoros 13, Centro, Huajuapan de León, Oaxaca",
       clave: "20PJN0054C",
       turno: "Matutino",
       incorporacion: "2003",

@@ -58,10 +58,13 @@ export default async function ContactoJardin({
   // Pueden estar pendientes (null) para algún jardín.
   const datosJardin = jardinesContenido[slug]?.contacto ?? null;
 
-  const mapsUrl = datosJardin?.direccion
-    ? "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent(datosJardin.direccion)
-    : null;
+  const consultaMapa = datosJardin?.mapaQuery ?? datosJardin?.direccion;
+  const mapsUrl =
+    datosJardin?.mapaUrl ??
+    (consultaMapa
+      ? "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(consultaMapa)
+      : null);
 
   // Datos de contacto directos (teléfono, celular, correo). Solo los
   // que el jardín tenga documentados.
