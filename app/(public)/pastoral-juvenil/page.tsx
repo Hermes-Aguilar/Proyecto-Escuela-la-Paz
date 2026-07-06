@@ -90,7 +90,7 @@ const comunidadNazaret = {
   ubicacion: "Huajuapan de León, Oaxaca",
   foto: "/images/comunidad-Nazaret.png",
   video: "https://youtube.com/shorts/_H68i9sU2wU?feature=share",
-  fotosDespuesVideo: ["/images/Comunidad Nazaret.png", "/images/comunidadImagen.jpeg"],
+  fotosDespuesVideo: ["/images/Comunidad Nazaret.png", "/images/comunidadImagen.jpeg", "/images/COM-NAZARET.jpeg"],
   intro:
     "El 1° de abril de 1992 inició oficialmente el caminar de la Comunidad Nazaret, abrazando un proyecto que ya había dado abundantes frutos: el Jardín de Niños Nazaret, que para entonces contaba con 26 años de servicio en la educación preescolar. A lo largo de los años, muchas hermanas han dejado una huella imborrable, sembrando con dulzura y paciencia la semilla del Evangelio en los más pequeños y también en los padres de familia, transformando hogares enteros. Hoy esa semilla sigue floreciendo con la misma vocación y alegría de servir a Dios a través de la educación y la cercanía con su pueblo.",
   areas: [
