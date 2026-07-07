@@ -291,8 +291,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <AnimacionScroll>
             <div className="text-center mb-12">
-              <span className="text-azul-institucional text-sm font-semibold tracking-widest uppercase">Nuestras raíces</span>
-              <h2 className="font-display text-3xl font-bold text-azul-institucional mt-2">Fundadores e inspiradores</h2>
+              <h2 className="font-display text-3xl font-bold text-azul-institucional tracking-wide uppercase">Nuestras raíces</h2>
             </div>
           </AnimacionScroll>
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
