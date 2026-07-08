@@ -215,7 +215,7 @@ export default function Historia() {
         descripcion="Desde una casa prestada en 1957 hasta 17 comunidades en México, Costa Rica y África."
         imagenFondo="/images/fondo de historia.png"
         posicionFondo="bg-top"
-        veloClase="bg-gradient-to-br from-marron/85 via-marron/78 to-dorado-oscuro/80"
+        veloClase="bg-linear-to-br from-marron/85 via-marron/78 to-dorado-oscuro/80"
       />
 
       {/* Historia de la Fundación */}

@@ -43,7 +43,7 @@ export default function PrimerasHermanas() {
         descripcion="Las jovencitas que el 12 de mayo de 1957 dieron inicio a esta obra de Dios y de la Santísima Virgen."
         imagenFondo="/images/fundadoras principal1.png"
         posicionFondo="bg-bottom"
-        veloClase="bg-gradient-to-br from-marron/88 via-marron/82 to-terracota-oscuro/82"
+        veloClase="bg-linear-to-br from-marron/88 via-marron/82 to-terracota-oscuro/82"
       />
 
       <section className="mx-auto max-w-4xl px-6 py-16 md:py-20">

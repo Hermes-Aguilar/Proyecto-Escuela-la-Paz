@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Jardin {
@@ -23,7 +24,6 @@ model Jardin {
   instagramUrl    String?           @map("instagram_url") @db.VarChar(255)
   whatsapp        String?           @db.VarChar(30)
   creadoEn        DateTime          @default(now()) @map("creado_en")
-  mensajes        MensajeContacto[]
   publicaciones   Publicacion[]
   usuarios        Usuario[]
 
@@ -76,21 +76,6 @@ model Medio {
   @@map("medios")
 }
 
-model MensajeContacto {
-  id       Int      @id @default(autoincrement())
-  jardinId Int      @map("jardin_id")
-  nombre   String   @db.VarChar(120)
-  email    String   @db.VarChar(120)
-  telefono String?  @db.VarChar(30)
-  asunto   String?  @db.VarChar(120)
-  mensaje  String
-  leido    Boolean  @default(false)
-  creadoEn DateTime @default(now()) @map("creado_en")
-  jardin   Jardin   @relation(fields: [jardinId], references: [id], onDelete: Cascade)
-
-  @@index([jardinId])
-  @@map("mensajes_contacto")
-}
 
 enum Rol {
   ADMIN

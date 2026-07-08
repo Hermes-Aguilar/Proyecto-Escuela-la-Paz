@@ -50,7 +50,7 @@ export default function HeroJardin({
           transparente a la derecha, dejando ver la foto nítida. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[var(--jardin-primario)]/85 via-[var(--jardin-primario)]/40 to-transparent"
+        className="pointer-events-none absolute inset-0 bg-linear-to-r from-[var(--jardin-primario)]/85 via-[var(--jardin-primario)]/40 to-transparent"
       />
 
       {/* CONTENIDO · alineado a la izquierda, centrado verticalmente,

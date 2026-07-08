@@ -318,8 +318,7 @@ export const jardinesContenido: Record<string, JardinContenido> = {
       clave: "20PJN0055B",
       turno: "Matutino",
       incorporacion: "IEEPOO de Oaxaca (12 de agosto de 2003)",
-      // Links de redes pendientes de confirmar (placeholder por ahora).
-      facebook: "https://facebook.com",
+      facebook: "https://www.facebook.com/share/1JPeTrWSR8/",
       youtube: "https://www.youtube.com/@PazyPorvenir",
     },
     espiritualidad: {

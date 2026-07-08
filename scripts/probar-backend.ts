@@ -11,13 +11,12 @@
 //   · --env-file=.env.local → carga DATABASE_URL y las claves de
 //     Cloudinary (tsx no lee .env.local por sí solo).
 //
-// Qué prueba (CU-04/06/08/09 + aislamiento):
-//   1. Contacto (la-paz) → inserta en mensajes_contacto.
-//   2. Crear publicación (sesión admin_lapaz) + 1 imagen real a
+// Qué prueba (CU-06/08/09 + aislamiento):
+//   1. Crear publicación (sesión admin_lapaz) + 1 imagen real a
 //      Cloudinary → verifica publicación + medio con url y publicId.
-//   3. Editar: quitar la foto → se borra de Cloudinary y de BD.
-//   4. Borrar publicación → BD limpia.
-//   5. Negativo: admin_porvenir intenta editar esa publicación →
+//   2. Editar: quitar la foto → se borra de Cloudinary y de BD.
+//   3. Borrar publicación → BD limpia.
+//   4. Negativo: admin_porvenir intenta editar esa publicación →
 //      debe lanzar ForbiddenError (el action lo mapea a FORBIDDEN).
 //
 // Los actions no se pueden importar en un script (arrastran
@@ -36,7 +35,6 @@ import {
   type AuthenticatedUser,
 } from "@/lib/dal/session";
 import { getJardinBySlug } from "@/lib/dal/jardines";
-import { crearMensajeContacto } from "@/lib/dal/contacto";
 import {
   createPublicacion,
   updatePublicacion,
@@ -45,7 +43,6 @@ import {
 } from "@/lib/dal/publicaciones";
 import { subirImagen, eliminarImagen } from "@/lib/services/cloudinary";
 import { ForbiddenError } from "@/lib/dal/errors";
-import { contactoSchema } from "@/lib/validations/contacto";
 import {
   publicacionSchema,
   imagenesSchema,
@@ -72,7 +69,6 @@ function check(cond: boolean, etiqueta: string) {
 
 // Estado para limpiar al final pase lo que pase.
 const limpieza: {
-  mensajeId?: number;
   publicacionId?: number;
   publicIds: string[];
 } = { publicIds: [] };
@@ -122,29 +118,9 @@ async function main() {
   };
 
   // ====================================================
-  // 1. Contacto (CU-04) — público, jardinId por slug
+  // 1. Crear publicación (CU-06) — sesión admin_lapaz + imagen real
   // ====================================================
-  console.log("\n[1] enviarMensaje (la-paz)");
-  const datosContacto = contactoSchema.parse({
-    nombre: "Prueba Automática",
-    email: "prueba@example.com",
-    mensaje: "Mensaje de prueba del script.",
-    telefono: undefined,
-    asunto: undefined,
-  });
-  await crearMensajeContacto(lapaz.id, datosContacto);
-  const msg = await db.mensajeContacto.findFirst({
-    where: { jardinId: lapaz.id, email: "prueba@example.com" },
-    orderBy: { id: "desc" },
-  });
-  check(msg !== null, "el mensaje quedó insertado en mensajes_contacto");
-  check(msg?.jardinId === lapaz.id, "el mensaje tiene el jardinId de la-paz");
-  if (msg) limpieza.mensajeId = msg.id;
-
-  // ====================================================
-  // 2. Crear publicación (CU-06) — sesión admin_lapaz + imagen real
-  // ====================================================
-  console.log("\n[2] crearPublicacion (admin_lapaz): bloques texto→imagen→texto");
+  console.log("\n[1] crearPublicacion (admin_lapaz): bloques texto→imagen→texto");
   const imagen = new File([PNG_1X1], "prueba.png", { type: "image/png" });
   const NUEVA_REF = "img-0";
   // Contenido en bloques: texto → imagen (nuevaRef) → texto.
@@ -221,9 +197,9 @@ async function main() {
   );
 
   // ====================================================
-  // 3. Editar (CU-08) — quitar la foto
+  // 2. Editar (CU-08) — quitar la foto
   // ====================================================
-  console.log("\n[3] editarPublicacion: quitar el bloque de imagen");
+  console.log("\n[2] editarPublicacion: quitar el bloque de imagen");
   // La action borra primero de Cloudinary las fotos quitadas...
   if (cloudinaryActivo) {
     await eliminarImagen(subida.publicId);
@@ -263,10 +239,10 @@ async function main() {
   }
 
   // ====================================================
-  // 5. Negativo (aislamiento) — admin_porvenir edita pub de la-paz
+  // 3. Negativo (aislamiento) — admin_porvenir edita pub de la-paz
   //    (se prueba antes del borrado, mientras la publicación existe)
   // ====================================================
-  console.log("\n[5] editarPublicacion con sesión admin_porvenir → FORBIDDEN");
+  console.log("\n[3] editarPublicacion con sesión admin_porvenir → FORBIDDEN");
   let forbidden = false;
   try {
     await runWithSimulatedUser(sesionPorvenir, () =>
@@ -293,6 +269,7 @@ async function main() {
   // 4. Borrar (CU-09)
   // ====================================================
   console.log("\n[4] borrarPublicacion (admin_lapaz)");
+  // (paso 4: se ejecuta tras la prueba negativa, con la publicación aún viva)
   await runWithSimulatedUser(sesionLapaz, () => deletePublicacion(pub.id));
   const borrada = await db.publicacion.findUnique({ where: { id: pub.id } });
   check(borrada === null, "la publicación se borró de la BD");
@@ -301,9 +278,6 @@ async function main() {
 
 async function limpiar() {
   console.log("\n[limpieza] dejando la BD como estaba…");
-  if (limpieza.mensajeId) {
-    await db.mensajeContacto.deleteMany({ where: { id: limpieza.mensajeId } });
-  }
   if (limpieza.publicacionId) {
     // cascade borra los medios
     await db.publicacion.deleteMany({ where: { id: limpieza.publicacionId } });

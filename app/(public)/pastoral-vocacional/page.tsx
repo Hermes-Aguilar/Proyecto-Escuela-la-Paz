@@ -164,6 +164,7 @@ export default function PastoralVocacional() {
                 src="/images/Pastoral2.jpeg"
                 alt="Pastoral vocacional de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe"
                 fill
+                sizes="(min-width: 768px) 384px, 100vw"
                 className="object-cover object-center"
               />
             </div>
@@ -203,7 +204,7 @@ export default function PastoralVocacional() {
           </h3>
           <div className="relative grid gap-10 md:grid-cols-4 md:gap-6">
             {/* Línea que conecta los hitos (solo en escritorio) */}
-            <div aria-hidden className="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-dorado/30 via-dorado to-dorado/30" />
+            <div aria-hidden className="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] h-0.5 bg-linear-to-r from-dorado/30 via-dorado to-dorado/30" />
             {momentos.map((m, i) => (
               <div key={m.titulo} className="relative flex flex-col items-center text-center">
                 <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-azul-institucional text-dorado shadow-md ring-4 ring-crema">
@@ -329,6 +330,7 @@ export default function PastoralVocacional() {
                 src="/images/Pastoral8.jpeg"
                 alt="Hermanas de la Congregación en la animación vocacional"
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>

@@ -57,7 +57,7 @@ export function SubmenuPastoral() {
   return (
     <nav
       aria-label="Navegación de Pastoral Educativa"
-      className="border-b border-arena bg-gradient-to-b from-white to-crema/50 shadow-sm"
+      className="border-b border-arena bg-linear-to-b from-white to-crema/50 shadow-sm"
     >
       <div className="mx-auto flex max-w-7xl items-center gap-2.5 overflow-x-auto px-4 py-3 sm:px-6">
         {/* Rótulo guía, solo en pantallas anchas */}

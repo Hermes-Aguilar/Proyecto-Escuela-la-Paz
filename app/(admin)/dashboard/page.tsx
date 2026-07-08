@@ -212,7 +212,7 @@ export default async function DashboardPage() {
                   className="flex flex-col overflow-hidden rounded-2xl border border-arena bg-white shadow-sm transition hover:shadow-md"
                 >
                   {/* Miniatura: primera imagen, o ícono según tipo */}
-                  <div className="relative aspect-[16/9] bg-gradient-to-br from-crema to-arena">
+                  <div className="relative aspect-[16/9] bg-linear-to-br from-crema to-arena">
                     {imagen ? (
                       <Image
                         src={imagen}

@@ -52,7 +52,7 @@ export default async function LoginPage({
         className="object-cover"
       />
       {/* Velo cálido global para que todo el texto sea legible */}
-      <div className="absolute inset-0 bg-gradient-to-r from-marron/70 via-marron/35 to-marron/40" />
+      <div className="absolute inset-0 bg-linear-to-r from-marron/70 via-marron/35 to-marron/40" />
 
       {/* CONTENIDO */}
       <div className="relative z-10 grid min-h-screen grid-cols-1 md:grid-cols-2">

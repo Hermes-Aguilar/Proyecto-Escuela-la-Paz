@@ -17,7 +17,6 @@ async function main() {
   // (orden: primero los hijos, luego los padres)
   await prisma.medio.deleteMany();
   await prisma.publicacion.deleteMany();
-  await prisma.mensajeContacto.deleteMany();
   await prisma.usuario.deleteMany();
   await prisma.jardin.deleteMany();
 
@@ -45,8 +44,12 @@ async function main() {
   });
 
   // ----- Encargadas (1 por jardin) -----
-  const passLaPaz = await bcrypt.hash("23lapaz", 10);
-  const passPorvenir = await bcrypt.hash("23porvenir", 10);
+  // Credenciales iniciales seguras. Se imprimen al final del seed
+  // para copiarlas una sola vez; despues cambialas desde el panel.
+  const plainLaPaz = "Kx7$mQ9vLp2wZr";
+  const plainPorvenir = "Bn4#tW8yGc5hMd";
+  const passLaPaz = await bcrypt.hash(plainLaPaz, 10);
+  const passPorvenir = await bcrypt.hash(plainPorvenir, 10);
 
   await prisma.usuario.create({
     data: {
@@ -67,6 +70,11 @@ async function main() {
   });
 
   console.log("Seed completado: 2 jardines y 2 encargadas creados.");
+  console.log("");
+  console.log("=== CREDENCIALES INICIALES (guardalas y borra esta salida) ===");
+  console.log(`  admin_lapaz     -> ${plainLaPaz}`);
+  console.log(`  admin_porvenir  -> ${plainPorvenir}`);
+  console.log("=============================================================");
 }
 
 main()

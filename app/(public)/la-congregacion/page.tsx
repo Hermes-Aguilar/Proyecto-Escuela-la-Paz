@@ -88,7 +88,7 @@ export default function LaCongregacion() {
           style={{ backgroundImage: "url('/images/congregacion principal.png')" }}
         />
         {/* Velo cálido para realzar el texto blanco sin perder el dorado. */}
-        <div className="absolute inset-0 bg-gradient-to-b from-marron/75 via-marron/45 to-marron/80" />
+        <div className="absolute inset-0 bg-linear-to-b from-marron/75 via-marron/45 to-marron/80" />
       </div>
 
       {/* Texto del hero: en el flujo normal, se desplaza sobre el fondo fijo. */}
@@ -149,7 +149,7 @@ export default function LaCongregacion() {
               </h2>
 
               {/* Párrafo con letra capital decorativa. */}
-              <p className="mt-6 leading-relaxed text-marron-suave [&::first-letter]:float-left [&::first-letter]:mr-3 [&::first-letter]:font-titulo [&::first-letter]:text-6xl [&::first-letter]:font-bold [&::first-letter]:leading-none [&::first-letter]:text-dorado">
+              <p className="mt-6 leading-relaxed text-marron-suave first-letter:float-left first-letter:mr-3 first-letter:font-titulo first-letter:text-6xl first-letter:font-bold first-letter:leading-none first-letter:text-dorado">
                 Instituto fundado el 12 de mayo de 1957 en Huajuapan de León,
                 Oaxaca, por el Pbro. Lic. Luis Fiacro Guerrero Ramírez, con la
                 bendición del Excmo. Sr. Obispo Don Celestino Fernández y

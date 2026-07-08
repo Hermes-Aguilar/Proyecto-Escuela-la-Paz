@@ -62,7 +62,7 @@ export default function Fundador() {
         titulo="Pbro. Lic. Luis Fiacro Guerrero Ramírez"
         descripcion="El relato, de su puño y letra, del nacimiento de esta obra de Dios."
         imagenFondo="/images/Imagen principal del fundador.png"
-        veloClase="bg-gradient-to-br from-marron/90 via-marron/85 to-dorado-oscuro/80"
+        veloClase="bg-linear-to-br from-marron/90 via-marron/85 to-dorado-oscuro/80"
       />
 
       <article className="mx-auto max-w-3xl px-6 py-16 md:py-20">

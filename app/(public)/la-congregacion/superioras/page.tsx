@@ -166,7 +166,7 @@ export default function Superioras() {
         descripcion="Nueve Superioras Generales y las obras realizadas durante su servicio, desde 1957 hasta hoy."
         imagenFondo="/images/Imagen principal de misioneras.png"
         posicionFondo="bg-top"
-        veloClase="bg-gradient-to-br from-marron/88 via-marron/82 to-dorado-oscuro/82"
+        veloClase="bg-linear-to-br from-marron/88 via-marron/82 to-dorado-oscuro/82"
       />
 
       <section className="mx-auto max-w-4xl px-6 py-16 md:py-20">

@@ -58,7 +58,7 @@ export function GaleriaLibreriaModal({
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {/* Degradado inferior para legibilidad de la etiqueta */}
-        <span className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <span className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
         {/* Contador de fotos arriba a la derecha */}
         <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
           <Images size={13} />

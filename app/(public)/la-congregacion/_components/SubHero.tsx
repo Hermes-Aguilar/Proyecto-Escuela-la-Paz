@@ -15,7 +15,7 @@ export function SubHero({
   imagenFondo,
   posicionFondo = "bg-center",
   alturaClase = "",
-  veloClase = "bg-gradient-to-br from-azul-institucional/85 to-azul-oscuro/90",
+  veloClase = "bg-linear-to-br from-azul-institucional/85 to-azul-oscuro/90",
 }: {
   eyebrow?: string;
   titulo: string;
@@ -42,7 +42,7 @@ export function SubHero({
   veloClase?: string;
 }) {
   return (
-    <header className="relative overflow-hidden bg-gradient-to-br from-azul-institucional to-azul-oscuro">
+    <header className="relative overflow-hidden bg-linear-to-br from-azul-institucional to-azul-oscuro">
       {imagenFondo && (
         <>
           {/* Foto de fondo con efecto reveal (queda fija al hacer scroll). */}
