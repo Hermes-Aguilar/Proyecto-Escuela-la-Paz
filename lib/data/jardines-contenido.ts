@@ -212,7 +212,7 @@ const ACTIVIDADES_EXTRAS: ActividadExtra[] = [
 // solo con su rol hasta contar con el nombre real.
 const EQUIPO_LA_PAZ: MiembroEquipo[] = [
   { nombre: "Hna. Ma. de los Ángeles Machado Ramos", rol: "Directora" },
-  { nombre: "Hna. Gloria Martínez Martínez", rol: "Educadora · 1.er grupo" },
+  { nombre: "Diana Hernández Santiago", rol: "Educadora · 1.er grupo" },
   { nombre: "Aída Rojas Martínez", rol: "Educadora · 2.º grupo" },
   { nombre: "Agustina Martínez López", rol: "Educadora · 3.er grupo" },
   { rol: "Maestro de Educación Física" },
