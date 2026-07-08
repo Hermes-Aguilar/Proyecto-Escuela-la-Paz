@@ -117,7 +117,7 @@ const citas = [
 
 // Fotos de la galería (las que no van en el carrusel ni en las secciones).
 const imagenesGaleria = [
-  "/images/Pastoral2.jpeg",
+  "/images/Pastoral6.jpeg",
   "/images/Pastoral4.jpeg",
   "/images/Pastoral9.jpeg",
   "/images/Pastoral10.jpeg",
@@ -156,23 +156,24 @@ export default function PastoralVocacional() {
           </h2>
         </div>
 
-        {/* Imagen ancha con cita flotante del Padre Fundador */}
-        <div className="relative mb-16 md:mb-24">
-          <div className="relative w-full h-72 md:h-96 rounded-3xl overflow-hidden shadow-md">
-            <Image
-              src="/images/Pastoral6.jpeg"
-              alt="Pastoral vocacional de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-azul-oscuro/60 via-transparent to-transparent" />
+        {/* Imagen vertical a la izquierda y la cita del Padre Fundador a la derecha */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-24">
+          <div className="mx-auto w-full max-w-sm">
+            <div className="relative aspect-[23/25] rounded-3xl overflow-hidden shadow-md">
+              <Image
+                src="/images/Pastoral2.jpeg"
+                alt="Pastoral vocacional de las Misioneras del Señor de los Corazones y de Santa María de Guadalupe"
+                fill
+                className="object-cover object-center"
+              />
+            </div>
           </div>
-          <figure className="relative -mt-12 mx-4 bg-white rounded-2xl p-6 shadow-lg border border-arena md:absolute md:-bottom-12 md:right-10 md:mx-0 md:mt-0 md:max-w-md">
-            <FaQuoteLeft className="text-dorado mb-3" size={18} />
-            <blockquote className="text-marron italic leading-relaxed">
+          <figure className="bg-white rounded-2xl p-8 shadow-lg border border-arena">
+            <FaQuoteLeft className="text-dorado mb-4" size={22} />
+            <blockquote className="text-marron italic leading-relaxed text-lg">
               Ser misionero ha sido una llamita que ha iluminado mi vida y calentado mi corazón.
             </blockquote>
-            <figcaption className="text-sm font-semibold text-azul-institucional mt-3">
+            <figcaption className="text-sm font-semibold text-azul-institucional mt-4">
               — N.P.F. Luis Fiacro Guerrero
             </figcaption>
           </figure>

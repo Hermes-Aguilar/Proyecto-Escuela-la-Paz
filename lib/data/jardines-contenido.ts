@@ -213,8 +213,8 @@ const ACTIVIDADES_EXTRAS: ActividadExtra[] = [
 const EQUIPO_LA_PAZ: MiembroEquipo[] = [
   { nombre: "Hna. Ma. de los Ángeles Machado Ramos", rol: "Directora" },
   { nombre: "Hna. Gloria Martínez Martínez", rol: "Educadora · 1.er grupo" },
-  { nombre: "Norma Barbosa Guzmán", rol: "Educadora · 2.º grupo" },
-  { nombre: "Aida Rojas Martínez", rol: "Educadora · 3.er grupo" },
+  { nombre: "Aída Rojas Martínez", rol: "Educadora · 2.º grupo" },
+  { nombre: "Agustina Martínez López", rol: "Educadora · 3.er grupo" },
   { rol: "Maestro de Educación Física" },
   { rol: "Maestro de Música" },
   { rol: "Maestra de Inglés" },
@@ -227,9 +227,16 @@ const EQUIPO_LA_PAZ: MiembroEquipo[] = [
 // ── Equipo de trabajo de Porvenir (docs/jardin-porvenir.md) ─
 const EQUIPO_PORVENIR: MiembroEquipo[] = [
   { nombre: "Bertha Figueroa Hernández", rol: "Directora" },
-  { nombre: "Yuritzi Reyes Cruz", rol: "Educadora · 1.er grupo" },
+  { nombre: "Gabriela Vargas Valencia", rol: "Educadora · 1.er grupo" },
   { nombre: "Erika Daniela Campos Vázquez", rol: "Educadora · 2.º grupo" },
   { nombre: "Isabel Cruz Andrade", rol: "Educadora · 3.er grupo" },
+  { rol: "Maestro de Educación Física" },
+  { rol: "Maestro de Música" },
+  { rol: "Maestra de Inglés" },
+  { rol: "Maestra de Danza" },
+  { rol: "Hermana de Educación en la Fe" },
+  { nombre: "Lizette Gonzáles Garzón", rol: "Personal de apoyo" },
+  { rol: "Intendente" },
 ];
 
 // ── Historia íntegra de La Paz (docs/jardin-la-paz.md) ─────

@@ -38,7 +38,7 @@ export default function Escudo() {
         eyebrow="Nuestro Escudo"
         titulo="Los símbolos de nuestra identidad"
         descripcion="Cada elemento del escudo cuenta una parte de quiénes somos y de la misión que nos fue confiada."
-        imagenFondo="/images/principal escudo.png"
+        imagenFondo="/images/imagenfondo.png"
         posicionFondo="bg-[center_22%]"
         veloClase="bg-gradient-to-br from-marron/85 via-marron/75 to-dorado-oscuro/82"
       />

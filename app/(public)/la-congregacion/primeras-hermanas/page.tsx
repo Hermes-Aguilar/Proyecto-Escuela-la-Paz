@@ -42,7 +42,7 @@ export default function PrimerasHermanas() {
         titulo="Las cuatro iniciadoras"
         descripcion="Las jovencitas que el 12 de mayo de 1957 dieron inicio a esta obra de Dios y de la Santísima Virgen."
         imagenFondo="/images/fundadoras principal1.png"
-        posicionFondo="bg-[center_55%]"
+        posicionFondo="bg-bottom"
         veloClase="bg-gradient-to-br from-marron/88 via-marron/82 to-terracota-oscuro/82"
       />
 
